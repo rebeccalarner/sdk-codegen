@@ -144,6 +144,16 @@ export const titleCase = (value: string) => {
 }
 
 /**
+ * convert string to snake_case
+ * @param value string value to convert to snake_case
+ */
+export const snakeCase = (value: string) => {
+  if (!value) return ''
+  value = value.charAt(0).toLowerCase() + value.substring(1)
+  return value.replace(/[A-Z]/g, (letter) => `_${letter.toLowerCase()}`)
+}
+
+/**
  * Only first character of string should be uppercase
  *
  * Values are first converted to camelCase()

@@ -1,15 +1,11 @@
 syntax = "proto3";
 
-package rtl;
+package looker;
 
-option java_package = "com.google.looker.server.rtl.ping";
+option java_package = "com.google.looker.server.rtl";
 option java_multiple_files = true;
 
-message PingRequest {}
-
-message PingResponse {
-  bool active = 1;
-}
+import 'ping/ping_model.proto';
 
 service PingService {
   rpc Ping(PingRequest) returns (PingResponse) {};

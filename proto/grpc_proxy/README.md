@@ -9,7 +9,17 @@ GRPC proxy server to a Looker instance.
 
 ## Setup
 
+Install protobuf generator, `protoc`.
+`brew install protobuf`
+
+File formatter.
+`brew install clang-format`
+
 ### SSL setup for local testing
 
 Run `scripts/ssl_setup.sh`
+
+### Generate protobuf definitions and java implementation (TODO)
+
+Run `scripts/gen_protobuf.sh`
 

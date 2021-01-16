@@ -315,6 +315,16 @@ class GoFormatter extends BaseFormatter {
   }
 }
 
+class ProtoFormatter extends BaseFormatter {
+  constructor() {
+    super('Protobuf')
+  }
+
+  versionStamp() {
+    return warn('Skipping SDK version updating - not implemented for Protobuf.')
+  }
+}
+
 type IFormatFiles = { [key: string]: string[] }
 
 type IFormatters = { [key: string]: IReformat }
@@ -326,6 +336,7 @@ const fileFormatters: IFormatters = {
   '.swift': new SwiftFormatter(),
   '.ts': new TypescriptFormatter(),
   '.go': new GoFormatter(),
+  '.proto': new ProtoFormatter(),
 }
 
 export class FilesFormatter {

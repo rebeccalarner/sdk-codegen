@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package looker;
+
+message PingRequest {}
+
+message PingResponse {
+  bool active = 1;
+}

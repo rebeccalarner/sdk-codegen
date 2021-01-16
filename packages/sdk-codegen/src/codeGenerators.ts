@@ -32,6 +32,7 @@ import { SwiftGen } from './swift.gen'
 import { PythonGen } from './python.gen'
 import { TypescriptGen } from './typescript.gen'
 import { GoGen } from './go.gen'
+import { ProtoGen } from './proto.gen'
 
 export interface IGeneratorSpec {
   /** source code file extension regex */
@@ -92,6 +93,12 @@ export const Generators: Array<IGeneratorSpec> = [
     legacy: 'go',
     options: '-papiPackage=Looker -ppackageName=looker',
     extension: /\.go/gi,
+  },
+  {
+    factory: (api: ApiModel, versions?: IVersionInfo) =>
+      new ProtoGen(api, versions),
+    language: 'Protobuf',
+    extension: /\.proto/gi,
   },
   // {
   //   language: 'php',
