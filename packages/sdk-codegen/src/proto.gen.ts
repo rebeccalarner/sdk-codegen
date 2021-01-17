@@ -301,7 +301,7 @@ service ${serviceName} {
   // javascript object but this is a little brittle as
   // there is no guarantee a developer will not insert
   // a new property into the object. This generates a
-  // consitent value across runs. The problems is that the
+  // consistent value across runs. The problem is that the
   // value MUST be between 0 and 536870911. To fix this
   // negative values are multipled by -1. Values greater
   // than 536870911 are bitwise shift right until they are
