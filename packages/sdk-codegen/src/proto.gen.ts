@@ -32,6 +32,7 @@ import {
   IType,
   EnumType,
   snakeCase,
+  stringToHashCode,
   titleCase,
 } from './sdkModels'
 
@@ -122,7 +123,7 @@ export class ProtoGen extends CodeGen {
   declareProperty(_indent: string, _property: IProperty): string {
     return `${this.formatComments(_property.description)}  ${this.mapType(
       _property.type.name
-    )} ${_property.name} = ${_indent};\n`
+    )} ${_property.name} = ${this.generateIdentifier(_property.name)};\n`
   }
 
   encodePathParams(_indent: string, _method: IMethod): string {
@@ -199,18 +200,18 @@ import "google/protobuf/timestamp.proto";
     if (type instanceof EnumType) {
       typeType = 'enum'
       const num = type as EnumType
-      propertyValues = num.values
-        .map((enumType, index) => {
-          return `  ${snakeCase(
-            type.name
-          ).toUpperCase()}_${enumType.toString().toUpperCase()} = ${index};\n`
-        })
-        .join('')
+      const typeName = snakeCase(type.name).toUpperCase()
+      const enumValues = num.values.map((enumType) => {
+        const enumName = `${typeName}_${enumType.toString().toUpperCase()}`
+        return `  ${enumName} = ${this.generateIdentifier(enumName)};\n`
+      })
+      enumValues.unshift(`  _${typeName}_UNSET = 0;\n`)
+      propertyValues = enumValues.join('')
     } else {
       typeType = 'message'
       propertyValues = Object.values(type.properties)
-        .map((prop, index) => {
-          return this.declareProperty((index + 1).toString(), prop)
+        .map((prop) => {
+          return this.declareProperty('', prop)
         })
         .join('')
     }
@@ -249,10 +250,10 @@ service ${serviceName} {
     return (
       '  ' +
       method.allParams
-        .map((param, index) => {
+        .map((param) => {
           return `${this.formatComments(param.description)}  string ${
             param.name
-          } = ${index + 1};\n`
+          } = ${this.generateIdentifier(param.name)};\n`
         })
         .join('')
         .trim()
@@ -293,5 +294,25 @@ service ${serviceName} {
     } else {
       return type
     }
+  }
+
+  // Not convinced about this implementation but will do
+  // for now. Originally used the index of property in
+  // javascript object but this is a little brittle as
+  // there is no guarantee a developer will not insert
+  // a new property into the object. This generates a
+  // consitent value across runs. The problems is that the
+  // value MUST be between 0 and 536870911. To fix this
+  // negative values are multipled by -1. Values greater
+  // than 536870911 are bitwise shift right until they are
+  // less than equal to 536870911. So far their have been
+  // no collisions but I suspect there are better implementations.
+  private generateIdentifier(name: string): number {
+    let hashCode = stringToHashCode(name)
+    hashCode = hashCode < 0 ? hashCode * -1 : hashCode
+    while (hashCode > 536870911) {
+      hashCode = hashCode >> 1
+    }
+    return hashCode
   }
 }

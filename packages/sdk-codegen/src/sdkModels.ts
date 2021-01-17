@@ -167,6 +167,18 @@ export const firstCase = (value: string) => {
   return value[0].toLocaleUpperCase() + value.substr(1).toLocaleLowerCase()
 }
 
+/**
+ * Derive a hash from a string.
+ * @param s string to hash
+ */
+export const stringToHashCode = (s: string): number => {
+  let h = 0
+  for (let n = 0; n < s.length; n++) {
+    h = ((h << 5) - h + s.charCodeAt(n)) | 0
+  }
+  return h
+}
+
 export interface IModel {}
 
 /**
