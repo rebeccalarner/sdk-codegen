@@ -37,4 +37,10 @@ To fix this negative values are multipled by -1 and values greater than
 536870911. So far their have been  no collisions but I suspect there are better
 implementations.
 
+### Server Start up
+
+Prior to server startup create a `.env` file in the root of this project (note
+that it should not be added to source control). A sample file, `.env_sample`,
+contains the entries required.
+
 

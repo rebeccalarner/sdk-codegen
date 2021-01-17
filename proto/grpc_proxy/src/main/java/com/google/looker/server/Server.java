@@ -1,41 +1,55 @@
 package com.google.looker.server;
 
+import com.google.looker.common.Constants;
+import com.google.looker.server.rtl.auth.AuthorizationInterceptor;
 import com.google.looker.server.rtl.ping.PingServiceImpl;
 import com.google.looker.server.sdk.LookerServiceImpl;
 import com.google.looker.server.sdk.LookerStreamingServiceImpl;
+import io.github.cdimascio.dotenv.Dotenv;
 import io.grpc.ServerBuilder;
-
 import java.io.File;
 import java.io.IOException;
+import org.apache.commons.lang3.math.NumberUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class Server {
-  public Server() {
-  }
+
+  private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
 
   public void run() throws IOException, InterruptedException {
     System.out.println("Server starting up");
     io.grpc.Server server = ServerBuilder
-        .forPort(50051)
+        .forPort(NumberUtils.toInt(System.getProperty(Constants.SERVER_LISTEN_PORT)))
         .addService(new PingServiceImpl())
         .addService(new LookerServiceImpl())
         .addService(new LookerStreamingServiceImpl())
         .useTransportSecurity(
-            new File("ssl/server.crt"),
-            new File("ssl/server.pem")
+            new File(System.getProperty(Constants.CERT_CHAIN_FILE)),
+            new File(System.getProperty(Constants.PRIVATE_KEY_FILE))
         )
-        // .intercept(new AuthorizationInterceptor())
+        .intercept(new AuthorizationInterceptor())
         .build();
     server.start();
-    System.out.println("Server running");
+    LOGGER.info("Server running");
     Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-      System.out.println("Server shutdown request received");
+      LOGGER.info("Server shutdown request received");
       server.shutdown();
-      System.out.println("Server shutdown");
+      LOGGER.info("Server shutdown");
     }));
     server.awaitTermination();
   }
 
   public static void main(String[] args) throws IOException, InterruptedException {
-    new Server().run();
+    try {
+      new Server().run();
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+  }
+
+  static {
+    Dotenv dotenv = Dotenv.load();
+    dotenv.entries().forEach(e -> System.setProperty(e.getKey(), e.getValue()));
   }
 }
