@@ -27,16 +27,26 @@ package com.google.looker.server.sdk;
 
 import com.google.looker.proto.services.*;
 import com.google.looker.proto.services.LookerStreamingServiceGrpc.LookerStreamingServiceImplBase;
+import com.google.looker.server.rtl.LookerClient;
+import com.google.looker.server.rtl.LookerClientResponse;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
+
+  private LookerClient lookerClient;
+
+  public LookerStreamingServiceImpl() {
+    lookerClient = new LookerClient();
+  }
+
     
   //#region ApiAuth: API Authentication
 
-  /**   * ### Present client credentials to obtain an authorization token
+  /**
+   * ### Present client credentials to obtain an authorization token
    * 
    * Looker API implements the OAuth2 [Resource Owner Password Credentials Grant](https://looker.com/docs/r/api/outh2_resource_owner_pc) pattern.
    * The client credentials required for this login must be obtained by creating an API3 key on a user account
@@ -69,15 +79,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Login(LoginRequest request, StreamObserver<LoginResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/login", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LoginResponse.Builder responseBuilder = LoginResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create an access token that runs as a given user.
+  /**
+   * ### Create an access token that runs as a given user.
    * 
    * This can only be called by an authenticated admin user. It allows that admin to generate a new
    * authentication token for the user with the given user id. That token can then be used for subsequent
@@ -98,22 +120,45 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void LoginUser(LoginUserRequest request, StreamObserver<LoginUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/login/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LoginUserResponse.Builder responseBuilder = LoginUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Logout of the API and invalidate the current access token.
+  /**
+   * ### Logout of the API and invalidate the current access token.
    * 
    */
   public void Logout(LogoutRequest request, StreamObserver<LogoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/logout", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LogoutResponse.Builder responseBuilder = LogoutResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -124,7 +169,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Auth: Manage User Authentication Configuration
 
-  /**   * ### Create SSO Embed URL
+  /**
+   * ### Create SSO Embed URL
    * 
    * Creates an SSO embed URL and cryptographically signs it with an embed secret.
    * This signed URL can then be used to instantiate a Looker embed session in a PBL web application.
@@ -163,15 +209,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateSsoEmbedUrl(CreateSsoEmbedUrlRequest request, StreamObserver<CreateSsoEmbedUrlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/embed/sso_url", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateSsoEmbedUrlResponse.Builder responseBuilder = CreateSsoEmbedUrlResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create an Embed URL
+  /**
+   * ### Create an Embed URL
    * 
    * Creates an embed URL that runs as the Looker user making this API call. ("Embed as me")
    * This embed URL can then be used to instantiate a Looker embed session in a
@@ -201,15 +259,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateEmbedUrlAsMe(CreateEmbedUrlAsMeRequest request, StreamObserver<CreateEmbedUrlAsMeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/embed/token_url/me", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateEmbedUrlAsMeResponse.Builder responseBuilder = CreateEmbedUrlAsMeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the LDAP configuration.
+  /**
+   * ### Get the LDAP configuration.
    * 
    * Looker can be optionally configured to authenticate users against an Active Directory or other LDAP directory server.
    * LDAP setup requires coordination with an administrator of that directory server.
@@ -230,15 +300,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void LdapConfig(LdapConfigRequest request, StreamObserver<LdapConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ldap_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LdapConfigResponse.Builder responseBuilder = LdapConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the LDAP configuration.
+  /**
+   * ### Update the LDAP configuration.
    * 
    * Configuring LDAP impacts authentication for all users. This configuration should be done carefully.
    * 
@@ -254,15 +336,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateLdapConfig(UpdateLdapConfigRequest request, StreamObserver<UpdateLdapConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/ldap_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateLdapConfigResponse.Builder responseBuilder = UpdateLdapConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test the connection settings for an LDAP configuration.
+  /**
+   * ### Test the connection settings for an LDAP configuration.
    * 
    * This tests that the connection is possible given a connection_host and connection_port.
    * 
@@ -285,15 +379,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void TestLdapConfigConnection(TestLdapConfigConnectionRequest request, StreamObserver<TestLdapConfigConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_connection", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestLdapConfigConnectionResponse.Builder responseBuilder = TestLdapConfigConnectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test the connection authentication settings for an LDAP configuration.
+  /**
+   * ### Test the connection authentication settings for an LDAP configuration.
    * 
    * This tests that the connection is possible and that a 'server' account to be used by Looker can       authenticate to the LDAP server given connection and authentication information.
    * 
@@ -319,15 +425,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void TestLdapConfigAuth(TestLdapConfigAuthRequest request, StreamObserver<TestLdapConfigAuthResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_auth", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestLdapConfigAuthResponse.Builder responseBuilder = TestLdapConfigAuthResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test the user authentication settings for an LDAP configuration without authenticating the user.
+  /**
+   * ### Test the user authentication settings for an LDAP configuration without authenticating the user.
    * 
    * This test will let you easily test the mapping for user properties and roles for any user without      needing to authenticate as that user.
    * 
@@ -342,15 +460,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void TestLdapConfigUserInfo(TestLdapConfigUserInfoRequest request, StreamObserver<TestLdapConfigUserInfoResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_user_info", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestLdapConfigUserInfoResponse.Builder responseBuilder = TestLdapConfigUserInfoResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test the user authentication settings for an LDAP configuration.
+  /**
+   * ### Test the user authentication settings for an LDAP configuration.
    * 
    * This test accepts a full LDAP configuration along with a username/password pair and attempts to       authenticate the user with the LDAP server. The configuration is validated before attempting the       authentication.
    * 
@@ -365,15 +495,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void TestLdapConfigUserAuth(TestLdapConfigUserAuthRequest request, StreamObserver<TestLdapConfigUserAuthResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_user_auth", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestLdapConfigUserAuthResponse.Builder responseBuilder = TestLdapConfigUserAuthResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### List All OAuth Client Apps
+  /**
+   * ### List All OAuth Client Apps
    * 
    * Lists all applications registered to use OAuth2 login with this Looker instance, including
    * enabled and disabled apps.
@@ -385,15 +527,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllOauthClientApps(AllOauthClientAppsRequest request, StreamObserver<AllOauthClientAppsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/oauth_client_apps", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllOauthClientAppsResponse.Builder responseBuilder = AllOauthClientAppsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Oauth Client App
+  /**
+   * ### Get Oauth Client App
    * 
    * Returns the registered app client with matching client_guid.
    * 
@@ -401,15 +555,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void OauthClientApp(OauthClientAppRequest request, StreamObserver<OauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/oauth_client_apps/{client_guid}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        OauthClientAppResponse.Builder responseBuilder = OauthClientAppResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Register an OAuth2 Client App
+  /**
+   * ### Register an OAuth2 Client App
    * 
    * Registers details identifying an external web app or native app as an OAuth2 login client of the Looker instance.
    * The app registration must provide a unique client_guid and redirect_uri that the app will present
@@ -420,15 +586,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RegisterOauthClientApp(RegisterOauthClientAppRequest request, StreamObserver<RegisterOauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/oauth_client_apps/{client_guid}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RegisterOauthClientAppResponse.Builder responseBuilder = RegisterOauthClientAppResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update OAuth2 Client App Details
+  /**
+   * ### Update OAuth2 Client App Details
    * 
    * Modifies the details a previously registered OAuth2 login client app.
    * 
@@ -436,15 +614,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateOauthClientApp(UpdateOauthClientAppRequest request, StreamObserver<UpdateOauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/oauth_client_apps/{client_guid}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateOauthClientAppResponse.Builder responseBuilder = UpdateOauthClientAppResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete OAuth Client App
+  /**
+   * ### Delete OAuth Client App
    * 
    * Deletes the registration info of the app with the matching client_guid.
    * All active sessions and tokens issued for this app will immediately become invalid.
@@ -455,15 +645,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteOauthClientApp(DeleteOauthClientAppRequest request, StreamObserver<DeleteOauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteOauthClientAppResponse.Builder responseBuilder = DeleteOauthClientAppResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Invalidate All Issued Tokens
+  /**
+   * ### Invalidate All Issued Tokens
    * 
    * Immediately invalidates all auth codes, sessions, access tokens and refresh tokens issued for
    * this app for ALL USERS of this app.
@@ -472,15 +674,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void InvalidateTokens(InvalidateTokensRequest request, StreamObserver<InvalidateTokensResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}/tokens", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        InvalidateTokensResponse.Builder responseBuilder = InvalidateTokensResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Activate an app for a user
+  /**
+   * ### Activate an app for a user
    * 
    * Activates a user for a given oauth client app. This indicates the user has been informed that
    * the app will have access to the user's looker data, and that the user has accepted and allowed
@@ -492,15 +706,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ActivateAppUser(ActivateAppUserRequest request, StreamObserver<ActivateAppUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/oauth_client_apps/{client_guid}/users/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ActivateAppUserResponse.Builder responseBuilder = ActivateAppUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Deactivate an app for a user
+  /**
+   * ### Deactivate an app for a user
    * 
    * Deactivate a user for a given oauth client app. All tokens issued to the app for
    * this user will be invalid immediately. Before the user can use the app with their
@@ -515,15 +741,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeactivateAppUser(DeactivateAppUserRequest request, StreamObserver<DeactivateAppUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}/users/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeactivateAppUserResponse.Builder responseBuilder = DeactivateAppUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the OIDC configuration.
+  /**
+   * ### Get the OIDC configuration.
    * 
    * Looker can be optionally configured to authenticate users against an OpenID Connect (OIDC)
    * authentication server. OIDC setup requires coordination with an administrator of that server.
@@ -540,15 +778,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void OidcConfig(OidcConfigRequest request, StreamObserver<OidcConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/oidc_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        OidcConfigResponse.Builder responseBuilder = OidcConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the OIDC configuration.
+  /**
+   * ### Update the OIDC configuration.
    * 
    * Configuring OIDC impacts authentication for all users. This configuration should be done carefully.
    * 
@@ -562,99 +812,183 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateOidcConfig(UpdateOidcConfigRequest request, StreamObserver<UpdateOidcConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/oidc_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateOidcConfigResponse.Builder responseBuilder = UpdateOidcConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a OIDC test configuration by test_slug.
+  /**
+   * ### Get a OIDC test configuration by test_slug.
    * 
    */
   public void OidcTestConfig(OidcTestConfigRequest request, StreamObserver<OidcTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/oidc_test_configs/{test_slug}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        OidcTestConfigResponse.Builder responseBuilder = OidcTestConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a OIDC test configuration.
+  /**
+   * ### Delete a OIDC test configuration.
    * 
    */
   public void DeleteOidcTestConfig(DeleteOidcTestConfigRequest request, StreamObserver<DeleteOidcTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/oidc_test_configs/{test_slug}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteOidcTestConfigResponse.Builder responseBuilder = DeleteOidcTestConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a OIDC test configuration.
+  /**
+   * ### Create a OIDC test configuration.
    * 
    */
   public void CreateOidcTestConfig(CreateOidcTestConfigRequest request, StreamObserver<CreateOidcTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/oidc_test_configs", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateOidcTestConfigResponse.Builder responseBuilder = CreateOidcTestConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get password config.
+  /**
+   * ### Get password config.
    * 
    */
   public void PasswordConfig(PasswordConfigRequest request, StreamObserver<PasswordConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/password_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        PasswordConfigResponse.Builder responseBuilder = PasswordConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update password config.
+  /**
+   * ### Update password config.
    * 
    */
   public void UpdatePasswordConfig(UpdatePasswordConfigRequest request, StreamObserver<UpdatePasswordConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/password_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdatePasswordConfigResponse.Builder responseBuilder = UpdatePasswordConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Force all credentials_email users to reset their login passwords upon their next login.
+  /**
+   * ### Force all credentials_email users to reset their login passwords upon their next login.
    * 
    */
   public void ForcePasswordResetAtNextLoginForAllUsers(ForcePasswordResetAtNextLoginForAllUsersRequest request, StreamObserver<ForcePasswordResetAtNextLoginForAllUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/password_config/force_password_reset_at_next_login_for_all_users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ForcePasswordResetAtNextLoginForAllUsersResponse.Builder responseBuilder = ForcePasswordResetAtNextLoginForAllUsersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the SAML configuration.
+  /**
+   * ### Get the SAML configuration.
    * 
    * Looker can be optionally configured to authenticate users against a SAML authentication server.
    * SAML setup requires coordination with an administrator of that server.
@@ -671,15 +1005,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SamlConfig(SamlConfigRequest request, StreamObserver<SamlConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/saml_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SamlConfigResponse.Builder responseBuilder = SamlConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the SAML configuration.
+  /**
+   * ### Update the SAML configuration.
    * 
    * Configuring SAML impacts authentication for all users. This configuration should be done carefully.
    * 
@@ -693,71 +1039,131 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateSamlConfig(UpdateSamlConfigRequest request, StreamObserver<UpdateSamlConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/saml_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateSamlConfigResponse.Builder responseBuilder = UpdateSamlConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a SAML test configuration by test_slug.
+  /**
+   * ### Get a SAML test configuration by test_slug.
    * 
    */
   public void SamlTestConfig(SamlTestConfigRequest request, StreamObserver<SamlTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/saml_test_configs/{test_slug}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SamlTestConfigResponse.Builder responseBuilder = SamlTestConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a SAML test configuration.
+  /**
+   * ### Delete a SAML test configuration.
    * 
    */
   public void DeleteSamlTestConfig(DeleteSamlTestConfigRequest request, StreamObserver<DeleteSamlTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/saml_test_configs/{test_slug}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteSamlTestConfigResponse.Builder responseBuilder = DeleteSamlTestConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a SAML test configuration.
+  /**
+   * ### Create a SAML test configuration.
    * 
    */
   public void CreateSamlTestConfig(CreateSamlTestConfigRequest request, StreamObserver<CreateSamlTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/saml_test_configs", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateSamlTestConfigResponse.Builder responseBuilder = CreateSamlTestConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Parse the given xml as a SAML IdP metadata document and return the result.
+  /**
+   * ### Parse the given xml as a SAML IdP metadata document and return the result.
    * 
    */
   public void ParseSamlIdpMetadata(ParseSamlIdpMetadataRequest request, StreamObserver<ParseSamlIdpMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/parse_saml_idp_metadata", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ParseSamlIdpMetadataResponse.Builder responseBuilder = ParseSamlIdpMetadataResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Fetch the given url and parse it as a SAML IdP metadata document and return the result.
+  /**
+   * ### Fetch the given url and parse it as a SAML IdP metadata document and return the result.
    * Note that this requires that the url be public or at least at a location where the Looker instance
    * can fetch it without requiring any special authentication.
    * 
@@ -765,78 +1171,149 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void FetchAndParseSamlIdpMetadata(FetchAndParseSamlIdpMetadataRequest request, StreamObserver<FetchAndParseSamlIdpMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/fetch_and_parse_saml_idp_metadata", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FetchAndParseSamlIdpMetadataResponse.Builder responseBuilder = FetchAndParseSamlIdpMetadataResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get session config.
+  /**
+   * ### Get session config.
    * 
    */
   public void SessionConfig(SessionConfigRequest request, StreamObserver<SessionConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/session_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SessionConfigResponse.Builder responseBuilder = SessionConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update session config.
+  /**
+   * ### Update session config.
    * 
    */
   public void UpdateSessionConfig(UpdateSessionConfigRequest request, StreamObserver<UpdateSessionConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/session_config", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateSessionConfigResponse.Builder responseBuilder = UpdateSessionConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get currently locked-out users.
+  /**
+   * ### Get currently locked-out users.
    * 
    */
   public void AllUserLoginLockouts(AllUserLoginLockoutsRequest request, StreamObserver<AllUserLoginLockoutsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/user_login_lockouts", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUserLoginLockoutsResponse.Builder responseBuilder = AllUserLoginLockoutsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search currently locked-out users.
+  /**
+   * ### Search currently locked-out users.
    * 
    */
   public void SearchUserLoginLockouts(SearchUserLoginLockoutsRequest request, StreamObserver<SearchUserLoginLockoutsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/user_login_lockouts/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchUserLoginLockoutsResponse.Builder responseBuilder = SearchUserLoginLockoutsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Removes login lockout for the associated user.
+  /**
+   * ### Removes login lockout for the associated user.
    * 
    */
   public void DeleteUserLoginLockout(DeleteUserLoginLockoutRequest request, StreamObserver<DeleteUserLoginLockoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/user_login_lockout/{key}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserLoginLockoutResponse.Builder responseBuilder = DeleteUserLoginLockoutResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -847,35 +1324,60 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Board: Manage Boards
 
-  /**   * ### Get information about all boards.
+  /**
+   * ### Get information about all boards.
    * 
    */
   public void AllBoards(AllBoardsRequest request, StreamObserver<AllBoardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/boards", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllBoardsResponse.Builder responseBuilder = AllBoardsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new board.
+  /**
+   * ### Create a new board.
    * 
    */
   public void CreateBoard(CreateBoardRequest request, StreamObserver<CreateBoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/boards", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateBoardResponse.Builder responseBuilder = CreateBoardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search Boards
+  /**
+   * ### Search Boards
    * 
    * If multiple search params are given and `filter_or` is FALSE or not specified,
    * search params are combined in a logical AND operation.
@@ -903,190 +1405,357 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchBoards(SearchBoardsRequest request, StreamObserver<SearchBoardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/boards/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchBoardsResponse.Builder responseBuilder = SearchBoardsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a board.
+  /**
+   * ### Get information about a board.
    * 
    */
   public void Board(BoardRequest request, StreamObserver<BoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/boards/{board_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        BoardResponse.Builder responseBuilder = BoardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a board definition.
+  /**
+   * ### Update a board definition.
    * 
    */
   public void UpdateBoard(UpdateBoardRequest request, StreamObserver<UpdateBoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/boards/{board_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateBoardResponse.Builder responseBuilder = UpdateBoardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a board.
+  /**
+   * ### Delete a board.
    * 
    */
   public void DeleteBoard(DeleteBoardRequest request, StreamObserver<DeleteBoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/boards/{board_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteBoardResponse.Builder responseBuilder = DeleteBoardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all board items.
+  /**
+   * ### Get information about all board items.
    * 
    */
   public void AllBoardItems(AllBoardItemsRequest request, StreamObserver<AllBoardItemsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/board_items", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllBoardItemsResponse.Builder responseBuilder = AllBoardItemsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new board item.
+  /**
+   * ### Create a new board item.
    * 
    */
   public void CreateBoardItem(CreateBoardItemRequest request, StreamObserver<CreateBoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/board_items", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateBoardItemResponse.Builder responseBuilder = CreateBoardItemResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a board item.
+  /**
+   * ### Get information about a board item.
    * 
    */
   public void BoardItem(BoardItemRequest request, StreamObserver<BoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/board_items/{board_item_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        BoardItemResponse.Builder responseBuilder = BoardItemResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a board item definition.
+  /**
+   * ### Update a board item definition.
    * 
    */
   public void UpdateBoardItem(UpdateBoardItemRequest request, StreamObserver<UpdateBoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/board_items/{board_item_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateBoardItemResponse.Builder responseBuilder = UpdateBoardItemResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a board item.
+  /**
+   * ### Delete a board item.
    * 
    */
   public void DeleteBoardItem(DeleteBoardItemRequest request, StreamObserver<DeleteBoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/board_items/{board_item_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteBoardItemResponse.Builder responseBuilder = DeleteBoardItemResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all board sections.
+  /**
+   * ### Get information about all board sections.
    * 
    */
   public void AllBoardSections(AllBoardSectionsRequest request, StreamObserver<AllBoardSectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/board_sections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllBoardSectionsResponse.Builder responseBuilder = AllBoardSectionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new board section.
+  /**
+   * ### Create a new board section.
    * 
    */
   public void CreateBoardSection(CreateBoardSectionRequest request, StreamObserver<CreateBoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/board_sections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateBoardSectionResponse.Builder responseBuilder = CreateBoardSectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a board section.
+  /**
+   * ### Get information about a board section.
    * 
    */
   public void BoardSection(BoardSectionRequest request, StreamObserver<BoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/board_sections/{board_section_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        BoardSectionResponse.Builder responseBuilder = BoardSectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a board section definition.
+  /**
+   * ### Update a board section definition.
    * 
    */
   public void UpdateBoardSection(UpdateBoardSectionRequest request, StreamObserver<UpdateBoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/board_sections/{board_section_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateBoardSectionResponse.Builder responseBuilder = UpdateBoardSectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a board section.
+  /**
+   * ### Delete a board section.
    * 
    */
   public void DeleteBoardSection(DeleteBoardSectionRequest request, StreamObserver<DeleteBoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/board_sections/{board_section_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteBoardSectionResponse.Builder responseBuilder = DeleteBoardSectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -1097,7 +1766,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region ColorCollection: Manage Color Collections
 
-  /**   * ### Get an array of all existing Color Collections
+  /**
+   * ### Get an array of all existing Color Collections
    * Get a **single** color collection by id with [ColorCollection](#!/ColorCollection/color_collection)
    * 
    * Get all **standard** color collections with [ColorCollection](#!/ColorCollection/color_collections_standard)
@@ -1111,15 +1781,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllColorCollections(AllColorCollectionsRequest request, StreamObserver<AllColorCollectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/color_collections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllColorCollectionsResponse.Builder responseBuilder = AllColorCollectionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a custom color collection with the specified information
+  /**
+   * ### Create a custom color collection with the specified information
    * 
    * Creates a new custom color collection object, returning the details, including the created id.
    * 
@@ -1134,15 +1816,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateColorCollection(CreateColorCollectionRequest request, StreamObserver<CreateColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/color_collections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateColorCollectionResponse.Builder responseBuilder = CreateColorCollectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get an array of all existing **Custom** Color Collections
+  /**
+   * ### Get an array of all existing **Custom** Color Collections
    * Get a **single** color collection by id with [ColorCollection](#!/ColorCollection/color_collection)
    * 
    * Get all **standard** color collections with [ColorCollection](#!/ColorCollection/color_collections_standard)
@@ -1154,15 +1848,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ColorCollectionsCustom(ColorCollectionsCustomRequest request, StreamObserver<ColorCollectionsCustomResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/color_collections/custom", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ColorCollectionsCustomResponse.Builder responseBuilder = ColorCollectionsCustomResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get an array of all existing **Standard** Color Collections
+  /**
+   * ### Get an array of all existing **Standard** Color Collections
    * Get a **single** color collection by id with [ColorCollection](#!/ColorCollection/color_collection)
    * 
    * Get all **custom** color collections with [ColorCollection](#!/ColorCollection/color_collections_custom)
@@ -1174,15 +1880,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ColorCollectionsStandard(ColorCollectionsStandardRequest request, StreamObserver<ColorCollectionsStandardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/color_collections/standard", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ColorCollectionsStandardResponse.Builder responseBuilder = ColorCollectionsStandardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the default color collection
+  /**
+   * ### Get the default color collection
    * 
    * Use this to retrieve the default Color Collection.
    * 
@@ -1192,15 +1910,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DefaultColorCollection(DefaultColorCollectionRequest request, StreamObserver<DefaultColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/color_collections/default", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DefaultColorCollectionResponse.Builder responseBuilder = DefaultColorCollectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set the global default Color Collection by ID
+  /**
+   * ### Set the global default Color Collection by ID
    * 
    * Returns the new specified default Color Collection object.
    * **Note**: Only an API user with the Admin role can call this endpoint. Unauthorized requests will return `Not Found` (404) errors.
@@ -1210,15 +1940,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SetDefaultColorCollection(SetDefaultColorCollectionRequest request, StreamObserver<SetDefaultColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/color_collections/default", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetDefaultColorCollectionResponse.Builder responseBuilder = SetDefaultColorCollectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a Color Collection by ID
+  /**
+   * ### Get a Color Collection by ID
    * 
    * Use this to retrieve a specific Color Collection.
    * Get a **single** color collection by id with [ColorCollection](#!/ColorCollection/color_collection)
@@ -1234,15 +1976,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ColorCollection(ColorCollectionRequest request, StreamObserver<ColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/color_collections/{collection_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ColorCollectionResponse.Builder responseBuilder = ColorCollectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a custom color collection by id.
+  /**
+   * ### Update a custom color collection by id.
    * **Note**: Only an API user with the Admin role can call this endpoint. Unauthorized requests will return `Not Found` (404) errors.
    * 
    * 
@@ -1250,15 +2004,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateColorCollection(UpdateColorCollectionRequest request, StreamObserver<UpdateColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/color_collections/{collection_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateColorCollectionResponse.Builder responseBuilder = UpdateColorCollectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a custom color collection by id
+  /**
+   * ### Delete a custom color collection by id
    * 
    * This operation permanently deletes the identified **Custom** color collection.
    * 
@@ -1272,8 +2038,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteColorCollection(DeleteColorCollectionRequest request, StreamObserver<DeleteColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/color_collections/{collection_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteColorCollectionResponse.Builder responseBuilder = DeleteColorCollectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -1284,21 +2061,34 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Command: Manage Commands
 
-  /**   * ### Get All Commands.
+  /**
+   * ### Get All Commands.
    * 
    */
   public void GetAllCommands(GetAllCommandsRequest request, StreamObserver<GetAllCommandsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/commands", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        GetAllCommandsResponse.Builder responseBuilder = GetAllCommandsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new command.
+  /**
+   * ### Create a new command.
    * # Required fields: [:name, :linked_content_id, :linked_content_type]
    * # `linked_content_type` must be one of ["dashboard", "lookml_dashboard"]
    * #
@@ -1307,15 +2097,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateCommand(CreateCommandRequest request, StreamObserver<CreateCommandResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/commands", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateCommandResponse.Builder responseBuilder = CreateCommandResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update an existing custom command.
+  /**
+   * ### Update an existing custom command.
    * # Optional fields: ['name', 'description']
    * #
    * 
@@ -1323,22 +2125,45 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateCommand(UpdateCommandRequest request, StreamObserver<UpdateCommandResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/commands/{command_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateCommandResponse.Builder responseBuilder = UpdateCommandResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete an existing custom command.
+  /**
+   * ### Delete an existing custom command.
    * 
    */
   public void DeleteCommand(DeleteCommandRequest request, StreamObserver<DeleteCommandResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/commands/{command_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteCommandResponse.Builder responseBuilder = DeleteCommandResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -1349,282 +2174,522 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Config: Manage General Configuration
 
-  /**   * Get the current Cloud Storage Configuration.
+  /**
+   * Get the current Cloud Storage Configuration.
    * 
    */
   public void CloudStorageConfiguration(CloudStorageConfigurationRequest request, StreamObserver<CloudStorageConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/cloud_storage", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CloudStorageConfigurationResponse.Builder responseBuilder = CloudStorageConfigurationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Update the current Cloud Storage Configuration.
+  /**
+   * Update the current Cloud Storage Configuration.
    * 
    */
   public void UpdateCloudStorageConfiguration(UpdateCloudStorageConfigurationRequest request, StreamObserver<UpdateCloudStorageConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/cloud_storage", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateCloudStorageConfigurationResponse.Builder responseBuilder = UpdateCloudStorageConfigurationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the current status and content of custom welcome emails
+  /**
+   * ### Get the current status and content of custom welcome emails
    * 
    */
   public void CustomWelcomeEmail(CustomWelcomeEmailRequest request, StreamObserver<CustomWelcomeEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/custom_welcome_email", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CustomWelcomeEmailResponse.Builder responseBuilder = CustomWelcomeEmailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Update custom welcome email setting and values. Optionally send a test email with the new content to the currently logged in user.
+  /**
+   * Update custom welcome email setting and values. Optionally send a test email with the new content to the currently logged in user.
    * 
    */
   public void UpdateCustomWelcomeEmail(UpdateCustomWelcomeEmailRequest request, StreamObserver<UpdateCustomWelcomeEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/custom_welcome_email", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateCustomWelcomeEmailResponse.Builder responseBuilder = UpdateCustomWelcomeEmailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Requests to this endpoint will send a welcome email with the custom content provided in the body to the currently logged in user.
+  /**
+   * Requests to this endpoint will send a welcome email with the custom content provided in the body to the currently logged in user.
    * 
    */
   public void UpdateCustomWelcomeEmailTest(UpdateCustomWelcomeEmailTestRequest request, StreamObserver<UpdateCustomWelcomeEmailTestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/custom_welcome_email_test", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateCustomWelcomeEmailTestResponse.Builder responseBuilder = UpdateCustomWelcomeEmailTestResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Retrieve the value for whether or not digest emails is enabled
+  /**
+   * ### Retrieve the value for whether or not digest emails is enabled
    * 
    */
   public void DigestEmailsEnabled(DigestEmailsEnabledRequest request, StreamObserver<DigestEmailsEnabledResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/digest_emails_enabled", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DigestEmailsEnabledResponse.Builder responseBuilder = DigestEmailsEnabledResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the setting for enabling/disabling digest emails
+  /**
+   * ### Update the setting for enabling/disabling digest emails
    * 
    */
   public void UpdateDigestEmailsEnabled(UpdateDigestEmailsEnabledRequest request, StreamObserver<UpdateDigestEmailsEnabledResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/digest_emails_enabled", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDigestEmailsEnabledResponse.Builder responseBuilder = UpdateDigestEmailsEnabledResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Trigger the generation of digest email records and send them to Looker's internal system. This does not send
+  /**
+   * ### Trigger the generation of digest email records and send them to Looker's internal system. This does not send
    * any actual emails, it generates records containing content which may be of interest for users who have become inactive.
    * Emails will be sent at a later time from Looker's internal system if the Digest Emails feature is enabled in settings.
    */
   public void CreateDigestEmailSend(CreateDigestEmailSendRequest request, StreamObserver<CreateDigestEmailSendResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/digest_email_send", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateDigestEmailSendResponse.Builder responseBuilder = CreateDigestEmailSendResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set the menu item name and content for internal help resources
+  /**
+   * ### Set the menu item name and content for internal help resources
    * 
    */
   public void InternalHelpResourcesContent(InternalHelpResourcesContentRequest request, StreamObserver<InternalHelpResourcesContentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/internal_help_resources_content", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        InternalHelpResourcesContentResponse.Builder responseBuilder = InternalHelpResourcesContentResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Update internal help resources content
+  /**
+   * Update internal help resources content
    * 
    */
   public void UpdateInternalHelpResourcesContent(UpdateInternalHelpResourcesContentRequest request, StreamObserver<UpdateInternalHelpResourcesContentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/internal_help_resources_content", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateInternalHelpResourcesContentResponse.Builder responseBuilder = UpdateInternalHelpResourcesContentResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get and set the options for internal help resources
+  /**
+   * ### Get and set the options for internal help resources
    * 
    */
   public void InternalHelpResources(InternalHelpResourcesRequest request, StreamObserver<InternalHelpResourcesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/internal_help_resources_enabled", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        InternalHelpResourcesResponse.Builder responseBuilder = InternalHelpResourcesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Update internal help resources settings
+  /**
+   * Update internal help resources settings
    * 
    */
   public void UpdateInternalHelpResources(UpdateInternalHelpResourcesRequest request, StreamObserver<UpdateInternalHelpResourcesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/internal_help_resources", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateInternalHelpResourcesResponse.Builder responseBuilder = UpdateInternalHelpResourcesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get all legacy features.
+  /**
+   * ### Get all legacy features.
    * 
    */
   public void AllLegacyFeatures(AllLegacyFeaturesRequest request, StreamObserver<AllLegacyFeaturesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/legacy_features", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllLegacyFeaturesResponse.Builder responseBuilder = AllLegacyFeaturesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the legacy feature with a specific id.
+  /**
+   * ### Get information about the legacy feature with a specific id.
    * 
    */
   public void LegacyFeature(LegacyFeatureRequest request, StreamObserver<LegacyFeatureResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/legacy_features/{legacy_feature_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LegacyFeatureResponse.Builder responseBuilder = LegacyFeatureResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update information about the legacy feature with a specific id.
+  /**
+   * ### Update information about the legacy feature with a specific id.
    * 
    */
   public void UpdateLegacyFeature(UpdateLegacyFeatureRequest request, StreamObserver<UpdateLegacyFeatureResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/legacy_features/{legacy_feature_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateLegacyFeatureResponse.Builder responseBuilder = UpdateLegacyFeatureResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a list of locales that Looker supports.
+  /**
+   * ### Get a list of locales that Looker supports.
    * 
    */
   public void AllLocales(AllLocalesRequest request, StreamObserver<AllLocalesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/locales", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllLocalesResponse.Builder responseBuilder = AllLocalesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a list of timezones that Looker supports (e.g. useful for scheduling tasks).
+  /**
+   * ### Get a list of timezones that Looker supports (e.g. useful for scheduling tasks).
    * 
    */
   public void AllTimezones(AllTimezonesRequest request, StreamObserver<AllTimezonesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/timezones", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllTimezonesResponse.Builder responseBuilder = AllTimezonesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all API versions supported by this Looker instance.
+  /**
+   * ### Get information about all API versions supported by this Looker instance.
    * 
    */
   public void Versions(VersionsRequest request, StreamObserver<VersionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/versions", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        VersionsResponse.Builder responseBuilder = VersionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### This feature is enabled only by special license.
+  /**
+   * ### This feature is enabled only by special license.
    * ### Gets the whitelabel configuration, which includes hiding documentation links, custom favicon uploading, etc.
    * 
    */
   public void WhitelabelConfiguration(WhitelabelConfigurationRequest request, StreamObserver<WhitelabelConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/whitelabel_configuration", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        WhitelabelConfigurationResponse.Builder responseBuilder = WhitelabelConfigurationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the whitelabel configuration
+  /**
+   * ### Update the whitelabel configuration
    * 
    */
   public void UpdateWhitelabelConfiguration(UpdateWhitelabelConfigurationRequest request, StreamObserver<UpdateWhitelabelConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/whitelabel_configuration", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateWhitelabelConfigurationResponse.Builder responseBuilder = UpdateWhitelabelConfigurationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -1635,91 +2700,164 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Connection: Manage Database Connections
 
-  /**   * ### Get information about all connections.
+  /**
+   * ### Get information about all connections.
    * 
    */
   public void AllConnections(AllConnectionsRequest request, StreamObserver<AllConnectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllConnectionsResponse.Builder responseBuilder = AllConnectionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a connection using the specified configuration.
+  /**
+   * ### Create a connection using the specified configuration.
    * 
    */
   public void CreateConnection(CreateConnectionRequest request, StreamObserver<CreateConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/connections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateConnectionResponse.Builder responseBuilder = CreateConnectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a connection.
+  /**
+   * ### Get information about a connection.
    * 
    */
   public void Connection(ConnectionRequest request, StreamObserver<ConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionResponse.Builder responseBuilder = ConnectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a connection using the specified configuration.
+  /**
+   * ### Update a connection using the specified configuration.
    * 
    */
   public void UpdateConnection(UpdateConnectionRequest request, StreamObserver<UpdateConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/connections/{connection_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateConnectionResponse.Builder responseBuilder = UpdateConnectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a connection.
+  /**
+   * ### Delete a connection.
    * 
    */
   public void DeleteConnection(DeleteConnectionRequest request, StreamObserver<DeleteConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/connections/{connection_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteConnectionResponse.Builder responseBuilder = DeleteConnectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a connection override.
+  /**
+   * ### Delete a connection override.
    * 
    */
   public void DeleteConnectionOverride(DeleteConnectionOverrideRequest request, StreamObserver<DeleteConnectionOverrideResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/connections/{connection_name}/connection_override/{override_context}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteConnectionOverrideResponse.Builder responseBuilder = DeleteConnectionOverrideResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test an existing connection.
+  /**
+   * ### Test an existing connection.
    * 
    * Note that a connection's 'dialect' property has a 'connection_tests' property that lists the
    * specific types of tests that the connection supports.
@@ -1732,15 +2870,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void TestConnection(TestConnectionRequest request, StreamObserver<TestConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/connections/{connection_name}/test", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestConnectionResponse.Builder responseBuilder = TestConnectionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test a connection configuration.
+  /**
+   * ### Test a connection configuration.
    * 
    * Note that a connection's 'dialect' property has a 'connection_tests' property that lists the
    * specific types of tests that the connection supports.
@@ -1753,225 +2903,417 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void TestConnectionConfig(TestConnectionConfigRequest request, StreamObserver<TestConnectionConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/connections/test", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestConnectionConfigResponse.Builder responseBuilder = TestConnectionConfigResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all dialects.
+  /**
+   * ### Get information about all dialects.
    * 
    */
   public void AllDialectInfos(AllDialectInfosRequest request, StreamObserver<AllDialectInfosResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dialect_info", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllDialectInfosResponse.Builder responseBuilder = AllDialectInfosResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get all External OAuth Applications.
+  /**
+   * ### Get all External OAuth Applications.
    * 
    */
   public void AllExternalOauthApplications(AllExternalOauthApplicationsRequest request, StreamObserver<AllExternalOauthApplicationsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/external_oauth_applications", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllExternalOauthApplicationsResponse.Builder responseBuilder = AllExternalOauthApplicationsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create an OAuth Application using the specified configuration.
+  /**
+   * ### Create an OAuth Application using the specified configuration.
    * 
    */
   public void CreateExternalOauthApplication(CreateExternalOauthApplicationRequest request, StreamObserver<CreateExternalOauthApplicationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/external_oauth_applications", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateExternalOauthApplicationResponse.Builder responseBuilder = CreateExternalOauthApplicationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all SSH Servers.
+  /**
+   * ### Get information about all SSH Servers.
    * 
    */
   public void AllSshServers(AllSshServersRequest request, StreamObserver<AllSshServersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_servers", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllSshServersResponse.Builder responseBuilder = AllSshServersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create an SSH Server.
+  /**
+   * ### Create an SSH Server.
    * 
    */
   public void CreateSshServer(CreateSshServerRequest request, StreamObserver<CreateSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/ssh_servers", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateSshServerResponse.Builder responseBuilder = CreateSshServerResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about an SSH Server.
+  /**
+   * ### Get information about an SSH Server.
    * 
    */
   public void SshServer(SshServerRequest request, StreamObserver<SshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_server/{ssh_server_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SshServerResponse.Builder responseBuilder = SshServerResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update an SSH Server.
+  /**
+   * ### Update an SSH Server.
    * 
    */
   public void UpdateSshServer(UpdateSshServerRequest request, StreamObserver<UpdateSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/ssh_server/{ssh_server_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateSshServerResponse.Builder responseBuilder = UpdateSshServerResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete an SSH Server.
+  /**
+   * ### Delete an SSH Server.
    * 
    */
   public void DeleteSshServer(DeleteSshServerRequest request, StreamObserver<DeleteSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/ssh_server/{ssh_server_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteSshServerResponse.Builder responseBuilder = DeleteSshServerResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test the SSH Server
+  /**
+   * ### Test the SSH Server
    * 
    */
   public void TestSshServer(TestSshServerRequest request, StreamObserver<TestSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_server/{ssh_server_id}/test", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestSshServerResponse.Builder responseBuilder = TestSshServerResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all SSH Tunnels.
+  /**
+   * ### Get information about all SSH Tunnels.
    * 
    */
   public void AllSshTunnels(AllSshTunnelsRequest request, StreamObserver<AllSshTunnelsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnels", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllSshTunnelsResponse.Builder responseBuilder = AllSshTunnelsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create an SSH Tunnel
+  /**
+   * ### Create an SSH Tunnel
    * 
    */
   public void CreateSshTunnel(CreateSshTunnelRequest request, StreamObserver<CreateSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/ssh_tunnels", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateSshTunnelResponse.Builder responseBuilder = CreateSshTunnelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about an SSH Tunnel.
+  /**
+   * ### Get information about an SSH Tunnel.
    * 
    */
   public void SshTunnel(SshTunnelRequest request, StreamObserver<SshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SshTunnelResponse.Builder responseBuilder = SshTunnelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update an SSH Tunnel
+  /**
+   * ### Update an SSH Tunnel
    * 
    */
   public void UpdateSshTunnel(UpdateSshTunnelRequest request, StreamObserver<UpdateSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateSshTunnelResponse.Builder responseBuilder = UpdateSshTunnelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete an SSH Tunnel
+  /**
+   * ### Delete an SSH Tunnel
    * 
    */
   public void DeleteSshTunnel(DeleteSshTunnelRequest request, StreamObserver<DeleteSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteSshTunnelResponse.Builder responseBuilder = DeleteSshTunnelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Test the SSH Tunnel
+  /**
+   * ### Test the SSH Tunnel
    * 
    */
   public void TestSshTunnel(TestSshTunnelRequest request, StreamObserver<TestSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnel/{ssh_tunnel_id}/test", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestSshTunnelResponse.Builder responseBuilder = TestSshTunnelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the SSH public key
+  /**
+   * ### Get the SSH public key
    * 
    * Get the public key created for this instance to identify itself to a remote SSH server.
    * 
@@ -1979,8 +3321,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SshPublicKey(SshPublicKeyRequest request, StreamObserver<SshPublicKeyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/ssh_public_key", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SshPublicKeyResponse.Builder responseBuilder = SshPublicKeyResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -1991,7 +3344,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Content: Manage Content
 
-  /**   * ### Search Favorite Content
+  /**
+   * ### Search Favorite Content
    * 
    * If multiple search params are given and `filter_or` is FALSE or not specified,
    * search params are combined in a logical AND operation.
@@ -2019,152 +3373,284 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchContentFavorites(SearchContentFavoritesRequest request, StreamObserver<SearchContentFavoritesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_favorite/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchContentFavoritesResponse.Builder responseBuilder = SearchContentFavoritesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get favorite content by its id
+  /**
+   * ### Get favorite content by its id
    */
   public void ContentFavorite(ContentFavoriteRequest request, StreamObserver<ContentFavoriteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_favorite/{content_favorite_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ContentFavoriteResponse.Builder responseBuilder = ContentFavoriteResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete favorite content
+  /**
+   * ### Delete favorite content
    */
   public void DeleteContentFavorite(DeleteContentFavoriteRequest request, StreamObserver<DeleteContentFavoriteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/content_favorite/{content_favorite_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteContentFavoriteResponse.Builder responseBuilder = DeleteContentFavoriteResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create favorite content
+  /**
+   * ### Create favorite content
    */
   public void CreateContentFavorite(CreateContentFavoriteRequest request, StreamObserver<CreateContentFavoriteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/content_favorite", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateContentFavoriteResponse.Builder responseBuilder = CreateContentFavoriteResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all content metadata in a space.
+  /**
+   * ### Get information about all content metadata in a space.
    * 
    */
   public void AllContentMetadatas(AllContentMetadatasRequest request, StreamObserver<AllContentMetadatasResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_metadata", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllContentMetadatasResponse.Builder responseBuilder = AllContentMetadatasResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about an individual content metadata record.
+  /**
+   * ### Get information about an individual content metadata record.
    * 
    */
   public void ContentMetadata(ContentMetadataRequest request, StreamObserver<ContentMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_metadata/{content_metadata_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ContentMetadataResponse.Builder responseBuilder = ContentMetadataResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Move a piece of content.
+  /**
+   * ### Move a piece of content.
    * 
    */
   public void UpdateContentMetadata(UpdateContentMetadataRequest request, StreamObserver<UpdateContentMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/content_metadata/{content_metadata_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateContentMetadataResponse.Builder responseBuilder = UpdateContentMetadataResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### All content metadata access records for a content metadata item.
+  /**
+   * ### All content metadata access records for a content metadata item.
    * 
    */
   public void AllContentMetadataAccesses(AllContentMetadataAccessesRequest request, StreamObserver<AllContentMetadataAccessesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_metadata_access", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllContentMetadataAccessesResponse.Builder responseBuilder = AllContentMetadataAccessesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create content metadata access.
+  /**
+   * ### Create content metadata access.
    * 
    */
   public void CreateContentMetadataAccess(CreateContentMetadataAccessRequest request, StreamObserver<CreateContentMetadataAccessResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/content_metadata_access", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateContentMetadataAccessResponse.Builder responseBuilder = CreateContentMetadataAccessResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update type of access for content metadata.
+  /**
+   * ### Update type of access for content metadata.
    * 
    */
   public void UpdateContentMetadataAccess(UpdateContentMetadataAccessRequest request, StreamObserver<UpdateContentMetadataAccessResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/content_metadata_access/{content_metadata_access_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateContentMetadataAccessResponse.Builder responseBuilder = UpdateContentMetadataAccessResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Remove content metadata access.
+  /**
+   * ### Remove content metadata access.
    * 
    */
   public void DeleteContentMetadataAccess(DeleteContentMetadataAccessRequest request, StreamObserver<DeleteContentMetadataAccessResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/content_metadata_access/{content_metadata_access_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteContentMetadataAccessResponse.Builder responseBuilder = DeleteContentMetadataAccessResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get an image representing the contents of a dashboard or look.
+  /**
+   * ### Get an image representing the contents of a dashboard or look.
    * 
    * The returned thumbnail is an abstract representation of the contents of a dashbord or look and does not
    * reflect the actual data displayed in the respective visualizations.
@@ -2173,15 +3659,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ContentThumbnail(ContentThumbnailRequest request, StreamObserver<ContentThumbnailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_thumbnail/{type}/{resource_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ContentThumbnailResponse.Builder responseBuilder = ContentThumbnailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Validate All Content
+  /**
+   * ### Validate All Content
    * 
    * Performs validation of all looks and dashboards
    * Returns a list of errors found as well as metadata about the content validation run.
@@ -2190,15 +3688,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ContentValidation(ContentValidationRequest request, StreamObserver<ContentValidationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_validation", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ContentValidationResponse.Builder responseBuilder = ContentValidationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search Content Views
+  /**
+   * ### Search Content Views
    * 
    * If multiple search params are given and `filter_or` is FALSE or not specified,
    * search params are combined in a logical AND operation.
@@ -2226,15 +3736,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchContentViews(SearchContentViewsRequest request, StreamObserver<SearchContentViewsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/content_view/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchContentViewsResponse.Builder responseBuilder = SearchContentViewsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a vector image representing the contents of a dashboard or look.
+  /**
+   * ### Get a vector image representing the contents of a dashboard or look.
    * 
    * # DEPRECATED:  Use [content_thumbnail()](#!/Content/content_thumbnail)
    * 
@@ -2245,8 +3767,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void VectorThumbnail(VectorThumbnailRequest request, StreamObserver<VectorThumbnailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/vector_thumbnail/{type}/{resource_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        VectorThumbnailResponse.Builder responseBuilder = VectorThumbnailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -2257,7 +3790,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Dashboard: Manage Dashboards
 
-  /**   * ### Get information about all active dashboards.
+  /**
+   * ### Get information about all active dashboards.
    * 
    * Returns an array of **abbreviated dashboard objects**. Dashboards marked as deleted are excluded from this list.
    * 
@@ -2269,15 +3803,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllDashboards(AllDashboardsRequest request, StreamObserver<AllDashboardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllDashboardsResponse.Builder responseBuilder = AllDashboardsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new dashboard
+  /**
+   * ### Create a new dashboard
    * 
    * Creates a new dashboard object and returns the details of the newly created dashboard.
    * 
@@ -2296,15 +3842,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateDashboard(CreateDashboardRequest request, StreamObserver<CreateDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/dashboards", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateDashboardResponse.Builder responseBuilder = CreateDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search Dashboards
+  /**
+   * ### Search Dashboards
    * 
    * Returns an **array of dashboard objects** that match the specified search criteria.
    * 
@@ -2338,15 +3896,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchDashboards(SearchDashboardsRequest request, StreamObserver<SearchDashboardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchDashboardsResponse.Builder responseBuilder = SearchDashboardsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Import a LookML dashboard to a space as a UDD
+  /**
+   * ### Import a LookML dashboard to a space as a UDD
    * Creates a UDD (a dashboard which exists in the Looker database rather than as a LookML file) from the LookML dashboard
    * and puts it in the space specified. The created UDD will have a lookml_link_id which links to the original LookML dashboard.
    * 
@@ -2363,15 +3933,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ImportLookmlDashboard(ImportLookmlDashboardRequest request, StreamObserver<ImportLookmlDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/dashboards/{lookml_dashboard_id}/import/{space_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ImportLookmlDashboardResponse.Builder responseBuilder = ImportLookmlDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update all linked dashboards to match the specified LookML dashboard.
+  /**
+   * ### Update all linked dashboards to match the specified LookML dashboard.
    * 
    * Any UDD (a dashboard which exists in the Looker database rather than as a LookML file) which has a `lookml_link_id`
    * property value referring to a LookML dashboard's id (model::dashboardname) will be updated so that it matches the current state of the LookML dashboard.
@@ -2385,15 +3967,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SyncLookmlDashboard(SyncLookmlDashboardRequest request, StreamObserver<SyncLookmlDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/dashboards/{lookml_dashboard_id}/sync", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SyncLookmlDashboardResponse.Builder responseBuilder = SyncLookmlDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a dashboard
+  /**
+   * ### Get information about a dashboard
    * 
    * Returns the full details of the identified dashboard object
    * 
@@ -2405,15 +3999,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Dashboard(DashboardRequest request, StreamObserver<DashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardResponse.Builder responseBuilder = DashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a dashboard
+  /**
+   * ### Update a dashboard
    * 
    * You can use this function to change the string and integer properties of
    * a dashboard. Nested objects such as filters, dashboard elements, or dashboard layout components
@@ -2428,15 +4034,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateDashboard(UpdateDashboardRequest request, StreamObserver<UpdateDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/dashboards/{dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDashboardResponse.Builder responseBuilder = UpdateDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the dashboard with the specified id
+  /**
+   * ### Delete the dashboard with the specified id
    * 
    * Permanently **deletes** a dashboard. (The dashboard cannot be recovered after this operation.)
    * 
@@ -2448,15 +4066,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteDashboard(DeleteDashboardRequest request, StreamObserver<DeleteDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/dashboards/{dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteDashboardResponse.Builder responseBuilder = DeleteDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Aggregate Table LookML for Each Query on a Dahboard
+  /**
+   * ### Get Aggregate Table LookML for Each Query on a Dahboard
    * 
    * Returns a JSON object that contains the dashboard id and Aggregate Table lookml
    * 
@@ -2465,15 +4095,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DashboardAggregateTableLookml(DashboardAggregateTableLookmlRequest request, StreamObserver<DashboardAggregateTableLookmlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/aggregate_table_lookml/{dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardAggregateTableLookmlResponse.Builder responseBuilder = DashboardAggregateTableLookmlResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get lookml of a UDD
+  /**
+   * ### Get lookml of a UDD
    * 
    * Returns a JSON object that contains the dashboard id and the full lookml
    * 
@@ -2482,15 +4124,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DashboardLookml(DashboardLookmlRequest request, StreamObserver<DashboardLookmlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/lookml/{dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardLookmlResponse.Builder responseBuilder = DashboardLookmlResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search Dashboard Elements
+  /**
+   * ### Search Dashboard Elements
    * 
    * Returns an **array of DashboardElement objects** that match the specified search criteria.
    * 
@@ -2520,242 +4174,469 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchDashboardElements(SearchDashboardElementsRequest request, StreamObserver<SearchDashboardElementsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboard_elements/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchDashboardElementsResponse.Builder responseBuilder = SearchDashboardElementsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the dashboard element with a specific id.
+  /**
+   * ### Get information about the dashboard element with a specific id.
    */
   public void DashboardElement(DashboardElementRequest request, StreamObserver<DashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboard_elements/{dashboard_element_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardElementResponse.Builder responseBuilder = DashboardElementResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the dashboard element with a specific id.
+  /**
+   * ### Update the dashboard element with a specific id.
    */
   public void UpdateDashboardElement(UpdateDashboardElementRequest request, StreamObserver<UpdateDashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_elements/{dashboard_element_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDashboardElementResponse.Builder responseBuilder = UpdateDashboardElementResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a dashboard element with a specific id.
+  /**
+   * ### Delete a dashboard element with a specific id.
    */
   public void DeleteDashboardElement(DeleteDashboardElementRequest request, StreamObserver<DeleteDashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_elements/{dashboard_element_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteDashboardElementResponse.Builder responseBuilder = DeleteDashboardElementResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the dashboard elements on a dashboard with a specific id.
+  /**
+   * ### Get information about all the dashboard elements on a dashboard with a specific id.
    */
   public void DashboardDashboardElements(DashboardDashboardElementsRequest request, StreamObserver<DashboardDashboardElementsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_elements", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardDashboardElementsResponse.Builder responseBuilder = DashboardDashboardElementsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a dashboard element on the dashboard with a specific id.
+  /**
+   * ### Create a dashboard element on the dashboard with a specific id.
    */
   public void CreateDashboardElement(CreateDashboardElementRequest request, StreamObserver<CreateDashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/dashboard_elements", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateDashboardElementResponse.Builder responseBuilder = CreateDashboardElementResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the dashboard filters with a specific id.
+  /**
+   * ### Get information about the dashboard filters with a specific id.
    */
   public void DashboardFilter(DashboardFilterRequest request, StreamObserver<DashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboard_filters/{dashboard_filter_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardFilterResponse.Builder responseBuilder = DashboardFilterResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the dashboard filter with a specific id.
+  /**
+   * ### Update the dashboard filter with a specific id.
    */
   public void UpdateDashboardFilter(UpdateDashboardFilterRequest request, StreamObserver<UpdateDashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_filters/{dashboard_filter_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDashboardFilterResponse.Builder responseBuilder = UpdateDashboardFilterResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a dashboard filter with a specific id.
+  /**
+   * ### Delete a dashboard filter with a specific id.
    */
   public void DeleteDashboardFilter(DeleteDashboardFilterRequest request, StreamObserver<DeleteDashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_filters/{dashboard_filter_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteDashboardFilterResponse.Builder responseBuilder = DeleteDashboardFilterResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the dashboard filters on a dashboard with a specific id.
+  /**
+   * ### Get information about all the dashboard filters on a dashboard with a specific id.
    */
   public void DashboardDashboardFilters(DashboardDashboardFiltersRequest request, StreamObserver<DashboardDashboardFiltersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_filters", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardDashboardFiltersResponse.Builder responseBuilder = DashboardDashboardFiltersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a dashboard filter on the dashboard with a specific id.
+  /**
+   * ### Create a dashboard filter on the dashboard with a specific id.
    */
   public void CreateDashboardFilter(CreateDashboardFilterRequest request, StreamObserver<CreateDashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/dashboard_filters", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateDashboardFilterResponse.Builder responseBuilder = CreateDashboardFilterResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the dashboard elements with a specific id.
+  /**
+   * ### Get information about the dashboard elements with a specific id.
    */
   public void DashboardLayoutComponent(DashboardLayoutComponentRequest request, StreamObserver<DashboardLayoutComponentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layout_components/{dashboard_layout_component_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardLayoutComponentResponse.Builder responseBuilder = DashboardLayoutComponentResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the dashboard element with a specific id.
+  /**
+   * ### Update the dashboard element with a specific id.
    */
   public void UpdateDashboardLayoutComponent(UpdateDashboardLayoutComponentRequest request, StreamObserver<UpdateDashboardLayoutComponentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_layout_components/{dashboard_layout_component_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDashboardLayoutComponentResponse.Builder responseBuilder = UpdateDashboardLayoutComponentResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the dashboard layout components for a dashboard layout with a specific id.
+  /**
+   * ### Get information about all the dashboard layout components for a dashboard layout with a specific id.
    */
   public void DashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest request, StreamObserver<DashboardLayoutDashboardLayoutComponentsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layouts/{dashboard_layout_id}/dashboard_layout_components", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardLayoutDashboardLayoutComponentsResponse.Builder responseBuilder = DashboardLayoutDashboardLayoutComponentsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the dashboard layouts with a specific id.
+  /**
+   * ### Get information about the dashboard layouts with a specific id.
    */
   public void DashboardLayout(DashboardLayoutRequest request, StreamObserver<DashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layouts/{dashboard_layout_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardLayoutResponse.Builder responseBuilder = DashboardLayoutResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the dashboard layout with a specific id.
+  /**
+   * ### Update the dashboard layout with a specific id.
    */
   public void UpdateDashboardLayout(UpdateDashboardLayoutRequest request, StreamObserver<UpdateDashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_layouts/{dashboard_layout_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDashboardLayoutResponse.Builder responseBuilder = UpdateDashboardLayoutResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a dashboard layout with a specific id.
+  /**
+   * ### Delete a dashboard layout with a specific id.
    */
   public void DeleteDashboardLayout(DeleteDashboardLayoutRequest request, StreamObserver<DeleteDashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_layouts/{dashboard_layout_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteDashboardLayoutResponse.Builder responseBuilder = DeleteDashboardLayoutResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the dashboard elements on a dashboard with a specific id.
+  /**
+   * ### Get information about all the dashboard elements on a dashboard with a specific id.
    */
   public void DashboardDashboardLayouts(DashboardDashboardLayoutsRequest request, StreamObserver<DashboardDashboardLayoutsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_layouts", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DashboardDashboardLayoutsResponse.Builder responseBuilder = DashboardDashboardLayoutsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a dashboard layout on the dashboard with a specific id.
+  /**
+   * ### Create a dashboard layout on the dashboard with a specific id.
    */
   public void CreateDashboardLayout(CreateDashboardLayoutRequest request, StreamObserver<CreateDashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/dashboard_layouts", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateDashboardLayoutResponse.Builder responseBuilder = CreateDashboardLayoutResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -2766,26 +4647,50 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region DataAction: Run Data Actions
 
-  /**   * Perform a data action. The data action object can be obtained from query results, and used to perform an arbitrary action.
+  /**
+   * Perform a data action. The data action object can be obtained from query results, and used to perform an arbitrary action.
    */
   public void PerformDataAction(PerformDataActionRequest request, StreamObserver<PerformDataActionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/data_actions", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        PerformDataActionResponse.Builder responseBuilder = PerformDataActionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * For some data actions, the remote server may supply a form requesting further user input. This endpoint takes a data action, asks the remote server to generate a form for it, and returns that form to you for presentation to the user.
+  /**
+   * For some data actions, the remote server may supply a form requesting further user input. This endpoint takes a data action, asks the remote server to generate a form for it, and returns that form to you for presentation to the user.
    */
   public void FetchRemoteDataActionForm(FetchRemoteDataActionFormRequest request, StreamObserver<FetchRemoteDataActionFormResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/data_actions/form", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FetchRemoteDataActionFormResponse.Builder responseBuilder = FetchRemoteDataActionFormResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -2796,42 +4701,78 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Datagroup: Manage Datagroups
 
-  /**   * ### Get information about all datagroups.
+  /**
+   * ### Get information about all datagroups.
    * 
    */
   public void AllDatagroups(AllDatagroupsRequest request, StreamObserver<AllDatagroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/datagroups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllDatagroupsResponse.Builder responseBuilder = AllDatagroupsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a datagroup.
+  /**
+   * ### Get information about a datagroup.
    * 
    */
   public void Datagroup(DatagroupRequest request, StreamObserver<DatagroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/datagroups/{datagroup_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DatagroupResponse.Builder responseBuilder = DatagroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a datagroup using the specified params.
+  /**
+   * ### Update a datagroup using the specified params.
    * 
    */
   public void UpdateDatagroup(UpdateDatagroupRequest request, StreamObserver<UpdateDatagroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/datagroups/{datagroup_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateDatagroupResponse.Builder responseBuilder = UpdateDatagroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -2842,61 +4783,110 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Folder: Manage Folders
 
-  /**   * Search for folders by creator id, parent id, name, etc
+  /**
+   * Search for folders by creator id, parent id, name, etc
    */
   public void SearchFolders(SearchFoldersRequest request, StreamObserver<SearchFoldersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchFoldersResponse.Builder responseBuilder = SearchFoldersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the folder with a specific id.
+  /**
+   * ### Get information about the folder with a specific id.
    */
   public void Folder(FolderRequest request, StreamObserver<FolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderResponse.Builder responseBuilder = FolderResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the folder with a specific id.
+  /**
+   * ### Update the folder with a specific id.
    */
   public void UpdateFolder(UpdateFolderRequest request, StreamObserver<UpdateFolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/folders/{folder_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateFolderResponse.Builder responseBuilder = UpdateFolderResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the folder with a specific id including any children folders.
+  /**
+   * ### Delete the folder with a specific id including any children folders.
    * **DANGER** this will delete all looks and dashboards in the folder.
    * 
    */
   public void DeleteFolder(DeleteFolderRequest request, StreamObserver<DeleteFolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/folders/{folder_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteFolderResponse.Builder responseBuilder = DeleteFolderResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all folders.
+  /**
+   * ### Get information about all folders.
    * 
    * In API 3.x, this will not return empty personal folders, unless they belong to the calling user.
    * In API 4.0+, all personal folders will be returned.
@@ -2906,15 +4896,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllFolders(AllFoldersRequest request, StreamObserver<AllFoldersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllFoldersResponse.Builder responseBuilder = AllFoldersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a folder with specified information.
+  /**
+   * ### Create a folder with specified information.
    * 
    * Caller must have permission to edit the parent folder and to create folders, otherwise the request
    * returns 404 Not Found.
@@ -2923,67 +4925,127 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateFolder(CreateFolderRequest request, StreamObserver<CreateFolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/folders", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateFolderResponse.Builder responseBuilder = CreateFolderResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the children of a folder.
+  /**
+   * ### Get the children of a folder.
    */
   public void FolderChildren(FolderChildrenRequest request, StreamObserver<FolderChildrenResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/children", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderChildrenResponse.Builder responseBuilder = FolderChildrenResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search the children of a folder
+  /**
+   * ### Search the children of a folder
    */
   public void FolderChildrenSearch(FolderChildrenSearchRequest request, StreamObserver<FolderChildrenSearchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/children/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderChildrenSearchResponse.Builder responseBuilder = FolderChildrenSearchResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the parent of a folder
+  /**
+   * ### Get the parent of a folder
    */
   public void FolderParent(FolderParentRequest request, StreamObserver<FolderParentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/parent", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderParentResponse.Builder responseBuilder = FolderParentResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the ancestors of a folder
+  /**
+   * ### Get the ancestors of a folder
    */
   public void FolderAncestors(FolderAncestorsRequest request, StreamObserver<FolderAncestorsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/ancestors", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderAncestorsResponse.Builder responseBuilder = FolderAncestorsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get all looks in a folder.
+  /**
+   * ### Get all looks in a folder.
    * In API 3.x, this will return all looks in a folder, including looks in the trash.
    * In API 4.0+, all looks in a folder will be returned, excluding looks in the trash.
    * 
@@ -2991,21 +5053,44 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void FolderLooks(FolderLooksRequest request, StreamObserver<FolderLooksResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/looks", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderLooksResponse.Builder responseBuilder = FolderLooksResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the dashboards in a folder
+  /**
+   * ### Get the dashboards in a folder
    */
   public void FolderDashboards(FolderDashboardsRequest request, StreamObserver<FolderDashboardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/dashboards", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FolderDashboardsResponse.Builder responseBuilder = FolderDashboardsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3016,35 +5101,60 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Group: Manage Groups
 
-  /**   * ### Get information about all groups.
+  /**
+   * ### Get information about all groups.
    * 
    */
   public void AllGroups(AllGroupsRequest request, StreamObserver<AllGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllGroupsResponse.Builder responseBuilder = AllGroupsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Creates a new group (admin only).
+  /**
+   * ### Creates a new group (admin only).
    * 
    */
   public void CreateGroup(CreateGroupRequest request, StreamObserver<CreateGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/groups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateGroupResponse.Builder responseBuilder = CreateGroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search groups
+  /**
+   * ### Search groups
    * 
    * Returns all group records that match the given search criteria.
    * 
@@ -3074,15 +5184,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchGroups(SearchGroupsRequest request, StreamObserver<SearchGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchGroupsResponse.Builder responseBuilder = SearchGroupsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search groups include roles
+  /**
+   * ### Search groups include roles
    * 
    * Returns all group records that match the given search criteria, and attaches any associated roles.
    * 
@@ -3112,15 +5234,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchGroupsWithRoles(SearchGroupsWithRolesRequest request, StreamObserver<SearchGroupsWithRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups/search/with_roles", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchGroupsWithRolesResponse.Builder responseBuilder = SearchGroupsWithRolesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search groups include hierarchy
+  /**
+   * ### Search groups include hierarchy
    * 
    * Returns all group records that match the given search criteria, and attaches
    * associated role_ids and parent group_ids.
@@ -3151,140 +5285,260 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest request, StreamObserver<SearchGroupsWithHierarchyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups/search/with_hierarchy", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchGroupsWithHierarchyResponse.Builder responseBuilder = SearchGroupsWithHierarchyResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a group.
+  /**
+   * ### Get information about a group.
    * 
    */
   public void Group(GroupRequest request, StreamObserver<GroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        GroupResponse.Builder responseBuilder = GroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Updates the a group (admin only).
+  /**
+   * ### Updates the a group (admin only).
    */
   public void UpdateGroup(UpdateGroupRequest request, StreamObserver<UpdateGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/groups/{group_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateGroupResponse.Builder responseBuilder = UpdateGroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Deletes a group (admin only).
+  /**
+   * ### Deletes a group (admin only).
    * 
    */
   public void DeleteGroup(DeleteGroupRequest request, StreamObserver<DeleteGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteGroupResponse.Builder responseBuilder = DeleteGroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the groups in a group
+  /**
+   * ### Get information about all the groups in a group
    * 
    */
   public void AllGroupGroups(AllGroupGroupsRequest request, StreamObserver<AllGroupGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}/groups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllGroupGroupsResponse.Builder responseBuilder = AllGroupGroupsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Adds a new group to a group.
+  /**
+   * ### Adds a new group to a group.
    * 
    */
   public void AddGroupGroup(AddGroupGroupRequest request, StreamObserver<AddGroupGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/groups/{group_id}/groups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AddGroupGroupResponse.Builder responseBuilder = AddGroupGroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the users directly included in a group.
+  /**
+   * ### Get information about all the users directly included in a group.
    * 
    */
   public void AllGroupUsers(AllGroupUsersRequest request, StreamObserver<AllGroupUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}/users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllGroupUsersResponse.Builder responseBuilder = AllGroupUsersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Adds a new user to a group.
+  /**
+   * ### Adds a new user to a group.
    * 
    */
   public void AddGroupUser(AddGroupUserRequest request, StreamObserver<AddGroupUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/groups/{group_id}/users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AddGroupUserResponse.Builder responseBuilder = AddGroupUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Removes a user from a group.
+  /**
+   * ### Removes a user from a group.
    * 
    */
   public void DeleteGroupUser(DeleteGroupUserRequest request, StreamObserver<DeleteGroupUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/users/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteGroupUserResponse.Builder responseBuilder = DeleteGroupUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Removes a group from a group.
+  /**
+   * ### Removes a group from a group.
    * 
    */
   public void DeleteGroupFromGroup(DeleteGroupFromGroupRequest request, StreamObserver<DeleteGroupFromGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/groups/{deleting_group_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteGroupFromGroupResponse.Builder responseBuilder = DeleteGroupFromGroupResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set the value of a user attribute for a group.
+  /**
+   * ### Set the value of a user attribute for a group.
    * 
    * For information about how user attribute values are calculated, see [Set User Attribute Group Values](#!/UserAttribute/set_user_attribute_group_values).
    * 
@@ -3292,22 +5546,45 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateUserAttributeGroupValue(UpdateUserAttributeGroupValueRequest request, StreamObserver<UpdateUserAttributeGroupValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/groups/{group_id}/attribute_values/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateUserAttributeGroupValueResponse.Builder responseBuilder = UpdateUserAttributeGroupValueResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Remove a user attribute value from a group.
+  /**
+   * ### Remove a user attribute value from a group.
    * 
    */
   public void DeleteUserAttributeGroupValue(DeleteUserAttributeGroupValueRequest request, StreamObserver<DeleteUserAttributeGroupValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/attribute_values/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserAttributeGroupValueResponse.Builder responseBuilder = DeleteUserAttributeGroupValueResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3318,14 +5595,26 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Homepage: Manage Homepage
 
-  /**   * ### Get information about the primary homepage's sections.
+  /**
+   * ### Get information about the primary homepage's sections.
    * 
    */
   public void AllPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest request, StreamObserver<AllPrimaryHomepageSectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/primary_homepage_sections", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllPrimaryHomepageSectionsResponse.Builder responseBuilder = AllPrimaryHomepageSectionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3336,21 +5625,34 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Integration: Manage Integrations
 
-  /**   * ### Get information about all Integration Hubs.
+  /**
+   * ### Get information about all Integration Hubs.
    * 
    */
   public void AllIntegrationHubs(AllIntegrationHubsRequest request, StreamObserver<AllIntegrationHubsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/integration_hubs", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllIntegrationHubsResponse.Builder responseBuilder = AllIntegrationHubsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new Integration Hub.
+  /**
+   * ### Create a new Integration Hub.
    * 
    * This API is rate limited to prevent it from being used for SSRF attacks
    * 
@@ -3358,29 +5660,53 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateIntegrationHub(CreateIntegrationHubRequest request, StreamObserver<CreateIntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/integration_hubs", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateIntegrationHubResponse.Builder responseBuilder = CreateIntegrationHubResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a Integration Hub.
+  /**
+   * ### Get information about a Integration Hub.
    * 
    */
   public void IntegrationHub(IntegrationHubRequest request, StreamObserver<IntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/integration_hubs/{integration_hub_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        IntegrationHubResponse.Builder responseBuilder = IntegrationHubResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a Integration Hub definition.
+  /**
+   * ### Update a Integration Hub definition.
    * 
    * This API is rate limited to prevent it from being used for SSRF attacks
    * 
@@ -3388,103 +5714,198 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateIntegrationHub(UpdateIntegrationHubRequest request, StreamObserver<UpdateIntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/integration_hubs/{integration_hub_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateIntegrationHubResponse.Builder responseBuilder = UpdateIntegrationHubResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a Integration Hub.
+  /**
+   * ### Delete a Integration Hub.
    * 
    */
   public void DeleteIntegrationHub(DeleteIntegrationHubRequest request, StreamObserver<DeleteIntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/integration_hubs/{integration_hub_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteIntegrationHubResponse.Builder responseBuilder = DeleteIntegrationHubResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Accepts the legal agreement for a given integration hub. This only works for integration hubs that have legal_agreement_required set to true and legal_agreement_signed set to false.
+  /**
+   * Accepts the legal agreement for a given integration hub. This only works for integration hubs that have legal_agreement_required set to true and legal_agreement_signed set to false.
    */
   public void AcceptIntegrationHubLegalAgreement(AcceptIntegrationHubLegalAgreementRequest request, StreamObserver<AcceptIntegrationHubLegalAgreementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/integration_hubs/{integration_hub_id}/accept_legal_agreement", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AcceptIntegrationHubLegalAgreementResponse.Builder responseBuilder = AcceptIntegrationHubLegalAgreementResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all Integrations.
+  /**
+   * ### Get information about all Integrations.
    * 
    */
   public void AllIntegrations(AllIntegrationsRequest request, StreamObserver<AllIntegrationsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/integrations", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllIntegrationsResponse.Builder responseBuilder = AllIntegrationsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a Integration.
+  /**
+   * ### Get information about a Integration.
    * 
    */
   public void Integration(IntegrationRequest request, StreamObserver<IntegrationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/integrations/{integration_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        IntegrationResponse.Builder responseBuilder = IntegrationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update parameters on a Integration.
+  /**
+   * ### Update parameters on a Integration.
    * 
    */
   public void UpdateIntegration(UpdateIntegrationRequest request, StreamObserver<UpdateIntegrationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/integrations/{integration_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateIntegrationResponse.Builder responseBuilder = UpdateIntegrationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Returns the Integration form for presentation to the user.
+  /**
+   * Returns the Integration form for presentation to the user.
    */
   public void FetchIntegrationForm(FetchIntegrationFormRequest request, StreamObserver<FetchIntegrationFormResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/integrations/{integration_id}/form", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FetchIntegrationFormResponse.Builder responseBuilder = FetchIntegrationFormResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Tests the integration to make sure all the settings are working.
+  /**
+   * Tests the integration to make sure all the settings are working.
    */
   public void TestIntegration(TestIntegrationRequest request, StreamObserver<TestIntegrationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/integrations/{integration_id}/test", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        TestIntegrationResponse.Builder responseBuilder = TestIntegrationResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3495,7 +5916,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Look: Run and Manage Looks
 
-  /**   * ### Get information about all active Looks
+  /**
+   * ### Get information about all active Looks
    * 
    * Returns an array of **abbreviated Look objects** describing all the looks that the caller has access to. Soft-deleted Looks are **not** included.
    * 
@@ -3507,15 +5929,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllLooks(AllLooksRequest request, StreamObserver<AllLooksResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/looks", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllLooksResponse.Builder responseBuilder = AllLooksResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a Look
+  /**
+   * ### Create a Look
    * 
    * To create a look to display query data, first create the query with [create_query()](#!/Query/create_query)
    * then assign the query's id to the `query_id` property in the call to `create_look()`.
@@ -3527,15 +5961,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateLook(CreateLookRequest request, StreamObserver<CreateLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/looks", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateLookResponse.Builder responseBuilder = CreateLookResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search Looks
+  /**
+   * ### Search Looks
    * 
    * Returns an **array of Look objects** that match the specified search criteria.
    * 
@@ -3567,15 +6013,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchLooks(SearchLooksRequest request, StreamObserver<SearchLooksResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/looks/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchLooksResponse.Builder responseBuilder = SearchLooksResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a Look.
+  /**
+   * ### Get a Look.
    * 
    * Returns detailed information about a Look and its associated Query.
    * 
@@ -3584,15 +6042,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Look(LookRequest request, StreamObserver<LookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/looks/{look_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LookResponse.Builder responseBuilder = LookResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Modify a Look
+  /**
+   * ### Modify a Look
    * 
    * Use this function to modify parts of a look. Property values given in a call to `update_look` are
    * applied to the existing look, so there's no need to include properties whose values are not changing.
@@ -3617,15 +6087,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateLook(UpdateLookRequest request, StreamObserver<UpdateLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/looks/{look_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateLookResponse.Builder responseBuilder = UpdateLookResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Permanently Delete a Look
+  /**
+   * ### Permanently Delete a Look
    * 
    * This operation **permanently** removes a look from the Looker database.
    * 
@@ -3637,15 +6119,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteLook(DeleteLookRequest request, StreamObserver<DeleteLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/looks/{look_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteLookResponse.Builder responseBuilder = DeleteLookResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run a Look
+  /**
+   * ### Run a Look
    * 
    * Runs a given look's query and returns the results in the requested format.
    * 
@@ -3670,8 +6164,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RunLook(RunLookRequest request, StreamObserver<RunLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/looks/{look_id}/run/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunLookResponse.Builder responseBuilder = RunLookResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3682,84 +6187,156 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region LookmlModel: Manage LookML Models
 
-  /**   * ### Get information about all lookml models.
+  /**
+   * ### Get information about all lookml models.
    * 
    */
   public void AllLookmlModels(AllLookmlModelsRequest request, StreamObserver<AllLookmlModelsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/lookml_models", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllLookmlModelsResponse.Builder responseBuilder = AllLookmlModelsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a lookml model using the specified configuration.
+  /**
+   * ### Create a lookml model using the specified configuration.
    * 
    */
   public void CreateLookmlModel(CreateLookmlModelRequest request, StreamObserver<CreateLookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/lookml_models", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateLookmlModelResponse.Builder responseBuilder = CreateLookmlModelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a lookml model.
+  /**
+   * ### Get information about a lookml model.
    * 
    */
   public void LookmlModel(LookmlModelRequest request, StreamObserver<LookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/lookml_models/{lookml_model_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LookmlModelResponse.Builder responseBuilder = LookmlModelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a lookml model using the specified configuration.
+  /**
+   * ### Update a lookml model using the specified configuration.
    * 
    */
   public void UpdateLookmlModel(UpdateLookmlModelRequest request, StreamObserver<UpdateLookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/lookml_models/{lookml_model_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateLookmlModelResponse.Builder responseBuilder = UpdateLookmlModelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a lookml model.
+  /**
+   * ### Delete a lookml model.
    * 
    */
   public void DeleteLookmlModel(DeleteLookmlModelRequest request, StreamObserver<DeleteLookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/lookml_models/{lookml_model_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteLookmlModelResponse.Builder responseBuilder = DeleteLookmlModelResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a lookml model explore.
+  /**
+   * ### Get information about a lookml model explore.
    * 
    */
   public void LookmlModelExplore(LookmlModelExploreRequest request, StreamObserver<LookmlModelExploreResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/lookml_models/{lookml_model_name}/explores/{explore_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LookmlModelExploreResponse.Builder responseBuilder = LookmlModelExploreResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3770,22 +6347,35 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Metadata: Connection Metadata Features
 
-  /**   * ### Field name suggestions for a model and view
+  /**
+   * ### Field name suggestions for a model and view
    * 
    * 
    */
   public void ModelFieldnameSuggestions(ModelFieldnameSuggestionsRequest request, StreamObserver<ModelFieldnameSuggestionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/models/{model_name}/views/{view_name}/fields/{field_name}/suggestions", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ModelFieldnameSuggestionsResponse.Builder responseBuilder = ModelFieldnameSuggestionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### List databases available to this connection
+  /**
+   * ### List databases available to this connection
    * 
    * Certain dialects can support multiple databases per single connection.
    * If this connection supports multiple databases, the database names will be returned in an array.
@@ -3799,15 +6389,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ConnectionDatabases(ConnectionDatabasesRequest request, StreamObserver<ConnectionDatabasesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/databases", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionDatabasesResponse.Builder responseBuilder = ConnectionDatabasesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Retrieve metadata features for this connection
+  /**
+   * ### Retrieve metadata features for this connection
    * 
    * Returns a list of feature names with `true` (available) or `false` (not available)
    * 
@@ -3816,30 +6418,54 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ConnectionFeatures(ConnectionFeaturesRequest request, StreamObserver<ConnectionFeaturesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/features", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionFeaturesResponse.Builder responseBuilder = ConnectionFeaturesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the list of schemas and tables for a connection
+  /**
+   * ### Get the list of schemas and tables for a connection
    * 
    * 
    */
   public void ConnectionSchemas(ConnectionSchemasRequest request, StreamObserver<ConnectionSchemasResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/schemas", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionSchemasResponse.Builder responseBuilder = ConnectionSchemasResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the list of tables for a schema
+  /**
+   * ### Get the list of tables for a schema
    * 
    * For dialects that support multiple databases, optionally identify which to use. If not provided, the default
    * database for the connection will be used.
@@ -3850,30 +6476,54 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ConnectionTables(ConnectionTablesRequest request, StreamObserver<ConnectionTablesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/tables", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionTablesResponse.Builder responseBuilder = ConnectionTablesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the columns (and therefore also the tables) in a specific schema
+  /**
+   * ### Get the columns (and therefore also the tables) in a specific schema
    * 
    * 
    */
   public void ConnectionColumns(ConnectionColumnsRequest request, StreamObserver<ConnectionColumnsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/columns", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionColumnsResponse.Builder responseBuilder = ConnectionColumnsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search a connection for columns matching the specified name
+  /**
+   * ### Search a connection for columns matching the specified name
    * 
    * **Note**: `column_name` must be a valid column name. It is not a search pattern.
    * 
@@ -3881,15 +6531,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ConnectionSearchColumns(ConnectionSearchColumnsRequest request, StreamObserver<ConnectionSearchColumnsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/search_columns", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionSearchColumnsResponse.Builder responseBuilder = ConnectionSearchColumnsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Connection cost estimating
+  /**
+   * ### Connection cost estimating
    * 
    * Assign a `sql` statement to the body of the request. e.g., for Ruby, `{sql: 'select * from users'}`
    * 
@@ -3899,8 +6561,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ConnectionCostEstimate(ConnectionCostEstimateRequest request, StreamObserver<ConnectionCostEstimateResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/connections/{connection_name}/cost_estimate", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ConnectionCostEstimateResponse.Builder responseBuilder = ConnectionCostEstimateResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -3911,7 +6584,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Project: Manage Projects
 
-  /**   *       ### Generate Lockfile for All LookML Dependencies
+  /**
+   *       ### Generate Lockfile for All LookML Dependencies
    * 
    *       Git must have been configured, must be in dev mode and deploy permission required
    * 
@@ -3924,15 +6598,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void LockAll(LockAllRequest request, StreamObserver<LockAllResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/manifest/lock_all", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        LockAllResponse.Builder responseBuilder = LockAllResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get All Git Branches
+  /**
+   * ### Get All Git Branches
    * 
    * Returns a list of git branches in the project repository
    * 
@@ -3940,15 +6626,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllGitBranches(AllGitBranchesRequest request, StreamObserver<AllGitBranchesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branches", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllGitBranchesResponse.Builder responseBuilder = AllGitBranchesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the Current Git Branch
+  /**
+   * ### Get the Current Git Branch
    * 
    * Returns the git branch currently checked out in the given project repository
    * 
@@ -3956,15 +6654,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void GitBranch(GitBranchRequest request, StreamObserver<GitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branch", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        GitBranchResponse.Builder responseBuilder = GitBranchResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Checkout and/or reset --hard an existing Git Branch
+  /**
+   * ### Checkout and/or reset --hard an existing Git Branch
    * 
    * Only allowed in development mode
    *   - Call `update_session` to select the 'dev' workspace.
@@ -3979,15 +6689,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateGitBranch(UpdateGitBranchRequest request, StreamObserver<UpdateGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/projects/{project_id}/git_branch", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateGitBranchResponse.Builder responseBuilder = UpdateGitBranchResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create and Checkout a Git Branch
+  /**
+   * ### Create and Checkout a Git Branch
    * 
    * Creates and checks out a new branch in the given project repository
    * Only allowed in development mode
@@ -4001,15 +6723,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateGitBranch(CreateGitBranchRequest request, StreamObserver<CreateGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/git_branch", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateGitBranchResponse.Builder responseBuilder = CreateGitBranchResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the specified Git Branch
+  /**
+   * ### Get the specified Git Branch
    * 
    * Returns the git branch specified in branch_name path param if it exists in the given project repository
    * 
@@ -4017,15 +6751,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void FindGitBranch(FindGitBranchRequest request, StreamObserver<FindGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branch/{branch_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        FindGitBranchResponse.Builder responseBuilder = FindGitBranchResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the specified Git Branch
+  /**
+   * ### Delete the specified Git Branch
    * 
    * Delete git branch specified in branch_name path param from local and remote of specified project repository
    * 
@@ -4033,15 +6779,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteGitBranch(DeleteGitBranchRequest request, StreamObserver<DeleteGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/projects/{project_id}/git_branch/{branch_name}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteGitBranchResponse.Builder responseBuilder = DeleteGitBranchResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Deploy a Remote Branch or Ref to Production
+  /**
+   * ### Deploy a Remote Branch or Ref to Production
    * 
    * Git must have been configured and deploy permission required.
    * 
@@ -4056,15 +6814,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeployRefToProduction(DeployRefToProductionRequest request, StreamObserver<DeployRefToProductionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/deploy_ref_to_production", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeployRefToProductionResponse.Builder responseBuilder = DeployRefToProductionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Deploy LookML from this Development Mode Project to Production
+  /**
+   * ### Deploy LookML from this Development Mode Project to Production
    * 
    * Git must have been configured, must be in dev mode and deploy permission required
    * 
@@ -4082,15 +6852,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeployToProduction(DeployToProductionRequest request, StreamObserver<DeployToProductionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/deploy_to_production", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeployToProductionResponse.Builder responseBuilder = DeployToProductionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Reset a project to the revision of the project that is in production.
+  /**
+   * ### Reset a project to the revision of the project that is in production.
    * 
    * **DANGER** this will delete any changes that have not been pushed to a remote repository.
    * 
@@ -4098,15 +6880,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ResetProjectToProduction(ResetProjectToProductionRequest request, StreamObserver<ResetProjectToProductionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/reset_to_production", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ResetProjectToProductionResponse.Builder responseBuilder = ResetProjectToProductionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Reset a project development branch to the revision of the project that is on the remote.
+  /**
+   * ### Reset a project development branch to the revision of the project that is on the remote.
    * 
    * **DANGER** this will delete any changes that have not been pushed to a remote repository.
    * 
@@ -4114,15 +6908,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ResetProjectToRemote(ResetProjectToRemoteRequest request, StreamObserver<ResetProjectToRemoteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/reset_to_remote", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ResetProjectToRemoteResponse.Builder responseBuilder = ResetProjectToRemoteResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get All Projects
+  /**
+   * ### Get All Projects
    * 
    * Returns all projects visible to the current user
    * 
@@ -4130,15 +6936,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllProjects(AllProjectsRequest request, StreamObserver<AllProjectsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllProjectsResponse.Builder responseBuilder = AllProjectsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create A Project
+  /**
+   * ### Create A Project
    * 
    * dev mode required.
    * - Call `update_session` to select the 'dev' workspace.
@@ -4151,15 +6969,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateProject(CreateProjectRequest request, StreamObserver<CreateProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateProjectResponse.Builder responseBuilder = CreateProjectResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get A Project
+  /**
+   * ### Get A Project
    * 
    * Returns the project with the given project id
    * 
@@ -4167,15 +6997,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Project(ProjectRequest request, StreamObserver<ProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ProjectResponse.Builder responseBuilder = ProjectResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update Project Configuration
+  /**
+   * ### Update Project Configuration
    * 
    * Apply changes to a project's configuration.
    * 
@@ -4203,15 +7045,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateProject(UpdateProjectRequest request, StreamObserver<UpdateProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/projects/{project_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateProjectResponse.Builder responseBuilder = UpdateProjectResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get A Projects Manifest object
+  /**
+   * ### Get A Projects Manifest object
    * 
    * Returns the project with the given project id
    * 
@@ -4219,15 +7073,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Manifest(ManifestRequest request, StreamObserver<ManifestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/manifest", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ManifestResponse.Builder responseBuilder = ManifestResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Git Deploy Key
+  /**
+   * ### Git Deploy Key
    * 
    * Returns the ssh public key previously created for a project's git repository.
    * 
@@ -4235,15 +7101,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void GitDeployKey(GitDeployKeyRequest request, StreamObserver<GitDeployKeyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git/deploy_key", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        GitDeployKeyResponse.Builder responseBuilder = GitDeployKeyResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create Git Deploy Key
+  /**
+   * ### Create Git Deploy Key
    * 
    * Create a public/private key pair for authenticating ssh git requests from Looker to a remote git repository
    * for a particular Looker project.
@@ -4257,15 +7135,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateGitDeployKey(CreateGitDeployKeyRequest request, StreamObserver<CreateGitDeployKeyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/git/deploy_key", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateGitDeployKeyResponse.Builder responseBuilder = CreateGitDeployKeyResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Cached Project Validation Results
+  /**
+   * ### Get Cached Project Validation Results
    * 
    * Returns the cached results of a previous project validation calculation, if any.
    * Returns http status 204 No Content if no validation results exist.
@@ -4282,15 +7172,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ProjectValidationResults(ProjectValidationResultsRequest request, StreamObserver<ProjectValidationResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/validate", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ProjectValidationResultsResponse.Builder responseBuilder = ProjectValidationResultsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Validate Project
+  /**
+   * ### Validate Project
    * 
    * Performs lint validation of all lookml files in the project.
    * Returns a list of errors found, if any.
@@ -4304,15 +7206,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ValidateProject(ValidateProjectRequest request, StreamObserver<ValidateProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/validate", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ValidateProjectResponse.Builder responseBuilder = ValidateProjectResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Project Workspace
+  /**
+   * ### Get Project Workspace
    * 
    * Returns information about the state of the project files in the currently selected workspace
    * 
@@ -4320,15 +7234,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ProjectWorkspace(ProjectWorkspaceRequest request, StreamObserver<ProjectWorkspaceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/current_workspace", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ProjectWorkspaceResponse.Builder responseBuilder = ProjectWorkspaceResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get All Project Files
+  /**
+   * ### Get All Project Files
    * 
    * Returns a list of the files in the project
    * 
@@ -4336,15 +7262,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllProjectFiles(AllProjectFilesRequest request, StreamObserver<AllProjectFilesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/files", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllProjectFilesResponse.Builder responseBuilder = AllProjectFilesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Project File Info
+  /**
+   * ### Get Project File Info
    * 
    * Returns information about a file in the project
    * 
@@ -4352,15 +7290,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ProjectFile(ProjectFileRequest request, StreamObserver<ProjectFileResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/files/file", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ProjectFileResponse.Builder responseBuilder = ProjectFileResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get All Git Connection Tests
+  /**
+   * ### Get All Git Connection Tests
    * 
    * dev mode required.
    *   - Call `update_session` to select the 'dev' workspace.
@@ -4375,15 +7325,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllGitConnectionTests(AllGitConnectionTestsRequest request, StreamObserver<AllGitConnectionTestsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_connection_tests", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllGitConnectionTestsResponse.Builder responseBuilder = AllGitConnectionTestsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run a git connection test
+  /**
+   * ### Run a git connection test
    * 
    * Run the named test on the git service used by this project (or the dependency project for the provided remote_url) and return the result. This
    * is intended to help debug git connections when things do not work properly, to give
@@ -4395,15 +7357,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RunGitConnectionTest(RunGitConnectionTestRequest request, StreamObserver<RunGitConnectionTestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_connection_tests/{test_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunGitConnectionTestResponse.Builder responseBuilder = RunGitConnectionTestResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get All LookML Tests
+  /**
+   * ### Get All LookML Tests
    * 
    * Returns a list of tests which can be run to validate a project's LookML code and/or the underlying data,
    * optionally filtered by the file id.
@@ -4413,15 +7387,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllLookmlTests(AllLookmlTestsRequest request, StreamObserver<AllLookmlTestsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/lookml_tests", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllLookmlTestsResponse.Builder responseBuilder = AllLookmlTestsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run LookML Tests
+  /**
+   * ### Run LookML Tests
    * 
    * Runs all tests in the project, optionally filtered by file, test, and/or model.
    * 
@@ -4429,15 +7415,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RunLookmlTest(RunLookmlTestRequest request, StreamObserver<RunLookmlTestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/lookml_tests/run", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunLookmlTestResponse.Builder responseBuilder = RunLookmlTestResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Configure Repository Credential for a remote dependency
+  /**
+   * ### Configure Repository Credential for a remote dependency
    * 
    * Admin required.
    * 
@@ -4449,15 +7447,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateRepositoryCredential(UpdateRepositoryCredentialRequest request, StreamObserver<UpdateRepositoryCredentialResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/projects/{root_project_id}/credential/{credential_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateRepositoryCredentialResponse.Builder responseBuilder = UpdateRepositoryCredentialResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Repository Credential for a remote dependency
+  /**
+   * ### Repository Credential for a remote dependency
    * 
    * Admin required.
    * 
@@ -4468,15 +7478,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteRepositoryCredential(DeleteRepositoryCredentialRequest request, StreamObserver<DeleteRepositoryCredentialResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/projects/{root_project_id}/credential/{credential_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteRepositoryCredentialResponse.Builder responseBuilder = DeleteRepositoryCredentialResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get all Repository Credentials for a project
+  /**
+   * ### Get all Repository Credentials for a project
    * 
    * `root_project_id` is required.
    * 
@@ -4484,8 +7506,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void GetAllRepositoryCredentials(GetAllRepositoryCredentialsRequest request, StreamObserver<GetAllRepositoryCredentialsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/projects/{root_project_id}/credentials", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        GetAllRepositoryCredentialsResponse.Builder responseBuilder = GetAllRepositoryCredentialsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -4496,7 +7529,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Query: Run and Manage Queries
 
-  /**   * ### Create an async query task
+  /**
+   * ### Create an async query task
    * 
    * Creates a query task (job) to run a previously created query asynchronously. Returns a Query Task ID.
    * 
@@ -4507,15 +7541,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateQueryTask(CreateQueryTaskRequest request, StreamObserver<CreateQueryTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/query_tasks", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateQueryTaskResponse.Builder responseBuilder = CreateQueryTaskResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Fetch results of multiple async queries
+  /**
+   * ### Fetch results of multiple async queries
    * 
    * Returns the results of multiple async queries in one request.
    * 
@@ -4527,15 +7573,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void QueryTaskMultiResults(QueryTaskMultiResultsRequest request, StreamObserver<QueryTaskMultiResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/multi_results", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        QueryTaskMultiResultsResponse.Builder responseBuilder = QueryTaskMultiResultsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Query Task details
+  /**
+   * ### Get Query Task details
    * 
    * Use this function to check the status of an async query task. After the status
    * reaches "Complete", you can call [query_task_results(query_task_id)](#!/Query/query_task_results) to
@@ -4547,15 +7605,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void QueryTask(QueryTaskRequest request, StreamObserver<QueryTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/{query_task_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        QueryTaskResponse.Builder responseBuilder = QueryTaskResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Async Query Results
+  /**
+   * ### Get Async Query Results
    * 
    * Returns the results of an async query task if the query has completed.
    * 
@@ -4583,15 +7653,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void QueryTaskResults(QueryTaskResultsRequest request, StreamObserver<QueryTaskResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/{query_task_id}/results", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        QueryTaskResultsResponse.Builder responseBuilder = QueryTaskResultsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a previously created query by id.
+  /**
+   * ### Get a previously created query by id.
    * 
    * A Looker query object includes the various parameters that define a database query that has been run or
    * could be run in the future. These parameters include: model, view, fields, filters, pivots, etc.
@@ -4614,15 +7696,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Query(QueryRequest request, StreamObserver<QueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/queries/{query_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        QueryResponse.Builder responseBuilder = QueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the query for a given query slug.
+  /**
+   * ### Get the query for a given query slug.
    * 
    * This returns the query for the 'slug' in a query share URL.
    * 
@@ -4644,15 +7738,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void QueryForSlug(QueryForSlugRequest request, StreamObserver<QueryForSlugResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/queries/slug/{slug}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        QueryForSlugResponse.Builder responseBuilder = QueryForSlugResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a query.
+  /**
+   * ### Create a query.
    * 
    * This allows you to create a new query that you can later run. Looker queries are immutable once created
    * and are not deleted. If you create a query that is exactly like an existing query then the existing query
@@ -4666,15 +7772,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateQuery(CreateQueryRequest request, StreamObserver<CreateQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/queries", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateQueryResponse.Builder responseBuilder = CreateQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run a saved query.
+  /**
+   * ### Run a saved query.
    * 
    * This runs a previously saved query. You can use this on a query that was generated in the Looker UI
    * or one that you have explicitly created using the API. You can also use a query 'id' from a saved 'Look'.
@@ -4702,15 +7820,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RunQuery(RunQueryRequest request, StreamObserver<RunQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/queries/{query_id}/run/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunQueryResponse.Builder responseBuilder = RunQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run the query that is specified inline in the posted body.
+  /**
+   * ### Run the query that is specified inline in the posted body.
    * 
    * This allows running a query as defined in json in the posted body. This combines
    * the two actions of posting & running a query into one step.
@@ -4767,15 +7897,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RunInlineQuery(RunInlineQueryRequest request, StreamObserver<RunInlineQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/queries/run/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunInlineQueryResponse.Builder responseBuilder = RunInlineQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run an URL encoded query.
+  /**
+   * ### Run an URL encoded query.
    * 
    * This requires the caller to encode the specifiers for the query into the URL query part using
    * Looker-specific syntax as explained below.
@@ -4834,15 +7976,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RunUrlEncodedQuery(RunUrlEncodedQueryRequest request, StreamObserver<RunUrlEncodedQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/queries/models/{model_name}/views/{view_name}/run/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunUrlEncodedQueryResponse.Builder responseBuilder = RunUrlEncodedQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Merge Query
+  /**
+   * ### Get Merge Query
    * 
    * Returns a merge query object given its id.
    * 
@@ -4850,15 +8004,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void MergeQuery(MergeQueryRequest request, StreamObserver<MergeQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/merge_queries/{merge_query_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        MergeQueryResponse.Builder responseBuilder = MergeQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create Merge Query
+  /**
+   * ### Create Merge Query
    * 
    * Creates a new merge query object.
    * 
@@ -4880,56 +8046,104 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateMergeQuery(CreateMergeQueryRequest request, StreamObserver<CreateMergeQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/merge_queries", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateMergeQueryResponse.Builder responseBuilder = CreateMergeQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Get information about all running queries.
+  /**
+   * Get information about all running queries.
    * 
    */
   public void AllRunningQueries(AllRunningQueriesRequest request, StreamObserver<AllRunningQueriesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/running_queries", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllRunningQueriesResponse.Builder responseBuilder = AllRunningQueriesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Kill a query with a specific query_task_id.
+  /**
+   * Kill a query with a specific query_task_id.
    * 
    */
   public void KillQuery(KillQueryRequest request, StreamObserver<KillQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/running_queries/{query_task_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        KillQueryResponse.Builder responseBuilder = KillQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Get a SQL Runner query.
+  /**
+   * Get a SQL Runner query.
    */
   public void SqlQuery(SqlQueryRequest request, StreamObserver<SqlQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/sql_queries/{slug}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SqlQueryResponse.Builder responseBuilder = SqlQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a SQL Runner Query
+  /**
+   * ### Create a SQL Runner Query
    * 
    * Either the `connection_name` or `model_name` parameter MUST be provided.
    * 
@@ -4937,21 +8151,44 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateSqlQuery(CreateSqlQueryRequest request, StreamObserver<CreateSqlQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/sql_queries", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateSqlQueryResponse.Builder responseBuilder = CreateSqlQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * Execute a SQL Runner query in a given result_format.
+  /**
+   * Execute a SQL Runner query in a given result_format.
    */
   public void RunSqlQuery(RunSqlQueryRequest request, StreamObserver<RunSqlQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/sql_queries/{slug}/run/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RunSqlQueryResponse.Builder responseBuilder = RunSqlQueryResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -4962,7 +8199,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region RenderTask: Manage Render Tasks
 
-  /**   * ### Create a new task to render a look to an image.
+  /**
+   * ### Create a new task to render a look to an image.
    * 
    * Returns a render task object.
    * To check the status of a render task, pass the render_task.id to [Get Render Task](#!/RenderTask/get_render_task).
@@ -4973,15 +8211,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateLookRenderTask(CreateLookRenderTaskRequest request, StreamObserver<CreateLookRenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/looks/{look_id}/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateLookRenderTaskResponse.Builder responseBuilder = CreateLookRenderTaskResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new task to render an existing query to an image.
+  /**
+   * ### Create a new task to render an existing query to an image.
    * 
    * Returns a render task object.
    * To check the status of a render task, pass the render_task.id to [Get Render Task](#!/RenderTask/get_render_task).
@@ -4992,15 +8242,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateQueryRenderTask(CreateQueryRenderTaskRequest request, StreamObserver<CreateQueryRenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/queries/{query_id}/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateQueryRenderTaskResponse.Builder responseBuilder = CreateQueryRenderTaskResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new task to render a dashboard to a document or image.
+  /**
+   * ### Create a new task to render a dashboard to a document or image.
    * 
    * Returns a render task object.
    * To check the status of a render task, pass the render_task.id to [Get Render Task](#!/RenderTask/get_render_task).
@@ -5011,15 +8273,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateDashboardRenderTask(CreateDashboardRenderTaskRequest request, StreamObserver<CreateDashboardRenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/dashboards/{dashboard_id}/{result_format}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateDashboardRenderTaskResponse.Builder responseBuilder = CreateDashboardRenderTaskResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a render task.
+  /**
+   * ### Get information about a render task.
    * 
    * Returns a render task object.
    * To check the status of a render task, pass the render_task.id to [Get Render Task](#!/RenderTask/get_render_task).
@@ -5030,15 +8304,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RenderTask(RenderTaskRequest request, StreamObserver<RenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/render_tasks/{render_task_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RenderTaskResponse.Builder responseBuilder = RenderTaskResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the document or image produced by a completed render task.
+  /**
+   * ### Get the document or image produced by a completed render task.
    * 
    * Note that the PDF or image result will be a binary blob in the HTTP response, as indicated by the
    * Content-Type in the response headers. This may require specialized (or at least different) handling than text
@@ -5060,8 +8346,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void RenderTaskResults(RenderTaskResultsRequest request, StreamObserver<RenderTaskResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/render_tasks/{render_task_id}/results", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RenderTaskResultsResponse.Builder responseBuilder = RenderTaskResultsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -5072,7 +8369,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Role: Manage Roles
 
-  /**   * ### Search model sets
+  /**
+   * ### Search model sets
    * Returns all model set records that match the given search criteria.
    * If multiple search params are given and `filter_or` is FALSE or not specified,
    * search params are combined in a logical AND operation.
@@ -5100,99 +8398,183 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchModelSets(SearchModelSetsRequest request, StreamObserver<SearchModelSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/model_sets/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchModelSetsResponse.Builder responseBuilder = SearchModelSetsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the model set with a specific id.
+  /**
+   * ### Get information about the model set with a specific id.
    * 
    */
   public void ModelSet(ModelSetRequest request, StreamObserver<ModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/model_sets/{model_set_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ModelSetResponse.Builder responseBuilder = ModelSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update information about the model set with a specific id.
+  /**
+   * ### Update information about the model set with a specific id.
    * 
    */
   public void UpdateModelSet(UpdateModelSetRequest request, StreamObserver<UpdateModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/model_sets/{model_set_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateModelSetResponse.Builder responseBuilder = UpdateModelSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the model set with a specific id.
+  /**
+   * ### Delete the model set with a specific id.
    * 
    */
   public void DeleteModelSet(DeleteModelSetRequest request, StreamObserver<DeleteModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/model_sets/{model_set_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteModelSetResponse.Builder responseBuilder = DeleteModelSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all model sets.
+  /**
+   * ### Get information about all model sets.
    * 
    */
   public void AllModelSets(AllModelSetsRequest request, StreamObserver<AllModelSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/model_sets", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllModelSetsResponse.Builder responseBuilder = AllModelSetsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a model set with the specified information. Model sets are used by Roles.
+  /**
+   * ### Create a model set with the specified information. Model sets are used by Roles.
    * 
    */
   public void CreateModelSet(CreateModelSetRequest request, StreamObserver<CreateModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/model_sets", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateModelSetResponse.Builder responseBuilder = CreateModelSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get all supported permissions.
+  /**
+   * ### Get all supported permissions.
    * 
    */
   public void AllPermissions(AllPermissionsRequest request, StreamObserver<AllPermissionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/permissions", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllPermissionsResponse.Builder responseBuilder = AllPermissionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search permission sets
+  /**
+   * ### Search permission sets
    * Returns all permission set records that match the given search criteria.
    * If multiple search params are given and `filter_or` is FALSE or not specified,
    * search params are combined in a logical AND operation.
@@ -5220,113 +8602,209 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchPermissionSets(SearchPermissionSetsRequest request, StreamObserver<SearchPermissionSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/permission_sets/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchPermissionSetsResponse.Builder responseBuilder = SearchPermissionSetsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the permission set with a specific id.
+  /**
+   * ### Get information about the permission set with a specific id.
    * 
    */
   public void PermissionSet(PermissionSetRequest request, StreamObserver<PermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/permission_sets/{permission_set_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        PermissionSetResponse.Builder responseBuilder = PermissionSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update information about the permission set with a specific id.
+  /**
+   * ### Update information about the permission set with a specific id.
    * 
    */
   public void UpdatePermissionSet(UpdatePermissionSetRequest request, StreamObserver<UpdatePermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/permission_sets/{permission_set_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdatePermissionSetResponse.Builder responseBuilder = UpdatePermissionSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the permission set with a specific id.
+  /**
+   * ### Delete the permission set with a specific id.
    * 
    */
   public void DeletePermissionSet(DeletePermissionSetRequest request, StreamObserver<DeletePermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/permission_sets/{permission_set_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeletePermissionSetResponse.Builder responseBuilder = DeletePermissionSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all permission sets.
+  /**
+   * ### Get information about all permission sets.
    * 
    */
   public void AllPermissionSets(AllPermissionSetsRequest request, StreamObserver<AllPermissionSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/permission_sets", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllPermissionSetsResponse.Builder responseBuilder = AllPermissionSetsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a permission set with the specified information. Permission sets are used by Roles.
+  /**
+   * ### Create a permission set with the specified information. Permission sets are used by Roles.
    * 
    */
   public void CreatePermissionSet(CreatePermissionSetRequest request, StreamObserver<CreatePermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/permission_sets", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreatePermissionSetResponse.Builder responseBuilder = CreatePermissionSetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all roles.
+  /**
+   * ### Get information about all roles.
    * 
    */
   public void AllRoles(AllRolesRequest request, StreamObserver<AllRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/roles", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllRolesResponse.Builder responseBuilder = AllRolesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a role with the specified information.
+  /**
+   * ### Create a role with the specified information.
    * 
    */
   public void CreateRole(CreateRoleRequest request, StreamObserver<CreateRoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/roles", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateRoleResponse.Builder responseBuilder = CreateRoleResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search roles
+  /**
+   * ### Search roles
    * 
    * Returns all role records that match the given search criteria.
    * 
@@ -5356,106 +8834,201 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchRoles(SearchRolesRequest request, StreamObserver<SearchRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/roles/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchRolesResponse.Builder responseBuilder = SearchRolesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the role with a specific id.
+  /**
+   * ### Get information about the role with a specific id.
    * 
    */
   public void Role(RoleRequest request, StreamObserver<RoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RoleResponse.Builder responseBuilder = RoleResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update information about the role with a specific id.
+  /**
+   * ### Update information about the role with a specific id.
    * 
    */
   public void UpdateRole(UpdateRoleRequest request, StreamObserver<UpdateRoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/roles/{role_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateRoleResponse.Builder responseBuilder = UpdateRoleResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the role with a specific id.
+  /**
+   * ### Delete the role with a specific id.
    * 
    */
   public void DeleteRole(DeleteRoleRequest request, StreamObserver<DeleteRoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/roles/{role_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteRoleResponse.Builder responseBuilder = DeleteRoleResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the groups with the role that has a specific id.
+  /**
+   * ### Get information about all the groups with the role that has a specific id.
    * 
    */
   public void RoleGroups(RoleGroupsRequest request, StreamObserver<RoleGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}/groups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RoleGroupsResponse.Builder responseBuilder = RoleGroupsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set all groups for a role, removing all existing group associations from that role.
+  /**
+   * ### Set all groups for a role, removing all existing group associations from that role.
    * 
    */
   public void SetRoleGroups(SetRoleGroupsRequest request, StreamObserver<SetRoleGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/roles/{role_id}/groups", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetRoleGroupsResponse.Builder responseBuilder = SetRoleGroupsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all the users with the role that has a specific id.
+  /**
+   * ### Get information about all the users with the role that has a specific id.
    * 
    */
   public void RoleUsers(RoleUsersRequest request, StreamObserver<RoleUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}/users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        RoleUsersResponse.Builder responseBuilder = RoleUsersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set all the users of the role with a specific id.
+  /**
+   * ### Set all the users of the role with a specific id.
    * 
    */
   public void SetRoleUsers(SetRoleUsersRequest request, StreamObserver<SetRoleUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/roles/{role_id}/users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetRoleUsersResponse.Builder responseBuilder = SetRoleUsersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -5466,7 +9039,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region ScheduledPlan: Manage Scheduled Plans
 
-  /**   * ### Get Scheduled Plans for a Space
+  /**
+   * ### Get Scheduled Plans for a Space
    * 
    * Returns scheduled plans owned by the caller for a given space id.
    * 
@@ -5474,15 +9048,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlansForSpace(ScheduledPlansForSpaceRequest request, StreamObserver<ScheduledPlansForSpaceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/space/{space_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlansForSpaceResponse.Builder responseBuilder = ScheduledPlansForSpaceResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Information About a Scheduled Plan
+  /**
+   * ### Get Information About a Scheduled Plan
    * 
    * Admins can fetch information about other users' Scheduled Plans.
    * 
@@ -5490,15 +9076,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlan(ScheduledPlanRequest request, StreamObserver<ScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/{scheduled_plan_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlanResponse.Builder responseBuilder = ScheduledPlanResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a Scheduled Plan
+  /**
+   * ### Update a Scheduled Plan
    * 
    * Admins can update other users' Scheduled Plans.
    * 
@@ -5547,15 +9145,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateScheduledPlan(UpdateScheduledPlanRequest request, StreamObserver<UpdateScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/scheduled_plans/{scheduled_plan_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateScheduledPlanResponse.Builder responseBuilder = UpdateScheduledPlanResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a Scheduled Plan
+  /**
+   * ### Delete a Scheduled Plan
    * 
    * Normal users can only delete their own scheduled plans.
    * Admins can delete other users' scheduled plans.
@@ -5565,15 +9175,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteScheduledPlan(DeleteScheduledPlanRequest request, StreamObserver<DeleteScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/scheduled_plans/{scheduled_plan_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteScheduledPlanResponse.Builder responseBuilder = DeleteScheduledPlanResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### List All Scheduled Plans
+  /**
+   * ### List All Scheduled Plans
    * 
    * Returns all scheduled plans which belong to the caller or given user.
    * 
@@ -5591,15 +9213,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllScheduledPlans(AllScheduledPlansRequest request, StreamObserver<AllScheduledPlansResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllScheduledPlansResponse.Builder responseBuilder = AllScheduledPlansResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a Scheduled Plan
+  /**
+   * ### Create a Scheduled Plan
    * 
    * Create a scheduled plan to render a Look or Dashboard on a recurring schedule.
    * 
@@ -5664,15 +9298,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateScheduledPlan(CreateScheduledPlanRequest request, StreamObserver<CreateScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateScheduledPlanResponse.Builder responseBuilder = CreateScheduledPlanResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run a Scheduled Plan Immediately
+  /**
+   * ### Run a Scheduled Plan Immediately
    * 
    * Create a scheduled plan that runs only once, and immediately.
    * 
@@ -5716,15 +9362,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlanRunOnce(ScheduledPlanRunOnceRequest request, StreamObserver<ScheduledPlanRunOnceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans/run_once", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlanRunOnceResponse.Builder responseBuilder = ScheduledPlanRunOnceResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Scheduled Plans for a Look
+  /**
+   * ### Get Scheduled Plans for a Look
    * 
    * Returns all scheduled plans for a look which belong to the caller or given user.
    * 
@@ -5742,15 +9400,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlansForLook(ScheduledPlansForLookRequest request, StreamObserver<ScheduledPlansForLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/look/{look_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlansForLookResponse.Builder responseBuilder = ScheduledPlansForLookResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Scheduled Plans for a Dashboard
+  /**
+   * ### Get Scheduled Plans for a Dashboard
    * 
    * Returns all scheduled plans for a dashboard which belong to the caller or given user.
    * 
@@ -5768,15 +9438,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlansForDashboard(ScheduledPlansForDashboardRequest request, StreamObserver<ScheduledPlansForDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/dashboard/{dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlansForDashboardResponse.Builder responseBuilder = ScheduledPlansForDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get Scheduled Plans for a LookML Dashboard
+  /**
+   * ### Get Scheduled Plans for a LookML Dashboard
    * 
    * Returns all scheduled plans for a LookML Dashboard which belong to the caller or given user.
    * 
@@ -5794,15 +9476,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest request, StreamObserver<ScheduledPlansForLookmlDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/lookml_dashboard/{lookml_dashboard_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlansForLookmlDashboardResponse.Builder responseBuilder = ScheduledPlansForLookmlDashboardResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Run a Scheduled Plan By Id Immediately
+  /**
+   * ### Run a Scheduled Plan By Id Immediately
    * This function creates a run-once schedule plan based on an existing scheduled plan,
    * applies modifications (if any) to the new scheduled plan, and runs the new schedule plan immediately.
    * This can be useful for testing modifications to an existing scheduled plan before committing to a production schedule.
@@ -5855,8 +9549,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ScheduledPlanRunOnceById(ScheduledPlanRunOnceByIdRequest request, StreamObserver<ScheduledPlanRunOnceByIdResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans/{scheduled_plan_id}/run_once", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ScheduledPlanRunOnceByIdResponse.Builder responseBuilder = ScheduledPlanRunOnceByIdResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -5867,7 +9572,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Session: Session Information
 
-  /**   * ### Get API Session
+  /**
+   * ### Get API Session
    * 
    * Returns information about the current API session, such as which workspace is selected for the session.
    * 
@@ -5875,15 +9581,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Session(SessionRequest request, StreamObserver<SessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/session", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SessionResponse.Builder responseBuilder = SessionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update API Session
+  /**
+   * ### Update API Session
    * 
    * #### API Session Workspace
    * 
@@ -5908,8 +9626,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateSession(UpdateSessionRequest request, StreamObserver<UpdateSessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/session", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateSessionResponse.Builder responseBuilder = UpdateSessionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -5920,7 +9649,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Theme: Manage Themes
 
-  /**   * ### Get an array of all existing themes
+  /**
+   * ### Get an array of all existing themes
    * 
    * Get a **single theme** by id with [Theme](#!/Theme/theme)
    * 
@@ -5933,15 +9663,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllThemes(AllThemesRequest request, StreamObserver<AllThemesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/themes", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllThemesResponse.Builder responseBuilder = AllThemesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a theme
+  /**
+   * ### Create a theme
    * 
    * Creates a new theme object, returning the theme details, including the created id.
    * 
@@ -5962,15 +9704,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateTheme(CreateThemeRequest request, StreamObserver<CreateThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/themes", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateThemeResponse.Builder responseBuilder = CreateThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search all themes for matching criteria.
+  /**
+   * ### Search all themes for matching criteria.
    * 
    * Returns an **array of theme objects** that match the specified search criteria.
    * 
@@ -6014,15 +9768,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchThemes(SearchThemesRequest request, StreamObserver<SearchThemesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/themes/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchThemesResponse.Builder responseBuilder = SearchThemesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the default theme
+  /**
+   * ### Get the default theme
    * 
    * Returns the active theme object set as the default.
    * 
@@ -6034,15 +9800,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DefaultTheme(DefaultThemeRequest request, StreamObserver<DefaultThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/themes/default", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DefaultThemeResponse.Builder responseBuilder = DefaultThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set the global default theme by theme name
+  /**
+   * ### Set the global default theme by theme name
    * 
    * Only Admin users can call this function.
    * 
@@ -6059,15 +9837,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SetDefaultTheme(SetDefaultThemeRequest request, StreamObserver<SetDefaultThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/themes/default", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetDefaultThemeResponse.Builder responseBuilder = SetDefaultThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get active themes
+  /**
+   * ### Get active themes
    * 
    * Returns an array of active themes.
    * 
@@ -6083,15 +9873,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ActiveThemes(ActiveThemesRequest request, StreamObserver<ActiveThemesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/themes/active", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ActiveThemesResponse.Builder responseBuilder = ActiveThemesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get the named theme if it's active. Otherwise, return the default theme
+  /**
+   * ### Get the named theme if it's active. Otherwise, return the default theme
    * 
    * The optional `ts` parameter can specify a different timestamp than "now."
    * Note: API users with `show` ability can call this function
@@ -6103,15 +9905,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ThemeOrDefault(ThemeOrDefaultRequest request, StreamObserver<ThemeOrDefaultResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/themes/theme_or_default", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ThemeOrDefaultResponse.Builder responseBuilder = ThemeOrDefaultResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Validate a theme with the specified information
+  /**
+   * ### Validate a theme with the specified information
    * 
    * Validates all values set for the theme, returning any errors encountered, or 200 OK if valid
    * 
@@ -6124,15 +9938,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void ValidateTheme(ValidateThemeRequest request, StreamObserver<ValidateThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/themes/validate", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ValidateThemeResponse.Builder responseBuilder = ValidateThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get a theme by ID
+  /**
+   * ### Get a theme by ID
    * 
    * Use this to retrieve a specific theme, whether or not it's currently active.
    * 
@@ -6143,15 +9969,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Theme(ThemeRequest request, StreamObserver<ThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/themes/{theme_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ThemeResponse.Builder responseBuilder = ThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update the theme by id.
+  /**
+   * ### Update the theme by id.
    * 
    * **Note**: Custom themes needs to be enabled by Looker. Unless custom themes are enabled, only the automatically generated default theme can be used. Please contact your Account Manager or help.looker.com to update your license for this feature.
    * 
@@ -6160,15 +9998,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UpdateTheme(UpdateThemeRequest request, StreamObserver<UpdateThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/themes/{theme_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateThemeResponse.Builder responseBuilder = UpdateThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a specific theme by id
+  /**
+   * ### Delete a specific theme by id
    * 
    * This operation permanently deletes the identified theme from the database.
    * 
@@ -6183,8 +10033,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteTheme(DeleteThemeRequest request, StreamObserver<DeleteThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/themes/{theme_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteThemeResponse.Builder responseBuilder = DeleteThemeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -6195,49 +10056,86 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region User: Manage Users
 
-  /**   * ### Get information about the current user; i.e. the user account currently calling the API.
+  /**
+   * ### Get information about the current user; i.e. the user account currently calling the API.
    * 
    */
   public void Me(MeRequest request, StreamObserver<MeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/user", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        MeResponse.Builder responseBuilder = MeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about all users.
+  /**
+   * ### Get information about all users.
    * 
    */
   public void AllUsers(AllUsersRequest request, StreamObserver<AllUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUsersResponse.Builder responseBuilder = AllUsersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a user with the specified information.
+  /**
+   * ### Create a user with the specified information.
    * 
    */
   public void CreateUser(CreateUserRequest request, StreamObserver<CreateUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/users", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateUserResponse.Builder responseBuilder = CreateUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search users
+  /**
+   * ### Search users
    * 
    * Returns all<sup>*</sup> user records that match the given search criteria.
    * 
@@ -6273,15 +10171,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchUsers(SearchUsersRequest request, StreamObserver<SearchUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/search", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchUsersResponse.Builder responseBuilder = SearchUsersResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Search for user accounts by name
+  /**
+   * ### Search for user accounts by name
    * 
    * Returns all user accounts where `first_name` OR `last_name` OR `email` field values match a pattern.
    * The pattern can contain `%` and `_` wildcards as in SQL LIKE expressions.
@@ -6292,15 +10202,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SearchUsersNames(SearchUsersNamesRequest request, StreamObserver<SearchUsersNamesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/search/names/{pattern}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SearchUsersNamesResponse.Builder responseBuilder = SearchUsersNamesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the user with a specific id.
+  /**
+   * ### Get information about the user with a specific id.
    * 
    * If the caller is an admin or the caller is the user being specified, then full user information will
    * be returned. Otherwise, a minimal 'public' variant of the user information will be returned. This contains
@@ -6310,29 +10232,53 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void User(UserRequest request, StreamObserver<UserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserResponse.Builder responseBuilder = UserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update information about the user with a specific id.
+  /**
+   * ### Update information about the user with a specific id.
    * 
    */
   public void UpdateUser(UpdateUserRequest request, StreamObserver<UpdateUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateUserResponse.Builder responseBuilder = UpdateUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete the user with a specific id.
+  /**
+   * ### Delete the user with a specific id.
    * 
    * **DANGER** this will delete the user and all looks and other information owned by the user.
    * 
@@ -6340,15 +10286,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteUser(DeleteUserRequest request, StreamObserver<DeleteUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserResponse.Builder responseBuilder = DeleteUserResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about the user with a credential of given type with specific id.
+  /**
+   * ### Get information about the user with a credential of given type with specific id.
    * 
    * This is used to do things like find users by their embed external_user_id. Or, find the user with
    * a given api3 client_id, etc. The 'credential_type' matchs the 'type' name of the various credential
@@ -6382,366 +10340,702 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UserForCredential(UserForCredentialRequest request, StreamObserver<UserForCredentialResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/credential/{credential_type}/{credential_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserForCredentialResponse.Builder responseBuilder = UserForCredentialResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Email/password login information for the specified user.
+  /**
+   * ### Email/password login information for the specified user.
    */
   public void UserCredentialsEmail(UserCredentialsEmailRequest request, StreamObserver<UserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_email", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsEmailResponse.Builder responseBuilder = UserCredentialsEmailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Email/password login information for the specified user.
+  /**
+   * ### Email/password login information for the specified user.
    */
   public void CreateUserCredentialsEmail(CreateUserCredentialsEmailRequest request, StreamObserver<CreateUserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateUserCredentialsEmailResponse.Builder responseBuilder = CreateUserCredentialsEmailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Email/password login information for the specified user.
+  /**
+   * ### Email/password login information for the specified user.
    */
   public void UpdateUserCredentialsEmail(UpdateUserCredentialsEmailRequest request, StreamObserver<UpdateUserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}/credentials_email", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateUserCredentialsEmailResponse.Builder responseBuilder = UpdateUserCredentialsEmailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Email/password login information for the specified user.
+  /**
+   * ### Email/password login information for the specified user.
    */
   public void DeleteUserCredentialsEmail(DeleteUserCredentialsEmailRequest request, StreamObserver<DeleteUserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_email", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsEmailResponse.Builder responseBuilder = DeleteUserCredentialsEmailResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Two-factor login information for the specified user.
+  /**
+   * ### Two-factor login information for the specified user.
    */
   public void UserCredentialsTotp(UserCredentialsTotpRequest request, StreamObserver<UserCredentialsTotpResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_totp", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsTotpResponse.Builder responseBuilder = UserCredentialsTotpResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Two-factor login information for the specified user.
+  /**
+   * ### Two-factor login information for the specified user.
    */
   public void CreateUserCredentialsTotp(CreateUserCredentialsTotpRequest request, StreamObserver<CreateUserCredentialsTotpResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_totp", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateUserCredentialsTotpResponse.Builder responseBuilder = CreateUserCredentialsTotpResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Two-factor login information for the specified user.
+  /**
+   * ### Two-factor login information for the specified user.
    */
   public void DeleteUserCredentialsTotp(DeleteUserCredentialsTotpRequest request, StreamObserver<DeleteUserCredentialsTotpResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_totp", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsTotpResponse.Builder responseBuilder = DeleteUserCredentialsTotpResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### LDAP login information for the specified user.
+  /**
+   * ### LDAP login information for the specified user.
    */
   public void UserCredentialsLdap(UserCredentialsLdapRequest request, StreamObserver<UserCredentialsLdapResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_ldap", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsLdapResponse.Builder responseBuilder = UserCredentialsLdapResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### LDAP login information for the specified user.
+  /**
+   * ### LDAP login information for the specified user.
    */
   public void DeleteUserCredentialsLdap(DeleteUserCredentialsLdapRequest request, StreamObserver<DeleteUserCredentialsLdapResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_ldap", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsLdapResponse.Builder responseBuilder = DeleteUserCredentialsLdapResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Google authentication login information for the specified user.
+  /**
+   * ### Google authentication login information for the specified user.
    */
   public void UserCredentialsGoogle(UserCredentialsGoogleRequest request, StreamObserver<UserCredentialsGoogleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_google", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsGoogleResponse.Builder responseBuilder = UserCredentialsGoogleResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Google authentication login information for the specified user.
+  /**
+   * ### Google authentication login information for the specified user.
    */
   public void DeleteUserCredentialsGoogle(DeleteUserCredentialsGoogleRequest request, StreamObserver<DeleteUserCredentialsGoogleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_google", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsGoogleResponse.Builder responseBuilder = DeleteUserCredentialsGoogleResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Saml authentication login information for the specified user.
+  /**
+   * ### Saml authentication login information for the specified user.
    */
   public void UserCredentialsSaml(UserCredentialsSamlRequest request, StreamObserver<UserCredentialsSamlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_saml", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsSamlResponse.Builder responseBuilder = UserCredentialsSamlResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Saml authentication login information for the specified user.
+  /**
+   * ### Saml authentication login information for the specified user.
    */
   public void DeleteUserCredentialsSaml(DeleteUserCredentialsSamlRequest request, StreamObserver<DeleteUserCredentialsSamlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_saml", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsSamlResponse.Builder responseBuilder = DeleteUserCredentialsSamlResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### OpenID Connect (OIDC) authentication login information for the specified user.
+  /**
+   * ### OpenID Connect (OIDC) authentication login information for the specified user.
    */
   public void UserCredentialsOidc(UserCredentialsOidcRequest request, StreamObserver<UserCredentialsOidcResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_oidc", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsOidcResponse.Builder responseBuilder = UserCredentialsOidcResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### OpenID Connect (OIDC) authentication login information for the specified user.
+  /**
+   * ### OpenID Connect (OIDC) authentication login information for the specified user.
    */
   public void DeleteUserCredentialsOidc(DeleteUserCredentialsOidcRequest request, StreamObserver<DeleteUserCredentialsOidcResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_oidc", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsOidcResponse.Builder responseBuilder = DeleteUserCredentialsOidcResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
+  /**
+   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
   public void UserCredentialsApi3(UserCredentialsApi3Request request, StreamObserver<UserCredentialsApi3Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_api3/{credentials_api3_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsApi3Response.Builder responseBuilder = UserCredentialsApi3Response.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
+  /**
+   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
   public void DeleteUserCredentialsApi3(DeleteUserCredentialsApi3Request request, StreamObserver<DeleteUserCredentialsApi3Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_api3/{credentials_api3_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsApi3Response.Builder responseBuilder = DeleteUserCredentialsApi3Response.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
+  /**
+   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
   public void AllUserCredentialsApi3s(AllUserCredentialsApi3sRequest request, StreamObserver<AllUserCredentialsApi3sResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_api3", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUserCredentialsApi3sResponse.Builder responseBuilder = AllUserCredentialsApi3sResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
+  /**
+   * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
   public void CreateUserCredentialsApi3(CreateUserCredentialsApi3Request request, StreamObserver<CreateUserCredentialsApi3Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_api3", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateUserCredentialsApi3Response.Builder responseBuilder = CreateUserCredentialsApi3Response.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Embed login information for the specified user.
+  /**
+   * ### Embed login information for the specified user.
    */
   public void UserCredentialsEmbed(UserCredentialsEmbedRequest request, StreamObserver<UserCredentialsEmbedResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_embed/{credentials_embed_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsEmbedResponse.Builder responseBuilder = UserCredentialsEmbedResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Embed login information for the specified user.
+  /**
+   * ### Embed login information for the specified user.
    */
   public void DeleteUserCredentialsEmbed(DeleteUserCredentialsEmbedRequest request, StreamObserver<DeleteUserCredentialsEmbedResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_embed/{credentials_embed_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsEmbedResponse.Builder responseBuilder = DeleteUserCredentialsEmbedResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Embed login information for the specified user.
+  /**
+   * ### Embed login information for the specified user.
    */
   public void AllUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest request, StreamObserver<AllUserCredentialsEmbedsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_embed", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUserCredentialsEmbedsResponse.Builder responseBuilder = AllUserCredentialsEmbedsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Looker Openid login information for the specified user. Used by Looker Analysts.
+  /**
+   * ### Looker Openid login information for the specified user. Used by Looker Analysts.
    */
   public void UserCredentialsLookerOpenid(UserCredentialsLookerOpenidRequest request, StreamObserver<UserCredentialsLookerOpenidResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_looker_openid", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserCredentialsLookerOpenidResponse.Builder responseBuilder = UserCredentialsLookerOpenidResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Looker Openid login information for the specified user. Used by Looker Analysts.
+  /**
+   * ### Looker Openid login information for the specified user. Used by Looker Analysts.
    */
   public void DeleteUserCredentialsLookerOpenid(DeleteUserCredentialsLookerOpenidRequest request, StreamObserver<DeleteUserCredentialsLookerOpenidResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_looker_openid", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserCredentialsLookerOpenidResponse.Builder responseBuilder = DeleteUserCredentialsLookerOpenidResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Web login session for the specified user.
+  /**
+   * ### Web login session for the specified user.
    */
   public void UserSession(UserSessionRequest request, StreamObserver<UserSessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/sessions/{session_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserSessionResponse.Builder responseBuilder = UserSessionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Web login session for the specified user.
+  /**
+   * ### Web login session for the specified user.
    */
   public void DeleteUserSession(DeleteUserSessionRequest request, StreamObserver<DeleteUserSessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/sessions/{session_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserSessionResponse.Builder responseBuilder = DeleteUserSessionResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Web login session for the specified user.
+  /**
+   * ### Web login session for the specified user.
    */
   public void AllUserSessions(AllUserSessionsRequest request, StreamObserver<AllUserSessionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/sessions", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUserSessionsResponse.Builder responseBuilder = AllUserSessionsResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a password reset token.
+  /**
+   * ### Create a password reset token.
    * This will create a cryptographically secure random password reset token for the user.
    * If the user already has a password reset token then this invalidates the old token and creates a new one.
    * The token is expressed as the 'password_reset_url' of the user's email/password credential object.
@@ -6755,43 +11049,79 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateUserCredentialsEmailPasswordReset(CreateUserCredentialsEmailPasswordResetRequest request, StreamObserver<CreateUserCredentialsEmailPasswordResetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email/password_reset", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateUserCredentialsEmailPasswordResetResponse.Builder responseBuilder = CreateUserCredentialsEmailPasswordResetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about roles of a given user
+  /**
+   * ### Get information about roles of a given user
    * 
    */
   public void UserRoles(UserRolesRequest request, StreamObserver<UserRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/roles", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserRolesResponse.Builder responseBuilder = UserRolesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Set roles of the user with a specific id.
+  /**
+   * ### Set roles of the user with a specific id.
    * 
    */
   public void SetUserRoles(SetUserRolesRequest request, StreamObserver<SetUserRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.put("/users/{user_id}/roles", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetUserRolesResponse.Builder responseBuilder = SetUserRolesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get user attribute values for a given user.
+  /**
+   * ### Get user attribute values for a given user.
    * 
    * Returns the values of specified user attributes (or all user attributes) for a certain user.
    * 
@@ -6812,15 +11142,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void UserAttributeUserValues(UserAttributeUserValuesRequest request, StreamObserver<UserAttributeUserValuesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/attribute_values", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserAttributeUserValuesResponse.Builder responseBuilder = UserAttributeUserValuesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Store a custom value for a user attribute in a user's account settings.
+  /**
+   * ### Store a custom value for a user attribute in a user's account settings.
    * 
    * Per-user user attribute values take precedence over group or default values.
    * 
@@ -6828,15 +11170,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SetUserAttributeUserValue(SetUserAttributeUserValueRequest request, StreamObserver<SetUserAttributeUserValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}/attribute_values/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetUserAttributeUserValueResponse.Builder responseBuilder = SetUserAttributeUserValueResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a user attribute value from a user's account settings.
+  /**
+   * ### Delete a user attribute value from a user's account settings.
    * 
    * After the user attribute value is deleted from the user's account settings, subsequent requests
    * for the user attribute value for this user will draw from the user's groups or the default
@@ -6847,15 +11201,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void DeleteUserAttributeUserValue(DeleteUserAttributeUserValueRequest request, StreamObserver<DeleteUserAttributeUserValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/attribute_values/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserAttributeUserValueResponse.Builder responseBuilder = DeleteUserAttributeUserValueResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Send a password reset token.
+  /**
+   * ### Send a password reset token.
    * This will send a password reset email to the user. If a password reset token does not already exist
    * for this user, it will create one and then send it.
    * If the user has not yet set up their account, it will send a setup email to the user.
@@ -6867,8 +11233,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SendUserCredentialsEmailPasswordReset(SendUserCredentialsEmailPasswordResetRequest request, StreamObserver<SendUserCredentialsEmailPasswordResetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email/send_password_reset", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SendUserCredentialsEmailPasswordResetResponse.Builder responseBuilder = SendUserCredentialsEmailPasswordResetResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -6879,21 +11256,34 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region UserAttribute: Manage User Attributes
 
-  /**   * ### Get information about all user attributes.
+  /**
+   * ### Get information about all user attributes.
    * 
    */
   public void AllUserAttributes(AllUserAttributesRequest request, StreamObserver<AllUserAttributesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/user_attributes", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUserAttributesResponse.Builder responseBuilder = AllUserAttributesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Create a new user attribute
+  /**
+   * ### Create a new user attribute
    * 
    * Permission information for a user attribute is conveyed through the `can` and `user_can_edit` fields.
    * The `user_can_edit` field indicates whether an attribute is user-editable _anywhere_ in the application.
@@ -6908,57 +11298,105 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void CreateUserAttribute(CreateUserAttributeRequest request, StreamObserver<CreateUserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/user_attributes", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        CreateUserAttributeResponse.Builder responseBuilder = CreateUserAttributeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get information about a user attribute.
+  /**
+   * ### Get information about a user attribute.
    * 
    */
   public void UserAttribute(UserAttributeRequest request, StreamObserver<UserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/user_attributes/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UserAttributeResponse.Builder responseBuilder = UserAttributeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Update a user attribute definition.
+  /**
+   * ### Update a user attribute definition.
    * 
    */
   public void UpdateUserAttribute(UpdateUserAttributeRequest request, StreamObserver<UpdateUserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.patch("/user_attributes/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        UpdateUserAttributeResponse.Builder responseBuilder = UpdateUserAttributeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Delete a user attribute (admin only).
+  /**
+   * ### Delete a user attribute (admin only).
    * 
    */
   public void DeleteUserAttribute(DeleteUserAttributeRequest request, StreamObserver<DeleteUserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.delete("/user_attributes/{user_attribute_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        DeleteUserAttributeResponse.Builder responseBuilder = DeleteUserAttributeResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Returns all values of a user attribute defined by user groups, in precedence order.
+  /**
+   * ### Returns all values of a user attribute defined by user groups, in precedence order.
    * 
    * A user may be a member of multiple groups which define different values for a given user attribute.
    * The order of group-values in the response determines precedence for selecting which group-value applies
@@ -6970,15 +11408,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllUserAttributeGroupValues(AllUserAttributeGroupValuesRequest request, StreamObserver<AllUserAttributeGroupValuesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/user_attributes/{user_attribute_id}/group_values", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllUserAttributeGroupValuesResponse.Builder responseBuilder = AllUserAttributeGroupValuesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Define values for a user attribute across a set of groups, in priority order.
+  /**
+   * ### Define values for a user attribute across a set of groups, in priority order.
    * 
    * This function defines all values for a user attribute defined by user groups. This is a global setting, potentially affecting
    * all users in the system. This function replaces any existing group value definitions for the indicated user attribute.
@@ -7003,8 +11453,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void SetUserAttributeGroupValues(SetUserAttributeGroupValuesRequest request, StreamObserver<SetUserAttributeGroupValuesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.post("/user_attributes/{user_attribute_id}/group_values", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        SetUserAttributeGroupValuesResponse.Builder responseBuilder = SetUserAttributeGroupValuesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -7015,7 +11476,8 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
   //#region Workspace: Manage Workspaces
 
-  /**   * ### Get All Workspaces
+  /**
+   * ### Get All Workspaces
    * 
    * Returns all workspaces available to the calling user.
    * 
@@ -7023,15 +11485,27 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void AllWorkspaces(AllWorkspacesRequest request, StreamObserver<AllWorkspacesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/workspaces", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        AllWorkspacesResponse.Builder responseBuilder = AllWorkspacesResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
     
 
-  /**   * ### Get A Workspace
+  /**
+   * ### Get A Workspace
    * 
    * Returns information about a workspace such as the git status and selected branches
    * of all projects available to the caller's user account.
@@ -7065,8 +11539,19 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
   public void Workspace(WorkspaceRequest request, StreamObserver<WorkspaceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.get("/workspaces/{workspace_id}", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        WorkspaceResponse.Builder responseBuilder = WorkspaceResponse.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }

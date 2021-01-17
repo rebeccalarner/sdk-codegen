@@ -99,8 +99,21 @@ export class GrpcProxyGen extends CodeGen {
   public void ${methodName}(${methodName}Request request, StreamObserver<${methodName}Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
+      _method.endpoint
+    }", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ${methodName}Response.Builder responseBuilder = ${methodName}Response.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -114,8 +127,21 @@ export class GrpcProxyGen extends CodeGen {
   public void ${methodName}(${methodName}Request request, StreamObserver<${methodName}Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
-      System.out.println(inputJson);
-      responseObserver.onCompleted();
+      LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
+      _method.endpoint
+    }", inputJson);
+      Status lookerStatus = lookerResponse.getStatus();
+      if (lookerStatus != null) {
+        responseObserver.onError(lookerStatus.asRuntimeException());
+      } else {
+        ${methodName}Response.Builder responseBuilder = ${methodName}Response.newBuilder();
+        JsonFormat
+            .parser()
+            .ignoringUnknownFields()
+            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        responseObserver.onNext(responseBuilder.build());
+        responseObserver.onCompleted();
+      }
     } catch (InvalidProtocolBufferException e) {
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
@@ -191,12 +217,21 @@ package com.google.looker.server.sdk;
 
 import com.google.looker.proto.services.*;
 import com.google.looker.proto.services.${serviceName}Grpc.${serviceName}ImplBase;
+import com.google.looker.server.rtl.LookerClient;
+import com.google.looker.server.rtl.LookerClientResponse;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
 
 public class ${serviceName}Impl extends ${serviceName}ImplBase {
+
+  private LookerClient lookerClient;
+
+  public ${serviceName}Impl() {
+    lookerClient = new LookerClient();
+  }
+
     `
   }
 
@@ -205,7 +240,7 @@ public class ${serviceName}Impl extends ${serviceName}ImplBase {
       return ''
     } else {
       const lines = comments.split('\n').map((part) => `   * ${part}\n`)
-      lines.unshift('  /**')
+      lines.unshift('  /**\n')
       lines.push('   */')
       return lines.join('')
     }
