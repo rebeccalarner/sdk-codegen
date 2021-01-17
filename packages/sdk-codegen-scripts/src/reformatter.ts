@@ -325,6 +325,18 @@ class ProtoFormatter extends BaseFormatter {
   }
 }
 
+class GrpcProxyFormatter extends BaseFormatter {
+  constructor() {
+    super('Grpc')
+  }
+
+  versionStamp() {
+    return warn(
+      'Skipping SDK version updating - not implemented for Grpc proxy.'
+    )
+  }
+}
+
 type IFormatFiles = { [key: string]: string[] }
 
 type IFormatters = { [key: string]: IReformat }
@@ -337,6 +349,7 @@ const fileFormatters: IFormatters = {
   '.ts': new TypescriptFormatter(),
   '.go': new GoFormatter(),
   '.proto': new ProtoFormatter(),
+  '.java': new GrpcProxyFormatter(),
 }
 
 export class FilesFormatter {

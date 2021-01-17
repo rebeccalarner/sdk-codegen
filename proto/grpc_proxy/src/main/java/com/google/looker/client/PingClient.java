@@ -1,7 +1,7 @@
 package com.google.looker.client;
 
-import com.google.looker.server.rtl.ping.PingRequest;
-import com.google.looker.server.rtl.ping.PingServiceGrpc;
+import com.google.looker.server.rtl.PingRequest;
+import com.google.looker.server.rtl.PingServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
 import io.grpc.netty.shaded.io.grpc.netty.NettyChannelBuilder;

@@ -1,6 +1,8 @@
 package com.google.looker.server;
 
 import com.google.looker.server.rtl.ping.PingServiceImpl;
+import com.google.looker.server.sdk.LookerServiceImpl;
+import com.google.looker.server.sdk.LookerStreamingServiceImpl;
 import io.grpc.ServerBuilder;
 
 import java.io.File;
@@ -15,6 +17,8 @@ public class Server {
     io.grpc.Server server = ServerBuilder
         .forPort(50051)
         .addService(new PingServiceImpl())
+        .addService(new LookerServiceImpl())
+        .addService(new LookerStreamingServiceImpl())
         .useTransportSecurity(
             new File("ssl/server.crt"),
             new File("ssl/server.pem")

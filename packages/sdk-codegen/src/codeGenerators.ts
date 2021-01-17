@@ -33,6 +33,7 @@ import { PythonGen } from './python.gen'
 import { TypescriptGen } from './typescript.gen'
 import { GoGen } from './go.gen'
 import { ProtoGen } from './proto.gen'
+import { GrpcProxyGen } from './grpc_proxy.gen'
 
 export interface IGeneratorSpec {
   /** source code file extension regex */
@@ -99,6 +100,12 @@ export const Generators: Array<IGeneratorSpec> = [
       new ProtoGen(api, versions),
     language: 'Protobuf',
     extension: /\.proto/gi,
+  },
+  {
+    factory: (api: ApiModel, versions?: IVersionInfo) =>
+      new GrpcProxyGen(api, versions),
+    language: 'GrpcProxy',
+    extension: /\.java/gi,
   },
   // {
   //   language: 'php',
