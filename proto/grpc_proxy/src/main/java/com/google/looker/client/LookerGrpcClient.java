@@ -14,6 +14,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LookerGrpcClient {
+
+  static {
+    Dotenv dotenv = Dotenv.load();
+    dotenv.entries().forEach(e -> System.setProperty(e.getKey(), e.getValue()));
+  }
+
   private static final Logger LOGGER = LoggerFactory.getLogger(LookerGrpcClient.class);
 
   private SSLException initFailure;
@@ -58,10 +64,5 @@ public class LookerGrpcClient {
       lookerServiceBlockingStub = LookerServiceGrpc.newBlockingStub(channel);
     }
     return lookerServiceBlockingStub;
-  }
-
-  static {
-    Dotenv dotenv = Dotenv.load();
-    dotenv.entries().forEach(e -> System.setProperty(e.getKey(), e.getValue()));
   }
 }

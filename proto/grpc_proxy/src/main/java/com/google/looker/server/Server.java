@@ -15,6 +15,11 @@ import org.slf4j.LoggerFactory;
 
 public class Server {
 
+  static {
+    Dotenv dotenv = Dotenv.load();
+    dotenv.entries().forEach(e -> System.setProperty(e.getKey(), e.getValue()));
+  }
+
   private static final Logger LOGGER = LoggerFactory.getLogger(Server.class);
 
   public void run() throws IOException, InterruptedException {
@@ -46,10 +51,5 @@ public class Server {
     } catch (Exception e) {
       e.printStackTrace();
     }
-  }
-
-  static {
-    Dotenv dotenv = Dotenv.load();
-    dotenv.entries().forEach(e -> System.setProperty(e.getKey(), e.getValue()));
   }
 }
