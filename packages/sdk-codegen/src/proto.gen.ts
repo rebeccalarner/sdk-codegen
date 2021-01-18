@@ -170,7 +170,7 @@ syntax = "proto3";
 
 package looker;
 
-option java_package = "com.google.looker.proto.services";
+option java_package = "com.google.looker.grpc.services";
 option java_multiple_files = true;
 
 import "google/protobuf/any.proto";
@@ -228,7 +228,7 @@ syntax = "proto3";
 
 package looker;    
 
-option java_package = "com.google.looker.proto.services";
+option java_package = "com.google.looker.grpc.services";
 option java_multiple_files = true;
 
 import 'sdk/models.proto';

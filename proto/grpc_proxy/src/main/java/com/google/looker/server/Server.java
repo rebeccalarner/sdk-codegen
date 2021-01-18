@@ -20,7 +20,7 @@ public class Server {
   public void run() throws IOException, InterruptedException {
     System.out.println("Server starting up");
     io.grpc.Server server = ServerBuilder
-        .forPort(NumberUtils.toInt(System.getProperty(Constants.SERVER_LISTEN_PORT)))
+        .forPort(NumberUtils.toInt(System.getProperty(Constants.GRPC_SERVER_LISTEN_PORT)))
         .addService(new PingServiceImpl())
         .addService(new LookerServiceImpl())
         .addService(new LookerStreamingServiceImpl())

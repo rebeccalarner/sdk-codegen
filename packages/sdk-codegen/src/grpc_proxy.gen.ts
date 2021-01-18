@@ -215,8 +215,8 @@ public class LookerModels {
     return `
 package com.google.looker.server.sdk;
 
-import com.google.looker.proto.services.*;
-import com.google.looker.proto.services.${serviceName}Grpc.${serviceName}ImplBase;
+import com.google.looker.grpc.services.*;
+import com.google.looker.grpc.services.${serviceName}Grpc.${serviceName}ImplBase;
 import com.google.looker.server.rtl.LookerClient;
 import com.google.looker.server.rtl.LookerClientResponse;
 import com.google.protobuf.InvalidProtocolBufferException;

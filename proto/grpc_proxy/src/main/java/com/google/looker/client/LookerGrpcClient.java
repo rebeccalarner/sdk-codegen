@@ -1,7 +1,8 @@
 package com.google.looker.client;
 
 import com.google.looker.common.Constants;
-import com.google.looker.server.rtl.PingServiceGrpc;
+import com.google.looker.grpc.services.LookerServiceGrpc;
+import com.google.looker.grpc.services.PingServiceGrpc;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.grpc.ManagedChannel;
 import io.grpc.netty.shaded.io.grpc.netty.GrpcSslContexts;
@@ -17,14 +18,15 @@ public class LookerGrpcClient {
 
   private SSLException initFailure;
   private ManagedChannel channel;
-  PingServiceGrpc.PingServiceBlockingStub client;
+  private PingServiceGrpc.PingServiceBlockingStub pingBlockingStub;
+  private LookerServiceGrpc.LookerServiceBlockingStub lookerServiceBlockingStub;
 
   public LookerGrpcClient() {
     try {
       channel = NettyChannelBuilder
           .forAddress(
-              System.getProperty(Constants.SERVER_HOST),
-              NumberUtils.toInt(System.getProperty(Constants.SERVER_LISTEN_PORT))
+              System.getProperty(Constants.GRPC_SERVER_HOST),
+              NumberUtils.toInt(System.getProperty(Constants.GRPC_SERVER_LISTEN_PORT))
           )
           .sslContext(
               GrpcSslContexts
@@ -32,18 +34,30 @@ public class LookerGrpcClient {
                   .trustManager(new File(System.getProperty(Constants.TRUST_MANAGER_FILE))
                   ).build())
           .build();
-      client = PingServiceGrpc.newBlockingStub(channel);
     } catch (SSLException e) {
       LOGGER.error("initialization failure");
       initFailure = e;
     }
   }
 
-  public PingServiceGrpc.PingServiceBlockingStub getBlockingClient() throws SSLException {
+  public PingServiceGrpc.PingServiceBlockingStub getPingBlockingStub() throws SSLException {
     if (initFailure != null) {
       throw  initFailure;
     }
-    return client;
+    if (pingBlockingStub == null) {
+      pingBlockingStub = PingServiceGrpc.newBlockingStub(channel);
+    }
+    return pingBlockingStub;
+  }
+
+  public LookerServiceGrpc.LookerServiceBlockingStub getLookerServiceBlockingStub() throws SSLException {
+    if (initFailure != null) {
+      throw  initFailure;
+    }
+    if (lookerServiceBlockingStub == null) {
+      lookerServiceBlockingStub = LookerServiceGrpc.newBlockingStub(channel);
+    }
+    return lookerServiceBlockingStub;
   }
 
   static {

@@ -25,8 +25,8 @@
 
 package com.google.looker.server.sdk;
 
-import com.google.looker.proto.services.*;
-import com.google.looker.proto.services.LookerServiceGrpc.LookerServiceImplBase;
+import com.google.looker.grpc.services.*;
+import com.google.looker.grpc.services.LookerServiceGrpc.LookerServiceImplBase;
 import com.google.looker.server.rtl.LookerClient;
 import com.google.looker.server.rtl.LookerClientResponse;
 import com.google.protobuf.InvalidProtocolBufferException;

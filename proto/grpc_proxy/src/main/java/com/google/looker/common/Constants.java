@@ -6,8 +6,11 @@ import io.grpc.Context;
 import io.grpc.Metadata;
 
 public class Constants {
-  public static final String SERVER_HOST = "SERVER_HOST";
-  public static final String SERVER_LISTEN_PORT = "SERVER_LISTEN_PORT";
+  public static final String GRPC_SERVER_HOST = "GRPC_SERVER_HOST";
+  public static final String GRPC_SERVER_LISTEN_PORT = "GRPC_SERVER_LISTEN_PORT";
+  public static final String LOOKER_CLIENT_ID = "LOOKER_CLIENT_ID";
+  public static final String LOOKER_CLIENT_SECRET = "LOOKER_CLIENT_SECRET";
+  public static final String LOOKER_BASE_URL = "LOOKER_BASE_URL";
   public static final String CERT_CHAIN_FILE = "CERT_CHAIN_FILE";
   public static final String PRIVATE_KEY_FILE = "PRIVATE_KEY_FILE";
   public static final String TRUST_MANAGER_FILE = "TRUST_MANAGER_FILE";
