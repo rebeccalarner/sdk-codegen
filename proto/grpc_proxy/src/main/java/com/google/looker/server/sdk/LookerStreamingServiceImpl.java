@@ -36,7 +36,7 @@ import io.grpc.stub.StreamObserver;
 
 public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
 
-  private LookerClient lookerClient;
+  final private LookerClient lookerClient;
 
   public LookerStreamingServiceImpl() {
     lookerClient = new LookerClient();

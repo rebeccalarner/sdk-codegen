@@ -237,7 +237,7 @@ import io.grpc.stub.StreamObserver;
 
 public class ${serviceName}Impl extends ${serviceName}ImplBase {
 
-  private LookerClient lookerClient;
+  final private LookerClient lookerClient;
 
   public ${serviceName}Impl() {
     lookerClient = new LookerClient();
