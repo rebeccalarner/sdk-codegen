@@ -25,7 +25,14 @@
  */
 
 import { CodeGen } from './codeGen'
-import { IMethod, IParameter, IProperty, IType, titleCase } from './sdkModels'
+import {
+  IMethod,
+  IParameter,
+  IProperty,
+  IType,
+  titleCase,
+  camelCase,
+} from './sdkModels'
 
 // eslint-disable @typescript-eslint/no-unused-vars
 
@@ -94,9 +101,11 @@ export class GrpcProxyGen extends CodeGen {
   }
 
   declareMethod(_indent: string, _method: IMethod): string {
-    const methodName = titleCase(_method.operationId)
+    const titleMethodName = titleCase(_method.operationId)
+    const camelMethodName = camelCase(_method.operationId)
     return `${this.formatJavaDoc(_method.description)}
-  public void ${methodName}(${methodName}Request request, StreamObserver<${methodName}Response> responseObserver) {
+  @Override
+  public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
@@ -106,7 +115,7 @@ export class GrpcProxyGen extends CodeGen {
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
-        ${methodName}Response.Builder responseBuilder = ${methodName}Response.newBuilder();
+        ${titleMethodName}Response.Builder responseBuilder = ${titleMethodName}Response.newBuilder();
         JsonFormat
             .parser()
             .ignoringUnknownFields()
@@ -122,9 +131,11 @@ export class GrpcProxyGen extends CodeGen {
   }
 
   declareStreamer(_indent: string, _method: IMethod): string {
-    const methodName = titleCase(_method.operationId)
+    const titleMethodName = titleCase(_method.operationId)
+    const camelMethodName = camelCase(_method.operationId)
     return `${this.formatJavaDoc(_method.description)}
-  public void ${methodName}(${methodName}Request request, StreamObserver<${methodName}Response> responseObserver) {
+    @Override
+    public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
@@ -134,7 +145,7 @@ export class GrpcProxyGen extends CodeGen {
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
-        ${methodName}Response.Builder responseBuilder = ${methodName}Response.newBuilder();
+        ${titleMethodName}Response.Builder responseBuilder = ${titleMethodName}Response.newBuilder();
         JsonFormat
             .parser()
             .ignoringUnknownFields()

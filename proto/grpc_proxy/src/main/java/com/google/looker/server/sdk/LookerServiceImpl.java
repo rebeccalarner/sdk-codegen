@@ -76,7 +76,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * For more information and detailed examples of Looker API authorization, see [How to Authenticate to Looker API3](https://github.com/looker/looker-sdk-ruby/blob/master/authentication.md).
    * 
    */
-  public void Login(LoginRequest request, StreamObserver<LoginResponse> responseObserver) {
+  @Override
+  public void login(LoginRequest request, StreamObserver<LoginResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/login", inputJson);
@@ -117,7 +118,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * See 'login' for more detail on the access token and how to use it.
    * 
    */
-  public void LoginUser(LoginUserRequest request, StreamObserver<LoginUserResponse> responseObserver) {
+  @Override
+  public void loginUser(LoginUserRequest request, StreamObserver<LoginUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/login/{user_id}", inputJson);
@@ -143,7 +145,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Logout of the API and invalidate the current access token.
    * 
    */
-  public void Logout(LogoutRequest request, StreamObserver<LogoutResponse> responseObserver) {
+  @Override
+  public void logout(LogoutRequest request, StreamObserver<LogoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/logout", inputJson);
@@ -206,7 +209,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * encrypted transport.
    * 
    */
-  public void CreateSsoEmbedUrl(CreateSsoEmbedUrlRequest request, StreamObserver<CreateSsoEmbedUrlResponse> responseObserver) {
+  @Override
+  public void createSsoEmbedUrl(CreateSsoEmbedUrlRequest request, StreamObserver<CreateSsoEmbedUrlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/embed/sso_url", inputJson);
@@ -256,7 +260,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * encrypted transport.
    * 
    */
-  public void CreateEmbedUrlAsMe(CreateEmbedUrlAsMeRequest request, StreamObserver<CreateEmbedUrlAsMeResponse> responseObserver) {
+  @Override
+  public void createEmbedUrlAsMe(CreateEmbedUrlAsMeRequest request, StreamObserver<CreateEmbedUrlAsMeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/embed/token_url/me", inputJson);
@@ -297,7 +302,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * See the [Looker LDAP docs](https://www.looker.com/docs/r/api/ldap_setup) for additional information.
    * 
    */
-  public void LdapConfig(LdapConfigRequest request, StreamObserver<LdapConfigResponse> responseObserver) {
+  @Override
+  public void ldapConfig(LdapConfigRequest request, StreamObserver<LdapConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ldap_config", inputJson);
@@ -333,7 +339,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * See the [Looker LDAP docs](https://www.looker.com/docs/r/api/ldap_setup) for additional information.
    * 
    */
-  public void UpdateLdapConfig(UpdateLdapConfigRequest request, StreamObserver<UpdateLdapConfigResponse> responseObserver) {
+  @Override
+  public void updateLdapConfig(UpdateLdapConfigRequest request, StreamObserver<UpdateLdapConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/ldap_config", inputJson);
@@ -376,7 +383,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * The active LDAP settings are not modified.
    * 
    */
-  public void TestLdapConfigConnection(TestLdapConfigConnectionRequest request, StreamObserver<TestLdapConfigConnectionResponse> responseObserver) {
+  @Override
+  public void testLdapConfigConnection(TestLdapConfigConnectionRequest request, StreamObserver<TestLdapConfigConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_connection", inputJson);
@@ -422,7 +430,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void TestLdapConfigAuth(TestLdapConfigAuthRequest request, StreamObserver<TestLdapConfigAuthResponse> responseObserver) {
+  @Override
+  public void testLdapConfigAuth(TestLdapConfigAuthRequest request, StreamObserver<TestLdapConfigAuthResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_auth", inputJson);
@@ -457,7 +466,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void TestLdapConfigUserInfo(TestLdapConfigUserInfoRequest request, StreamObserver<TestLdapConfigUserInfoResponse> responseObserver) {
+  @Override
+  public void testLdapConfigUserInfo(TestLdapConfigUserInfoRequest request, StreamObserver<TestLdapConfigUserInfoResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_user_info", inputJson);
@@ -492,7 +502,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void TestLdapConfigUserAuth(TestLdapConfigUserAuthRequest request, StreamObserver<TestLdapConfigUserAuthResponse> responseObserver) {
+  @Override
+  public void testLdapConfigUserAuth(TestLdapConfigUserAuthRequest request, StreamObserver<TestLdapConfigUserAuthResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_user_auth", inputJson);
@@ -524,7 +535,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * has permission to see.
    * 
    */
-  public void AllOauthClientApps(AllOauthClientAppsRequest request, StreamObserver<AllOauthClientAppsResponse> responseObserver) {
+  @Override
+  public void allOauthClientApps(AllOauthClientAppsRequest request, StreamObserver<AllOauthClientAppsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oauth_client_apps", inputJson);
@@ -552,7 +564,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns the registered app client with matching client_guid.
    * 
    */
-  public void OauthClientApp(OauthClientAppRequest request, StreamObserver<OauthClientAppResponse> responseObserver) {
+  @Override
+  public void oauthClientApp(OauthClientAppRequest request, StreamObserver<OauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oauth_client_apps/{client_guid}", inputJson);
@@ -583,7 +596,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * the app details registered with the Looker instance, the request is assumed to be a forgery and is rejected.
    * 
    */
-  public void RegisterOauthClientApp(RegisterOauthClientAppRequest request, StreamObserver<RegisterOauthClientAppResponse> responseObserver) {
+  @Override
+  public void registerOauthClientApp(RegisterOauthClientAppRequest request, StreamObserver<RegisterOauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/oauth_client_apps/{client_guid}", inputJson);
@@ -611,7 +625,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Modifies the details a previously registered OAuth2 login client app.
    * 
    */
-  public void UpdateOauthClientApp(UpdateOauthClientAppRequest request, StreamObserver<UpdateOauthClientAppResponse> responseObserver) {
+  @Override
+  public void updateOauthClientApp(UpdateOauthClientAppRequest request, StreamObserver<UpdateOauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/oauth_client_apps/{client_guid}", inputJson);
@@ -642,7 +657,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Note: this deletion cannot be undone.
    * 
    */
-  public void DeleteOauthClientApp(DeleteOauthClientAppRequest request, StreamObserver<DeleteOauthClientAppResponse> responseObserver) {
+  @Override
+  public void deleteOauthClientApp(DeleteOauthClientAppRequest request, StreamObserver<DeleteOauthClientAppResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}", inputJson);
@@ -671,7 +687,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * this app for ALL USERS of this app.
    * 
    */
-  public void InvalidateTokens(InvalidateTokensRequest request, StreamObserver<InvalidateTokensResponse> responseObserver) {
+  @Override
+  public void invalidateTokens(InvalidateTokensRequest request, StreamObserver<InvalidateTokensResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}/tokens", inputJson);
@@ -703,7 +720,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Activating a user for an app that the user is already activated with returns a success response.
    * 
    */
-  public void ActivateAppUser(ActivateAppUserRequest request, StreamObserver<ActivateAppUserResponse> responseObserver) {
+  @Override
+  public void activateAppUser(ActivateAppUserRequest request, StreamObserver<ActivateAppUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/oauth_client_apps/{client_guid}/users/{user_id}", inputJson);
@@ -738,7 +756,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * resource (app or user) does not exist or has already been deactivated.
    * 
    */
-  public void DeactivateAppUser(DeactivateAppUserRequest request, StreamObserver<DeactivateAppUserResponse> responseObserver) {
+  @Override
+  public void deactivateAppUser(DeactivateAppUserRequest request, StreamObserver<DeactivateAppUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}/users/{user_id}", inputJson);
@@ -775,7 +794,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * OIDC is enabled or disabled for Looker using the **enabled** field.
    * 
    */
-  public void OidcConfig(OidcConfigRequest request, StreamObserver<OidcConfigResponse> responseObserver) {
+  @Override
+  public void oidcConfig(OidcConfigRequest request, StreamObserver<OidcConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oidc_config", inputJson);
@@ -809,7 +829,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * It is **highly** recommended that any OIDC setting changes be tested using the APIs below before being set globally.
    * 
    */
-  public void UpdateOidcConfig(UpdateOidcConfigRequest request, StreamObserver<UpdateOidcConfigResponse> responseObserver) {
+  @Override
+  public void updateOidcConfig(UpdateOidcConfigRequest request, StreamObserver<UpdateOidcConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/oidc_config", inputJson);
@@ -835,7 +856,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get a OIDC test configuration by test_slug.
    * 
    */
-  public void OidcTestConfig(OidcTestConfigRequest request, StreamObserver<OidcTestConfigResponse> responseObserver) {
+  @Override
+  public void oidcTestConfig(OidcTestConfigRequest request, StreamObserver<OidcTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oidc_test_configs/{test_slug}", inputJson);
@@ -861,7 +883,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a OIDC test configuration.
    * 
    */
-  public void DeleteOidcTestConfig(DeleteOidcTestConfigRequest request, StreamObserver<DeleteOidcTestConfigResponse> responseObserver) {
+  @Override
+  public void deleteOidcTestConfig(DeleteOidcTestConfigRequest request, StreamObserver<DeleteOidcTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oidc_test_configs/{test_slug}", inputJson);
@@ -887,7 +910,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a OIDC test configuration.
    * 
    */
-  public void CreateOidcTestConfig(CreateOidcTestConfigRequest request, StreamObserver<CreateOidcTestConfigResponse> responseObserver) {
+  @Override
+  public void createOidcTestConfig(CreateOidcTestConfigRequest request, StreamObserver<CreateOidcTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/oidc_test_configs", inputJson);
@@ -913,7 +937,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get password config.
    * 
    */
-  public void PasswordConfig(PasswordConfigRequest request, StreamObserver<PasswordConfigResponse> responseObserver) {
+  @Override
+  public void passwordConfig(PasswordConfigRequest request, StreamObserver<PasswordConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/password_config", inputJson);
@@ -939,7 +964,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update password config.
    * 
    */
-  public void UpdatePasswordConfig(UpdatePasswordConfigRequest request, StreamObserver<UpdatePasswordConfigResponse> responseObserver) {
+  @Override
+  public void updatePasswordConfig(UpdatePasswordConfigRequest request, StreamObserver<UpdatePasswordConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/password_config", inputJson);
@@ -965,7 +991,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Force all credentials_email users to reset their login passwords upon their next login.
    * 
    */
-  public void ForcePasswordResetAtNextLoginForAllUsers(ForcePasswordResetAtNextLoginForAllUsersRequest request, StreamObserver<ForcePasswordResetAtNextLoginForAllUsersResponse> responseObserver) {
+  @Override
+  public void forcePasswordResetAtNextLoginForAllUsers(ForcePasswordResetAtNextLoginForAllUsersRequest request, StreamObserver<ForcePasswordResetAtNextLoginForAllUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/password_config/force_password_reset_at_next_login_for_all_users", inputJson);
@@ -1002,7 +1029,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * SAML is enabled or disabled for Looker using the **enabled** field.
    * 
    */
-  public void SamlConfig(SamlConfigRequest request, StreamObserver<SamlConfigResponse> responseObserver) {
+  @Override
+  public void samlConfig(SamlConfigRequest request, StreamObserver<SamlConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/saml_config", inputJson);
@@ -1036,7 +1064,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * It is **highly** recommended that any SAML setting changes be tested using the APIs below before being set globally.
    * 
    */
-  public void UpdateSamlConfig(UpdateSamlConfigRequest request, StreamObserver<UpdateSamlConfigResponse> responseObserver) {
+  @Override
+  public void updateSamlConfig(UpdateSamlConfigRequest request, StreamObserver<UpdateSamlConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/saml_config", inputJson);
@@ -1062,7 +1091,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get a SAML test configuration by test_slug.
    * 
    */
-  public void SamlTestConfig(SamlTestConfigRequest request, StreamObserver<SamlTestConfigResponse> responseObserver) {
+  @Override
+  public void samlTestConfig(SamlTestConfigRequest request, StreamObserver<SamlTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/saml_test_configs/{test_slug}", inputJson);
@@ -1088,7 +1118,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a SAML test configuration.
    * 
    */
-  public void DeleteSamlTestConfig(DeleteSamlTestConfigRequest request, StreamObserver<DeleteSamlTestConfigResponse> responseObserver) {
+  @Override
+  public void deleteSamlTestConfig(DeleteSamlTestConfigRequest request, StreamObserver<DeleteSamlTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/saml_test_configs/{test_slug}", inputJson);
@@ -1114,7 +1145,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a SAML test configuration.
    * 
    */
-  public void CreateSamlTestConfig(CreateSamlTestConfigRequest request, StreamObserver<CreateSamlTestConfigResponse> responseObserver) {
+  @Override
+  public void createSamlTestConfig(CreateSamlTestConfigRequest request, StreamObserver<CreateSamlTestConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/saml_test_configs", inputJson);
@@ -1140,7 +1172,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Parse the given xml as a SAML IdP metadata document and return the result.
    * 
    */
-  public void ParseSamlIdpMetadata(ParseSamlIdpMetadataRequest request, StreamObserver<ParseSamlIdpMetadataResponse> responseObserver) {
+  @Override
+  public void parseSamlIdpMetadata(ParseSamlIdpMetadataRequest request, StreamObserver<ParseSamlIdpMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/parse_saml_idp_metadata", inputJson);
@@ -1168,7 +1201,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * can fetch it without requiring any special authentication.
    * 
    */
-  public void FetchAndParseSamlIdpMetadata(FetchAndParseSamlIdpMetadataRequest request, StreamObserver<FetchAndParseSamlIdpMetadataResponse> responseObserver) {
+  @Override
+  public void fetchAndParseSamlIdpMetadata(FetchAndParseSamlIdpMetadataRequest request, StreamObserver<FetchAndParseSamlIdpMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/fetch_and_parse_saml_idp_metadata", inputJson);
@@ -1194,7 +1228,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get session config.
    * 
    */
-  public void SessionConfig(SessionConfigRequest request, StreamObserver<SessionConfigResponse> responseObserver) {
+  @Override
+  public void sessionConfig(SessionConfigRequest request, StreamObserver<SessionConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/session_config", inputJson);
@@ -1220,7 +1255,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update session config.
    * 
    */
-  public void UpdateSessionConfig(UpdateSessionConfigRequest request, StreamObserver<UpdateSessionConfigResponse> responseObserver) {
+  @Override
+  public void updateSessionConfig(UpdateSessionConfigRequest request, StreamObserver<UpdateSessionConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/session_config", inputJson);
@@ -1246,7 +1282,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get currently locked-out users.
    * 
    */
-  public void AllUserLoginLockouts(AllUserLoginLockoutsRequest request, StreamObserver<AllUserLoginLockoutsResponse> responseObserver) {
+  @Override
+  public void allUserLoginLockouts(AllUserLoginLockoutsRequest request, StreamObserver<AllUserLoginLockoutsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_login_lockouts", inputJson);
@@ -1272,7 +1309,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Search currently locked-out users.
    * 
    */
-  public void SearchUserLoginLockouts(SearchUserLoginLockoutsRequest request, StreamObserver<SearchUserLoginLockoutsResponse> responseObserver) {
+  @Override
+  public void searchUserLoginLockouts(SearchUserLoginLockoutsRequest request, StreamObserver<SearchUserLoginLockoutsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_login_lockouts/search", inputJson);
@@ -1298,7 +1336,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Removes login lockout for the associated user.
    * 
    */
-  public void DeleteUserLoginLockout(DeleteUserLoginLockoutRequest request, StreamObserver<DeleteUserLoginLockoutResponse> responseObserver) {
+  @Override
+  public void deleteUserLoginLockout(DeleteUserLoginLockoutRequest request, StreamObserver<DeleteUserLoginLockoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/user_login_lockout/{key}", inputJson);
@@ -1328,7 +1367,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all boards.
    * 
    */
-  public void AllBoards(AllBoardsRequest request, StreamObserver<AllBoardsResponse> responseObserver) {
+  @Override
+  public void allBoards(AllBoardsRequest request, StreamObserver<AllBoardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/boards", inputJson);
@@ -1354,7 +1394,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a new board.
    * 
    */
-  public void CreateBoard(CreateBoardRequest request, StreamObserver<CreateBoardResponse> responseObserver) {
+  @Override
+  public void createBoard(CreateBoardRequest request, StreamObserver<CreateBoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/boards", inputJson);
@@ -1402,7 +1443,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchBoards(SearchBoardsRequest request, StreamObserver<SearchBoardsResponse> responseObserver) {
+  @Override
+  public void searchBoards(SearchBoardsRequest request, StreamObserver<SearchBoardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/boards/search", inputJson);
@@ -1428,7 +1470,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a board.
    * 
    */
-  public void Board(BoardRequest request, StreamObserver<BoardResponse> responseObserver) {
+  @Override
+  public void board(BoardRequest request, StreamObserver<BoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/boards/{board_id}", inputJson);
@@ -1454,7 +1497,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a board definition.
    * 
    */
-  public void UpdateBoard(UpdateBoardRequest request, StreamObserver<UpdateBoardResponse> responseObserver) {
+  @Override
+  public void updateBoard(UpdateBoardRequest request, StreamObserver<UpdateBoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/boards/{board_id}", inputJson);
@@ -1480,7 +1524,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a board.
    * 
    */
-  public void DeleteBoard(DeleteBoardRequest request, StreamObserver<DeleteBoardResponse> responseObserver) {
+  @Override
+  public void deleteBoard(DeleteBoardRequest request, StreamObserver<DeleteBoardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/boards/{board_id}", inputJson);
@@ -1506,7 +1551,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all board items.
    * 
    */
-  public void AllBoardItems(AllBoardItemsRequest request, StreamObserver<AllBoardItemsResponse> responseObserver) {
+  @Override
+  public void allBoardItems(AllBoardItemsRequest request, StreamObserver<AllBoardItemsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_items", inputJson);
@@ -1532,7 +1578,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a new board item.
    * 
    */
-  public void CreateBoardItem(CreateBoardItemRequest request, StreamObserver<CreateBoardItemResponse> responseObserver) {
+  @Override
+  public void createBoardItem(CreateBoardItemRequest request, StreamObserver<CreateBoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/board_items", inputJson);
@@ -1558,7 +1605,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a board item.
    * 
    */
-  public void BoardItem(BoardItemRequest request, StreamObserver<BoardItemResponse> responseObserver) {
+  @Override
+  public void boardItem(BoardItemRequest request, StreamObserver<BoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_items/{board_item_id}", inputJson);
@@ -1584,7 +1632,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a board item definition.
    * 
    */
-  public void UpdateBoardItem(UpdateBoardItemRequest request, StreamObserver<UpdateBoardItemResponse> responseObserver) {
+  @Override
+  public void updateBoardItem(UpdateBoardItemRequest request, StreamObserver<UpdateBoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/board_items/{board_item_id}", inputJson);
@@ -1610,7 +1659,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a board item.
    * 
    */
-  public void DeleteBoardItem(DeleteBoardItemRequest request, StreamObserver<DeleteBoardItemResponse> responseObserver) {
+  @Override
+  public void deleteBoardItem(DeleteBoardItemRequest request, StreamObserver<DeleteBoardItemResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/board_items/{board_item_id}", inputJson);
@@ -1636,7 +1686,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all board sections.
    * 
    */
-  public void AllBoardSections(AllBoardSectionsRequest request, StreamObserver<AllBoardSectionsResponse> responseObserver) {
+  @Override
+  public void allBoardSections(AllBoardSectionsRequest request, StreamObserver<AllBoardSectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_sections", inputJson);
@@ -1662,7 +1713,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a new board section.
    * 
    */
-  public void CreateBoardSection(CreateBoardSectionRequest request, StreamObserver<CreateBoardSectionResponse> responseObserver) {
+  @Override
+  public void createBoardSection(CreateBoardSectionRequest request, StreamObserver<CreateBoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/board_sections", inputJson);
@@ -1688,7 +1740,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a board section.
    * 
    */
-  public void BoardSection(BoardSectionRequest request, StreamObserver<BoardSectionResponse> responseObserver) {
+  @Override
+  public void boardSection(BoardSectionRequest request, StreamObserver<BoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_sections/{board_section_id}", inputJson);
@@ -1714,7 +1767,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a board section definition.
    * 
    */
-  public void UpdateBoardSection(UpdateBoardSectionRequest request, StreamObserver<UpdateBoardSectionResponse> responseObserver) {
+  @Override
+  public void updateBoardSection(UpdateBoardSectionRequest request, StreamObserver<UpdateBoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/board_sections/{board_section_id}", inputJson);
@@ -1740,7 +1794,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a board section.
    * 
    */
-  public void DeleteBoardSection(DeleteBoardSectionRequest request, StreamObserver<DeleteBoardSectionResponse> responseObserver) {
+  @Override
+  public void deleteBoardSection(DeleteBoardSectionRequest request, StreamObserver<DeleteBoardSectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/board_sections/{board_section_id}", inputJson);
@@ -1778,7 +1833,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void AllColorCollections(AllColorCollectionsRequest request, StreamObserver<AllColorCollectionsResponse> responseObserver) {
+  @Override
+  public void allColorCollections(AllColorCollectionsRequest request, StreamObserver<AllColorCollectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections", inputJson);
@@ -1813,7 +1869,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateColorCollection(CreateColorCollectionRequest request, StreamObserver<CreateColorCollectionResponse> responseObserver) {
+  @Override
+  public void createColorCollection(CreateColorCollectionRequest request, StreamObserver<CreateColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/color_collections", inputJson);
@@ -1845,7 +1902,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ColorCollectionsCustom(ColorCollectionsCustomRequest request, StreamObserver<ColorCollectionsCustomResponse> responseObserver) {
+  @Override
+  public void colorCollectionsCustom(ColorCollectionsCustomRequest request, StreamObserver<ColorCollectionsCustomResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/custom", inputJson);
@@ -1877,7 +1935,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ColorCollectionsStandard(ColorCollectionsStandardRequest request, StreamObserver<ColorCollectionsStandardResponse> responseObserver) {
+  @Override
+  public void colorCollectionsStandard(ColorCollectionsStandardRequest request, StreamObserver<ColorCollectionsStandardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/standard", inputJson);
@@ -1907,7 +1966,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Set the default color collection with [ColorCollection](#!/ColorCollection/set_default_color_collection)
    * 
    */
-  public void DefaultColorCollection(DefaultColorCollectionRequest request, StreamObserver<DefaultColorCollectionResponse> responseObserver) {
+  @Override
+  public void defaultColorCollection(DefaultColorCollectionRequest request, StreamObserver<DefaultColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/default", inputJson);
@@ -1937,7 +1997,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SetDefaultColorCollection(SetDefaultColorCollectionRequest request, StreamObserver<SetDefaultColorCollectionResponse> responseObserver) {
+  @Override
+  public void setDefaultColorCollection(SetDefaultColorCollectionRequest request, StreamObserver<SetDefaultColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/color_collections/default", inputJson);
@@ -1973,7 +2034,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ColorCollection(ColorCollectionRequest request, StreamObserver<ColorCollectionResponse> responseObserver) {
+  @Override
+  public void colorCollection(ColorCollectionRequest request, StreamObserver<ColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/{collection_id}", inputJson);
@@ -2001,7 +2063,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UpdateColorCollection(UpdateColorCollectionRequest request, StreamObserver<UpdateColorCollectionResponse> responseObserver) {
+  @Override
+  public void updateColorCollection(UpdateColorCollectionRequest request, StreamObserver<UpdateColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/color_collections/{collection_id}", inputJson);
@@ -2035,7 +2098,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void DeleteColorCollection(DeleteColorCollectionRequest request, StreamObserver<DeleteColorCollectionResponse> responseObserver) {
+  @Override
+  public void deleteColorCollection(DeleteColorCollectionRequest request, StreamObserver<DeleteColorCollectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/color_collections/{collection_id}", inputJson);
@@ -2065,7 +2129,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get All Commands.
    * 
    */
-  public void GetAllCommands(GetAllCommandsRequest request, StreamObserver<GetAllCommandsResponse> responseObserver) {
+  @Override
+  public void getAllCommands(GetAllCommandsRequest request, StreamObserver<GetAllCommandsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/commands", inputJson);
@@ -2094,7 +2159,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * #
    * 
    */
-  public void CreateCommand(CreateCommandRequest request, StreamObserver<CreateCommandResponse> responseObserver) {
+  @Override
+  public void createCommand(CreateCommandRequest request, StreamObserver<CreateCommandResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/commands", inputJson);
@@ -2122,7 +2188,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * #
    * 
    */
-  public void UpdateCommand(UpdateCommandRequest request, StreamObserver<UpdateCommandResponse> responseObserver) {
+  @Override
+  public void updateCommand(UpdateCommandRequest request, StreamObserver<UpdateCommandResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/commands/{command_id}", inputJson);
@@ -2148,7 +2215,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete an existing custom command.
    * 
    */
-  public void DeleteCommand(DeleteCommandRequest request, StreamObserver<DeleteCommandResponse> responseObserver) {
+  @Override
+  public void deleteCommand(DeleteCommandRequest request, StreamObserver<DeleteCommandResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/commands/{command_id}", inputJson);
@@ -2178,7 +2246,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Get the current Cloud Storage Configuration.
    * 
    */
-  public void CloudStorageConfiguration(CloudStorageConfigurationRequest request, StreamObserver<CloudStorageConfigurationResponse> responseObserver) {
+  @Override
+  public void cloudStorageConfiguration(CloudStorageConfigurationRequest request, StreamObserver<CloudStorageConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/cloud_storage", inputJson);
@@ -2204,7 +2273,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Update the current Cloud Storage Configuration.
    * 
    */
-  public void UpdateCloudStorageConfiguration(UpdateCloudStorageConfigurationRequest request, StreamObserver<UpdateCloudStorageConfigurationResponse> responseObserver) {
+  @Override
+  public void updateCloudStorageConfiguration(UpdateCloudStorageConfigurationRequest request, StreamObserver<UpdateCloudStorageConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/cloud_storage", inputJson);
@@ -2230,7 +2300,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get the current status and content of custom welcome emails
    * 
    */
-  public void CustomWelcomeEmail(CustomWelcomeEmailRequest request, StreamObserver<CustomWelcomeEmailResponse> responseObserver) {
+  @Override
+  public void customWelcomeEmail(CustomWelcomeEmailRequest request, StreamObserver<CustomWelcomeEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/custom_welcome_email", inputJson);
@@ -2256,7 +2327,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Update custom welcome email setting and values. Optionally send a test email with the new content to the currently logged in user.
    * 
    */
-  public void UpdateCustomWelcomeEmail(UpdateCustomWelcomeEmailRequest request, StreamObserver<UpdateCustomWelcomeEmailResponse> responseObserver) {
+  @Override
+  public void updateCustomWelcomeEmail(UpdateCustomWelcomeEmailRequest request, StreamObserver<UpdateCustomWelcomeEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/custom_welcome_email", inputJson);
@@ -2282,7 +2354,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Requests to this endpoint will send a welcome email with the custom content provided in the body to the currently logged in user.
    * 
    */
-  public void UpdateCustomWelcomeEmailTest(UpdateCustomWelcomeEmailTestRequest request, StreamObserver<UpdateCustomWelcomeEmailTestResponse> responseObserver) {
+  @Override
+  public void updateCustomWelcomeEmailTest(UpdateCustomWelcomeEmailTestRequest request, StreamObserver<UpdateCustomWelcomeEmailTestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/custom_welcome_email_test", inputJson);
@@ -2308,7 +2381,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Retrieve the value for whether or not digest emails is enabled
    * 
    */
-  public void DigestEmailsEnabled(DigestEmailsEnabledRequest request, StreamObserver<DigestEmailsEnabledResponse> responseObserver) {
+  @Override
+  public void digestEmailsEnabled(DigestEmailsEnabledRequest request, StreamObserver<DigestEmailsEnabledResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/digest_emails_enabled", inputJson);
@@ -2334,7 +2408,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update the setting for enabling/disabling digest emails
    * 
    */
-  public void UpdateDigestEmailsEnabled(UpdateDigestEmailsEnabledRequest request, StreamObserver<UpdateDigestEmailsEnabledResponse> responseObserver) {
+  @Override
+  public void updateDigestEmailsEnabled(UpdateDigestEmailsEnabledRequest request, StreamObserver<UpdateDigestEmailsEnabledResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/digest_emails_enabled", inputJson);
@@ -2361,7 +2436,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * any actual emails, it generates records containing content which may be of interest for users who have become inactive.
    * Emails will be sent at a later time from Looker's internal system if the Digest Emails feature is enabled in settings.
    */
-  public void CreateDigestEmailSend(CreateDigestEmailSendRequest request, StreamObserver<CreateDigestEmailSendResponse> responseObserver) {
+  @Override
+  public void createDigestEmailSend(CreateDigestEmailSendRequest request, StreamObserver<CreateDigestEmailSendResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/digest_email_send", inputJson);
@@ -2387,7 +2463,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Set the menu item name and content for internal help resources
    * 
    */
-  public void InternalHelpResourcesContent(InternalHelpResourcesContentRequest request, StreamObserver<InternalHelpResourcesContentResponse> responseObserver) {
+  @Override
+  public void internalHelpResourcesContent(InternalHelpResourcesContentRequest request, StreamObserver<InternalHelpResourcesContentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/internal_help_resources_content", inputJson);
@@ -2413,7 +2490,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Update internal help resources content
    * 
    */
-  public void UpdateInternalHelpResourcesContent(UpdateInternalHelpResourcesContentRequest request, StreamObserver<UpdateInternalHelpResourcesContentResponse> responseObserver) {
+  @Override
+  public void updateInternalHelpResourcesContent(UpdateInternalHelpResourcesContentRequest request, StreamObserver<UpdateInternalHelpResourcesContentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/internal_help_resources_content", inputJson);
@@ -2439,7 +2517,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get and set the options for internal help resources
    * 
    */
-  public void InternalHelpResources(InternalHelpResourcesRequest request, StreamObserver<InternalHelpResourcesResponse> responseObserver) {
+  @Override
+  public void internalHelpResources(InternalHelpResourcesRequest request, StreamObserver<InternalHelpResourcesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/internal_help_resources_enabled", inputJson);
@@ -2465,7 +2544,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Update internal help resources settings
    * 
    */
-  public void UpdateInternalHelpResources(UpdateInternalHelpResourcesRequest request, StreamObserver<UpdateInternalHelpResourcesResponse> responseObserver) {
+  @Override
+  public void updateInternalHelpResources(UpdateInternalHelpResourcesRequest request, StreamObserver<UpdateInternalHelpResourcesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/internal_help_resources", inputJson);
@@ -2491,7 +2571,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get all legacy features.
    * 
    */
-  public void AllLegacyFeatures(AllLegacyFeaturesRequest request, StreamObserver<AllLegacyFeaturesResponse> responseObserver) {
+  @Override
+  public void allLegacyFeatures(AllLegacyFeaturesRequest request, StreamObserver<AllLegacyFeaturesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/legacy_features", inputJson);
@@ -2517,7 +2598,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about the legacy feature with a specific id.
    * 
    */
-  public void LegacyFeature(LegacyFeatureRequest request, StreamObserver<LegacyFeatureResponse> responseObserver) {
+  @Override
+  public void legacyFeature(LegacyFeatureRequest request, StreamObserver<LegacyFeatureResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/legacy_features/{legacy_feature_id}", inputJson);
@@ -2543,7 +2625,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update information about the legacy feature with a specific id.
    * 
    */
-  public void UpdateLegacyFeature(UpdateLegacyFeatureRequest request, StreamObserver<UpdateLegacyFeatureResponse> responseObserver) {
+  @Override
+  public void updateLegacyFeature(UpdateLegacyFeatureRequest request, StreamObserver<UpdateLegacyFeatureResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/legacy_features/{legacy_feature_id}", inputJson);
@@ -2569,7 +2652,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get a list of locales that Looker supports.
    * 
    */
-  public void AllLocales(AllLocalesRequest request, StreamObserver<AllLocalesResponse> responseObserver) {
+  @Override
+  public void allLocales(AllLocalesRequest request, StreamObserver<AllLocalesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/locales", inputJson);
@@ -2595,7 +2679,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get a list of timezones that Looker supports (e.g. useful for scheduling tasks).
    * 
    */
-  public void AllTimezones(AllTimezonesRequest request, StreamObserver<AllTimezonesResponse> responseObserver) {
+  @Override
+  public void allTimezones(AllTimezonesRequest request, StreamObserver<AllTimezonesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/timezones", inputJson);
@@ -2621,7 +2706,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all API versions supported by this Looker instance.
    * 
    */
-  public void Versions(VersionsRequest request, StreamObserver<VersionsResponse> responseObserver) {
+  @Override
+  public void versions(VersionsRequest request, StreamObserver<VersionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/versions", inputJson);
@@ -2648,7 +2734,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Gets the whitelabel configuration, which includes hiding documentation links, custom favicon uploading, etc.
    * 
    */
-  public void WhitelabelConfiguration(WhitelabelConfigurationRequest request, StreamObserver<WhitelabelConfigurationResponse> responseObserver) {
+  @Override
+  public void whitelabelConfiguration(WhitelabelConfigurationRequest request, StreamObserver<WhitelabelConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/whitelabel_configuration", inputJson);
@@ -2674,7 +2761,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update the whitelabel configuration
    * 
    */
-  public void UpdateWhitelabelConfiguration(UpdateWhitelabelConfigurationRequest request, StreamObserver<UpdateWhitelabelConfigurationResponse> responseObserver) {
+  @Override
+  public void updateWhitelabelConfiguration(UpdateWhitelabelConfigurationRequest request, StreamObserver<UpdateWhitelabelConfigurationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/whitelabel_configuration", inputJson);
@@ -2704,7 +2792,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all connections.
    * 
    */
-  public void AllConnections(AllConnectionsRequest request, StreamObserver<AllConnectionsResponse> responseObserver) {
+  @Override
+  public void allConnections(AllConnectionsRequest request, StreamObserver<AllConnectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections", inputJson);
@@ -2730,7 +2819,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a connection using the specified configuration.
    * 
    */
-  public void CreateConnection(CreateConnectionRequest request, StreamObserver<CreateConnectionResponse> responseObserver) {
+  @Override
+  public void createConnection(CreateConnectionRequest request, StreamObserver<CreateConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/connections", inputJson);
@@ -2756,7 +2846,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a connection.
    * 
    */
-  public void Connection(ConnectionRequest request, StreamObserver<ConnectionResponse> responseObserver) {
+  @Override
+  public void connection(ConnectionRequest request, StreamObserver<ConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}", inputJson);
@@ -2782,7 +2873,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a connection using the specified configuration.
    * 
    */
-  public void UpdateConnection(UpdateConnectionRequest request, StreamObserver<UpdateConnectionResponse> responseObserver) {
+  @Override
+  public void updateConnection(UpdateConnectionRequest request, StreamObserver<UpdateConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/connections/{connection_name}", inputJson);
@@ -2808,7 +2900,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a connection.
    * 
    */
-  public void DeleteConnection(DeleteConnectionRequest request, StreamObserver<DeleteConnectionResponse> responseObserver) {
+  @Override
+  public void deleteConnection(DeleteConnectionRequest request, StreamObserver<DeleteConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/connections/{connection_name}", inputJson);
@@ -2834,7 +2927,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a connection override.
    * 
    */
-  public void DeleteConnectionOverride(DeleteConnectionOverrideRequest request, StreamObserver<DeleteConnectionOverrideResponse> responseObserver) {
+  @Override
+  public void deleteConnectionOverride(DeleteConnectionOverrideRequest request, StreamObserver<DeleteConnectionOverrideResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/connections/{connection_name}/connection_override/{override_context}", inputJson);
@@ -2867,7 +2961,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Unsupported tests in the request will be ignored.
    * 
    */
-  public void TestConnection(TestConnectionRequest request, StreamObserver<TestConnectionResponse> responseObserver) {
+  @Override
+  public void testConnection(TestConnectionRequest request, StreamObserver<TestConnectionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/connections/{connection_name}/test", inputJson);
@@ -2900,7 +2995,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Unsupported tests in the request will be ignored.
    * 
    */
-  public void TestConnectionConfig(TestConnectionConfigRequest request, StreamObserver<TestConnectionConfigResponse> responseObserver) {
+  @Override
+  public void testConnectionConfig(TestConnectionConfigRequest request, StreamObserver<TestConnectionConfigResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/connections/test", inputJson);
@@ -2926,7 +3022,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all dialects.
    * 
    */
-  public void AllDialectInfos(AllDialectInfosRequest request, StreamObserver<AllDialectInfosResponse> responseObserver) {
+  @Override
+  public void allDialectInfos(AllDialectInfosRequest request, StreamObserver<AllDialectInfosResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dialect_info", inputJson);
@@ -2952,7 +3049,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get all External OAuth Applications.
    * 
    */
-  public void AllExternalOauthApplications(AllExternalOauthApplicationsRequest request, StreamObserver<AllExternalOauthApplicationsResponse> responseObserver) {
+  @Override
+  public void allExternalOauthApplications(AllExternalOauthApplicationsRequest request, StreamObserver<AllExternalOauthApplicationsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/external_oauth_applications", inputJson);
@@ -2978,7 +3076,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create an OAuth Application using the specified configuration.
    * 
    */
-  public void CreateExternalOauthApplication(CreateExternalOauthApplicationRequest request, StreamObserver<CreateExternalOauthApplicationResponse> responseObserver) {
+  @Override
+  public void createExternalOauthApplication(CreateExternalOauthApplicationRequest request, StreamObserver<CreateExternalOauthApplicationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/external_oauth_applications", inputJson);
@@ -3004,7 +3103,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all SSH Servers.
    * 
    */
-  public void AllSshServers(AllSshServersRequest request, StreamObserver<AllSshServersResponse> responseObserver) {
+  @Override
+  public void allSshServers(AllSshServersRequest request, StreamObserver<AllSshServersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_servers", inputJson);
@@ -3030,7 +3130,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create an SSH Server.
    * 
    */
-  public void CreateSshServer(CreateSshServerRequest request, StreamObserver<CreateSshServerResponse> responseObserver) {
+  @Override
+  public void createSshServer(CreateSshServerRequest request, StreamObserver<CreateSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/ssh_servers", inputJson);
@@ -3056,7 +3157,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about an SSH Server.
    * 
    */
-  public void SshServer(SshServerRequest request, StreamObserver<SshServerResponse> responseObserver) {
+  @Override
+  public void sshServer(SshServerRequest request, StreamObserver<SshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_server/{ssh_server_id}", inputJson);
@@ -3082,7 +3184,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update an SSH Server.
    * 
    */
-  public void UpdateSshServer(UpdateSshServerRequest request, StreamObserver<UpdateSshServerResponse> responseObserver) {
+  @Override
+  public void updateSshServer(UpdateSshServerRequest request, StreamObserver<UpdateSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/ssh_server/{ssh_server_id}", inputJson);
@@ -3108,7 +3211,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete an SSH Server.
    * 
    */
-  public void DeleteSshServer(DeleteSshServerRequest request, StreamObserver<DeleteSshServerResponse> responseObserver) {
+  @Override
+  public void deleteSshServer(DeleteSshServerRequest request, StreamObserver<DeleteSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/ssh_server/{ssh_server_id}", inputJson);
@@ -3134,7 +3238,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Test the SSH Server
    * 
    */
-  public void TestSshServer(TestSshServerRequest request, StreamObserver<TestSshServerResponse> responseObserver) {
+  @Override
+  public void testSshServer(TestSshServerRequest request, StreamObserver<TestSshServerResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_server/{ssh_server_id}/test", inputJson);
@@ -3160,7 +3265,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all SSH Tunnels.
    * 
    */
-  public void AllSshTunnels(AllSshTunnelsRequest request, StreamObserver<AllSshTunnelsResponse> responseObserver) {
+  @Override
+  public void allSshTunnels(AllSshTunnelsRequest request, StreamObserver<AllSshTunnelsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnels", inputJson);
@@ -3186,7 +3292,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create an SSH Tunnel
    * 
    */
-  public void CreateSshTunnel(CreateSshTunnelRequest request, StreamObserver<CreateSshTunnelResponse> responseObserver) {
+  @Override
+  public void createSshTunnel(CreateSshTunnelRequest request, StreamObserver<CreateSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/ssh_tunnels", inputJson);
@@ -3212,7 +3319,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about an SSH Tunnel.
    * 
    */
-  public void SshTunnel(SshTunnelRequest request, StreamObserver<SshTunnelResponse> responseObserver) {
+  @Override
+  public void sshTunnel(SshTunnelRequest request, StreamObserver<SshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
@@ -3238,7 +3346,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update an SSH Tunnel
    * 
    */
-  public void UpdateSshTunnel(UpdateSshTunnelRequest request, StreamObserver<UpdateSshTunnelResponse> responseObserver) {
+  @Override
+  public void updateSshTunnel(UpdateSshTunnelRequest request, StreamObserver<UpdateSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
@@ -3264,7 +3373,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete an SSH Tunnel
    * 
    */
-  public void DeleteSshTunnel(DeleteSshTunnelRequest request, StreamObserver<DeleteSshTunnelResponse> responseObserver) {
+  @Override
+  public void deleteSshTunnel(DeleteSshTunnelRequest request, StreamObserver<DeleteSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
@@ -3290,7 +3400,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Test the SSH Tunnel
    * 
    */
-  public void TestSshTunnel(TestSshTunnelRequest request, StreamObserver<TestSshTunnelResponse> responseObserver) {
+  @Override
+  public void testSshTunnel(TestSshTunnelRequest request, StreamObserver<TestSshTunnelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnel/{ssh_tunnel_id}/test", inputJson);
@@ -3318,7 +3429,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Get the public key created for this instance to identify itself to a remote SSH server.
    * 
    */
-  public void SshPublicKey(SshPublicKeyRequest request, StreamObserver<SshPublicKeyResponse> responseObserver) {
+  @Override
+  public void sshPublicKey(SshPublicKeyRequest request, StreamObserver<SshPublicKeyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_public_key", inputJson);
@@ -3370,7 +3482,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchContentFavorites(SearchContentFavoritesRequest request, StreamObserver<SearchContentFavoritesResponse> responseObserver) {
+  @Override
+  public void searchContentFavorites(SearchContentFavoritesRequest request, StreamObserver<SearchContentFavoritesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_favorite/search", inputJson);
@@ -3395,7 +3508,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get favorite content by its id
    */
-  public void ContentFavorite(ContentFavoriteRequest request, StreamObserver<ContentFavoriteResponse> responseObserver) {
+  @Override
+  public void contentFavorite(ContentFavoriteRequest request, StreamObserver<ContentFavoriteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_favorite/{content_favorite_id}", inputJson);
@@ -3420,7 +3534,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Delete favorite content
    */
-  public void DeleteContentFavorite(DeleteContentFavoriteRequest request, StreamObserver<DeleteContentFavoriteResponse> responseObserver) {
+  @Override
+  public void deleteContentFavorite(DeleteContentFavoriteRequest request, StreamObserver<DeleteContentFavoriteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/content_favorite/{content_favorite_id}", inputJson);
@@ -3445,7 +3560,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Create favorite content
    */
-  public void CreateContentFavorite(CreateContentFavoriteRequest request, StreamObserver<CreateContentFavoriteResponse> responseObserver) {
+  @Override
+  public void createContentFavorite(CreateContentFavoriteRequest request, StreamObserver<CreateContentFavoriteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/content_favorite", inputJson);
@@ -3471,7 +3587,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all content metadata in a space.
    * 
    */
-  public void AllContentMetadatas(AllContentMetadatasRequest request, StreamObserver<AllContentMetadatasResponse> responseObserver) {
+  @Override
+  public void allContentMetadatas(AllContentMetadatasRequest request, StreamObserver<AllContentMetadatasResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_metadata", inputJson);
@@ -3497,7 +3614,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about an individual content metadata record.
    * 
    */
-  public void ContentMetadata(ContentMetadataRequest request, StreamObserver<ContentMetadataResponse> responseObserver) {
+  @Override
+  public void contentMetadata(ContentMetadataRequest request, StreamObserver<ContentMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_metadata/{content_metadata_id}", inputJson);
@@ -3523,7 +3641,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Move a piece of content.
    * 
    */
-  public void UpdateContentMetadata(UpdateContentMetadataRequest request, StreamObserver<UpdateContentMetadataResponse> responseObserver) {
+  @Override
+  public void updateContentMetadata(UpdateContentMetadataRequest request, StreamObserver<UpdateContentMetadataResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/content_metadata/{content_metadata_id}", inputJson);
@@ -3549,7 +3668,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### All content metadata access records for a content metadata item.
    * 
    */
-  public void AllContentMetadataAccesses(AllContentMetadataAccessesRequest request, StreamObserver<AllContentMetadataAccessesResponse> responseObserver) {
+  @Override
+  public void allContentMetadataAccesses(AllContentMetadataAccessesRequest request, StreamObserver<AllContentMetadataAccessesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_metadata_access", inputJson);
@@ -3575,7 +3695,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create content metadata access.
    * 
    */
-  public void CreateContentMetadataAccess(CreateContentMetadataAccessRequest request, StreamObserver<CreateContentMetadataAccessResponse> responseObserver) {
+  @Override
+  public void createContentMetadataAccess(CreateContentMetadataAccessRequest request, StreamObserver<CreateContentMetadataAccessResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/content_metadata_access", inputJson);
@@ -3601,7 +3722,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update type of access for content metadata.
    * 
    */
-  public void UpdateContentMetadataAccess(UpdateContentMetadataAccessRequest request, StreamObserver<UpdateContentMetadataAccessResponse> responseObserver) {
+  @Override
+  public void updateContentMetadataAccess(UpdateContentMetadataAccessRequest request, StreamObserver<UpdateContentMetadataAccessResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/content_metadata_access/{content_metadata_access_id}", inputJson);
@@ -3627,7 +3749,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Remove content metadata access.
    * 
    */
-  public void DeleteContentMetadataAccess(DeleteContentMetadataAccessRequest request, StreamObserver<DeleteContentMetadataAccessResponse> responseObserver) {
+  @Override
+  public void deleteContentMetadataAccess(DeleteContentMetadataAccessRequest request, StreamObserver<DeleteContentMetadataAccessResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/content_metadata_access/{content_metadata_access_id}", inputJson);
@@ -3656,7 +3779,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * reflect the actual data displayed in the respective visualizations.
    * 
    */
-  public void ContentThumbnail(ContentThumbnailRequest request, StreamObserver<ContentThumbnailResponse> responseObserver) {
+  @Override
+  public void contentThumbnail(ContentThumbnailRequest request, StreamObserver<ContentThumbnailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_thumbnail/{type}/{resource_id}", inputJson);
@@ -3685,7 +3809,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns a list of errors found as well as metadata about the content validation run.
    * 
    */
-  public void ContentValidation(ContentValidationRequest request, StreamObserver<ContentValidationResponse> responseObserver) {
+  @Override
+  public void contentValidation(ContentValidationRequest request, StreamObserver<ContentValidationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_validation", inputJson);
@@ -3733,7 +3858,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchContentViews(SearchContentViewsRequest request, StreamObserver<SearchContentViewsResponse> responseObserver) {
+  @Override
+  public void searchContentViews(SearchContentViewsRequest request, StreamObserver<SearchContentViewsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_view/search", inputJson);
@@ -3764,7 +3890,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * reflect the actual data displayed in the respective visualizations.
    * 
    */
-  public void VectorThumbnail(VectorThumbnailRequest request, StreamObserver<VectorThumbnailResponse> responseObserver) {
+  @Override
+  public void vectorThumbnail(VectorThumbnailRequest request, StreamObserver<VectorThumbnailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/vector_thumbnail/{type}/{resource_id}", inputJson);
@@ -3800,7 +3927,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Find **deleted dashboards** with [search_dashboards()](#!/Dashboard/search_dashboards)
    * 
    */
-  public void AllDashboards(AllDashboardsRequest request, StreamObserver<AllDashboardsResponse> responseObserver) {
+  @Override
+  public void allDashboards(AllDashboardsRequest request, StreamObserver<AllDashboardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards", inputJson);
@@ -3839,7 +3967,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * You can **permanently delete** an existing dashboard with [delete_dashboard()](#!/Dashboard/delete_dashboard)
    * 
    */
-  public void CreateDashboard(CreateDashboardRequest request, StreamObserver<CreateDashboardResponse> responseObserver) {
+  @Override
+  public void createDashboard(CreateDashboardRequest request, StreamObserver<CreateDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboards", inputJson);
@@ -3893,7 +4022,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Get a **single dashboard** by id with [dashboard()](#!/Dashboard/dashboard)
    * 
    */
-  public void SearchDashboards(SearchDashboardsRequest request, StreamObserver<SearchDashboardsResponse> responseObserver) {
+  @Override
+  public void searchDashboards(SearchDashboardsRequest request, StreamObserver<SearchDashboardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/search", inputJson);
@@ -3930,7 +4060,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **Unlink** a linked UDD by setting lookml_link_id to null with [update_dashboard()](#!/Dashboard/update_dashboard)
    * 
    */
-  public void ImportLookmlDashboard(ImportLookmlDashboardRequest request, StreamObserver<ImportLookmlDashboardResponse> responseObserver) {
+  @Override
+  public void importLookmlDashboard(ImportLookmlDashboardRequest request, StreamObserver<ImportLookmlDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboards/{lookml_dashboard_id}/import/{space_id}", inputJson);
@@ -3964,7 +4095,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * To **link** or **unlink** a UDD set the `lookml_link_id` property with [update_dashboard()](#!/Dashboard/update_dashboard)
    * 
    */
-  public void SyncLookmlDashboard(SyncLookmlDashboardRequest request, StreamObserver<SyncLookmlDashboardResponse> responseObserver) {
+  @Override
+  public void syncLookmlDashboard(SyncLookmlDashboardRequest request, StreamObserver<SyncLookmlDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboards/{lookml_dashboard_id}/sync", inputJson);
@@ -3996,7 +4128,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * You can **Search** for dashboards with [search_dashboards()](#!/Dashboard/search_dashboards)
    * 
    */
-  public void Dashboard(DashboardRequest request, StreamObserver<DashboardResponse> responseObserver) {
+  @Override
+  public void dashboard(DashboardRequest request, StreamObserver<DashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}", inputJson);
@@ -4031,7 +4164,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * response body for information about exactly which fields are missing or contain invalid data.
    * 
    */
-  public void UpdateDashboard(UpdateDashboardRequest request, StreamObserver<UpdateDashboardResponse> responseObserver) {
+  @Override
+  public void updateDashboard(UpdateDashboardRequest request, StreamObserver<UpdateDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboards/{dashboard_id}", inputJson);
@@ -4063,7 +4197,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Note: When a dashboard is deleted in the UI, it is soft deleted. Use this API call to permanently remove it, if desired.
    * 
    */
-  public void DeleteDashboard(DeleteDashboardRequest request, StreamObserver<DeleteDashboardResponse> responseObserver) {
+  @Override
+  public void deleteDashboard(DeleteDashboardRequest request, StreamObserver<DeleteDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboards/{dashboard_id}", inputJson);
@@ -4092,7 +4227,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void DashboardAggregateTableLookml(DashboardAggregateTableLookmlRequest request, StreamObserver<DashboardAggregateTableLookmlResponse> responseObserver) {
+  @Override
+  public void dashboardAggregateTableLookml(DashboardAggregateTableLookmlRequest request, StreamObserver<DashboardAggregateTableLookmlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/aggregate_table_lookml/{dashboard_id}", inputJson);
@@ -4121,7 +4257,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void DashboardLookml(DashboardLookmlRequest request, StreamObserver<DashboardLookmlResponse> responseObserver) {
+  @Override
+  public void dashboardLookml(DashboardLookmlRequest request, StreamObserver<DashboardLookmlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/lookml/{dashboard_id}", inputJson);
@@ -4171,7 +4308,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchDashboardElements(SearchDashboardElementsRequest request, StreamObserver<SearchDashboardElementsResponse> responseObserver) {
+  @Override
+  public void searchDashboardElements(SearchDashboardElementsRequest request, StreamObserver<SearchDashboardElementsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_elements/search", inputJson);
@@ -4196,7 +4334,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about the dashboard element with a specific id.
    */
-  public void DashboardElement(DashboardElementRequest request, StreamObserver<DashboardElementResponse> responseObserver) {
+  @Override
+  public void dashboardElement(DashboardElementRequest request, StreamObserver<DashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_elements/{dashboard_element_id}", inputJson);
@@ -4221,7 +4360,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Update the dashboard element with a specific id.
    */
-  public void UpdateDashboardElement(UpdateDashboardElementRequest request, StreamObserver<UpdateDashboardElementResponse> responseObserver) {
+  @Override
+  public void updateDashboardElement(UpdateDashboardElementRequest request, StreamObserver<UpdateDashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_elements/{dashboard_element_id}", inputJson);
@@ -4246,7 +4386,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Delete a dashboard element with a specific id.
    */
-  public void DeleteDashboardElement(DeleteDashboardElementRequest request, StreamObserver<DeleteDashboardElementResponse> responseObserver) {
+  @Override
+  public void deleteDashboardElement(DeleteDashboardElementRequest request, StreamObserver<DeleteDashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_elements/{dashboard_element_id}", inputJson);
@@ -4271,7 +4412,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about all the dashboard elements on a dashboard with a specific id.
    */
-  public void DashboardDashboardElements(DashboardDashboardElementsRequest request, StreamObserver<DashboardDashboardElementsResponse> responseObserver) {
+  @Override
+  public void dashboardDashboardElements(DashboardDashboardElementsRequest request, StreamObserver<DashboardDashboardElementsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_elements", inputJson);
@@ -4296,7 +4438,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Create a dashboard element on the dashboard with a specific id.
    */
-  public void CreateDashboardElement(CreateDashboardElementRequest request, StreamObserver<CreateDashboardElementResponse> responseObserver) {
+  @Override
+  public void createDashboardElement(CreateDashboardElementRequest request, StreamObserver<CreateDashboardElementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboard_elements", inputJson);
@@ -4321,7 +4464,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about the dashboard filters with a specific id.
    */
-  public void DashboardFilter(DashboardFilterRequest request, StreamObserver<DashboardFilterResponse> responseObserver) {
+  @Override
+  public void dashboardFilter(DashboardFilterRequest request, StreamObserver<DashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_filters/{dashboard_filter_id}", inputJson);
@@ -4346,7 +4490,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Update the dashboard filter with a specific id.
    */
-  public void UpdateDashboardFilter(UpdateDashboardFilterRequest request, StreamObserver<UpdateDashboardFilterResponse> responseObserver) {
+  @Override
+  public void updateDashboardFilter(UpdateDashboardFilterRequest request, StreamObserver<UpdateDashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_filters/{dashboard_filter_id}", inputJson);
@@ -4371,7 +4516,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Delete a dashboard filter with a specific id.
    */
-  public void DeleteDashboardFilter(DeleteDashboardFilterRequest request, StreamObserver<DeleteDashboardFilterResponse> responseObserver) {
+  @Override
+  public void deleteDashboardFilter(DeleteDashboardFilterRequest request, StreamObserver<DeleteDashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_filters/{dashboard_filter_id}", inputJson);
@@ -4396,7 +4542,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about all the dashboard filters on a dashboard with a specific id.
    */
-  public void DashboardDashboardFilters(DashboardDashboardFiltersRequest request, StreamObserver<DashboardDashboardFiltersResponse> responseObserver) {
+  @Override
+  public void dashboardDashboardFilters(DashboardDashboardFiltersRequest request, StreamObserver<DashboardDashboardFiltersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_filters", inputJson);
@@ -4421,7 +4568,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Create a dashboard filter on the dashboard with a specific id.
    */
-  public void CreateDashboardFilter(CreateDashboardFilterRequest request, StreamObserver<CreateDashboardFilterResponse> responseObserver) {
+  @Override
+  public void createDashboardFilter(CreateDashboardFilterRequest request, StreamObserver<CreateDashboardFilterResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboard_filters", inputJson);
@@ -4446,7 +4594,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about the dashboard elements with a specific id.
    */
-  public void DashboardLayoutComponent(DashboardLayoutComponentRequest request, StreamObserver<DashboardLayoutComponentResponse> responseObserver) {
+  @Override
+  public void dashboardLayoutComponent(DashboardLayoutComponentRequest request, StreamObserver<DashboardLayoutComponentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layout_components/{dashboard_layout_component_id}", inputJson);
@@ -4471,7 +4620,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Update the dashboard element with a specific id.
    */
-  public void UpdateDashboardLayoutComponent(UpdateDashboardLayoutComponentRequest request, StreamObserver<UpdateDashboardLayoutComponentResponse> responseObserver) {
+  @Override
+  public void updateDashboardLayoutComponent(UpdateDashboardLayoutComponentRequest request, StreamObserver<UpdateDashboardLayoutComponentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_layout_components/{dashboard_layout_component_id}", inputJson);
@@ -4496,7 +4646,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about all the dashboard layout components for a dashboard layout with a specific id.
    */
-  public void DashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest request, StreamObserver<DashboardLayoutDashboardLayoutComponentsResponse> responseObserver) {
+  @Override
+  public void dashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest request, StreamObserver<DashboardLayoutDashboardLayoutComponentsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layouts/{dashboard_layout_id}/dashboard_layout_components", inputJson);
@@ -4521,7 +4672,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about the dashboard layouts with a specific id.
    */
-  public void DashboardLayout(DashboardLayoutRequest request, StreamObserver<DashboardLayoutResponse> responseObserver) {
+  @Override
+  public void dashboardLayout(DashboardLayoutRequest request, StreamObserver<DashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layouts/{dashboard_layout_id}", inputJson);
@@ -4546,7 +4698,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Update the dashboard layout with a specific id.
    */
-  public void UpdateDashboardLayout(UpdateDashboardLayoutRequest request, StreamObserver<UpdateDashboardLayoutResponse> responseObserver) {
+  @Override
+  public void updateDashboardLayout(UpdateDashboardLayoutRequest request, StreamObserver<UpdateDashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_layouts/{dashboard_layout_id}", inputJson);
@@ -4571,7 +4724,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Delete a dashboard layout with a specific id.
    */
-  public void DeleteDashboardLayout(DeleteDashboardLayoutRequest request, StreamObserver<DeleteDashboardLayoutResponse> responseObserver) {
+  @Override
+  public void deleteDashboardLayout(DeleteDashboardLayoutRequest request, StreamObserver<DeleteDashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_layouts/{dashboard_layout_id}", inputJson);
@@ -4596,7 +4750,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about all the dashboard elements on a dashboard with a specific id.
    */
-  public void DashboardDashboardLayouts(DashboardDashboardLayoutsRequest request, StreamObserver<DashboardDashboardLayoutsResponse> responseObserver) {
+  @Override
+  public void dashboardDashboardLayouts(DashboardDashboardLayoutsRequest request, StreamObserver<DashboardDashboardLayoutsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_layouts", inputJson);
@@ -4621,7 +4776,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Create a dashboard layout on the dashboard with a specific id.
    */
-  public void CreateDashboardLayout(CreateDashboardLayoutRequest request, StreamObserver<CreateDashboardLayoutResponse> responseObserver) {
+  @Override
+  public void createDashboardLayout(CreateDashboardLayoutRequest request, StreamObserver<CreateDashboardLayoutResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboard_layouts", inputJson);
@@ -4650,7 +4806,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Perform a data action. The data action object can be obtained from query results, and used to perform an arbitrary action.
    */
-  public void PerformDataAction(PerformDataActionRequest request, StreamObserver<PerformDataActionResponse> responseObserver) {
+  @Override
+  public void performDataAction(PerformDataActionRequest request, StreamObserver<PerformDataActionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/data_actions", inputJson);
@@ -4675,7 +4832,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * For some data actions, the remote server may supply a form requesting further user input. This endpoint takes a data action, asks the remote server to generate a form for it, and returns that form to you for presentation to the user.
    */
-  public void FetchRemoteDataActionForm(FetchRemoteDataActionFormRequest request, StreamObserver<FetchRemoteDataActionFormResponse> responseObserver) {
+  @Override
+  public void fetchRemoteDataActionForm(FetchRemoteDataActionFormRequest request, StreamObserver<FetchRemoteDataActionFormResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/data_actions/form", inputJson);
@@ -4705,7 +4863,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all datagroups.
    * 
    */
-  public void AllDatagroups(AllDatagroupsRequest request, StreamObserver<AllDatagroupsResponse> responseObserver) {
+  @Override
+  public void allDatagroups(AllDatagroupsRequest request, StreamObserver<AllDatagroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/datagroups", inputJson);
@@ -4731,7 +4890,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a datagroup.
    * 
    */
-  public void Datagroup(DatagroupRequest request, StreamObserver<DatagroupResponse> responseObserver) {
+  @Override
+  public void datagroup(DatagroupRequest request, StreamObserver<DatagroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/datagroups/{datagroup_id}", inputJson);
@@ -4757,7 +4917,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a datagroup using the specified params.
    * 
    */
-  public void UpdateDatagroup(UpdateDatagroupRequest request, StreamObserver<UpdateDatagroupResponse> responseObserver) {
+  @Override
+  public void updateDatagroup(UpdateDatagroupRequest request, StreamObserver<UpdateDatagroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/datagroups/{datagroup_id}", inputJson);
@@ -4786,7 +4947,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Search for folders by creator id, parent id, name, etc
    */
-  public void SearchFolders(SearchFoldersRequest request, StreamObserver<SearchFoldersResponse> responseObserver) {
+  @Override
+  public void searchFolders(SearchFoldersRequest request, StreamObserver<SearchFoldersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/search", inputJson);
@@ -4811,7 +4973,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get information about the folder with a specific id.
    */
-  public void Folder(FolderRequest request, StreamObserver<FolderResponse> responseObserver) {
+  @Override
+  public void folder(FolderRequest request, StreamObserver<FolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}", inputJson);
@@ -4836,7 +4999,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Update the folder with a specific id.
    */
-  public void UpdateFolder(UpdateFolderRequest request, StreamObserver<UpdateFolderResponse> responseObserver) {
+  @Override
+  public void updateFolder(UpdateFolderRequest request, StreamObserver<UpdateFolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/folders/{folder_id}", inputJson);
@@ -4863,7 +5027,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **DANGER** this will delete all looks and dashboards in the folder.
    * 
    */
-  public void DeleteFolder(DeleteFolderRequest request, StreamObserver<DeleteFolderResponse> responseObserver) {
+  @Override
+  public void deleteFolder(DeleteFolderRequest request, StreamObserver<DeleteFolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/folders/{folder_id}", inputJson);
@@ -4893,7 +5058,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void AllFolders(AllFoldersRequest request, StreamObserver<AllFoldersResponse> responseObserver) {
+  @Override
+  public void allFolders(AllFoldersRequest request, StreamObserver<AllFoldersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders", inputJson);
@@ -4922,7 +5088,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * returns 404 Not Found.
    * 
    */
-  public void CreateFolder(CreateFolderRequest request, StreamObserver<CreateFolderResponse> responseObserver) {
+  @Override
+  public void createFolder(CreateFolderRequest request, StreamObserver<CreateFolderResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/folders", inputJson);
@@ -4947,7 +5114,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get the children of a folder.
    */
-  public void FolderChildren(FolderChildrenRequest request, StreamObserver<FolderChildrenResponse> responseObserver) {
+  @Override
+  public void folderChildren(FolderChildrenRequest request, StreamObserver<FolderChildrenResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/children", inputJson);
@@ -4972,7 +5140,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Search the children of a folder
    */
-  public void FolderChildrenSearch(FolderChildrenSearchRequest request, StreamObserver<FolderChildrenSearchResponse> responseObserver) {
+  @Override
+  public void folderChildrenSearch(FolderChildrenSearchRequest request, StreamObserver<FolderChildrenSearchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/children/search", inputJson);
@@ -4997,7 +5166,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get the parent of a folder
    */
-  public void FolderParent(FolderParentRequest request, StreamObserver<FolderParentResponse> responseObserver) {
+  @Override
+  public void folderParent(FolderParentRequest request, StreamObserver<FolderParentResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/parent", inputJson);
@@ -5022,7 +5192,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get the ancestors of a folder
    */
-  public void FolderAncestors(FolderAncestorsRequest request, StreamObserver<FolderAncestorsResponse> responseObserver) {
+  @Override
+  public void folderAncestors(FolderAncestorsRequest request, StreamObserver<FolderAncestorsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/ancestors", inputJson);
@@ -5050,7 +5221,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * In API 4.0+, all looks in a folder will be returned, excluding looks in the trash.
    * 
    */
-  public void FolderLooks(FolderLooksRequest request, StreamObserver<FolderLooksResponse> responseObserver) {
+  @Override
+  public void folderLooks(FolderLooksRequest request, StreamObserver<FolderLooksResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/looks", inputJson);
@@ -5075,7 +5247,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Get the dashboards in a folder
    */
-  public void FolderDashboards(FolderDashboardsRequest request, StreamObserver<FolderDashboardsResponse> responseObserver) {
+  @Override
+  public void folderDashboards(FolderDashboardsRequest request, StreamObserver<FolderDashboardsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/dashboards", inputJson);
@@ -5105,7 +5278,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all groups.
    * 
    */
-  public void AllGroups(AllGroupsRequest request, StreamObserver<AllGroupsResponse> responseObserver) {
+  @Override
+  public void allGroups(AllGroupsRequest request, StreamObserver<AllGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups", inputJson);
@@ -5131,7 +5305,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Creates a new group (admin only).
    * 
    */
-  public void CreateGroup(CreateGroupRequest request, StreamObserver<CreateGroupResponse> responseObserver) {
+  @Override
+  public void createGroup(CreateGroupRequest request, StreamObserver<CreateGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/groups", inputJson);
@@ -5181,7 +5356,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchGroups(SearchGroupsRequest request, StreamObserver<SearchGroupsResponse> responseObserver) {
+  @Override
+  public void searchGroups(SearchGroupsRequest request, StreamObserver<SearchGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/search", inputJson);
@@ -5231,7 +5407,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchGroupsWithRoles(SearchGroupsWithRolesRequest request, StreamObserver<SearchGroupsWithRolesResponse> responseObserver) {
+  @Override
+  public void searchGroupsWithRoles(SearchGroupsWithRolesRequest request, StreamObserver<SearchGroupsWithRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/search/with_roles", inputJson);
@@ -5282,7 +5459,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest request, StreamObserver<SearchGroupsWithHierarchyResponse> responseObserver) {
+  @Override
+  public void searchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest request, StreamObserver<SearchGroupsWithHierarchyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/search/with_hierarchy", inputJson);
@@ -5308,7 +5486,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a group.
    * 
    */
-  public void Group(GroupRequest request, StreamObserver<GroupResponse> responseObserver) {
+  @Override
+  public void group(GroupRequest request, StreamObserver<GroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}", inputJson);
@@ -5333,7 +5512,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Updates the a group (admin only).
    */
-  public void UpdateGroup(UpdateGroupRequest request, StreamObserver<UpdateGroupResponse> responseObserver) {
+  @Override
+  public void updateGroup(UpdateGroupRequest request, StreamObserver<UpdateGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/groups/{group_id}", inputJson);
@@ -5359,7 +5539,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Deletes a group (admin only).
    * 
    */
-  public void DeleteGroup(DeleteGroupRequest request, StreamObserver<DeleteGroupResponse> responseObserver) {
+  @Override
+  public void deleteGroup(DeleteGroupRequest request, StreamObserver<DeleteGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}", inputJson);
@@ -5385,7 +5566,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all the groups in a group
    * 
    */
-  public void AllGroupGroups(AllGroupGroupsRequest request, StreamObserver<AllGroupGroupsResponse> responseObserver) {
+  @Override
+  public void allGroupGroups(AllGroupGroupsRequest request, StreamObserver<AllGroupGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}/groups", inputJson);
@@ -5411,7 +5593,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Adds a new group to a group.
    * 
    */
-  public void AddGroupGroup(AddGroupGroupRequest request, StreamObserver<AddGroupGroupResponse> responseObserver) {
+  @Override
+  public void addGroupGroup(AddGroupGroupRequest request, StreamObserver<AddGroupGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/groups/{group_id}/groups", inputJson);
@@ -5437,7 +5620,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all the users directly included in a group.
    * 
    */
-  public void AllGroupUsers(AllGroupUsersRequest request, StreamObserver<AllGroupUsersResponse> responseObserver) {
+  @Override
+  public void allGroupUsers(AllGroupUsersRequest request, StreamObserver<AllGroupUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}/users", inputJson);
@@ -5463,7 +5647,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Adds a new user to a group.
    * 
    */
-  public void AddGroupUser(AddGroupUserRequest request, StreamObserver<AddGroupUserResponse> responseObserver) {
+  @Override
+  public void addGroupUser(AddGroupUserRequest request, StreamObserver<AddGroupUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/groups/{group_id}/users", inputJson);
@@ -5489,7 +5674,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Removes a user from a group.
    * 
    */
-  public void DeleteGroupUser(DeleteGroupUserRequest request, StreamObserver<DeleteGroupUserResponse> responseObserver) {
+  @Override
+  public void deleteGroupUser(DeleteGroupUserRequest request, StreamObserver<DeleteGroupUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/users/{user_id}", inputJson);
@@ -5515,7 +5701,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Removes a group from a group.
    * 
    */
-  public void DeleteGroupFromGroup(DeleteGroupFromGroupRequest request, StreamObserver<DeleteGroupFromGroupResponse> responseObserver) {
+  @Override
+  public void deleteGroupFromGroup(DeleteGroupFromGroupRequest request, StreamObserver<DeleteGroupFromGroupResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/groups/{deleting_group_id}", inputJson);
@@ -5543,7 +5730,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * For information about how user attribute values are calculated, see [Set User Attribute Group Values](#!/UserAttribute/set_user_attribute_group_values).
    * 
    */
-  public void UpdateUserAttributeGroupValue(UpdateUserAttributeGroupValueRequest request, StreamObserver<UpdateUserAttributeGroupValueResponse> responseObserver) {
+  @Override
+  public void updateUserAttributeGroupValue(UpdateUserAttributeGroupValueRequest request, StreamObserver<UpdateUserAttributeGroupValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/groups/{group_id}/attribute_values/{user_attribute_id}", inputJson);
@@ -5569,7 +5757,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Remove a user attribute value from a group.
    * 
    */
-  public void DeleteUserAttributeGroupValue(DeleteUserAttributeGroupValueRequest request, StreamObserver<DeleteUserAttributeGroupValueResponse> responseObserver) {
+  @Override
+  public void deleteUserAttributeGroupValue(DeleteUserAttributeGroupValueRequest request, StreamObserver<DeleteUserAttributeGroupValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/attribute_values/{user_attribute_id}", inputJson);
@@ -5599,7 +5788,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about the primary homepage's sections.
    * 
    */
-  public void AllPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest request, StreamObserver<AllPrimaryHomepageSectionsResponse> responseObserver) {
+  @Override
+  public void allPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest request, StreamObserver<AllPrimaryHomepageSectionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/primary_homepage_sections", inputJson);
@@ -5629,7 +5819,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all Integration Hubs.
    * 
    */
-  public void AllIntegrationHubs(AllIntegrationHubsRequest request, StreamObserver<AllIntegrationHubsResponse> responseObserver) {
+  @Override
+  public void allIntegrationHubs(AllIntegrationHubsRequest request, StreamObserver<AllIntegrationHubsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integration_hubs", inputJson);
@@ -5657,7 +5848,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * This API is rate limited to prevent it from being used for SSRF attacks
    * 
    */
-  public void CreateIntegrationHub(CreateIntegrationHubRequest request, StreamObserver<CreateIntegrationHubResponse> responseObserver) {
+  @Override
+  public void createIntegrationHub(CreateIntegrationHubRequest request, StreamObserver<CreateIntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integration_hubs", inputJson);
@@ -5683,7 +5875,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a Integration Hub.
    * 
    */
-  public void IntegrationHub(IntegrationHubRequest request, StreamObserver<IntegrationHubResponse> responseObserver) {
+  @Override
+  public void integrationHub(IntegrationHubRequest request, StreamObserver<IntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integration_hubs/{integration_hub_id}", inputJson);
@@ -5711,7 +5904,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * This API is rate limited to prevent it from being used for SSRF attacks
    * 
    */
-  public void UpdateIntegrationHub(UpdateIntegrationHubRequest request, StreamObserver<UpdateIntegrationHubResponse> responseObserver) {
+  @Override
+  public void updateIntegrationHub(UpdateIntegrationHubRequest request, StreamObserver<UpdateIntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/integration_hubs/{integration_hub_id}", inputJson);
@@ -5737,7 +5931,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a Integration Hub.
    * 
    */
-  public void DeleteIntegrationHub(DeleteIntegrationHubRequest request, StreamObserver<DeleteIntegrationHubResponse> responseObserver) {
+  @Override
+  public void deleteIntegrationHub(DeleteIntegrationHubRequest request, StreamObserver<DeleteIntegrationHubResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/integration_hubs/{integration_hub_id}", inputJson);
@@ -5762,7 +5957,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Accepts the legal agreement for a given integration hub. This only works for integration hubs that have legal_agreement_required set to true and legal_agreement_signed set to false.
    */
-  public void AcceptIntegrationHubLegalAgreement(AcceptIntegrationHubLegalAgreementRequest request, StreamObserver<AcceptIntegrationHubLegalAgreementResponse> responseObserver) {
+  @Override
+  public void acceptIntegrationHubLegalAgreement(AcceptIntegrationHubLegalAgreementRequest request, StreamObserver<AcceptIntegrationHubLegalAgreementResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integration_hubs/{integration_hub_id}/accept_legal_agreement", inputJson);
@@ -5788,7 +5984,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all Integrations.
    * 
    */
-  public void AllIntegrations(AllIntegrationsRequest request, StreamObserver<AllIntegrationsResponse> responseObserver) {
+  @Override
+  public void allIntegrations(AllIntegrationsRequest request, StreamObserver<AllIntegrationsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integrations", inputJson);
@@ -5814,7 +6011,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a Integration.
    * 
    */
-  public void Integration(IntegrationRequest request, StreamObserver<IntegrationResponse> responseObserver) {
+  @Override
+  public void integration(IntegrationRequest request, StreamObserver<IntegrationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integrations/{integration_id}", inputJson);
@@ -5840,7 +6038,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update parameters on a Integration.
    * 
    */
-  public void UpdateIntegration(UpdateIntegrationRequest request, StreamObserver<UpdateIntegrationResponse> responseObserver) {
+  @Override
+  public void updateIntegration(UpdateIntegrationRequest request, StreamObserver<UpdateIntegrationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/integrations/{integration_id}", inputJson);
@@ -5865,7 +6064,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Returns the Integration form for presentation to the user.
    */
-  public void FetchIntegrationForm(FetchIntegrationFormRequest request, StreamObserver<FetchIntegrationFormResponse> responseObserver) {
+  @Override
+  public void fetchIntegrationForm(FetchIntegrationFormRequest request, StreamObserver<FetchIntegrationFormResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integrations/{integration_id}/form", inputJson);
@@ -5890,7 +6090,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Tests the integration to make sure all the settings are working.
    */
-  public void TestIntegration(TestIntegrationRequest request, StreamObserver<TestIntegrationResponse> responseObserver) {
+  @Override
+  public void testIntegration(TestIntegrationRequest request, StreamObserver<TestIntegrationResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integrations/{integration_id}/test", inputJson);
@@ -5926,7 +6127,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Find **soft-deleted looks** with [search_looks()](#!/Look/search_looks)
    * 
    */
-  public void AllLooks(AllLooksRequest request, StreamObserver<AllLooksResponse> responseObserver) {
+  @Override
+  public void allLooks(AllLooksRequest request, StreamObserver<AllLooksResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks", inputJson);
@@ -5958,7 +6160,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * in the call to `create_look()`.
    * 
    */
-  public void CreateLook(CreateLookRequest request, StreamObserver<CreateLookResponse> responseObserver) {
+  @Override
+  public void createLook(CreateLookRequest request, StreamObserver<CreateLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/looks", inputJson);
@@ -6010,7 +6213,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Get a **single look** by id with [look(id)](#!/Look/look)
    * 
    */
-  public void SearchLooks(SearchLooksRequest request, StreamObserver<SearchLooksResponse> responseObserver) {
+  @Override
+  public void searchLooks(SearchLooksRequest request, StreamObserver<SearchLooksResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks/search", inputJson);
@@ -6039,7 +6243,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void Look(LookRequest request, StreamObserver<LookResponse> responseObserver) {
+  @Override
+  public void look(LookRequest request, StreamObserver<LookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks/{look_id}", inputJson);
@@ -6084,7 +6289,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * database and destroyed. There is no "undo" for `delete_look()`.
    * 
    */
-  public void UpdateLook(UpdateLookRequest request, StreamObserver<UpdateLookResponse> responseObserver) {
+  @Override
+  public void updateLook(UpdateLookRequest request, StreamObserver<UpdateLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/looks/{look_id}", inputJson);
@@ -6116,7 +6322,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * For information about soft-delete (which can be undone) see [update_look()](#!/Look/update_look).
    * 
    */
-  public void DeleteLook(DeleteLookRequest request, StreamObserver<DeleteLookResponse> responseObserver) {
+  @Override
+  public void deleteLook(DeleteLookRequest request, StreamObserver<DeleteLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/looks/{look_id}", inputJson);
@@ -6161,7 +6368,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void RunLook(RunLookRequest request, StreamObserver<RunLookResponse> responseObserver) {
+  @Override
+  public void runLook(RunLookRequest request, StreamObserver<RunLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks/{look_id}/run/{result_format}", inputJson);
@@ -6191,7 +6399,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all lookml models.
    * 
    */
-  public void AllLookmlModels(AllLookmlModelsRequest request, StreamObserver<AllLookmlModelsResponse> responseObserver) {
+  @Override
+  public void allLookmlModels(AllLookmlModelsRequest request, StreamObserver<AllLookmlModelsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/lookml_models", inputJson);
@@ -6217,7 +6426,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a lookml model using the specified configuration.
    * 
    */
-  public void CreateLookmlModel(CreateLookmlModelRequest request, StreamObserver<CreateLookmlModelResponse> responseObserver) {
+  @Override
+  public void createLookmlModel(CreateLookmlModelRequest request, StreamObserver<CreateLookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/lookml_models", inputJson);
@@ -6243,7 +6453,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a lookml model.
    * 
    */
-  public void LookmlModel(LookmlModelRequest request, StreamObserver<LookmlModelResponse> responseObserver) {
+  @Override
+  public void lookmlModel(LookmlModelRequest request, StreamObserver<LookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/lookml_models/{lookml_model_name}", inputJson);
@@ -6269,7 +6480,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a lookml model using the specified configuration.
    * 
    */
-  public void UpdateLookmlModel(UpdateLookmlModelRequest request, StreamObserver<UpdateLookmlModelResponse> responseObserver) {
+  @Override
+  public void updateLookmlModel(UpdateLookmlModelRequest request, StreamObserver<UpdateLookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/lookml_models/{lookml_model_name}", inputJson);
@@ -6295,7 +6507,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a lookml model.
    * 
    */
-  public void DeleteLookmlModel(DeleteLookmlModelRequest request, StreamObserver<DeleteLookmlModelResponse> responseObserver) {
+  @Override
+  public void deleteLookmlModel(DeleteLookmlModelRequest request, StreamObserver<DeleteLookmlModelResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/lookml_models/{lookml_model_name}", inputJson);
@@ -6321,7 +6534,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a lookml model explore.
    * 
    */
-  public void LookmlModelExplore(LookmlModelExploreRequest request, StreamObserver<LookmlModelExploreResponse> responseObserver) {
+  @Override
+  public void lookmlModelExplore(LookmlModelExploreRequest request, StreamObserver<LookmlModelExploreResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/lookml_models/{lookml_model_name}/explores/{explore_name}", inputJson);
@@ -6352,7 +6566,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ModelFieldnameSuggestions(ModelFieldnameSuggestionsRequest request, StreamObserver<ModelFieldnameSuggestionsResponse> responseObserver) {
+  @Override
+  public void modelFieldnameSuggestions(ModelFieldnameSuggestionsRequest request, StreamObserver<ModelFieldnameSuggestionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/models/{model_name}/views/{view_name}/fields/{field_name}/suggestions", inputJson);
@@ -6386,7 +6601,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * multiple databases.
    * 
    */
-  public void ConnectionDatabases(ConnectionDatabasesRequest request, StreamObserver<ConnectionDatabasesResponse> responseObserver) {
+  @Override
+  public void connectionDatabases(ConnectionDatabasesRequest request, StreamObserver<ConnectionDatabasesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/databases", inputJson);
@@ -6415,7 +6631,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ConnectionFeatures(ConnectionFeaturesRequest request, StreamObserver<ConnectionFeaturesResponse> responseObserver) {
+  @Override
+  public void connectionFeatures(ConnectionFeaturesRequest request, StreamObserver<ConnectionFeaturesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/features", inputJson);
@@ -6442,7 +6659,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ConnectionSchemas(ConnectionSchemasRequest request, StreamObserver<ConnectionSchemasResponse> responseObserver) {
+  @Override
+  public void connectionSchemas(ConnectionSchemasRequest request, StreamObserver<ConnectionSchemasResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/schemas", inputJson);
@@ -6473,7 +6691,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * For dialects that do **not** support multiple databases, **do not use** the database parameter
    * 
    */
-  public void ConnectionTables(ConnectionTablesRequest request, StreamObserver<ConnectionTablesResponse> responseObserver) {
+  @Override
+  public void connectionTables(ConnectionTablesRequest request, StreamObserver<ConnectionTablesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/tables", inputJson);
@@ -6500,7 +6719,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ConnectionColumns(ConnectionColumnsRequest request, StreamObserver<ConnectionColumnsResponse> responseObserver) {
+  @Override
+  public void connectionColumns(ConnectionColumnsRequest request, StreamObserver<ConnectionColumnsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/columns", inputJson);
@@ -6528,7 +6748,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **Note**: `column_name` must be a valid column name. It is not a search pattern.
    * 
    */
-  public void ConnectionSearchColumns(ConnectionSearchColumnsRequest request, StreamObserver<ConnectionSearchColumnsResponse> responseObserver) {
+  @Override
+  public void connectionSearchColumns(ConnectionSearchColumnsRequest request, StreamObserver<ConnectionSearchColumnsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/search_columns", inputJson);
@@ -6558,7 +6779,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **Note**: If the connection's dialect has no support for cost estimates, an error will be returned
    * 
    */
-  public void ConnectionCostEstimate(ConnectionCostEstimateRequest request, StreamObserver<ConnectionCostEstimateResponse> responseObserver) {
+  @Override
+  public void connectionCostEstimate(ConnectionCostEstimateRequest request, StreamObserver<ConnectionCostEstimateResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/connections/{connection_name}/cost_estimate", inputJson);
@@ -6595,7 +6817,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void LockAll(LockAllRequest request, StreamObserver<LockAllResponse> responseObserver) {
+  @Override
+  public void lockAll(LockAllRequest request, StreamObserver<LockAllResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/manifest/lock_all", inputJson);
@@ -6623,7 +6846,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns a list of git branches in the project repository
    * 
    */
-  public void AllGitBranches(AllGitBranchesRequest request, StreamObserver<AllGitBranchesResponse> responseObserver) {
+  @Override
+  public void allGitBranches(AllGitBranchesRequest request, StreamObserver<AllGitBranchesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branches", inputJson);
@@ -6651,7 +6875,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns the git branch currently checked out in the given project repository
    * 
    */
-  public void GitBranch(GitBranchRequest request, StreamObserver<GitBranchResponse> responseObserver) {
+  @Override
+  public void gitBranch(GitBranchRequest request, StreamObserver<GitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branch", inputJson);
@@ -6686,7 +6911,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UpdateGitBranch(UpdateGitBranchRequest request, StreamObserver<UpdateGitBranchResponse> responseObserver) {
+  @Override
+  public void updateGitBranch(UpdateGitBranchRequest request, StreamObserver<UpdateGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/projects/{project_id}/git_branch", inputJson);
@@ -6720,7 +6946,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateGitBranch(CreateGitBranchRequest request, StreamObserver<CreateGitBranchResponse> responseObserver) {
+  @Override
+  public void createGitBranch(CreateGitBranchRequest request, StreamObserver<CreateGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/git_branch", inputJson);
@@ -6748,7 +6975,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns the git branch specified in branch_name path param if it exists in the given project repository
    * 
    */
-  public void FindGitBranch(FindGitBranchRequest request, StreamObserver<FindGitBranchResponse> responseObserver) {
+  @Override
+  public void findGitBranch(FindGitBranchRequest request, StreamObserver<FindGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branch/{branch_name}", inputJson);
@@ -6776,7 +7004,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Delete git branch specified in branch_name path param from local and remote of specified project repository
    * 
    */
-  public void DeleteGitBranch(DeleteGitBranchRequest request, StreamObserver<DeleteGitBranchResponse> responseObserver) {
+  @Override
+  public void deleteGitBranch(DeleteGitBranchRequest request, StreamObserver<DeleteGitBranchResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/projects/{project_id}/git_branch/{branch_name}", inputJson);
@@ -6811,7 +7040,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void DeployRefToProduction(DeployRefToProductionRequest request, StreamObserver<DeployRefToProductionResponse> responseObserver) {
+  @Override
+  public void deployRefToProduction(DeployRefToProductionRequest request, StreamObserver<DeployRefToProductionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/deploy_ref_to_production", inputJson);
@@ -6849,7 +7079,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void DeployToProduction(DeployToProductionRequest request, StreamObserver<DeployToProductionResponse> responseObserver) {
+  @Override
+  public void deployToProduction(DeployToProductionRequest request, StreamObserver<DeployToProductionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/deploy_to_production", inputJson);
@@ -6877,7 +7108,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **DANGER** this will delete any changes that have not been pushed to a remote repository.
    * 
    */
-  public void ResetProjectToProduction(ResetProjectToProductionRequest request, StreamObserver<ResetProjectToProductionResponse> responseObserver) {
+  @Override
+  public void resetProjectToProduction(ResetProjectToProductionRequest request, StreamObserver<ResetProjectToProductionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/reset_to_production", inputJson);
@@ -6905,7 +7137,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **DANGER** this will delete any changes that have not been pushed to a remote repository.
    * 
    */
-  public void ResetProjectToRemote(ResetProjectToRemoteRequest request, StreamObserver<ResetProjectToRemoteResponse> responseObserver) {
+  @Override
+  public void resetProjectToRemote(ResetProjectToRemoteRequest request, StreamObserver<ResetProjectToRemoteResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/reset_to_remote", inputJson);
@@ -6933,7 +7166,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns all projects visible to the current user
    * 
    */
-  public void AllProjects(AllProjectsRequest request, StreamObserver<AllProjectsResponse> responseObserver) {
+  @Override
+  public void allProjects(AllProjectsRequest request, StreamObserver<AllProjectsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects", inputJson);
@@ -6966,7 +7200,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateProject(CreateProjectRequest request, StreamObserver<CreateProjectResponse> responseObserver) {
+  @Override
+  public void createProject(CreateProjectRequest request, StreamObserver<CreateProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects", inputJson);
@@ -6994,7 +7229,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns the project with the given project id
    * 
    */
-  public void Project(ProjectRequest request, StreamObserver<ProjectResponse> responseObserver) {
+  @Override
+  public void project(ProjectRequest request, StreamObserver<ProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}", inputJson);
@@ -7042,7 +7278,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UpdateProject(UpdateProjectRequest request, StreamObserver<UpdateProjectResponse> responseObserver) {
+  @Override
+  public void updateProject(UpdateProjectRequest request, StreamObserver<UpdateProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/projects/{project_id}", inputJson);
@@ -7070,7 +7307,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns the project with the given project id
    * 
    */
-  public void Manifest(ManifestRequest request, StreamObserver<ManifestResponse> responseObserver) {
+  @Override
+  public void manifest(ManifestRequest request, StreamObserver<ManifestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/manifest", inputJson);
@@ -7098,7 +7336,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns the ssh public key previously created for a project's git repository.
    * 
    */
-  public void GitDeployKey(GitDeployKeyRequest request, StreamObserver<GitDeployKeyResponse> responseObserver) {
+  @Override
+  public void gitDeployKey(GitDeployKeyRequest request, StreamObserver<GitDeployKeyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git/deploy_key", inputJson);
@@ -7132,7 +7371,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * validate and accept git requests from the Looker server.
    * 
    */
-  public void CreateGitDeployKey(CreateGitDeployKeyRequest request, StreamObserver<CreateGitDeployKeyResponse> responseObserver) {
+  @Override
+  public void createGitDeployKey(CreateGitDeployKeyRequest request, StreamObserver<CreateGitDeployKeyResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/git/deploy_key", inputJson);
@@ -7169,7 +7409,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * reflect the current state of the project.
    * 
    */
-  public void ProjectValidationResults(ProjectValidationResultsRequest request, StreamObserver<ProjectValidationResultsResponse> responseObserver) {
+  @Override
+  public void projectValidationResults(ProjectValidationResultsRequest request, StreamObserver<ProjectValidationResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/validate", inputJson);
@@ -7203,7 +7444,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * the most recent project validation (without recomputing), use `project_validation_results(project_id)`
    * 
    */
-  public void ValidateProject(ValidateProjectRequest request, StreamObserver<ValidateProjectResponse> responseObserver) {
+  @Override
+  public void validateProject(ValidateProjectRequest request, StreamObserver<ValidateProjectResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/validate", inputJson);
@@ -7231,7 +7473,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns information about the state of the project files in the currently selected workspace
    * 
    */
-  public void ProjectWorkspace(ProjectWorkspaceRequest request, StreamObserver<ProjectWorkspaceResponse> responseObserver) {
+  @Override
+  public void projectWorkspace(ProjectWorkspaceRequest request, StreamObserver<ProjectWorkspaceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/current_workspace", inputJson);
@@ -7259,7 +7502,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns a list of the files in the project
    * 
    */
-  public void AllProjectFiles(AllProjectFilesRequest request, StreamObserver<AllProjectFilesResponse> responseObserver) {
+  @Override
+  public void allProjectFiles(AllProjectFilesRequest request, StreamObserver<AllProjectFilesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/files", inputJson);
@@ -7287,7 +7531,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns information about a file in the project
    * 
    */
-  public void ProjectFile(ProjectFileRequest request, StreamObserver<ProjectFileResponse> responseObserver) {
+  @Override
+  public void projectFile(ProjectFileRequest request, StreamObserver<ProjectFileResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/files/file", inputJson);
@@ -7322,7 +7567,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * For example, a late-stage test for write access is meaningless if connecting to the git server (an early test) is failing.
    * 
    */
-  public void AllGitConnectionTests(AllGitConnectionTestsRequest request, StreamObserver<AllGitConnectionTestsResponse> responseObserver) {
+  @Override
+  public void allGitConnectionTests(AllGitConnectionTestsRequest request, StreamObserver<AllGitConnectionTestsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_connection_tests", inputJson);
@@ -7354,7 +7600,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Tests should be run in the order they are returned by [Get All Git Connection Tests](#!/Project/all_git_connection_tests).
    * 
    */
-  public void RunGitConnectionTest(RunGitConnectionTestRequest request, StreamObserver<RunGitConnectionTestResponse> responseObserver) {
+  @Override
+  public void runGitConnectionTest(RunGitConnectionTestRequest request, StreamObserver<RunGitConnectionTestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_connection_tests/{test_id}", inputJson);
@@ -7384,7 +7631,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Call [Run LookML Test](#!/Project/run_lookml_test) to execute tests.
    * 
    */
-  public void AllLookmlTests(AllLookmlTestsRequest request, StreamObserver<AllLookmlTestsResponse> responseObserver) {
+  @Override
+  public void allLookmlTests(AllLookmlTestsRequest request, StreamObserver<AllLookmlTestsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/lookml_tests", inputJson);
@@ -7412,7 +7660,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Runs all tests in the project, optionally filtered by file, test, and/or model.
    * 
    */
-  public void RunLookmlTest(RunLookmlTestRequest request, StreamObserver<RunLookmlTestResponse> responseObserver) {
+  @Override
+  public void runLookmlTest(RunLookmlTestRequest request, StreamObserver<RunLookmlTestResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/lookml_tests/run", inputJson);
@@ -7444,7 +7693,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UpdateRepositoryCredential(UpdateRepositoryCredentialRequest request, StreamObserver<UpdateRepositoryCredentialResponse> responseObserver) {
+  @Override
+  public void updateRepositoryCredential(UpdateRepositoryCredentialRequest request, StreamObserver<UpdateRepositoryCredentialResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/projects/{root_project_id}/credential/{credential_id}", inputJson);
@@ -7475,7 +7725,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * `credential_id` is required.
    * 
    */
-  public void DeleteRepositoryCredential(DeleteRepositoryCredentialRequest request, StreamObserver<DeleteRepositoryCredentialResponse> responseObserver) {
+  @Override
+  public void deleteRepositoryCredential(DeleteRepositoryCredentialRequest request, StreamObserver<DeleteRepositoryCredentialResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/projects/{root_project_id}/credential/{credential_id}", inputJson);
@@ -7503,7 +7754,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * `root_project_id` is required.
    * 
    */
-  public void GetAllRepositoryCredentials(GetAllRepositoryCredentialsRequest request, StreamObserver<GetAllRepositoryCredentialsResponse> responseObserver) {
+  @Override
+  public void getAllRepositoryCredentials(GetAllRepositoryCredentialsRequest request, StreamObserver<GetAllRepositoryCredentialsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{root_project_id}/credentials", inputJson);
@@ -7538,7 +7790,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * After the query task status reaches "Complete", use [query_task_results(query_task_id)](#!/Query/query_task_results) to fetch the results of the query.
    * 
    */
-  public void CreateQueryTask(CreateQueryTaskRequest request, StreamObserver<CreateQueryTaskResponse> responseObserver) {
+  @Override
+  public void createQueryTask(CreateQueryTaskRequest request, StreamObserver<CreateQueryTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/query_tasks", inputJson);
@@ -7570,7 +7823,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * If the user making the API request does not have sufficient privileges to view a Query Task result, the result will have a status of 'missing'
    * 
    */
-  public void QueryTaskMultiResults(QueryTaskMultiResultsRequest request, StreamObserver<QueryTaskMultiResultsResponse> responseObserver) {
+  @Override
+  public void queryTaskMultiResults(QueryTaskMultiResultsRequest request, StreamObserver<QueryTaskMultiResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/multi_results", inputJson);
@@ -7602,7 +7856,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Use [create_query_task()](#!/Query/create_query_task) to create an async query task.
    * 
    */
-  public void QueryTask(QueryTaskRequest request, StreamObserver<QueryTaskResponse> responseObserver) {
+  @Override
+  public void queryTask(QueryTaskRequest request, StreamObserver<QueryTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/{query_task_id}", inputJson);
@@ -7650,7 +7905,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * These data formats can only carry row data, and error info is not row data.
    * 
    */
-  public void QueryTaskResults(QueryTaskResultsRequest request, StreamObserver<QueryTaskResultsResponse> responseObserver) {
+  @Override
+  public void queryTaskResults(QueryTaskResultsRequest request, StreamObserver<QueryTaskResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/{query_task_id}/results", inputJson);
@@ -7693,7 +7949,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void Query(QueryRequest request, StreamObserver<QueryResponse> responseObserver) {
+  @Override
+  public void query(QueryRequest request, StreamObserver<QueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/{query_id}", inputJson);
@@ -7735,7 +7992,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 'aogBgL6o3cKK1jN3RoZl5s' is the slug.
    * 
    */
-  public void QueryForSlug(QueryForSlugRequest request, StreamObserver<QueryForSlugResponse> responseObserver) {
+  @Override
+  public void queryForSlug(QueryForSlugRequest request, StreamObserver<QueryForSlugResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/slug/{slug}", inputJson);
@@ -7769,7 +8027,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateQuery(CreateQueryRequest request, StreamObserver<CreateQueryResponse> responseObserver) {
+  @Override
+  public void createQuery(CreateQueryRequest request, StreamObserver<CreateQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/queries", inputJson);
@@ -7817,7 +8076,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void RunQuery(RunQueryRequest request, StreamObserver<RunQueryResponse> responseObserver) {
+  @Override
+  public void runQuery(RunQueryRequest request, StreamObserver<RunQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/{query_id}/run/{result_format}", inputJson);
@@ -7894,7 +8154,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void RunInlineQuery(RunInlineQueryRequest request, StreamObserver<RunInlineQueryResponse> responseObserver) {
+  @Override
+  public void runInlineQuery(RunInlineQueryRequest request, StreamObserver<RunInlineQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/queries/run/{result_format}", inputJson);
@@ -7973,7 +8234,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void RunUrlEncodedQuery(RunUrlEncodedQueryRequest request, StreamObserver<RunUrlEncodedQueryResponse> responseObserver) {
+  @Override
+  public void runUrlEncodedQuery(RunUrlEncodedQueryRequest request, StreamObserver<RunUrlEncodedQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/models/{model_name}/views/{view_name}/run/{result_format}", inputJson);
@@ -8001,7 +8263,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns a merge query object given its id.
    * 
    */
-  public void MergeQuery(MergeQueryRequest request, StreamObserver<MergeQueryResponse> responseObserver) {
+  @Override
+  public void mergeQuery(MergeQueryRequest request, StreamObserver<MergeQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/merge_queries/{merge_query_id}", inputJson);
@@ -8043,7 +8306,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * change to the contents of a merge query will produce a new object with a new id.
    * 
    */
-  public void CreateMergeQuery(CreateMergeQueryRequest request, StreamObserver<CreateMergeQueryResponse> responseObserver) {
+  @Override
+  public void createMergeQuery(CreateMergeQueryRequest request, StreamObserver<CreateMergeQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/merge_queries", inputJson);
@@ -8069,7 +8333,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Get information about all running queries.
    * 
    */
-  public void AllRunningQueries(AllRunningQueriesRequest request, StreamObserver<AllRunningQueriesResponse> responseObserver) {
+  @Override
+  public void allRunningQueries(AllRunningQueriesRequest request, StreamObserver<AllRunningQueriesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/running_queries", inputJson);
@@ -8095,7 +8360,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Kill a query with a specific query_task_id.
    * 
    */
-  public void KillQuery(KillQueryRequest request, StreamObserver<KillQueryResponse> responseObserver) {
+  @Override
+  public void killQuery(KillQueryRequest request, StreamObserver<KillQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/running_queries/{query_task_id}", inputJson);
@@ -8120,7 +8386,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Get a SQL Runner query.
    */
-  public void SqlQuery(SqlQueryRequest request, StreamObserver<SqlQueryResponse> responseObserver) {
+  @Override
+  public void sqlQuery(SqlQueryRequest request, StreamObserver<SqlQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/sql_queries/{slug}", inputJson);
@@ -8148,7 +8415,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Either the `connection_name` or `model_name` parameter MUST be provided.
    * 
    */
-  public void CreateSqlQuery(CreateSqlQueryRequest request, StreamObserver<CreateSqlQueryResponse> responseObserver) {
+  @Override
+  public void createSqlQuery(CreateSqlQueryRequest request, StreamObserver<CreateSqlQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/sql_queries", inputJson);
@@ -8173,7 +8441,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * Execute a SQL Runner query in a given result_format.
    */
-  public void RunSqlQuery(RunSqlQueryRequest request, StreamObserver<RunSqlQueryResponse> responseObserver) {
+  @Override
+  public void runSqlQuery(RunSqlQueryRequest request, StreamObserver<RunSqlQueryResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/sql_queries/{slug}/run/{result_format}", inputJson);
@@ -8208,7 +8477,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateLookRenderTask(CreateLookRenderTaskRequest request, StreamObserver<CreateLookRenderTaskResponse> responseObserver) {
+  @Override
+  public void createLookRenderTask(CreateLookRenderTaskRequest request, StreamObserver<CreateLookRenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/looks/{look_id}/{result_format}", inputJson);
@@ -8239,7 +8509,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateQueryRenderTask(CreateQueryRenderTaskRequest request, StreamObserver<CreateQueryRenderTaskResponse> responseObserver) {
+  @Override
+  public void createQueryRenderTask(CreateQueryRenderTaskRequest request, StreamObserver<CreateQueryRenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/queries/{query_id}/{result_format}", inputJson);
@@ -8270,7 +8541,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateDashboardRenderTask(CreateDashboardRenderTaskRequest request, StreamObserver<CreateDashboardRenderTaskResponse> responseObserver) {
+  @Override
+  public void createDashboardRenderTask(CreateDashboardRenderTaskRequest request, StreamObserver<CreateDashboardRenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/dashboards/{dashboard_id}/{result_format}", inputJson);
@@ -8301,7 +8573,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void RenderTask(RenderTaskRequest request, StreamObserver<RenderTaskResponse> responseObserver) {
+  @Override
+  public void renderTask(RenderTaskRequest request, StreamObserver<RenderTaskResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/render_tasks/{render_task_id}", inputJson);
@@ -8343,7 +8616,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * the task status reaches completion (or error) instead of polling **render_task_results(id)** alone.
    * 
    */
-  public void RenderTaskResults(RenderTaskResultsRequest request, StreamObserver<RenderTaskResultsResponse> responseObserver) {
+  @Override
+  public void renderTaskResults(RenderTaskResultsRequest request, StreamObserver<RenderTaskResultsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/render_tasks/{render_task_id}/results", inputJson);
@@ -8395,7 +8669,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchModelSets(SearchModelSetsRequest request, StreamObserver<SearchModelSetsResponse> responseObserver) {
+  @Override
+  public void searchModelSets(SearchModelSetsRequest request, StreamObserver<SearchModelSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/model_sets/search", inputJson);
@@ -8421,7 +8696,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about the model set with a specific id.
    * 
    */
-  public void ModelSet(ModelSetRequest request, StreamObserver<ModelSetResponse> responseObserver) {
+  @Override
+  public void modelSet(ModelSetRequest request, StreamObserver<ModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/model_sets/{model_set_id}", inputJson);
@@ -8447,7 +8723,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update information about the model set with a specific id.
    * 
    */
-  public void UpdateModelSet(UpdateModelSetRequest request, StreamObserver<UpdateModelSetResponse> responseObserver) {
+  @Override
+  public void updateModelSet(UpdateModelSetRequest request, StreamObserver<UpdateModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/model_sets/{model_set_id}", inputJson);
@@ -8473,7 +8750,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete the model set with a specific id.
    * 
    */
-  public void DeleteModelSet(DeleteModelSetRequest request, StreamObserver<DeleteModelSetResponse> responseObserver) {
+  @Override
+  public void deleteModelSet(DeleteModelSetRequest request, StreamObserver<DeleteModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/model_sets/{model_set_id}", inputJson);
@@ -8499,7 +8777,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all model sets.
    * 
    */
-  public void AllModelSets(AllModelSetsRequest request, StreamObserver<AllModelSetsResponse> responseObserver) {
+  @Override
+  public void allModelSets(AllModelSetsRequest request, StreamObserver<AllModelSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/model_sets", inputJson);
@@ -8525,7 +8804,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a model set with the specified information. Model sets are used by Roles.
    * 
    */
-  public void CreateModelSet(CreateModelSetRequest request, StreamObserver<CreateModelSetResponse> responseObserver) {
+  @Override
+  public void createModelSet(CreateModelSetRequest request, StreamObserver<CreateModelSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/model_sets", inputJson);
@@ -8551,7 +8831,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get all supported permissions.
    * 
    */
-  public void AllPermissions(AllPermissionsRequest request, StreamObserver<AllPermissionsResponse> responseObserver) {
+  @Override
+  public void allPermissions(AllPermissionsRequest request, StreamObserver<AllPermissionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permissions", inputJson);
@@ -8599,7 +8880,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchPermissionSets(SearchPermissionSetsRequest request, StreamObserver<SearchPermissionSetsResponse> responseObserver) {
+  @Override
+  public void searchPermissionSets(SearchPermissionSetsRequest request, StreamObserver<SearchPermissionSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permission_sets/search", inputJson);
@@ -8625,7 +8907,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about the permission set with a specific id.
    * 
    */
-  public void PermissionSet(PermissionSetRequest request, StreamObserver<PermissionSetResponse> responseObserver) {
+  @Override
+  public void permissionSet(PermissionSetRequest request, StreamObserver<PermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permission_sets/{permission_set_id}", inputJson);
@@ -8651,7 +8934,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update information about the permission set with a specific id.
    * 
    */
-  public void UpdatePermissionSet(UpdatePermissionSetRequest request, StreamObserver<UpdatePermissionSetResponse> responseObserver) {
+  @Override
+  public void updatePermissionSet(UpdatePermissionSetRequest request, StreamObserver<UpdatePermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/permission_sets/{permission_set_id}", inputJson);
@@ -8677,7 +8961,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete the permission set with a specific id.
    * 
    */
-  public void DeletePermissionSet(DeletePermissionSetRequest request, StreamObserver<DeletePermissionSetResponse> responseObserver) {
+  @Override
+  public void deletePermissionSet(DeletePermissionSetRequest request, StreamObserver<DeletePermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/permission_sets/{permission_set_id}", inputJson);
@@ -8703,7 +8988,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all permission sets.
    * 
    */
-  public void AllPermissionSets(AllPermissionSetsRequest request, StreamObserver<AllPermissionSetsResponse> responseObserver) {
+  @Override
+  public void allPermissionSets(AllPermissionSetsRequest request, StreamObserver<AllPermissionSetsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permission_sets", inputJson);
@@ -8729,7 +9015,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a permission set with the specified information. Permission sets are used by Roles.
    * 
    */
-  public void CreatePermissionSet(CreatePermissionSetRequest request, StreamObserver<CreatePermissionSetResponse> responseObserver) {
+  @Override
+  public void createPermissionSet(CreatePermissionSetRequest request, StreamObserver<CreatePermissionSetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/permission_sets", inputJson);
@@ -8755,7 +9042,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all roles.
    * 
    */
-  public void AllRoles(AllRolesRequest request, StreamObserver<AllRolesResponse> responseObserver) {
+  @Override
+  public void allRoles(AllRolesRequest request, StreamObserver<AllRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles", inputJson);
@@ -8781,7 +9069,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a role with the specified information.
    * 
    */
-  public void CreateRole(CreateRoleRequest request, StreamObserver<CreateRoleResponse> responseObserver) {
+  @Override
+  public void createRole(CreateRoleRequest request, StreamObserver<CreateRoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/roles", inputJson);
@@ -8831,7 +9120,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchRoles(SearchRolesRequest request, StreamObserver<SearchRolesResponse> responseObserver) {
+  @Override
+  public void searchRoles(SearchRolesRequest request, StreamObserver<SearchRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/search", inputJson);
@@ -8857,7 +9147,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about the role with a specific id.
    * 
    */
-  public void Role(RoleRequest request, StreamObserver<RoleResponse> responseObserver) {
+  @Override
+  public void role(RoleRequest request, StreamObserver<RoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}", inputJson);
@@ -8883,7 +9174,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update information about the role with a specific id.
    * 
    */
-  public void UpdateRole(UpdateRoleRequest request, StreamObserver<UpdateRoleResponse> responseObserver) {
+  @Override
+  public void updateRole(UpdateRoleRequest request, StreamObserver<UpdateRoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/roles/{role_id}", inputJson);
@@ -8909,7 +9201,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete the role with a specific id.
    * 
    */
-  public void DeleteRole(DeleteRoleRequest request, StreamObserver<DeleteRoleResponse> responseObserver) {
+  @Override
+  public void deleteRole(DeleteRoleRequest request, StreamObserver<DeleteRoleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/roles/{role_id}", inputJson);
@@ -8935,7 +9228,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all the groups with the role that has a specific id.
    * 
    */
-  public void RoleGroups(RoleGroupsRequest request, StreamObserver<RoleGroupsResponse> responseObserver) {
+  @Override
+  public void roleGroups(RoleGroupsRequest request, StreamObserver<RoleGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}/groups", inputJson);
@@ -8961,7 +9255,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Set all groups for a role, removing all existing group associations from that role.
    * 
    */
-  public void SetRoleGroups(SetRoleGroupsRequest request, StreamObserver<SetRoleGroupsResponse> responseObserver) {
+  @Override
+  public void setRoleGroups(SetRoleGroupsRequest request, StreamObserver<SetRoleGroupsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/roles/{role_id}/groups", inputJson);
@@ -8987,7 +9282,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all the users with the role that has a specific id.
    * 
    */
-  public void RoleUsers(RoleUsersRequest request, StreamObserver<RoleUsersResponse> responseObserver) {
+  @Override
+  public void roleUsers(RoleUsersRequest request, StreamObserver<RoleUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}/users", inputJson);
@@ -9013,7 +9309,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Set all the users of the role with a specific id.
    * 
    */
-  public void SetRoleUsers(SetRoleUsersRequest request, StreamObserver<SetRoleUsersResponse> responseObserver) {
+  @Override
+  public void setRoleUsers(SetRoleUsersRequest request, StreamObserver<SetRoleUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/roles/{role_id}/users", inputJson);
@@ -9045,7 +9342,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns scheduled plans owned by the caller for a given space id.
    * 
    */
-  public void ScheduledPlansForSpace(ScheduledPlansForSpaceRequest request, StreamObserver<ScheduledPlansForSpaceResponse> responseObserver) {
+  @Override
+  public void scheduledPlansForSpace(ScheduledPlansForSpaceRequest request, StreamObserver<ScheduledPlansForSpaceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/space/{space_id}", inputJson);
@@ -9073,7 +9371,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Admins can fetch information about other users' Scheduled Plans.
    * 
    */
-  public void ScheduledPlan(ScheduledPlanRequest request, StreamObserver<ScheduledPlanResponse> responseObserver) {
+  @Override
+  public void scheduledPlan(ScheduledPlanRequest request, StreamObserver<ScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/{scheduled_plan_id}", inputJson);
@@ -9142,7 +9441,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UpdateScheduledPlan(UpdateScheduledPlanRequest request, StreamObserver<UpdateScheduledPlanResponse> responseObserver) {
+  @Override
+  public void updateScheduledPlan(UpdateScheduledPlanRequest request, StreamObserver<UpdateScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/scheduled_plans/{scheduled_plan_id}", inputJson);
@@ -9172,7 +9472,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * This delete cannot be undone.
    * 
    */
-  public void DeleteScheduledPlan(DeleteScheduledPlanRequest request, StreamObserver<DeleteScheduledPlanResponse> responseObserver) {
+  @Override
+  public void deleteScheduledPlan(DeleteScheduledPlanRequest request, StreamObserver<DeleteScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/scheduled_plans/{scheduled_plan_id}", inputJson);
@@ -9210,7 +9511,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void AllScheduledPlans(AllScheduledPlansRequest request, StreamObserver<AllScheduledPlansResponse> responseObserver) {
+  @Override
+  public void allScheduledPlans(AllScheduledPlansRequest request, StreamObserver<AllScheduledPlansResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans", inputJson);
@@ -9295,7 +9597,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateScheduledPlan(CreateScheduledPlanRequest request, StreamObserver<CreateScheduledPlanResponse> responseObserver) {
+  @Override
+  public void createScheduledPlan(CreateScheduledPlanRequest request, StreamObserver<CreateScheduledPlanResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans", inputJson);
@@ -9359,7 +9662,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ScheduledPlanRunOnce(ScheduledPlanRunOnceRequest request, StreamObserver<ScheduledPlanRunOnceResponse> responseObserver) {
+  @Override
+  public void scheduledPlanRunOnce(ScheduledPlanRunOnceRequest request, StreamObserver<ScheduledPlanRunOnceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans/run_once", inputJson);
@@ -9397,7 +9701,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ScheduledPlansForLook(ScheduledPlansForLookRequest request, StreamObserver<ScheduledPlansForLookResponse> responseObserver) {
+  @Override
+  public void scheduledPlansForLook(ScheduledPlansForLookRequest request, StreamObserver<ScheduledPlansForLookResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/look/{look_id}", inputJson);
@@ -9435,7 +9740,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ScheduledPlansForDashboard(ScheduledPlansForDashboardRequest request, StreamObserver<ScheduledPlansForDashboardResponse> responseObserver) {
+  @Override
+  public void scheduledPlansForDashboard(ScheduledPlansForDashboardRequest request, StreamObserver<ScheduledPlansForDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/dashboard/{dashboard_id}", inputJson);
@@ -9473,7 +9779,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ScheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest request, StreamObserver<ScheduledPlansForLookmlDashboardResponse> responseObserver) {
+  @Override
+  public void scheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest request, StreamObserver<ScheduledPlansForLookmlDashboardResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/lookml_dashboard/{lookml_dashboard_id}", inputJson);
@@ -9546,7 +9853,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ScheduledPlanRunOnceById(ScheduledPlanRunOnceByIdRequest request, StreamObserver<ScheduledPlanRunOnceByIdResponse> responseObserver) {
+  @Override
+  public void scheduledPlanRunOnceById(ScheduledPlanRunOnceByIdRequest request, StreamObserver<ScheduledPlanRunOnceByIdResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans/{scheduled_plan_id}/run_once", inputJson);
@@ -9578,7 +9886,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns information about the current API session, such as which workspace is selected for the session.
    * 
    */
-  public void Session(SessionRequest request, StreamObserver<SessionResponse> responseObserver) {
+  @Override
+  public void session(SessionRequest request, StreamObserver<SessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/session", inputJson);
@@ -9623,7 +9932,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * API sessions, be sure to select the dev workspace after each login.
    * 
    */
-  public void UpdateSession(UpdateSessionRequest request, StreamObserver<UpdateSessionResponse> responseObserver) {
+  @Override
+  public void updateSession(UpdateSessionRequest request, StreamObserver<UpdateSessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/session", inputJson);
@@ -9660,7 +9970,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void AllThemes(AllThemesRequest request, StreamObserver<AllThemesResponse> responseObserver) {
+  @Override
+  public void allThemes(AllThemesRequest request, StreamObserver<AllThemesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes", inputJson);
@@ -9701,7 +10012,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void CreateTheme(CreateThemeRequest request, StreamObserver<CreateThemeResponse> responseObserver) {
+  @Override
+  public void createTheme(CreateThemeRequest request, StreamObserver<CreateThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/themes", inputJson);
@@ -9765,7 +10077,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchThemes(SearchThemesRequest request, StreamObserver<SearchThemesResponse> responseObserver) {
+  @Override
+  public void searchThemes(SearchThemesRequest request, StreamObserver<SearchThemesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/search", inputJson);
@@ -9797,7 +10110,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * The optional `ts` parameter can specify a different timestamp than "now." If specified, it returns the default theme at the time indicated.
    * 
    */
-  public void DefaultTheme(DefaultThemeRequest request, StreamObserver<DefaultThemeResponse> responseObserver) {
+  @Override
+  public void defaultTheme(DefaultThemeRequest request, StreamObserver<DefaultThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/default", inputJson);
@@ -9834,7 +10148,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SetDefaultTheme(SetDefaultThemeRequest request, StreamObserver<SetDefaultThemeResponse> responseObserver) {
+  @Override
+  public void setDefaultTheme(SetDefaultThemeRequest request, StreamObserver<SetDefaultThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/themes/default", inputJson);
@@ -9870,7 +10185,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ActiveThemes(ActiveThemesRequest request, StreamObserver<ActiveThemesResponse> responseObserver) {
+  @Override
+  public void activeThemes(ActiveThemesRequest request, StreamObserver<ActiveThemesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/active", inputJson);
@@ -9902,7 +10218,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ThemeOrDefault(ThemeOrDefaultRequest request, StreamObserver<ThemeOrDefaultResponse> responseObserver) {
+  @Override
+  public void themeOrDefault(ThemeOrDefaultRequest request, StreamObserver<ThemeOrDefaultResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/theme_or_default", inputJson);
@@ -9935,7 +10252,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void ValidateTheme(ValidateThemeRequest request, StreamObserver<ValidateThemeResponse> responseObserver) {
+  @Override
+  public void validateTheme(ValidateThemeRequest request, StreamObserver<ValidateThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/themes/validate", inputJson);
@@ -9966,7 +10284,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void Theme(ThemeRequest request, StreamObserver<ThemeResponse> responseObserver) {
+  @Override
+  public void theme(ThemeRequest request, StreamObserver<ThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/{theme_id}", inputJson);
@@ -9995,7 +10314,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UpdateTheme(UpdateThemeRequest request, StreamObserver<UpdateThemeResponse> responseObserver) {
+  @Override
+  public void updateTheme(UpdateThemeRequest request, StreamObserver<UpdateThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/themes/{theme_id}", inputJson);
@@ -10030,7 +10350,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void DeleteTheme(DeleteThemeRequest request, StreamObserver<DeleteThemeResponse> responseObserver) {
+  @Override
+  public void deleteTheme(DeleteThemeRequest request, StreamObserver<DeleteThemeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/themes/{theme_id}", inputJson);
@@ -10060,7 +10381,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about the current user; i.e. the user account currently calling the API.
    * 
    */
-  public void Me(MeRequest request, StreamObserver<MeResponse> responseObserver) {
+  @Override
+  public void me(MeRequest request, StreamObserver<MeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user", inputJson);
@@ -10086,7 +10408,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all users.
    * 
    */
-  public void AllUsers(AllUsersRequest request, StreamObserver<AllUsersResponse> responseObserver) {
+  @Override
+  public void allUsers(AllUsersRequest request, StreamObserver<AllUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users", inputJson);
@@ -10112,7 +10435,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Create a user with the specified information.
    * 
    */
-  public void CreateUser(CreateUserRequest request, StreamObserver<CreateUserResponse> responseObserver) {
+  @Override
+  public void createUser(CreateUserRequest request, StreamObserver<CreateUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users", inputJson);
@@ -10168,7 +10492,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void SearchUsers(SearchUsersRequest request, StreamObserver<SearchUsersResponse> responseObserver) {
+  @Override
+  public void searchUsers(SearchUsersRequest request, StreamObserver<SearchUsersResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/search", inputJson);
@@ -10199,7 +10524,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Any additional search params will be combined into a logical AND expression.
    * 
    */
-  public void SearchUsersNames(SearchUsersNamesRequest request, StreamObserver<SearchUsersNamesResponse> responseObserver) {
+  @Override
+  public void searchUsersNames(SearchUsersNamesRequest request, StreamObserver<SearchUsersNamesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/search/names/{pattern}", inputJson);
@@ -10229,7 +10555,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * The user name and avatar url, but no sensitive information.
    * 
    */
-  public void User(UserRequest request, StreamObserver<UserResponse> responseObserver) {
+  @Override
+  public void user(UserRequest request, StreamObserver<UserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}", inputJson);
@@ -10255,7 +10582,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update information about the user with a specific id.
    * 
    */
-  public void UpdateUser(UpdateUserRequest request, StreamObserver<UpdateUserResponse> responseObserver) {
+  @Override
+  public void updateUser(UpdateUserRequest request, StreamObserver<UpdateUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}", inputJson);
@@ -10283,7 +10611,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * **DANGER** this will delete the user and all looks and other information owned by the user.
    * 
    */
-  public void DeleteUser(DeleteUserRequest request, StreamObserver<DeleteUserResponse> responseObserver) {
+  @Override
+  public void deleteUser(DeleteUserRequest request, StreamObserver<DeleteUserResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}", inputJson);
@@ -10337,7 +10666,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * 
    * 
    */
-  public void UserForCredential(UserForCredentialRequest request, StreamObserver<UserForCredentialResponse> responseObserver) {
+  @Override
+  public void userForCredential(UserForCredentialRequest request, StreamObserver<UserForCredentialResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/credential/{credential_type}/{credential_id}", inputJson);
@@ -10362,7 +10692,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Email/password login information for the specified user.
    */
-  public void UserCredentialsEmail(UserCredentialsEmailRequest request, StreamObserver<UserCredentialsEmailResponse> responseObserver) {
+  @Override
+  public void userCredentialsEmail(UserCredentialsEmailRequest request, StreamObserver<UserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_email", inputJson);
@@ -10387,7 +10718,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Email/password login information for the specified user.
    */
-  public void CreateUserCredentialsEmail(CreateUserCredentialsEmailRequest request, StreamObserver<CreateUserCredentialsEmailResponse> responseObserver) {
+  @Override
+  public void createUserCredentialsEmail(CreateUserCredentialsEmailRequest request, StreamObserver<CreateUserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email", inputJson);
@@ -10412,7 +10744,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Email/password login information for the specified user.
    */
-  public void UpdateUserCredentialsEmail(UpdateUserCredentialsEmailRequest request, StreamObserver<UpdateUserCredentialsEmailResponse> responseObserver) {
+  @Override
+  public void updateUserCredentialsEmail(UpdateUserCredentialsEmailRequest request, StreamObserver<UpdateUserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}/credentials_email", inputJson);
@@ -10437,7 +10770,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Email/password login information for the specified user.
    */
-  public void DeleteUserCredentialsEmail(DeleteUserCredentialsEmailRequest request, StreamObserver<DeleteUserCredentialsEmailResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsEmail(DeleteUserCredentialsEmailRequest request, StreamObserver<DeleteUserCredentialsEmailResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_email", inputJson);
@@ -10462,7 +10796,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Two-factor login information for the specified user.
    */
-  public void UserCredentialsTotp(UserCredentialsTotpRequest request, StreamObserver<UserCredentialsTotpResponse> responseObserver) {
+  @Override
+  public void userCredentialsTotp(UserCredentialsTotpRequest request, StreamObserver<UserCredentialsTotpResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_totp", inputJson);
@@ -10487,7 +10822,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Two-factor login information for the specified user.
    */
-  public void CreateUserCredentialsTotp(CreateUserCredentialsTotpRequest request, StreamObserver<CreateUserCredentialsTotpResponse> responseObserver) {
+  @Override
+  public void createUserCredentialsTotp(CreateUserCredentialsTotpRequest request, StreamObserver<CreateUserCredentialsTotpResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_totp", inputJson);
@@ -10512,7 +10848,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Two-factor login information for the specified user.
    */
-  public void DeleteUserCredentialsTotp(DeleteUserCredentialsTotpRequest request, StreamObserver<DeleteUserCredentialsTotpResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsTotp(DeleteUserCredentialsTotpRequest request, StreamObserver<DeleteUserCredentialsTotpResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_totp", inputJson);
@@ -10537,7 +10874,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### LDAP login information for the specified user.
    */
-  public void UserCredentialsLdap(UserCredentialsLdapRequest request, StreamObserver<UserCredentialsLdapResponse> responseObserver) {
+  @Override
+  public void userCredentialsLdap(UserCredentialsLdapRequest request, StreamObserver<UserCredentialsLdapResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_ldap", inputJson);
@@ -10562,7 +10900,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### LDAP login information for the specified user.
    */
-  public void DeleteUserCredentialsLdap(DeleteUserCredentialsLdapRequest request, StreamObserver<DeleteUserCredentialsLdapResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsLdap(DeleteUserCredentialsLdapRequest request, StreamObserver<DeleteUserCredentialsLdapResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_ldap", inputJson);
@@ -10587,7 +10926,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Google authentication login information for the specified user.
    */
-  public void UserCredentialsGoogle(UserCredentialsGoogleRequest request, StreamObserver<UserCredentialsGoogleResponse> responseObserver) {
+  @Override
+  public void userCredentialsGoogle(UserCredentialsGoogleRequest request, StreamObserver<UserCredentialsGoogleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_google", inputJson);
@@ -10612,7 +10952,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Google authentication login information for the specified user.
    */
-  public void DeleteUserCredentialsGoogle(DeleteUserCredentialsGoogleRequest request, StreamObserver<DeleteUserCredentialsGoogleResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsGoogle(DeleteUserCredentialsGoogleRequest request, StreamObserver<DeleteUserCredentialsGoogleResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_google", inputJson);
@@ -10637,7 +10978,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Saml authentication login information for the specified user.
    */
-  public void UserCredentialsSaml(UserCredentialsSamlRequest request, StreamObserver<UserCredentialsSamlResponse> responseObserver) {
+  @Override
+  public void userCredentialsSaml(UserCredentialsSamlRequest request, StreamObserver<UserCredentialsSamlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_saml", inputJson);
@@ -10662,7 +11004,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Saml authentication login information for the specified user.
    */
-  public void DeleteUserCredentialsSaml(DeleteUserCredentialsSamlRequest request, StreamObserver<DeleteUserCredentialsSamlResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsSaml(DeleteUserCredentialsSamlRequest request, StreamObserver<DeleteUserCredentialsSamlResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_saml", inputJson);
@@ -10687,7 +11030,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### OpenID Connect (OIDC) authentication login information for the specified user.
    */
-  public void UserCredentialsOidc(UserCredentialsOidcRequest request, StreamObserver<UserCredentialsOidcResponse> responseObserver) {
+  @Override
+  public void userCredentialsOidc(UserCredentialsOidcRequest request, StreamObserver<UserCredentialsOidcResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_oidc", inputJson);
@@ -10712,7 +11056,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### OpenID Connect (OIDC) authentication login information for the specified user.
    */
-  public void DeleteUserCredentialsOidc(DeleteUserCredentialsOidcRequest request, StreamObserver<DeleteUserCredentialsOidcResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsOidc(DeleteUserCredentialsOidcRequest request, StreamObserver<DeleteUserCredentialsOidcResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_oidc", inputJson);
@@ -10737,7 +11082,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
-  public void UserCredentialsApi3(UserCredentialsApi3Request request, StreamObserver<UserCredentialsApi3Response> responseObserver) {
+  @Override
+  public void userCredentialsApi3(UserCredentialsApi3Request request, StreamObserver<UserCredentialsApi3Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_api3/{credentials_api3_id}", inputJson);
@@ -10762,7 +11108,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
-  public void DeleteUserCredentialsApi3(DeleteUserCredentialsApi3Request request, StreamObserver<DeleteUserCredentialsApi3Response> responseObserver) {
+  @Override
+  public void deleteUserCredentialsApi3(DeleteUserCredentialsApi3Request request, StreamObserver<DeleteUserCredentialsApi3Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_api3/{credentials_api3_id}", inputJson);
@@ -10787,7 +11134,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
-  public void AllUserCredentialsApi3s(AllUserCredentialsApi3sRequest request, StreamObserver<AllUserCredentialsApi3sResponse> responseObserver) {
+  @Override
+  public void allUserCredentialsApi3s(AllUserCredentialsApi3sRequest request, StreamObserver<AllUserCredentialsApi3sResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_api3", inputJson);
@@ -10812,7 +11160,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
-  public void CreateUserCredentialsApi3(CreateUserCredentialsApi3Request request, StreamObserver<CreateUserCredentialsApi3Response> responseObserver) {
+  @Override
+  public void createUserCredentialsApi3(CreateUserCredentialsApi3Request request, StreamObserver<CreateUserCredentialsApi3Response> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_api3", inputJson);
@@ -10837,7 +11186,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Embed login information for the specified user.
    */
-  public void UserCredentialsEmbed(UserCredentialsEmbedRequest request, StreamObserver<UserCredentialsEmbedResponse> responseObserver) {
+  @Override
+  public void userCredentialsEmbed(UserCredentialsEmbedRequest request, StreamObserver<UserCredentialsEmbedResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_embed/{credentials_embed_id}", inputJson);
@@ -10862,7 +11212,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Embed login information for the specified user.
    */
-  public void DeleteUserCredentialsEmbed(DeleteUserCredentialsEmbedRequest request, StreamObserver<DeleteUserCredentialsEmbedResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsEmbed(DeleteUserCredentialsEmbedRequest request, StreamObserver<DeleteUserCredentialsEmbedResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_embed/{credentials_embed_id}", inputJson);
@@ -10887,7 +11238,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Embed login information for the specified user.
    */
-  public void AllUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest request, StreamObserver<AllUserCredentialsEmbedsResponse> responseObserver) {
+  @Override
+  public void allUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest request, StreamObserver<AllUserCredentialsEmbedsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_embed", inputJson);
@@ -10912,7 +11264,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Looker Openid login information for the specified user. Used by Looker Analysts.
    */
-  public void UserCredentialsLookerOpenid(UserCredentialsLookerOpenidRequest request, StreamObserver<UserCredentialsLookerOpenidResponse> responseObserver) {
+  @Override
+  public void userCredentialsLookerOpenid(UserCredentialsLookerOpenidRequest request, StreamObserver<UserCredentialsLookerOpenidResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_looker_openid", inputJson);
@@ -10937,7 +11290,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Looker Openid login information for the specified user. Used by Looker Analysts.
    */
-  public void DeleteUserCredentialsLookerOpenid(DeleteUserCredentialsLookerOpenidRequest request, StreamObserver<DeleteUserCredentialsLookerOpenidResponse> responseObserver) {
+  @Override
+  public void deleteUserCredentialsLookerOpenid(DeleteUserCredentialsLookerOpenidRequest request, StreamObserver<DeleteUserCredentialsLookerOpenidResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_looker_openid", inputJson);
@@ -10962,7 +11316,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Web login session for the specified user.
    */
-  public void UserSession(UserSessionRequest request, StreamObserver<UserSessionResponse> responseObserver) {
+  @Override
+  public void userSession(UserSessionRequest request, StreamObserver<UserSessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/sessions/{session_id}", inputJson);
@@ -10987,7 +11342,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Web login session for the specified user.
    */
-  public void DeleteUserSession(DeleteUserSessionRequest request, StreamObserver<DeleteUserSessionResponse> responseObserver) {
+  @Override
+  public void deleteUserSession(DeleteUserSessionRequest request, StreamObserver<DeleteUserSessionResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/sessions/{session_id}", inputJson);
@@ -11012,7 +11368,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
   /**
    * ### Web login session for the specified user.
    */
-  public void AllUserSessions(AllUserSessionsRequest request, StreamObserver<AllUserSessionsResponse> responseObserver) {
+  @Override
+  public void allUserSessions(AllUserSessionsRequest request, StreamObserver<AllUserSessionsResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/sessions", inputJson);
@@ -11046,7 +11403,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * This method can be called with an empty body.
    * 
    */
-  public void CreateUserCredentialsEmailPasswordReset(CreateUserCredentialsEmailPasswordResetRequest request, StreamObserver<CreateUserCredentialsEmailPasswordResetResponse> responseObserver) {
+  @Override
+  public void createUserCredentialsEmailPasswordReset(CreateUserCredentialsEmailPasswordResetRequest request, StreamObserver<CreateUserCredentialsEmailPasswordResetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email/password_reset", inputJson);
@@ -11072,7 +11430,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about roles of a given user
    * 
    */
-  public void UserRoles(UserRolesRequest request, StreamObserver<UserRolesResponse> responseObserver) {
+  @Override
+  public void userRoles(UserRolesRequest request, StreamObserver<UserRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/roles", inputJson);
@@ -11098,7 +11457,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Set roles of the user with a specific id.
    * 
    */
-  public void SetUserRoles(SetUserRolesRequest request, StreamObserver<SetUserRolesResponse> responseObserver) {
+  @Override
+  public void setUserRoles(SetUserRolesRequest request, StreamObserver<SetUserRolesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/users/{user_id}/roles", inputJson);
@@ -11139,7 +11499,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * The value of all hidden user attributes will be blank.
    * 
    */
-  public void UserAttributeUserValues(UserAttributeUserValuesRequest request, StreamObserver<UserAttributeUserValuesResponse> responseObserver) {
+  @Override
+  public void userAttributeUserValues(UserAttributeUserValuesRequest request, StreamObserver<UserAttributeUserValuesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/attribute_values", inputJson);
@@ -11167,7 +11528,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Per-user user attribute values take precedence over group or default values.
    * 
    */
-  public void SetUserAttributeUserValue(SetUserAttributeUserValueRequest request, StreamObserver<SetUserAttributeUserValueResponse> responseObserver) {
+  @Override
+  public void setUserAttributeUserValue(SetUserAttributeUserValueRequest request, StreamObserver<SetUserAttributeUserValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}/attribute_values/{user_attribute_id}", inputJson);
@@ -11198,7 +11560,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * information about how user attribute values are resolved.
    * 
    */
-  public void DeleteUserAttributeUserValue(DeleteUserAttributeUserValueRequest request, StreamObserver<DeleteUserAttributeUserValueResponse> responseObserver) {
+  @Override
+  public void deleteUserAttributeUserValue(DeleteUserAttributeUserValueRequest request, StreamObserver<DeleteUserAttributeUserValueResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/attribute_values/{user_attribute_id}", inputJson);
@@ -11230,7 +11593,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * This method can be called with an empty body.
    * 
    */
-  public void SendUserCredentialsEmailPasswordReset(SendUserCredentialsEmailPasswordResetRequest request, StreamObserver<SendUserCredentialsEmailPasswordResetResponse> responseObserver) {
+  @Override
+  public void sendUserCredentialsEmailPasswordReset(SendUserCredentialsEmailPasswordResetRequest request, StreamObserver<SendUserCredentialsEmailPasswordResetResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email/send_password_reset", inputJson);
@@ -11260,7 +11624,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about all user attributes.
    * 
    */
-  public void AllUserAttributes(AllUserAttributesRequest request, StreamObserver<AllUserAttributesResponse> responseObserver) {
+  @Override
+  public void allUserAttributes(AllUserAttributesRequest request, StreamObserver<AllUserAttributesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_attributes", inputJson);
@@ -11295,7 +11660,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * user attribute will fail with a 422 error.
    * 
    */
-  public void CreateUserAttribute(CreateUserAttributeRequest request, StreamObserver<CreateUserAttributeResponse> responseObserver) {
+  @Override
+  public void createUserAttribute(CreateUserAttributeRequest request, StreamObserver<CreateUserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/user_attributes", inputJson);
@@ -11321,7 +11687,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Get information about a user attribute.
    * 
    */
-  public void UserAttribute(UserAttributeRequest request, StreamObserver<UserAttributeResponse> responseObserver) {
+  @Override
+  public void userAttribute(UserAttributeRequest request, StreamObserver<UserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_attributes/{user_attribute_id}", inputJson);
@@ -11347,7 +11714,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Update a user attribute definition.
    * 
    */
-  public void UpdateUserAttribute(UpdateUserAttributeRequest request, StreamObserver<UpdateUserAttributeResponse> responseObserver) {
+  @Override
+  public void updateUserAttribute(UpdateUserAttributeRequest request, StreamObserver<UpdateUserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/user_attributes/{user_attribute_id}", inputJson);
@@ -11373,7 +11741,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * ### Delete a user attribute (admin only).
    * 
    */
-  public void DeleteUserAttribute(DeleteUserAttributeRequest request, StreamObserver<DeleteUserAttributeResponse> responseObserver) {
+  @Override
+  public void deleteUserAttribute(DeleteUserAttributeRequest request, StreamObserver<DeleteUserAttributeResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/user_attributes/{user_attribute_id}", inputJson);
@@ -11405,7 +11774,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Results will only include groups that the caller's user account has permission to see.
    * 
    */
-  public void AllUserAttributeGroupValues(AllUserAttributeGroupValuesRequest request, StreamObserver<AllUserAttributeGroupValuesResponse> responseObserver) {
+  @Override
+  public void allUserAttributeGroupValues(AllUserAttributeGroupValuesRequest request, StreamObserver<AllUserAttributeGroupValuesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_attributes/{user_attribute_id}/group_values", inputJson);
@@ -11450,7 +11820,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * To set a user attribute value for all members of a group, see [Set User Attribute Group Value](#!/Group/update_user_attribute_group_value).
    * 
    */
-  public void SetUserAttributeGroupValues(SetUserAttributeGroupValuesRequest request, StreamObserver<SetUserAttributeGroupValuesResponse> responseObserver) {
+  @Override
+  public void setUserAttributeGroupValues(SetUserAttributeGroupValuesRequest request, StreamObserver<SetUserAttributeGroupValuesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/user_attributes/{user_attribute_id}/group_values", inputJson);
@@ -11482,7 +11853,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * Returns all workspaces available to the calling user.
    * 
    */
-  public void AllWorkspaces(AllWorkspacesRequest request, StreamObserver<AllWorkspacesResponse> responseObserver) {
+  @Override
+  public void allWorkspaces(AllWorkspacesRequest request, StreamObserver<AllWorkspacesResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/workspaces", inputJson);
@@ -11536,7 +11908,8 @@ public class LookerServiceImpl extends LookerServiceImplBase {
    * later and use update_session(workspace_id: "dev") to select the dev workspace for the new API session.
    * 
    */
-  public void Workspace(WorkspaceRequest request, StreamObserver<WorkspaceResponse> responseObserver) {
+  @Override
+  public void workspace(WorkspaceRequest request, StreamObserver<WorkspaceResponse> responseObserver) {
     try {
       String inputJson = JsonFormat.printer().print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/workspaces/{workspace_id}", inputJson);
