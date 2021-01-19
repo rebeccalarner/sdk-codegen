@@ -107,7 +107,10 @@ export class GrpcProxyGen extends CodeGen {
   @Override
   public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}Response> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
       _method.endpoint
     }", inputJson);
@@ -116,14 +119,18 @@ export class GrpcProxyGen extends CodeGen {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ${titleMethodName}Response.Builder responseBuilder = ${titleMethodName}Response.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -137,7 +144,10 @@ export class GrpcProxyGen extends CodeGen {
     @Override
     public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}Response> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
       _method.endpoint
     }", inputJson);
@@ -146,14 +156,18 @@ export class GrpcProxyGen extends CodeGen {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ${titleMethodName}Response.Builder responseBuilder = ${titleMethodName}Response.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -234,13 +248,17 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ${serviceName}Impl extends ${serviceName}ImplBase {
+
+  final private static Logger LOGGER = LoggerFactory.getLogger(${serviceName}Impl.class);
 
   final private LookerClient lookerClient;
 
   public ${serviceName}Impl() {
-    lookerClient = new LookerClient();
+    lookerClient = new LookerClient("${this.apiVersion}");
   }
 
     `

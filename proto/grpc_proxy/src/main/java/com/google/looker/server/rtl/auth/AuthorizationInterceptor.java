@@ -8,10 +8,6 @@ import io.grpc.ServerCall;
 import io.grpc.ServerCallHandler;
 import io.grpc.ServerInterceptor;
 import io.grpc.Status;
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.JwtParser;
-import io.jsonwebtoken.Jwts;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,19 +16,18 @@ import org.slf4j.LoggerFactory;
 
 public class AuthorizationInterceptor implements ServerInterceptor {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(AuthorizationInterceptor.class);
+  final private static Logger LOGGER = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
-  private final JwtParser parser;
   private final Set<String> unsecuredMethods
       = new HashSet<>(Arrays.asList("Login", "LoginUser", "Ping"));
 
   public AuthorizationInterceptor() {
-    parser = Jwts.parser().setSigningKey(System.getProperty((Constants.JWT_SIGNING_KEY)));
   }
 
   @Override
   public <ReqT, RespT> ServerCall.Listener<ReqT> interceptCall(ServerCall<ReqT, RespT> serverCall, Metadata metadata, ServerCallHandler<ReqT, RespT> serverCallHandler) {
     String value = metadata.get(Constants.AUTHORIZATION_METADATA_KEY);
+    LOGGER.debug("AUTHORIZATION_METADATA_KEY=" + value);
     LOGGER.info(String.format("Method called is %s", serverCall.getMethodDescriptor().getBareMethodName()));
     Status status;
     if (value == null) {
@@ -47,8 +42,8 @@ public class AuthorizationInterceptor implements ServerInterceptor {
     } else {
       try {
         String token = value.substring(Constants.BEARER_TYPE.length()).trim();
-        Jws<Claims> claims = parser.parseClaimsJws(token);
-        Context ctx = Context.current().withValue(Constants.CLIENT_ID_CONTEXT_KEY, claims.getBody().getSubject());
+        LOGGER.debug("bearer token=" + token);
+        Context ctx = Context.current().withValue(Constants.CLIENT_ID_CONTEXT_KEY, token);
         return Contexts.interceptCall(ctx, serverCall, metadata, serverCallHandler);
       } catch (Exception e) {
         status = Status.UNAUTHENTICATED.withDescription(e.getMessage()).withCause(e);

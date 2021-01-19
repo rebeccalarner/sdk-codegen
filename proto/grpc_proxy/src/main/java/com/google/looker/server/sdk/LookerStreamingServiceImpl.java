@@ -33,13 +33,17 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.util.JsonFormat;
 import io.grpc.Status;
 import io.grpc.stub.StreamObserver;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
+
+  final private static Logger LOGGER = LoggerFactory.getLogger(LookerStreamingServiceImpl.class);
 
   final private LookerClient lookerClient;
 
   public LookerStreamingServiceImpl() {
-    lookerClient = new LookerClient();
+    lookerClient = new LookerClient("4.0");
   }
 
     
@@ -79,21 +83,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void login(LoginRequest request, StreamObserver<LoginResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/login", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LoginResponse.Builder responseBuilder = LoginResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -121,21 +132,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void loginUser(LoginUserRequest request, StreamObserver<LoginUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/login/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LoginUserResponse.Builder responseBuilder = LoginUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -148,21 +166,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void logout(LogoutRequest request, StreamObserver<LogoutResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/logout", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LogoutResponse.Builder responseBuilder = LogoutResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -212,21 +237,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createSsoEmbedUrl(CreateSsoEmbedUrlRequest request, StreamObserver<CreateSsoEmbedUrlResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/embed/sso_url", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateSsoEmbedUrlResponse.Builder responseBuilder = CreateSsoEmbedUrlResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -263,21 +295,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createEmbedUrlAsMe(CreateEmbedUrlAsMeRequest request, StreamObserver<CreateEmbedUrlAsMeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/embed/token_url/me", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateEmbedUrlAsMeResponse.Builder responseBuilder = CreateEmbedUrlAsMeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -305,21 +344,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void ldapConfig(LdapConfigRequest request, StreamObserver<LdapConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ldap_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LdapConfigResponse.Builder responseBuilder = LdapConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -342,21 +388,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateLdapConfig(UpdateLdapConfigRequest request, StreamObserver<UpdateLdapConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/ldap_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateLdapConfigResponse.Builder responseBuilder = UpdateLdapConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -386,21 +439,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testLdapConfigConnection(TestLdapConfigConnectionRequest request, StreamObserver<TestLdapConfigConnectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_connection", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestLdapConfigConnectionResponse.Builder responseBuilder = TestLdapConfigConnectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -433,21 +493,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testLdapConfigAuth(TestLdapConfigAuthRequest request, StreamObserver<TestLdapConfigAuthResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_auth", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestLdapConfigAuthResponse.Builder responseBuilder = TestLdapConfigAuthResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -469,21 +536,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testLdapConfigUserInfo(TestLdapConfigUserInfoRequest request, StreamObserver<TestLdapConfigUserInfoResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_user_info", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestLdapConfigUserInfoResponse.Builder responseBuilder = TestLdapConfigUserInfoResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -505,21 +579,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testLdapConfigUserAuth(TestLdapConfigUserAuthRequest request, StreamObserver<TestLdapConfigUserAuthResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/ldap_config/test_user_auth", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestLdapConfigUserAuthResponse.Builder responseBuilder = TestLdapConfigUserAuthResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -538,21 +619,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allOauthClientApps(AllOauthClientAppsRequest request, StreamObserver<AllOauthClientAppsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oauth_client_apps", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllOauthClientAppsResponse.Builder responseBuilder = AllOauthClientAppsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -567,21 +655,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void oauthClientApp(OauthClientAppRequest request, StreamObserver<OauthClientAppResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oauth_client_apps/{client_guid}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         OauthClientAppResponse.Builder responseBuilder = OauthClientAppResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -599,21 +694,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void registerOauthClientApp(RegisterOauthClientAppRequest request, StreamObserver<RegisterOauthClientAppResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/oauth_client_apps/{client_guid}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RegisterOauthClientAppResponse.Builder responseBuilder = RegisterOauthClientAppResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -628,21 +730,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateOauthClientApp(UpdateOauthClientAppRequest request, StreamObserver<UpdateOauthClientAppResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/oauth_client_apps/{client_guid}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateOauthClientAppResponse.Builder responseBuilder = UpdateOauthClientAppResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -660,21 +769,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteOauthClientApp(DeleteOauthClientAppRequest request, StreamObserver<DeleteOauthClientAppResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteOauthClientAppResponse.Builder responseBuilder = DeleteOauthClientAppResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -690,21 +806,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void invalidateTokens(InvalidateTokensRequest request, StreamObserver<InvalidateTokensResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}/tokens", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         InvalidateTokensResponse.Builder responseBuilder = InvalidateTokensResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -723,21 +846,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void activateAppUser(ActivateAppUserRequest request, StreamObserver<ActivateAppUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/oauth_client_apps/{client_guid}/users/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ActivateAppUserResponse.Builder responseBuilder = ActivateAppUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -759,21 +889,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deactivateAppUser(DeactivateAppUserRequest request, StreamObserver<DeactivateAppUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oauth_client_apps/{client_guid}/users/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeactivateAppUserResponse.Builder responseBuilder = DeactivateAppUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -797,21 +934,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void oidcConfig(OidcConfigRequest request, StreamObserver<OidcConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oidc_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         OidcConfigResponse.Builder responseBuilder = OidcConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -832,21 +976,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateOidcConfig(UpdateOidcConfigRequest request, StreamObserver<UpdateOidcConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/oidc_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateOidcConfigResponse.Builder responseBuilder = UpdateOidcConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -859,21 +1010,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void oidcTestConfig(OidcTestConfigRequest request, StreamObserver<OidcTestConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/oidc_test_configs/{test_slug}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         OidcTestConfigResponse.Builder responseBuilder = OidcTestConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -886,21 +1044,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteOidcTestConfig(DeleteOidcTestConfigRequest request, StreamObserver<DeleteOidcTestConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/oidc_test_configs/{test_slug}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteOidcTestConfigResponse.Builder responseBuilder = DeleteOidcTestConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -913,21 +1078,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createOidcTestConfig(CreateOidcTestConfigRequest request, StreamObserver<CreateOidcTestConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/oidc_test_configs", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateOidcTestConfigResponse.Builder responseBuilder = CreateOidcTestConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -940,21 +1112,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void passwordConfig(PasswordConfigRequest request, StreamObserver<PasswordConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/password_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         PasswordConfigResponse.Builder responseBuilder = PasswordConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -967,21 +1146,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updatePasswordConfig(UpdatePasswordConfigRequest request, StreamObserver<UpdatePasswordConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/password_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdatePasswordConfigResponse.Builder responseBuilder = UpdatePasswordConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -994,21 +1180,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void forcePasswordResetAtNextLoginForAllUsers(ForcePasswordResetAtNextLoginForAllUsersRequest request, StreamObserver<ForcePasswordResetAtNextLoginForAllUsersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/password_config/force_password_reset_at_next_login_for_all_users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ForcePasswordResetAtNextLoginForAllUsersResponse.Builder responseBuilder = ForcePasswordResetAtNextLoginForAllUsersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1032,21 +1225,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void samlConfig(SamlConfigRequest request, StreamObserver<SamlConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/saml_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SamlConfigResponse.Builder responseBuilder = SamlConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1067,21 +1267,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateSamlConfig(UpdateSamlConfigRequest request, StreamObserver<UpdateSamlConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/saml_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateSamlConfigResponse.Builder responseBuilder = UpdateSamlConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1094,21 +1301,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void samlTestConfig(SamlTestConfigRequest request, StreamObserver<SamlTestConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/saml_test_configs/{test_slug}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SamlTestConfigResponse.Builder responseBuilder = SamlTestConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1121,21 +1335,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteSamlTestConfig(DeleteSamlTestConfigRequest request, StreamObserver<DeleteSamlTestConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/saml_test_configs/{test_slug}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteSamlTestConfigResponse.Builder responseBuilder = DeleteSamlTestConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1148,21 +1369,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createSamlTestConfig(CreateSamlTestConfigRequest request, StreamObserver<CreateSamlTestConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/saml_test_configs", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateSamlTestConfigResponse.Builder responseBuilder = CreateSamlTestConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1175,21 +1403,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void parseSamlIdpMetadata(ParseSamlIdpMetadataRequest request, StreamObserver<ParseSamlIdpMetadataResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/parse_saml_idp_metadata", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ParseSamlIdpMetadataResponse.Builder responseBuilder = ParseSamlIdpMetadataResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1204,21 +1439,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void fetchAndParseSamlIdpMetadata(FetchAndParseSamlIdpMetadataRequest request, StreamObserver<FetchAndParseSamlIdpMetadataResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/fetch_and_parse_saml_idp_metadata", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FetchAndParseSamlIdpMetadataResponse.Builder responseBuilder = FetchAndParseSamlIdpMetadataResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1231,21 +1473,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void sessionConfig(SessionConfigRequest request, StreamObserver<SessionConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/session_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SessionConfigResponse.Builder responseBuilder = SessionConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1258,21 +1507,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateSessionConfig(UpdateSessionConfigRequest request, StreamObserver<UpdateSessionConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/session_config", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateSessionConfigResponse.Builder responseBuilder = UpdateSessionConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1285,21 +1541,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUserLoginLockouts(AllUserLoginLockoutsRequest request, StreamObserver<AllUserLoginLockoutsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_login_lockouts", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUserLoginLockoutsResponse.Builder responseBuilder = AllUserLoginLockoutsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1312,21 +1575,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchUserLoginLockouts(SearchUserLoginLockoutsRequest request, StreamObserver<SearchUserLoginLockoutsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_login_lockouts/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchUserLoginLockoutsResponse.Builder responseBuilder = SearchUserLoginLockoutsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1339,21 +1609,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserLoginLockout(DeleteUserLoginLockoutRequest request, StreamObserver<DeleteUserLoginLockoutResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/user_login_lockout/{key}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserLoginLockoutResponse.Builder responseBuilder = DeleteUserLoginLockoutResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1370,21 +1647,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allBoards(AllBoardsRequest request, StreamObserver<AllBoardsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/boards", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllBoardsResponse.Builder responseBuilder = AllBoardsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1397,21 +1681,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createBoard(CreateBoardRequest request, StreamObserver<CreateBoardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/boards", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateBoardResponse.Builder responseBuilder = CreateBoardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1446,21 +1737,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchBoards(SearchBoardsRequest request, StreamObserver<SearchBoardsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/boards/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchBoardsResponse.Builder responseBuilder = SearchBoardsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1473,21 +1771,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void board(BoardRequest request, StreamObserver<BoardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/boards/{board_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         BoardResponse.Builder responseBuilder = BoardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1500,21 +1805,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateBoard(UpdateBoardRequest request, StreamObserver<UpdateBoardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/boards/{board_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateBoardResponse.Builder responseBuilder = UpdateBoardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1527,21 +1839,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteBoard(DeleteBoardRequest request, StreamObserver<DeleteBoardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/boards/{board_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteBoardResponse.Builder responseBuilder = DeleteBoardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1554,21 +1873,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allBoardItems(AllBoardItemsRequest request, StreamObserver<AllBoardItemsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_items", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllBoardItemsResponse.Builder responseBuilder = AllBoardItemsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1581,21 +1907,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createBoardItem(CreateBoardItemRequest request, StreamObserver<CreateBoardItemResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/board_items", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateBoardItemResponse.Builder responseBuilder = CreateBoardItemResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1608,21 +1941,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void boardItem(BoardItemRequest request, StreamObserver<BoardItemResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_items/{board_item_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         BoardItemResponse.Builder responseBuilder = BoardItemResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1635,21 +1975,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateBoardItem(UpdateBoardItemRequest request, StreamObserver<UpdateBoardItemResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/board_items/{board_item_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateBoardItemResponse.Builder responseBuilder = UpdateBoardItemResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1662,21 +2009,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteBoardItem(DeleteBoardItemRequest request, StreamObserver<DeleteBoardItemResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/board_items/{board_item_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteBoardItemResponse.Builder responseBuilder = DeleteBoardItemResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1689,21 +2043,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allBoardSections(AllBoardSectionsRequest request, StreamObserver<AllBoardSectionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_sections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllBoardSectionsResponse.Builder responseBuilder = AllBoardSectionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1716,21 +2077,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createBoardSection(CreateBoardSectionRequest request, StreamObserver<CreateBoardSectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/board_sections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateBoardSectionResponse.Builder responseBuilder = CreateBoardSectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1743,21 +2111,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void boardSection(BoardSectionRequest request, StreamObserver<BoardSectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/board_sections/{board_section_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         BoardSectionResponse.Builder responseBuilder = BoardSectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1770,21 +2145,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateBoardSection(UpdateBoardSectionRequest request, StreamObserver<UpdateBoardSectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/board_sections/{board_section_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateBoardSectionResponse.Builder responseBuilder = UpdateBoardSectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1797,21 +2179,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteBoardSection(DeleteBoardSectionRequest request, StreamObserver<DeleteBoardSectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/board_sections/{board_section_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteBoardSectionResponse.Builder responseBuilder = DeleteBoardSectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1836,21 +2225,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allColorCollections(AllColorCollectionsRequest request, StreamObserver<AllColorCollectionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllColorCollectionsResponse.Builder responseBuilder = AllColorCollectionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1872,21 +2268,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createColorCollection(CreateColorCollectionRequest request, StreamObserver<CreateColorCollectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/color_collections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateColorCollectionResponse.Builder responseBuilder = CreateColorCollectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1905,21 +2308,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void colorCollectionsCustom(ColorCollectionsCustomRequest request, StreamObserver<ColorCollectionsCustomResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/custom", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ColorCollectionsCustomResponse.Builder responseBuilder = ColorCollectionsCustomResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1938,21 +2348,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void colorCollectionsStandard(ColorCollectionsStandardRequest request, StreamObserver<ColorCollectionsStandardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/standard", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ColorCollectionsStandardResponse.Builder responseBuilder = ColorCollectionsStandardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -1969,21 +2386,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void defaultColorCollection(DefaultColorCollectionRequest request, StreamObserver<DefaultColorCollectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/default", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DefaultColorCollectionResponse.Builder responseBuilder = DefaultColorCollectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2000,21 +2424,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setDefaultColorCollection(SetDefaultColorCollectionRequest request, StreamObserver<SetDefaultColorCollectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/color_collections/default", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetDefaultColorCollectionResponse.Builder responseBuilder = SetDefaultColorCollectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2037,21 +2468,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void colorCollection(ColorCollectionRequest request, StreamObserver<ColorCollectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/color_collections/{collection_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ColorCollectionResponse.Builder responseBuilder = ColorCollectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2066,21 +2504,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateColorCollection(UpdateColorCollectionRequest request, StreamObserver<UpdateColorCollectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/color_collections/{collection_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateColorCollectionResponse.Builder responseBuilder = UpdateColorCollectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2101,21 +2546,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteColorCollection(DeleteColorCollectionRequest request, StreamObserver<DeleteColorCollectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/color_collections/{collection_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteColorCollectionResponse.Builder responseBuilder = DeleteColorCollectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2132,21 +2584,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void getAllCommands(GetAllCommandsRequest request, StreamObserver<GetAllCommandsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/commands", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         GetAllCommandsResponse.Builder responseBuilder = GetAllCommandsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2162,21 +2621,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createCommand(CreateCommandRequest request, StreamObserver<CreateCommandResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/commands", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateCommandResponse.Builder responseBuilder = CreateCommandResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2191,21 +2657,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateCommand(UpdateCommandRequest request, StreamObserver<UpdateCommandResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/commands/{command_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateCommandResponse.Builder responseBuilder = UpdateCommandResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2218,21 +2691,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteCommand(DeleteCommandRequest request, StreamObserver<DeleteCommandResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/commands/{command_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteCommandResponse.Builder responseBuilder = DeleteCommandResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2249,21 +2729,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void cloudStorageConfiguration(CloudStorageConfigurationRequest request, StreamObserver<CloudStorageConfigurationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/cloud_storage", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CloudStorageConfigurationResponse.Builder responseBuilder = CloudStorageConfigurationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2276,21 +2763,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateCloudStorageConfiguration(UpdateCloudStorageConfigurationRequest request, StreamObserver<UpdateCloudStorageConfigurationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/cloud_storage", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateCloudStorageConfigurationResponse.Builder responseBuilder = UpdateCloudStorageConfigurationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2303,21 +2797,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void customWelcomeEmail(CustomWelcomeEmailRequest request, StreamObserver<CustomWelcomeEmailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/custom_welcome_email", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CustomWelcomeEmailResponse.Builder responseBuilder = CustomWelcomeEmailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2330,21 +2831,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateCustomWelcomeEmail(UpdateCustomWelcomeEmailRequest request, StreamObserver<UpdateCustomWelcomeEmailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/custom_welcome_email", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateCustomWelcomeEmailResponse.Builder responseBuilder = UpdateCustomWelcomeEmailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2357,21 +2865,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateCustomWelcomeEmailTest(UpdateCustomWelcomeEmailTestRequest request, StreamObserver<UpdateCustomWelcomeEmailTestResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/custom_welcome_email_test", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateCustomWelcomeEmailTestResponse.Builder responseBuilder = UpdateCustomWelcomeEmailTestResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2384,21 +2899,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void digestEmailsEnabled(DigestEmailsEnabledRequest request, StreamObserver<DigestEmailsEnabledResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/digest_emails_enabled", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DigestEmailsEnabledResponse.Builder responseBuilder = DigestEmailsEnabledResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2411,21 +2933,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDigestEmailsEnabled(UpdateDigestEmailsEnabledRequest request, StreamObserver<UpdateDigestEmailsEnabledResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/digest_emails_enabled", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDigestEmailsEnabledResponse.Builder responseBuilder = UpdateDigestEmailsEnabledResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2439,21 +2968,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createDigestEmailSend(CreateDigestEmailSendRequest request, StreamObserver<CreateDigestEmailSendResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/digest_email_send", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateDigestEmailSendResponse.Builder responseBuilder = CreateDigestEmailSendResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2466,21 +3002,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void internalHelpResourcesContent(InternalHelpResourcesContentRequest request, StreamObserver<InternalHelpResourcesContentResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/internal_help_resources_content", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         InternalHelpResourcesContentResponse.Builder responseBuilder = InternalHelpResourcesContentResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2493,21 +3036,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateInternalHelpResourcesContent(UpdateInternalHelpResourcesContentRequest request, StreamObserver<UpdateInternalHelpResourcesContentResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/internal_help_resources_content", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateInternalHelpResourcesContentResponse.Builder responseBuilder = UpdateInternalHelpResourcesContentResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2520,21 +3070,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void internalHelpResources(InternalHelpResourcesRequest request, StreamObserver<InternalHelpResourcesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/internal_help_resources_enabled", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         InternalHelpResourcesResponse.Builder responseBuilder = InternalHelpResourcesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2547,21 +3104,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateInternalHelpResources(UpdateInternalHelpResourcesRequest request, StreamObserver<UpdateInternalHelpResourcesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/internal_help_resources", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateInternalHelpResourcesResponse.Builder responseBuilder = UpdateInternalHelpResourcesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2574,21 +3138,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allLegacyFeatures(AllLegacyFeaturesRequest request, StreamObserver<AllLegacyFeaturesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/legacy_features", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllLegacyFeaturesResponse.Builder responseBuilder = AllLegacyFeaturesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2601,21 +3172,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void legacyFeature(LegacyFeatureRequest request, StreamObserver<LegacyFeatureResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/legacy_features/{legacy_feature_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LegacyFeatureResponse.Builder responseBuilder = LegacyFeatureResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2628,21 +3206,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateLegacyFeature(UpdateLegacyFeatureRequest request, StreamObserver<UpdateLegacyFeatureResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/legacy_features/{legacy_feature_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateLegacyFeatureResponse.Builder responseBuilder = UpdateLegacyFeatureResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2655,21 +3240,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allLocales(AllLocalesRequest request, StreamObserver<AllLocalesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/locales", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllLocalesResponse.Builder responseBuilder = AllLocalesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2682,21 +3274,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allTimezones(AllTimezonesRequest request, StreamObserver<AllTimezonesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/timezones", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllTimezonesResponse.Builder responseBuilder = AllTimezonesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2709,21 +3308,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void versions(VersionsRequest request, StreamObserver<VersionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/versions", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         VersionsResponse.Builder responseBuilder = VersionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2737,21 +3343,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void whitelabelConfiguration(WhitelabelConfigurationRequest request, StreamObserver<WhitelabelConfigurationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/whitelabel_configuration", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         WhitelabelConfigurationResponse.Builder responseBuilder = WhitelabelConfigurationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2764,21 +3377,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateWhitelabelConfiguration(UpdateWhitelabelConfigurationRequest request, StreamObserver<UpdateWhitelabelConfigurationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/whitelabel_configuration", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateWhitelabelConfigurationResponse.Builder responseBuilder = UpdateWhitelabelConfigurationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2795,21 +3415,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allConnections(AllConnectionsRequest request, StreamObserver<AllConnectionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllConnectionsResponse.Builder responseBuilder = AllConnectionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2822,21 +3449,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createConnection(CreateConnectionRequest request, StreamObserver<CreateConnectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/connections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateConnectionResponse.Builder responseBuilder = CreateConnectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2849,21 +3483,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connection(ConnectionRequest request, StreamObserver<ConnectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionResponse.Builder responseBuilder = ConnectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2876,21 +3517,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateConnection(UpdateConnectionRequest request, StreamObserver<UpdateConnectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/connections/{connection_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateConnectionResponse.Builder responseBuilder = UpdateConnectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2903,21 +3551,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteConnection(DeleteConnectionRequest request, StreamObserver<DeleteConnectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/connections/{connection_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteConnectionResponse.Builder responseBuilder = DeleteConnectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2930,21 +3585,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteConnectionOverride(DeleteConnectionOverrideRequest request, StreamObserver<DeleteConnectionOverrideResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/connections/{connection_name}/connection_override/{override_context}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteConnectionOverrideResponse.Builder responseBuilder = DeleteConnectionOverrideResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2964,21 +3626,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testConnection(TestConnectionRequest request, StreamObserver<TestConnectionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/connections/{connection_name}/test", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestConnectionResponse.Builder responseBuilder = TestConnectionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -2998,21 +3667,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testConnectionConfig(TestConnectionConfigRequest request, StreamObserver<TestConnectionConfigResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/connections/test", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestConnectionConfigResponse.Builder responseBuilder = TestConnectionConfigResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3025,21 +3701,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allDialectInfos(AllDialectInfosRequest request, StreamObserver<AllDialectInfosResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dialect_info", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllDialectInfosResponse.Builder responseBuilder = AllDialectInfosResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3052,21 +3735,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allExternalOauthApplications(AllExternalOauthApplicationsRequest request, StreamObserver<AllExternalOauthApplicationsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/external_oauth_applications", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllExternalOauthApplicationsResponse.Builder responseBuilder = AllExternalOauthApplicationsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3079,21 +3769,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createExternalOauthApplication(CreateExternalOauthApplicationRequest request, StreamObserver<CreateExternalOauthApplicationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/external_oauth_applications", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateExternalOauthApplicationResponse.Builder responseBuilder = CreateExternalOauthApplicationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3106,21 +3803,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allSshServers(AllSshServersRequest request, StreamObserver<AllSshServersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_servers", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllSshServersResponse.Builder responseBuilder = AllSshServersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3133,21 +3837,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createSshServer(CreateSshServerRequest request, StreamObserver<CreateSshServerResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/ssh_servers", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateSshServerResponse.Builder responseBuilder = CreateSshServerResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3160,21 +3871,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void sshServer(SshServerRequest request, StreamObserver<SshServerResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_server/{ssh_server_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SshServerResponse.Builder responseBuilder = SshServerResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3187,21 +3905,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateSshServer(UpdateSshServerRequest request, StreamObserver<UpdateSshServerResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/ssh_server/{ssh_server_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateSshServerResponse.Builder responseBuilder = UpdateSshServerResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3214,21 +3939,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteSshServer(DeleteSshServerRequest request, StreamObserver<DeleteSshServerResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/ssh_server/{ssh_server_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteSshServerResponse.Builder responseBuilder = DeleteSshServerResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3241,21 +3973,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testSshServer(TestSshServerRequest request, StreamObserver<TestSshServerResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_server/{ssh_server_id}/test", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestSshServerResponse.Builder responseBuilder = TestSshServerResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3268,21 +4007,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allSshTunnels(AllSshTunnelsRequest request, StreamObserver<AllSshTunnelsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnels", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllSshTunnelsResponse.Builder responseBuilder = AllSshTunnelsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3295,21 +4041,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createSshTunnel(CreateSshTunnelRequest request, StreamObserver<CreateSshTunnelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/ssh_tunnels", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateSshTunnelResponse.Builder responseBuilder = CreateSshTunnelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3322,21 +4075,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void sshTunnel(SshTunnelRequest request, StreamObserver<SshTunnelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SshTunnelResponse.Builder responseBuilder = SshTunnelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3349,21 +4109,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateSshTunnel(UpdateSshTunnelRequest request, StreamObserver<UpdateSshTunnelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateSshTunnelResponse.Builder responseBuilder = UpdateSshTunnelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3376,21 +4143,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteSshTunnel(DeleteSshTunnelRequest request, StreamObserver<DeleteSshTunnelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/ssh_tunnel/{ssh_tunnel_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteSshTunnelResponse.Builder responseBuilder = DeleteSshTunnelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3403,21 +4177,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testSshTunnel(TestSshTunnelRequest request, StreamObserver<TestSshTunnelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_tunnel/{ssh_tunnel_id}/test", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestSshTunnelResponse.Builder responseBuilder = TestSshTunnelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3432,21 +4213,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void sshPublicKey(SshPublicKeyRequest request, StreamObserver<SshPublicKeyResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/ssh_public_key", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SshPublicKeyResponse.Builder responseBuilder = SshPublicKeyResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3485,21 +4273,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchContentFavorites(SearchContentFavoritesRequest request, StreamObserver<SearchContentFavoritesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_favorite/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchContentFavoritesResponse.Builder responseBuilder = SearchContentFavoritesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3511,21 +4306,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void contentFavorite(ContentFavoriteRequest request, StreamObserver<ContentFavoriteResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_favorite/{content_favorite_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ContentFavoriteResponse.Builder responseBuilder = ContentFavoriteResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3537,21 +4339,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteContentFavorite(DeleteContentFavoriteRequest request, StreamObserver<DeleteContentFavoriteResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/content_favorite/{content_favorite_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteContentFavoriteResponse.Builder responseBuilder = DeleteContentFavoriteResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3563,21 +4372,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createContentFavorite(CreateContentFavoriteRequest request, StreamObserver<CreateContentFavoriteResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/content_favorite", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateContentFavoriteResponse.Builder responseBuilder = CreateContentFavoriteResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3590,21 +4406,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allContentMetadatas(AllContentMetadatasRequest request, StreamObserver<AllContentMetadatasResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_metadata", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllContentMetadatasResponse.Builder responseBuilder = AllContentMetadatasResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3617,21 +4440,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void contentMetadata(ContentMetadataRequest request, StreamObserver<ContentMetadataResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_metadata/{content_metadata_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ContentMetadataResponse.Builder responseBuilder = ContentMetadataResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3644,21 +4474,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateContentMetadata(UpdateContentMetadataRequest request, StreamObserver<UpdateContentMetadataResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/content_metadata/{content_metadata_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateContentMetadataResponse.Builder responseBuilder = UpdateContentMetadataResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3671,21 +4508,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allContentMetadataAccesses(AllContentMetadataAccessesRequest request, StreamObserver<AllContentMetadataAccessesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_metadata_access", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllContentMetadataAccessesResponse.Builder responseBuilder = AllContentMetadataAccessesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3698,21 +4542,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createContentMetadataAccess(CreateContentMetadataAccessRequest request, StreamObserver<CreateContentMetadataAccessResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/content_metadata_access", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateContentMetadataAccessResponse.Builder responseBuilder = CreateContentMetadataAccessResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3725,21 +4576,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateContentMetadataAccess(UpdateContentMetadataAccessRequest request, StreamObserver<UpdateContentMetadataAccessResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/content_metadata_access/{content_metadata_access_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateContentMetadataAccessResponse.Builder responseBuilder = UpdateContentMetadataAccessResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3752,21 +4610,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteContentMetadataAccess(DeleteContentMetadataAccessRequest request, StreamObserver<DeleteContentMetadataAccessResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/content_metadata_access/{content_metadata_access_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteContentMetadataAccessResponse.Builder responseBuilder = DeleteContentMetadataAccessResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3782,21 +4647,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void contentThumbnail(ContentThumbnailRequest request, StreamObserver<ContentThumbnailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_thumbnail/{type}/{resource_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ContentThumbnailResponse.Builder responseBuilder = ContentThumbnailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3812,21 +4684,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void contentValidation(ContentValidationRequest request, StreamObserver<ContentValidationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_validation", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ContentValidationResponse.Builder responseBuilder = ContentValidationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3861,21 +4740,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchContentViews(SearchContentViewsRequest request, StreamObserver<SearchContentViewsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/content_view/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchContentViewsResponse.Builder responseBuilder = SearchContentViewsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3893,21 +4779,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void vectorThumbnail(VectorThumbnailRequest request, StreamObserver<VectorThumbnailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/vector_thumbnail/{type}/{resource_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         VectorThumbnailResponse.Builder responseBuilder = VectorThumbnailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3930,21 +4823,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allDashboards(AllDashboardsRequest request, StreamObserver<AllDashboardsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllDashboardsResponse.Builder responseBuilder = AllDashboardsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -3970,21 +4870,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createDashboard(CreateDashboardRequest request, StreamObserver<CreateDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboards", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateDashboardResponse.Builder responseBuilder = CreateDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4025,21 +4932,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchDashboards(SearchDashboardsRequest request, StreamObserver<SearchDashboardsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchDashboardsResponse.Builder responseBuilder = SearchDashboardsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4063,21 +4977,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void importLookmlDashboard(ImportLookmlDashboardRequest request, StreamObserver<ImportLookmlDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboards/{lookml_dashboard_id}/import/{space_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ImportLookmlDashboardResponse.Builder responseBuilder = ImportLookmlDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4098,21 +5019,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void syncLookmlDashboard(SyncLookmlDashboardRequest request, StreamObserver<SyncLookmlDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboards/{lookml_dashboard_id}/sync", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SyncLookmlDashboardResponse.Builder responseBuilder = SyncLookmlDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4131,21 +5059,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboard(DashboardRequest request, StreamObserver<DashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardResponse.Builder responseBuilder = DashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4167,21 +5102,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDashboard(UpdateDashboardRequest request, StreamObserver<UpdateDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboards/{dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDashboardResponse.Builder responseBuilder = UpdateDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4200,21 +5142,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteDashboard(DeleteDashboardRequest request, StreamObserver<DeleteDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboards/{dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteDashboardResponse.Builder responseBuilder = DeleteDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4230,21 +5179,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardAggregateTableLookml(DashboardAggregateTableLookmlRequest request, StreamObserver<DashboardAggregateTableLookmlResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/aggregate_table_lookml/{dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardAggregateTableLookmlResponse.Builder responseBuilder = DashboardAggregateTableLookmlResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4260,21 +5216,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardLookml(DashboardLookmlRequest request, StreamObserver<DashboardLookmlResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/lookml/{dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardLookmlResponse.Builder responseBuilder = DashboardLookmlResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4311,21 +5274,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchDashboardElements(SearchDashboardElementsRequest request, StreamObserver<SearchDashboardElementsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_elements/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchDashboardElementsResponse.Builder responseBuilder = SearchDashboardElementsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4337,21 +5307,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardElement(DashboardElementRequest request, StreamObserver<DashboardElementResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_elements/{dashboard_element_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardElementResponse.Builder responseBuilder = DashboardElementResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4363,21 +5340,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDashboardElement(UpdateDashboardElementRequest request, StreamObserver<UpdateDashboardElementResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_elements/{dashboard_element_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDashboardElementResponse.Builder responseBuilder = UpdateDashboardElementResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4389,21 +5373,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteDashboardElement(DeleteDashboardElementRequest request, StreamObserver<DeleteDashboardElementResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_elements/{dashboard_element_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteDashboardElementResponse.Builder responseBuilder = DeleteDashboardElementResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4415,21 +5406,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardDashboardElements(DashboardDashboardElementsRequest request, StreamObserver<DashboardDashboardElementsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_elements", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardDashboardElementsResponse.Builder responseBuilder = DashboardDashboardElementsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4441,21 +5439,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createDashboardElement(CreateDashboardElementRequest request, StreamObserver<CreateDashboardElementResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboard_elements", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateDashboardElementResponse.Builder responseBuilder = CreateDashboardElementResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4467,21 +5472,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardFilter(DashboardFilterRequest request, StreamObserver<DashboardFilterResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_filters/{dashboard_filter_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardFilterResponse.Builder responseBuilder = DashboardFilterResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4493,21 +5505,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDashboardFilter(UpdateDashboardFilterRequest request, StreamObserver<UpdateDashboardFilterResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_filters/{dashboard_filter_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDashboardFilterResponse.Builder responseBuilder = UpdateDashboardFilterResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4519,21 +5538,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteDashboardFilter(DeleteDashboardFilterRequest request, StreamObserver<DeleteDashboardFilterResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_filters/{dashboard_filter_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteDashboardFilterResponse.Builder responseBuilder = DeleteDashboardFilterResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4545,21 +5571,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardDashboardFilters(DashboardDashboardFiltersRequest request, StreamObserver<DashboardDashboardFiltersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_filters", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardDashboardFiltersResponse.Builder responseBuilder = DashboardDashboardFiltersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4571,21 +5604,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createDashboardFilter(CreateDashboardFilterRequest request, StreamObserver<CreateDashboardFilterResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboard_filters", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateDashboardFilterResponse.Builder responseBuilder = CreateDashboardFilterResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4597,21 +5637,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardLayoutComponent(DashboardLayoutComponentRequest request, StreamObserver<DashboardLayoutComponentResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layout_components/{dashboard_layout_component_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardLayoutComponentResponse.Builder responseBuilder = DashboardLayoutComponentResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4623,21 +5670,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDashboardLayoutComponent(UpdateDashboardLayoutComponentRequest request, StreamObserver<UpdateDashboardLayoutComponentResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_layout_components/{dashboard_layout_component_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDashboardLayoutComponentResponse.Builder responseBuilder = UpdateDashboardLayoutComponentResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4649,21 +5703,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest request, StreamObserver<DashboardLayoutDashboardLayoutComponentsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layouts/{dashboard_layout_id}/dashboard_layout_components", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardLayoutDashboardLayoutComponentsResponse.Builder responseBuilder = DashboardLayoutDashboardLayoutComponentsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4675,21 +5736,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardLayout(DashboardLayoutRequest request, StreamObserver<DashboardLayoutResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboard_layouts/{dashboard_layout_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardLayoutResponse.Builder responseBuilder = DashboardLayoutResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4701,21 +5769,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDashboardLayout(UpdateDashboardLayoutRequest request, StreamObserver<UpdateDashboardLayoutResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/dashboard_layouts/{dashboard_layout_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDashboardLayoutResponse.Builder responseBuilder = UpdateDashboardLayoutResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4727,21 +5802,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteDashboardLayout(DeleteDashboardLayoutRequest request, StreamObserver<DeleteDashboardLayoutResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/dashboard_layouts/{dashboard_layout_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteDashboardLayoutResponse.Builder responseBuilder = DeleteDashboardLayoutResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4753,21 +5835,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void dashboardDashboardLayouts(DashboardDashboardLayoutsRequest request, StreamObserver<DashboardDashboardLayoutsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/dashboards/{dashboard_id}/dashboard_layouts", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DashboardDashboardLayoutsResponse.Builder responseBuilder = DashboardDashboardLayoutsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4779,21 +5868,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createDashboardLayout(CreateDashboardLayoutRequest request, StreamObserver<CreateDashboardLayoutResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/dashboard_layouts", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateDashboardLayoutResponse.Builder responseBuilder = CreateDashboardLayoutResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4809,21 +5905,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void performDataAction(PerformDataActionRequest request, StreamObserver<PerformDataActionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/data_actions", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         PerformDataActionResponse.Builder responseBuilder = PerformDataActionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4835,21 +5938,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void fetchRemoteDataActionForm(FetchRemoteDataActionFormRequest request, StreamObserver<FetchRemoteDataActionFormResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/data_actions/form", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FetchRemoteDataActionFormResponse.Builder responseBuilder = FetchRemoteDataActionFormResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4866,21 +5976,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allDatagroups(AllDatagroupsRequest request, StreamObserver<AllDatagroupsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/datagroups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllDatagroupsResponse.Builder responseBuilder = AllDatagroupsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4893,21 +6010,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void datagroup(DatagroupRequest request, StreamObserver<DatagroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/datagroups/{datagroup_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DatagroupResponse.Builder responseBuilder = DatagroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4920,21 +6044,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateDatagroup(UpdateDatagroupRequest request, StreamObserver<UpdateDatagroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/datagroups/{datagroup_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateDatagroupResponse.Builder responseBuilder = UpdateDatagroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4950,21 +6081,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchFolders(SearchFoldersRequest request, StreamObserver<SearchFoldersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchFoldersResponse.Builder responseBuilder = SearchFoldersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -4976,21 +6114,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folder(FolderRequest request, StreamObserver<FolderResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderResponse.Builder responseBuilder = FolderResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5002,21 +6147,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateFolder(UpdateFolderRequest request, StreamObserver<UpdateFolderResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/folders/{folder_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateFolderResponse.Builder responseBuilder = UpdateFolderResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5030,21 +6182,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteFolder(DeleteFolderRequest request, StreamObserver<DeleteFolderResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/folders/{folder_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteFolderResponse.Builder responseBuilder = DeleteFolderResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5061,21 +6220,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allFolders(AllFoldersRequest request, StreamObserver<AllFoldersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllFoldersResponse.Builder responseBuilder = AllFoldersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5091,21 +6257,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createFolder(CreateFolderRequest request, StreamObserver<CreateFolderResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/folders", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateFolderResponse.Builder responseBuilder = CreateFolderResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5117,21 +6290,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folderChildren(FolderChildrenRequest request, StreamObserver<FolderChildrenResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/children", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderChildrenResponse.Builder responseBuilder = FolderChildrenResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5143,21 +6323,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folderChildrenSearch(FolderChildrenSearchRequest request, StreamObserver<FolderChildrenSearchResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/children/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderChildrenSearchResponse.Builder responseBuilder = FolderChildrenSearchResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5169,21 +6356,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folderParent(FolderParentRequest request, StreamObserver<FolderParentResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/parent", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderParentResponse.Builder responseBuilder = FolderParentResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5195,21 +6389,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folderAncestors(FolderAncestorsRequest request, StreamObserver<FolderAncestorsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/ancestors", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderAncestorsResponse.Builder responseBuilder = FolderAncestorsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5224,21 +6425,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folderLooks(FolderLooksRequest request, StreamObserver<FolderLooksResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/looks", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderLooksResponse.Builder responseBuilder = FolderLooksResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5250,21 +6458,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void folderDashboards(FolderDashboardsRequest request, StreamObserver<FolderDashboardsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/folders/{folder_id}/dashboards", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FolderDashboardsResponse.Builder responseBuilder = FolderDashboardsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5281,21 +6496,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allGroups(AllGroupsRequest request, StreamObserver<AllGroupsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllGroupsResponse.Builder responseBuilder = AllGroupsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5308,21 +6530,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createGroup(CreateGroupRequest request, StreamObserver<CreateGroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/groups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateGroupResponse.Builder responseBuilder = CreateGroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5359,21 +6588,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchGroups(SearchGroupsRequest request, StreamObserver<SearchGroupsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchGroupsResponse.Builder responseBuilder = SearchGroupsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5410,21 +6646,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchGroupsWithRoles(SearchGroupsWithRolesRequest request, StreamObserver<SearchGroupsWithRolesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/search/with_roles", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchGroupsWithRolesResponse.Builder responseBuilder = SearchGroupsWithRolesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5462,21 +6705,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest request, StreamObserver<SearchGroupsWithHierarchyResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/search/with_hierarchy", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchGroupsWithHierarchyResponse.Builder responseBuilder = SearchGroupsWithHierarchyResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5489,21 +6739,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void group(GroupRequest request, StreamObserver<GroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         GroupResponse.Builder responseBuilder = GroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5515,21 +6772,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateGroup(UpdateGroupRequest request, StreamObserver<UpdateGroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/groups/{group_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateGroupResponse.Builder responseBuilder = UpdateGroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5542,21 +6806,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteGroup(DeleteGroupRequest request, StreamObserver<DeleteGroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteGroupResponse.Builder responseBuilder = DeleteGroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5569,21 +6840,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allGroupGroups(AllGroupGroupsRequest request, StreamObserver<AllGroupGroupsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}/groups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllGroupGroupsResponse.Builder responseBuilder = AllGroupGroupsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5596,21 +6874,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void addGroupGroup(AddGroupGroupRequest request, StreamObserver<AddGroupGroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/groups/{group_id}/groups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AddGroupGroupResponse.Builder responseBuilder = AddGroupGroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5623,21 +6908,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allGroupUsers(AllGroupUsersRequest request, StreamObserver<AllGroupUsersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/groups/{group_id}/users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllGroupUsersResponse.Builder responseBuilder = AllGroupUsersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5650,21 +6942,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void addGroupUser(AddGroupUserRequest request, StreamObserver<AddGroupUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/groups/{group_id}/users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AddGroupUserResponse.Builder responseBuilder = AddGroupUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5677,21 +6976,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteGroupUser(DeleteGroupUserRequest request, StreamObserver<DeleteGroupUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/users/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteGroupUserResponse.Builder responseBuilder = DeleteGroupUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5704,21 +7010,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteGroupFromGroup(DeleteGroupFromGroupRequest request, StreamObserver<DeleteGroupFromGroupResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/groups/{deleting_group_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteGroupFromGroupResponse.Builder responseBuilder = DeleteGroupFromGroupResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5733,21 +7046,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateUserAttributeGroupValue(UpdateUserAttributeGroupValueRequest request, StreamObserver<UpdateUserAttributeGroupValueResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/groups/{group_id}/attribute_values/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateUserAttributeGroupValueResponse.Builder responseBuilder = UpdateUserAttributeGroupValueResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5760,21 +7080,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserAttributeGroupValue(DeleteUserAttributeGroupValueRequest request, StreamObserver<DeleteUserAttributeGroupValueResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/groups/{group_id}/attribute_values/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserAttributeGroupValueResponse.Builder responseBuilder = DeleteUserAttributeGroupValueResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5791,21 +7118,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest request, StreamObserver<AllPrimaryHomepageSectionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/primary_homepage_sections", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllPrimaryHomepageSectionsResponse.Builder responseBuilder = AllPrimaryHomepageSectionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5822,21 +7156,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allIntegrationHubs(AllIntegrationHubsRequest request, StreamObserver<AllIntegrationHubsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integration_hubs", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllIntegrationHubsResponse.Builder responseBuilder = AllIntegrationHubsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5851,21 +7192,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createIntegrationHub(CreateIntegrationHubRequest request, StreamObserver<CreateIntegrationHubResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integration_hubs", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateIntegrationHubResponse.Builder responseBuilder = CreateIntegrationHubResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5878,21 +7226,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void integrationHub(IntegrationHubRequest request, StreamObserver<IntegrationHubResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integration_hubs/{integration_hub_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         IntegrationHubResponse.Builder responseBuilder = IntegrationHubResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5907,21 +7262,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateIntegrationHub(UpdateIntegrationHubRequest request, StreamObserver<UpdateIntegrationHubResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/integration_hubs/{integration_hub_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateIntegrationHubResponse.Builder responseBuilder = UpdateIntegrationHubResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5934,21 +7296,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteIntegrationHub(DeleteIntegrationHubRequest request, StreamObserver<DeleteIntegrationHubResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/integration_hubs/{integration_hub_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteIntegrationHubResponse.Builder responseBuilder = DeleteIntegrationHubResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5960,21 +7329,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void acceptIntegrationHubLegalAgreement(AcceptIntegrationHubLegalAgreementRequest request, StreamObserver<AcceptIntegrationHubLegalAgreementResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integration_hubs/{integration_hub_id}/accept_legal_agreement", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AcceptIntegrationHubLegalAgreementResponse.Builder responseBuilder = AcceptIntegrationHubLegalAgreementResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -5987,21 +7363,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allIntegrations(AllIntegrationsRequest request, StreamObserver<AllIntegrationsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integrations", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllIntegrationsResponse.Builder responseBuilder = AllIntegrationsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6014,21 +7397,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void integration(IntegrationRequest request, StreamObserver<IntegrationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/integrations/{integration_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         IntegrationResponse.Builder responseBuilder = IntegrationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6041,21 +7431,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateIntegration(UpdateIntegrationRequest request, StreamObserver<UpdateIntegrationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/integrations/{integration_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateIntegrationResponse.Builder responseBuilder = UpdateIntegrationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6067,21 +7464,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void fetchIntegrationForm(FetchIntegrationFormRequest request, StreamObserver<FetchIntegrationFormResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integrations/{integration_id}/form", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FetchIntegrationFormResponse.Builder responseBuilder = FetchIntegrationFormResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6093,21 +7497,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void testIntegration(TestIntegrationRequest request, StreamObserver<TestIntegrationResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/integrations/{integration_id}/test", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         TestIntegrationResponse.Builder responseBuilder = TestIntegrationResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6130,21 +7541,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allLooks(AllLooksRequest request, StreamObserver<AllLooksResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllLooksResponse.Builder responseBuilder = AllLooksResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6163,21 +7581,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createLook(CreateLookRequest request, StreamObserver<CreateLookResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/looks", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateLookResponse.Builder responseBuilder = CreateLookResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6216,21 +7641,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchLooks(SearchLooksRequest request, StreamObserver<SearchLooksResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchLooksResponse.Builder responseBuilder = SearchLooksResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6246,21 +7678,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void look(LookRequest request, StreamObserver<LookResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks/{look_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LookResponse.Builder responseBuilder = LookResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6292,21 +7731,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateLook(UpdateLookRequest request, StreamObserver<UpdateLookResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/looks/{look_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateLookResponse.Builder responseBuilder = UpdateLookResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6325,21 +7771,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteLook(DeleteLookRequest request, StreamObserver<DeleteLookResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/looks/{look_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteLookResponse.Builder responseBuilder = DeleteLookResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6371,21 +7824,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runLook(RunLookRequest request, StreamObserver<RunLookResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/looks/{look_id}/run/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunLookResponse.Builder responseBuilder = RunLookResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6402,21 +7862,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allLookmlModels(AllLookmlModelsRequest request, StreamObserver<AllLookmlModelsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/lookml_models", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllLookmlModelsResponse.Builder responseBuilder = AllLookmlModelsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6429,21 +7896,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createLookmlModel(CreateLookmlModelRequest request, StreamObserver<CreateLookmlModelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/lookml_models", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateLookmlModelResponse.Builder responseBuilder = CreateLookmlModelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6456,21 +7930,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void lookmlModel(LookmlModelRequest request, StreamObserver<LookmlModelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/lookml_models/{lookml_model_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LookmlModelResponse.Builder responseBuilder = LookmlModelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6483,21 +7964,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateLookmlModel(UpdateLookmlModelRequest request, StreamObserver<UpdateLookmlModelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/lookml_models/{lookml_model_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateLookmlModelResponse.Builder responseBuilder = UpdateLookmlModelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6510,21 +7998,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteLookmlModel(DeleteLookmlModelRequest request, StreamObserver<DeleteLookmlModelResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/lookml_models/{lookml_model_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteLookmlModelResponse.Builder responseBuilder = DeleteLookmlModelResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6537,21 +8032,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void lookmlModelExplore(LookmlModelExploreRequest request, StreamObserver<LookmlModelExploreResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/lookml_models/{lookml_model_name}/explores/{explore_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LookmlModelExploreResponse.Builder responseBuilder = LookmlModelExploreResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6569,21 +8071,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void modelFieldnameSuggestions(ModelFieldnameSuggestionsRequest request, StreamObserver<ModelFieldnameSuggestionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/models/{model_name}/views/{view_name}/fields/{field_name}/suggestions", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ModelFieldnameSuggestionsResponse.Builder responseBuilder = ModelFieldnameSuggestionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6604,21 +8113,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionDatabases(ConnectionDatabasesRequest request, StreamObserver<ConnectionDatabasesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/databases", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionDatabasesResponse.Builder responseBuilder = ConnectionDatabasesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6634,21 +8150,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionFeatures(ConnectionFeaturesRequest request, StreamObserver<ConnectionFeaturesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/features", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionFeaturesResponse.Builder responseBuilder = ConnectionFeaturesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6662,21 +8185,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionSchemas(ConnectionSchemasRequest request, StreamObserver<ConnectionSchemasResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/schemas", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionSchemasResponse.Builder responseBuilder = ConnectionSchemasResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6694,21 +8224,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionTables(ConnectionTablesRequest request, StreamObserver<ConnectionTablesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/tables", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionTablesResponse.Builder responseBuilder = ConnectionTablesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6722,21 +8259,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionColumns(ConnectionColumnsRequest request, StreamObserver<ConnectionColumnsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/columns", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionColumnsResponse.Builder responseBuilder = ConnectionColumnsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6751,21 +8295,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionSearchColumns(ConnectionSearchColumnsRequest request, StreamObserver<ConnectionSearchColumnsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/connections/{connection_name}/search_columns", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionSearchColumnsResponse.Builder responseBuilder = ConnectionSearchColumnsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6782,21 +8333,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void connectionCostEstimate(ConnectionCostEstimateRequest request, StreamObserver<ConnectionCostEstimateResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/connections/{connection_name}/cost_estimate", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ConnectionCostEstimateResponse.Builder responseBuilder = ConnectionCostEstimateResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6820,21 +8378,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void lockAll(LockAllRequest request, StreamObserver<LockAllResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/manifest/lock_all", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         LockAllResponse.Builder responseBuilder = LockAllResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6849,21 +8414,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allGitBranches(AllGitBranchesRequest request, StreamObserver<AllGitBranchesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branches", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllGitBranchesResponse.Builder responseBuilder = AllGitBranchesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6878,21 +8450,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void gitBranch(GitBranchRequest request, StreamObserver<GitBranchResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branch", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         GitBranchResponse.Builder responseBuilder = GitBranchResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6914,21 +8493,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateGitBranch(UpdateGitBranchRequest request, StreamObserver<UpdateGitBranchResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/projects/{project_id}/git_branch", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateGitBranchResponse.Builder responseBuilder = UpdateGitBranchResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6949,21 +8535,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createGitBranch(CreateGitBranchRequest request, StreamObserver<CreateGitBranchResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/git_branch", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateGitBranchResponse.Builder responseBuilder = CreateGitBranchResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -6978,21 +8571,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void findGitBranch(FindGitBranchRequest request, StreamObserver<FindGitBranchResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_branch/{branch_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         FindGitBranchResponse.Builder responseBuilder = FindGitBranchResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7007,21 +8607,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteGitBranch(DeleteGitBranchRequest request, StreamObserver<DeleteGitBranchResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/projects/{project_id}/git_branch/{branch_name}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteGitBranchResponse.Builder responseBuilder = DeleteGitBranchResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7043,21 +8650,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deployRefToProduction(DeployRefToProductionRequest request, StreamObserver<DeployRefToProductionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/deploy_ref_to_production", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeployRefToProductionResponse.Builder responseBuilder = DeployRefToProductionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7082,21 +8696,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deployToProduction(DeployToProductionRequest request, StreamObserver<DeployToProductionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/deploy_to_production", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeployToProductionResponse.Builder responseBuilder = DeployToProductionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7111,21 +8732,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void resetProjectToProduction(ResetProjectToProductionRequest request, StreamObserver<ResetProjectToProductionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/reset_to_production", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ResetProjectToProductionResponse.Builder responseBuilder = ResetProjectToProductionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7140,21 +8768,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void resetProjectToRemote(ResetProjectToRemoteRequest request, StreamObserver<ResetProjectToRemoteResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/reset_to_remote", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ResetProjectToRemoteResponse.Builder responseBuilder = ResetProjectToRemoteResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7169,21 +8804,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allProjects(AllProjectsRequest request, StreamObserver<AllProjectsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllProjectsResponse.Builder responseBuilder = AllProjectsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7203,21 +8845,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createProject(CreateProjectRequest request, StreamObserver<CreateProjectResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateProjectResponse.Builder responseBuilder = CreateProjectResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7232,21 +8881,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void project(ProjectRequest request, StreamObserver<ProjectResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ProjectResponse.Builder responseBuilder = ProjectResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7281,21 +8937,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateProject(UpdateProjectRequest request, StreamObserver<UpdateProjectResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/projects/{project_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateProjectResponse.Builder responseBuilder = UpdateProjectResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7310,21 +8973,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void manifest(ManifestRequest request, StreamObserver<ManifestResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/manifest", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ManifestResponse.Builder responseBuilder = ManifestResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7339,21 +9009,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void gitDeployKey(GitDeployKeyRequest request, StreamObserver<GitDeployKeyResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git/deploy_key", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         GitDeployKeyResponse.Builder responseBuilder = GitDeployKeyResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7374,21 +9051,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createGitDeployKey(CreateGitDeployKeyRequest request, StreamObserver<CreateGitDeployKeyResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/git/deploy_key", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateGitDeployKeyResponse.Builder responseBuilder = CreateGitDeployKeyResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7412,21 +9096,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void projectValidationResults(ProjectValidationResultsRequest request, StreamObserver<ProjectValidationResultsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/validate", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ProjectValidationResultsResponse.Builder responseBuilder = ProjectValidationResultsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7447,21 +9138,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void validateProject(ValidateProjectRequest request, StreamObserver<ValidateProjectResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/projects/{project_id}/validate", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ValidateProjectResponse.Builder responseBuilder = ValidateProjectResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7476,21 +9174,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void projectWorkspace(ProjectWorkspaceRequest request, StreamObserver<ProjectWorkspaceResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/current_workspace", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ProjectWorkspaceResponse.Builder responseBuilder = ProjectWorkspaceResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7505,21 +9210,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allProjectFiles(AllProjectFilesRequest request, StreamObserver<AllProjectFilesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/files", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllProjectFilesResponse.Builder responseBuilder = AllProjectFilesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7534,21 +9246,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void projectFile(ProjectFileRequest request, StreamObserver<ProjectFileResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/files/file", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ProjectFileResponse.Builder responseBuilder = ProjectFileResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7570,21 +9289,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allGitConnectionTests(AllGitConnectionTestsRequest request, StreamObserver<AllGitConnectionTestsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_connection_tests", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllGitConnectionTestsResponse.Builder responseBuilder = AllGitConnectionTestsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7603,21 +9329,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runGitConnectionTest(RunGitConnectionTestRequest request, StreamObserver<RunGitConnectionTestResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/git_connection_tests/{test_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunGitConnectionTestResponse.Builder responseBuilder = RunGitConnectionTestResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7634,21 +9367,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allLookmlTests(AllLookmlTestsRequest request, StreamObserver<AllLookmlTestsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/lookml_tests", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllLookmlTestsResponse.Builder responseBuilder = AllLookmlTestsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7663,21 +9403,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runLookmlTest(RunLookmlTestRequest request, StreamObserver<RunLookmlTestResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{project_id}/lookml_tests/run", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunLookmlTestResponse.Builder responseBuilder = RunLookmlTestResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7696,21 +9443,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateRepositoryCredential(UpdateRepositoryCredentialRequest request, StreamObserver<UpdateRepositoryCredentialResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/projects/{root_project_id}/credential/{credential_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateRepositoryCredentialResponse.Builder responseBuilder = UpdateRepositoryCredentialResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7728,21 +9482,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteRepositoryCredential(DeleteRepositoryCredentialRequest request, StreamObserver<DeleteRepositoryCredentialResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/projects/{root_project_id}/credential/{credential_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteRepositoryCredentialResponse.Builder responseBuilder = DeleteRepositoryCredentialResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7757,21 +9518,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void getAllRepositoryCredentials(GetAllRepositoryCredentialsRequest request, StreamObserver<GetAllRepositoryCredentialsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/projects/{root_project_id}/credentials", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         GetAllRepositoryCredentialsResponse.Builder responseBuilder = GetAllRepositoryCredentialsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7793,21 +9561,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createQueryTask(CreateQueryTaskRequest request, StreamObserver<CreateQueryTaskResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/query_tasks", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateQueryTaskResponse.Builder responseBuilder = CreateQueryTaskResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7826,21 +9601,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void queryTaskMultiResults(QueryTaskMultiResultsRequest request, StreamObserver<QueryTaskMultiResultsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/multi_results", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         QueryTaskMultiResultsResponse.Builder responseBuilder = QueryTaskMultiResultsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7859,21 +9641,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void queryTask(QueryTaskRequest request, StreamObserver<QueryTaskResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/{query_task_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         QueryTaskResponse.Builder responseBuilder = QueryTaskResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7908,21 +9697,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void queryTaskResults(QueryTaskResultsRequest request, StreamObserver<QueryTaskResultsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/query_tasks/{query_task_id}/results", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         QueryTaskResultsResponse.Builder responseBuilder = QueryTaskResultsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7952,21 +9748,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void query(QueryRequest request, StreamObserver<QueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/{query_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         QueryResponse.Builder responseBuilder = QueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -7995,21 +9798,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void queryForSlug(QueryForSlugRequest request, StreamObserver<QueryForSlugResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/slug/{slug}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         QueryForSlugResponse.Builder responseBuilder = QueryForSlugResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8030,21 +9840,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createQuery(CreateQueryRequest request, StreamObserver<CreateQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/queries", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateQueryResponse.Builder responseBuilder = CreateQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8079,21 +9896,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runQuery(RunQueryRequest request, StreamObserver<RunQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/{query_id}/run/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunQueryResponse.Builder responseBuilder = RunQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8157,21 +9981,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runInlineQuery(RunInlineQueryRequest request, StreamObserver<RunInlineQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/queries/run/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunInlineQueryResponse.Builder responseBuilder = RunInlineQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8237,21 +10068,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runUrlEncodedQuery(RunUrlEncodedQueryRequest request, StreamObserver<RunUrlEncodedQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/queries/models/{model_name}/views/{view_name}/run/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunUrlEncodedQueryResponse.Builder responseBuilder = RunUrlEncodedQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8266,21 +10104,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void mergeQuery(MergeQueryRequest request, StreamObserver<MergeQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/merge_queries/{merge_query_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         MergeQueryResponse.Builder responseBuilder = MergeQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8309,21 +10154,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createMergeQuery(CreateMergeQueryRequest request, StreamObserver<CreateMergeQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/merge_queries", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateMergeQueryResponse.Builder responseBuilder = CreateMergeQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8336,21 +10188,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allRunningQueries(AllRunningQueriesRequest request, StreamObserver<AllRunningQueriesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/running_queries", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllRunningQueriesResponse.Builder responseBuilder = AllRunningQueriesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8363,21 +10222,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void killQuery(KillQueryRequest request, StreamObserver<KillQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/running_queries/{query_task_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         KillQueryResponse.Builder responseBuilder = KillQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8389,21 +10255,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void sqlQuery(SqlQueryRequest request, StreamObserver<SqlQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/sql_queries/{slug}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SqlQueryResponse.Builder responseBuilder = SqlQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8418,21 +10291,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createSqlQuery(CreateSqlQueryRequest request, StreamObserver<CreateSqlQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/sql_queries", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateSqlQueryResponse.Builder responseBuilder = CreateSqlQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8444,21 +10324,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void runSqlQuery(RunSqlQueryRequest request, StreamObserver<RunSqlQueryResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/sql_queries/{slug}/run/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RunSqlQueryResponse.Builder responseBuilder = RunSqlQueryResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8480,21 +10367,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createLookRenderTask(CreateLookRenderTaskRequest request, StreamObserver<CreateLookRenderTaskResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/looks/{look_id}/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateLookRenderTaskResponse.Builder responseBuilder = CreateLookRenderTaskResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8512,21 +10406,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createQueryRenderTask(CreateQueryRenderTaskRequest request, StreamObserver<CreateQueryRenderTaskResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/queries/{query_id}/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateQueryRenderTaskResponse.Builder responseBuilder = CreateQueryRenderTaskResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8544,21 +10445,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createDashboardRenderTask(CreateDashboardRenderTaskRequest request, StreamObserver<CreateDashboardRenderTaskResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/render_tasks/dashboards/{dashboard_id}/{result_format}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateDashboardRenderTaskResponse.Builder responseBuilder = CreateDashboardRenderTaskResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8576,21 +10484,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void renderTask(RenderTaskRequest request, StreamObserver<RenderTaskResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/render_tasks/{render_task_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RenderTaskResponse.Builder responseBuilder = RenderTaskResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8619,21 +10534,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void renderTaskResults(RenderTaskResultsRequest request, StreamObserver<RenderTaskResultsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/render_tasks/{render_task_id}/results", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RenderTaskResultsResponse.Builder responseBuilder = RenderTaskResultsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8672,21 +10594,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchModelSets(SearchModelSetsRequest request, StreamObserver<SearchModelSetsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/model_sets/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchModelSetsResponse.Builder responseBuilder = SearchModelSetsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8699,21 +10628,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void modelSet(ModelSetRequest request, StreamObserver<ModelSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/model_sets/{model_set_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ModelSetResponse.Builder responseBuilder = ModelSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8726,21 +10662,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateModelSet(UpdateModelSetRequest request, StreamObserver<UpdateModelSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/model_sets/{model_set_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateModelSetResponse.Builder responseBuilder = UpdateModelSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8753,21 +10696,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteModelSet(DeleteModelSetRequest request, StreamObserver<DeleteModelSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/model_sets/{model_set_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteModelSetResponse.Builder responseBuilder = DeleteModelSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8780,21 +10730,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allModelSets(AllModelSetsRequest request, StreamObserver<AllModelSetsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/model_sets", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllModelSetsResponse.Builder responseBuilder = AllModelSetsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8807,21 +10764,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createModelSet(CreateModelSetRequest request, StreamObserver<CreateModelSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/model_sets", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateModelSetResponse.Builder responseBuilder = CreateModelSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8834,21 +10798,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allPermissions(AllPermissionsRequest request, StreamObserver<AllPermissionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permissions", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllPermissionsResponse.Builder responseBuilder = AllPermissionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8883,21 +10854,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchPermissionSets(SearchPermissionSetsRequest request, StreamObserver<SearchPermissionSetsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permission_sets/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchPermissionSetsResponse.Builder responseBuilder = SearchPermissionSetsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8910,21 +10888,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void permissionSet(PermissionSetRequest request, StreamObserver<PermissionSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permission_sets/{permission_set_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         PermissionSetResponse.Builder responseBuilder = PermissionSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8937,21 +10922,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updatePermissionSet(UpdatePermissionSetRequest request, StreamObserver<UpdatePermissionSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/permission_sets/{permission_set_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdatePermissionSetResponse.Builder responseBuilder = UpdatePermissionSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8964,21 +10956,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deletePermissionSet(DeletePermissionSetRequest request, StreamObserver<DeletePermissionSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/permission_sets/{permission_set_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeletePermissionSetResponse.Builder responseBuilder = DeletePermissionSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -8991,21 +10990,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allPermissionSets(AllPermissionSetsRequest request, StreamObserver<AllPermissionSetsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/permission_sets", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllPermissionSetsResponse.Builder responseBuilder = AllPermissionSetsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9018,21 +11024,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createPermissionSet(CreatePermissionSetRequest request, StreamObserver<CreatePermissionSetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/permission_sets", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreatePermissionSetResponse.Builder responseBuilder = CreatePermissionSetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9045,21 +11058,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allRoles(AllRolesRequest request, StreamObserver<AllRolesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllRolesResponse.Builder responseBuilder = AllRolesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9072,21 +11092,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createRole(CreateRoleRequest request, StreamObserver<CreateRoleResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/roles", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateRoleResponse.Builder responseBuilder = CreateRoleResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9123,21 +11150,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchRoles(SearchRolesRequest request, StreamObserver<SearchRolesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchRolesResponse.Builder responseBuilder = SearchRolesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9150,21 +11184,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void role(RoleRequest request, StreamObserver<RoleResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RoleResponse.Builder responseBuilder = RoleResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9177,21 +11218,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateRole(UpdateRoleRequest request, StreamObserver<UpdateRoleResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/roles/{role_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateRoleResponse.Builder responseBuilder = UpdateRoleResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9204,21 +11252,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteRole(DeleteRoleRequest request, StreamObserver<DeleteRoleResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/roles/{role_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteRoleResponse.Builder responseBuilder = DeleteRoleResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9231,21 +11286,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void roleGroups(RoleGroupsRequest request, StreamObserver<RoleGroupsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}/groups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RoleGroupsResponse.Builder responseBuilder = RoleGroupsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9258,21 +11320,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setRoleGroups(SetRoleGroupsRequest request, StreamObserver<SetRoleGroupsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/roles/{role_id}/groups", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetRoleGroupsResponse.Builder responseBuilder = SetRoleGroupsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9285,21 +11354,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void roleUsers(RoleUsersRequest request, StreamObserver<RoleUsersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/roles/{role_id}/users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         RoleUsersResponse.Builder responseBuilder = RoleUsersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9312,21 +11388,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setRoleUsers(SetRoleUsersRequest request, StreamObserver<SetRoleUsersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/roles/{role_id}/users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetRoleUsersResponse.Builder responseBuilder = SetRoleUsersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9345,21 +11428,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlansForSpace(ScheduledPlansForSpaceRequest request, StreamObserver<ScheduledPlansForSpaceResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/space/{space_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlansForSpaceResponse.Builder responseBuilder = ScheduledPlansForSpaceResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9374,21 +11464,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlan(ScheduledPlanRequest request, StreamObserver<ScheduledPlanResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/{scheduled_plan_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlanResponse.Builder responseBuilder = ScheduledPlanResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9444,21 +11541,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateScheduledPlan(UpdateScheduledPlanRequest request, StreamObserver<UpdateScheduledPlanResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/scheduled_plans/{scheduled_plan_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateScheduledPlanResponse.Builder responseBuilder = UpdateScheduledPlanResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9475,21 +11579,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteScheduledPlan(DeleteScheduledPlanRequest request, StreamObserver<DeleteScheduledPlanResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/scheduled_plans/{scheduled_plan_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteScheduledPlanResponse.Builder responseBuilder = DeleteScheduledPlanResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9514,21 +11625,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allScheduledPlans(AllScheduledPlansRequest request, StreamObserver<AllScheduledPlansResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllScheduledPlansResponse.Builder responseBuilder = AllScheduledPlansResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9600,21 +11718,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createScheduledPlan(CreateScheduledPlanRequest request, StreamObserver<CreateScheduledPlanResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateScheduledPlanResponse.Builder responseBuilder = CreateScheduledPlanResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9665,21 +11790,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlanRunOnce(ScheduledPlanRunOnceRequest request, StreamObserver<ScheduledPlanRunOnceResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans/run_once", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlanRunOnceResponse.Builder responseBuilder = ScheduledPlanRunOnceResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9704,21 +11836,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlansForLook(ScheduledPlansForLookRequest request, StreamObserver<ScheduledPlansForLookResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/look/{look_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlansForLookResponse.Builder responseBuilder = ScheduledPlansForLookResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9743,21 +11882,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlansForDashboard(ScheduledPlansForDashboardRequest request, StreamObserver<ScheduledPlansForDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/dashboard/{dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlansForDashboardResponse.Builder responseBuilder = ScheduledPlansForDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9782,21 +11928,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest request, StreamObserver<ScheduledPlansForLookmlDashboardResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/scheduled_plans/lookml_dashboard/{lookml_dashboard_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlansForLookmlDashboardResponse.Builder responseBuilder = ScheduledPlansForLookmlDashboardResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9856,21 +12009,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void scheduledPlanRunOnceById(ScheduledPlanRunOnceByIdRequest request, StreamObserver<ScheduledPlanRunOnceByIdResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/scheduled_plans/{scheduled_plan_id}/run_once", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ScheduledPlanRunOnceByIdResponse.Builder responseBuilder = ScheduledPlanRunOnceByIdResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9889,21 +12049,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void session(SessionRequest request, StreamObserver<SessionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/session", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SessionResponse.Builder responseBuilder = SessionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9935,21 +12102,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateSession(UpdateSessionRequest request, StreamObserver<UpdateSessionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/session", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateSessionResponse.Builder responseBuilder = UpdateSessionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -9973,21 +12147,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allThemes(AllThemesRequest request, StreamObserver<AllThemesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllThemesResponse.Builder responseBuilder = AllThemesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10015,21 +12196,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createTheme(CreateThemeRequest request, StreamObserver<CreateThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/themes", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateThemeResponse.Builder responseBuilder = CreateThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10080,21 +12268,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchThemes(SearchThemesRequest request, StreamObserver<SearchThemesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchThemesResponse.Builder responseBuilder = SearchThemesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10113,21 +12308,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void defaultTheme(DefaultThemeRequest request, StreamObserver<DefaultThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/default", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DefaultThemeResponse.Builder responseBuilder = DefaultThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10151,21 +12353,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setDefaultTheme(SetDefaultThemeRequest request, StreamObserver<SetDefaultThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/themes/default", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetDefaultThemeResponse.Builder responseBuilder = SetDefaultThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10188,21 +12397,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void activeThemes(ActiveThemesRequest request, StreamObserver<ActiveThemesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/active", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ActiveThemesResponse.Builder responseBuilder = ActiveThemesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10221,21 +12437,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void themeOrDefault(ThemeOrDefaultRequest request, StreamObserver<ThemeOrDefaultResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/theme_or_default", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ThemeOrDefaultResponse.Builder responseBuilder = ThemeOrDefaultResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10255,21 +12478,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void validateTheme(ValidateThemeRequest request, StreamObserver<ValidateThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/themes/validate", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ValidateThemeResponse.Builder responseBuilder = ValidateThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10287,21 +12517,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void theme(ThemeRequest request, StreamObserver<ThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/themes/{theme_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         ThemeResponse.Builder responseBuilder = ThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10317,21 +12554,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateTheme(UpdateThemeRequest request, StreamObserver<UpdateThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/themes/{theme_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateThemeResponse.Builder responseBuilder = UpdateThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10353,21 +12597,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteTheme(DeleteThemeRequest request, StreamObserver<DeleteThemeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/themes/{theme_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteThemeResponse.Builder responseBuilder = DeleteThemeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10384,21 +12635,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void me(MeRequest request, StreamObserver<MeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         MeResponse.Builder responseBuilder = MeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10411,21 +12669,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUsers(AllUsersRequest request, StreamObserver<AllUsersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUsersResponse.Builder responseBuilder = AllUsersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10438,21 +12703,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createUser(CreateUserRequest request, StreamObserver<CreateUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateUserResponse.Builder responseBuilder = CreateUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10495,21 +12767,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchUsers(SearchUsersRequest request, StreamObserver<SearchUsersResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/search", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchUsersResponse.Builder responseBuilder = SearchUsersResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10527,21 +12806,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void searchUsersNames(SearchUsersNamesRequest request, StreamObserver<SearchUsersNamesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/search/names/{pattern}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SearchUsersNamesResponse.Builder responseBuilder = SearchUsersNamesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10558,21 +12844,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void user(UserRequest request, StreamObserver<UserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserResponse.Builder responseBuilder = UserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10585,21 +12878,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateUser(UpdateUserRequest request, StreamObserver<UpdateUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateUserResponse.Builder responseBuilder = UpdateUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10614,21 +12914,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUser(DeleteUserRequest request, StreamObserver<DeleteUserResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserResponse.Builder responseBuilder = DeleteUserResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10669,21 +12976,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userForCredential(UserForCredentialRequest request, StreamObserver<UserForCredentialResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/credential/{credential_type}/{credential_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserForCredentialResponse.Builder responseBuilder = UserForCredentialResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10695,21 +13009,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsEmail(UserCredentialsEmailRequest request, StreamObserver<UserCredentialsEmailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_email", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsEmailResponse.Builder responseBuilder = UserCredentialsEmailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10721,21 +13042,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createUserCredentialsEmail(CreateUserCredentialsEmailRequest request, StreamObserver<CreateUserCredentialsEmailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateUserCredentialsEmailResponse.Builder responseBuilder = CreateUserCredentialsEmailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10747,21 +13075,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateUserCredentialsEmail(UpdateUserCredentialsEmailRequest request, StreamObserver<UpdateUserCredentialsEmailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}/credentials_email", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateUserCredentialsEmailResponse.Builder responseBuilder = UpdateUserCredentialsEmailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10773,21 +13108,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsEmail(DeleteUserCredentialsEmailRequest request, StreamObserver<DeleteUserCredentialsEmailResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_email", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsEmailResponse.Builder responseBuilder = DeleteUserCredentialsEmailResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10799,21 +13141,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsTotp(UserCredentialsTotpRequest request, StreamObserver<UserCredentialsTotpResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_totp", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsTotpResponse.Builder responseBuilder = UserCredentialsTotpResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10825,21 +13174,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createUserCredentialsTotp(CreateUserCredentialsTotpRequest request, StreamObserver<CreateUserCredentialsTotpResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_totp", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateUserCredentialsTotpResponse.Builder responseBuilder = CreateUserCredentialsTotpResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10851,21 +13207,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsTotp(DeleteUserCredentialsTotpRequest request, StreamObserver<DeleteUserCredentialsTotpResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_totp", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsTotpResponse.Builder responseBuilder = DeleteUserCredentialsTotpResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10877,21 +13240,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsLdap(UserCredentialsLdapRequest request, StreamObserver<UserCredentialsLdapResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_ldap", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsLdapResponse.Builder responseBuilder = UserCredentialsLdapResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10903,21 +13273,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsLdap(DeleteUserCredentialsLdapRequest request, StreamObserver<DeleteUserCredentialsLdapResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_ldap", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsLdapResponse.Builder responseBuilder = DeleteUserCredentialsLdapResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10929,21 +13306,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsGoogle(UserCredentialsGoogleRequest request, StreamObserver<UserCredentialsGoogleResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_google", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsGoogleResponse.Builder responseBuilder = UserCredentialsGoogleResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10955,21 +13339,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsGoogle(DeleteUserCredentialsGoogleRequest request, StreamObserver<DeleteUserCredentialsGoogleResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_google", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsGoogleResponse.Builder responseBuilder = DeleteUserCredentialsGoogleResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -10981,21 +13372,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsSaml(UserCredentialsSamlRequest request, StreamObserver<UserCredentialsSamlResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_saml", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsSamlResponse.Builder responseBuilder = UserCredentialsSamlResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11007,21 +13405,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsSaml(DeleteUserCredentialsSamlRequest request, StreamObserver<DeleteUserCredentialsSamlResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_saml", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsSamlResponse.Builder responseBuilder = DeleteUserCredentialsSamlResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11033,21 +13438,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsOidc(UserCredentialsOidcRequest request, StreamObserver<UserCredentialsOidcResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_oidc", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsOidcResponse.Builder responseBuilder = UserCredentialsOidcResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11059,21 +13471,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsOidc(DeleteUserCredentialsOidcRequest request, StreamObserver<DeleteUserCredentialsOidcResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_oidc", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsOidcResponse.Builder responseBuilder = DeleteUserCredentialsOidcResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11085,21 +13504,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsApi3(UserCredentialsApi3Request request, StreamObserver<UserCredentialsApi3Response> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_api3/{credentials_api3_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsApi3Response.Builder responseBuilder = UserCredentialsApi3Response.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11111,21 +13537,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsApi3(DeleteUserCredentialsApi3Request request, StreamObserver<DeleteUserCredentialsApi3Response> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_api3/{credentials_api3_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsApi3Response.Builder responseBuilder = DeleteUserCredentialsApi3Response.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11137,21 +13570,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUserCredentialsApi3s(AllUserCredentialsApi3sRequest request, StreamObserver<AllUserCredentialsApi3sResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_api3", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUserCredentialsApi3sResponse.Builder responseBuilder = AllUserCredentialsApi3sResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11163,21 +13603,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createUserCredentialsApi3(CreateUserCredentialsApi3Request request, StreamObserver<CreateUserCredentialsApi3Response> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_api3", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateUserCredentialsApi3Response.Builder responseBuilder = CreateUserCredentialsApi3Response.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11189,21 +13636,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsEmbed(UserCredentialsEmbedRequest request, StreamObserver<UserCredentialsEmbedResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_embed/{credentials_embed_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsEmbedResponse.Builder responseBuilder = UserCredentialsEmbedResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11215,21 +13669,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsEmbed(DeleteUserCredentialsEmbedRequest request, StreamObserver<DeleteUserCredentialsEmbedResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_embed/{credentials_embed_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsEmbedResponse.Builder responseBuilder = DeleteUserCredentialsEmbedResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11241,21 +13702,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest request, StreamObserver<AllUserCredentialsEmbedsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_embed", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUserCredentialsEmbedsResponse.Builder responseBuilder = AllUserCredentialsEmbedsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11267,21 +13735,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userCredentialsLookerOpenid(UserCredentialsLookerOpenidRequest request, StreamObserver<UserCredentialsLookerOpenidResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/credentials_looker_openid", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserCredentialsLookerOpenidResponse.Builder responseBuilder = UserCredentialsLookerOpenidResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11293,21 +13768,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserCredentialsLookerOpenid(DeleteUserCredentialsLookerOpenidRequest request, StreamObserver<DeleteUserCredentialsLookerOpenidResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/credentials_looker_openid", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserCredentialsLookerOpenidResponse.Builder responseBuilder = DeleteUserCredentialsLookerOpenidResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11319,21 +13801,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userSession(UserSessionRequest request, StreamObserver<UserSessionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/sessions/{session_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserSessionResponse.Builder responseBuilder = UserSessionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11345,21 +13834,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserSession(DeleteUserSessionRequest request, StreamObserver<DeleteUserSessionResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/sessions/{session_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserSessionResponse.Builder responseBuilder = DeleteUserSessionResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11371,21 +13867,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUserSessions(AllUserSessionsRequest request, StreamObserver<AllUserSessionsResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/sessions", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUserSessionsResponse.Builder responseBuilder = AllUserSessionsResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11406,21 +13909,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createUserCredentialsEmailPasswordReset(CreateUserCredentialsEmailPasswordResetRequest request, StreamObserver<CreateUserCredentialsEmailPasswordResetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email/password_reset", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateUserCredentialsEmailPasswordResetResponse.Builder responseBuilder = CreateUserCredentialsEmailPasswordResetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11433,21 +13943,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userRoles(UserRolesRequest request, StreamObserver<UserRolesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/roles", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserRolesResponse.Builder responseBuilder = UserRolesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11460,21 +13977,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setUserRoles(SetUserRolesRequest request, StreamObserver<SetUserRolesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.put("/users/{user_id}/roles", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetUserRolesResponse.Builder responseBuilder = SetUserRolesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11502,21 +14026,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userAttributeUserValues(UserAttributeUserValuesRequest request, StreamObserver<UserAttributeUserValuesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/users/{user_id}/attribute_values", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserAttributeUserValuesResponse.Builder responseBuilder = UserAttributeUserValuesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11531,21 +14062,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setUserAttributeUserValue(SetUserAttributeUserValueRequest request, StreamObserver<SetUserAttributeUserValueResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/users/{user_id}/attribute_values/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetUserAttributeUserValueResponse.Builder responseBuilder = SetUserAttributeUserValueResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11563,21 +14101,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserAttributeUserValue(DeleteUserAttributeUserValueRequest request, StreamObserver<DeleteUserAttributeUserValueResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/users/{user_id}/attribute_values/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserAttributeUserValueResponse.Builder responseBuilder = DeleteUserAttributeUserValueResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11596,21 +14141,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void sendUserCredentialsEmailPasswordReset(SendUserCredentialsEmailPasswordResetRequest request, StreamObserver<SendUserCredentialsEmailPasswordResetResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/users/{user_id}/credentials_email/send_password_reset", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SendUserCredentialsEmailPasswordResetResponse.Builder responseBuilder = SendUserCredentialsEmailPasswordResetResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11627,21 +14179,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUserAttributes(AllUserAttributesRequest request, StreamObserver<AllUserAttributesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_attributes", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUserAttributesResponse.Builder responseBuilder = AllUserAttributesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11663,21 +14222,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void createUserAttribute(CreateUserAttributeRequest request, StreamObserver<CreateUserAttributeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/user_attributes", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         CreateUserAttributeResponse.Builder responseBuilder = CreateUserAttributeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11690,21 +14256,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void userAttribute(UserAttributeRequest request, StreamObserver<UserAttributeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_attributes/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UserAttributeResponse.Builder responseBuilder = UserAttributeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11717,21 +14290,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void updateUserAttribute(UpdateUserAttributeRequest request, StreamObserver<UpdateUserAttributeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.patch("/user_attributes/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         UpdateUserAttributeResponse.Builder responseBuilder = UpdateUserAttributeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11744,21 +14324,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void deleteUserAttribute(DeleteUserAttributeRequest request, StreamObserver<DeleteUserAttributeResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.delete("/user_attributes/{user_attribute_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         DeleteUserAttributeResponse.Builder responseBuilder = DeleteUserAttributeResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11777,21 +14364,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allUserAttributeGroupValues(AllUserAttributeGroupValuesRequest request, StreamObserver<AllUserAttributeGroupValuesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/user_attributes/{user_attribute_id}/group_values", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllUserAttributeGroupValuesResponse.Builder responseBuilder = AllUserAttributeGroupValuesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11823,21 +14417,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void setUserAttributeGroupValues(SetUserAttributeGroupValuesRequest request, StreamObserver<SetUserAttributeGroupValuesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.post("/user_attributes/{user_attribute_id}/group_values", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         SetUserAttributeGroupValuesResponse.Builder responseBuilder = SetUserAttributeGroupValuesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11856,21 +14457,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void allWorkspaces(AllWorkspacesRequest request, StreamObserver<AllWorkspacesResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/workspaces", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         AllWorkspacesResponse.Builder responseBuilder = AllWorkspacesResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    
@@ -11911,21 +14519,28 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
     @Override
     public void workspace(WorkspaceRequest request, StreamObserver<WorkspaceResponse> responseObserver) {
     try {
-      String inputJson = JsonFormat.printer().print(request);
+      String inputJson = JsonFormat
+          .printer()
+          .preservingProtoFieldNames()
+          .print(request);
       LookerClientResponse lookerResponse = lookerClient.get("/workspaces/{workspace_id}", inputJson);
       Status lookerStatus = lookerResponse.getStatus();
       if (lookerStatus != null) {
         responseObserver.onError(lookerStatus.asRuntimeException());
       } else {
         WorkspaceResponse.Builder responseBuilder = WorkspaceResponse.newBuilder();
-        JsonFormat
-            .parser()
-            .ignoringUnknownFields()
-            .merge(lookerResponse.getJsonResponse(), responseBuilder);
+        String outputJson = lookerResponse.getJsonResponse();
+        if (outputJson != null) {
+          JsonFormat
+          .parser()            
+          .ignoringUnknownFields()
+          .merge(outputJson, responseBuilder);
+        }
         responseObserver.onNext(responseBuilder.build());
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
+      LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
   }    

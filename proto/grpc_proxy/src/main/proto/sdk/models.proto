@@ -5597,14 +5597,8 @@ message LoginRequest {
 }        
 
 message LoginResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Access token with metadata.
-  AccessToken result = 4;
+  AccessToken result = 1;
 }        
 
 message LoginUserRequest {
@@ -5615,14 +5609,8 @@ message LoginUserRequest {
 }        
 
 message LoginUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Access token with metadata.
-  AccessToken result = 4;
+  AccessToken result = 1;
 }        
 
 message LogoutRequest {
@@ -5630,14 +5618,8 @@ message LogoutRequest {
 }        
 
 message LogoutResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Logged out successfully.
-  string result = 4;
+  string result = 1;
 }        
 
 message CreateSsoEmbedUrlRequest {
@@ -5645,14 +5627,8 @@ message CreateSsoEmbedUrlRequest {
 }        
 
 message CreateSsoEmbedUrlResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Signed SSO URL
-  EmbedUrlResponse result = 4;
+  EmbedUrlResponse result = 1;
 }        
 
 message CreateEmbedUrlAsMeRequest {
@@ -5660,14 +5636,8 @@ message CreateEmbedUrlAsMeRequest {
 }        
 
 message CreateEmbedUrlAsMeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Embed URL
-  EmbedUrlResponse result = 4;
+  EmbedUrlResponse result = 1;
 }        
 
 message LdapConfigRequest {
@@ -5675,14 +5645,8 @@ message LdapConfigRequest {
 }        
 
 message LdapConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LDAP Configuration.
-  LDAPConfig result = 4;
+  LDAPConfig result = 1;
 }        
 
 message UpdateLdapConfigRequest {
@@ -5690,14 +5654,8 @@ message UpdateLdapConfigRequest {
 }        
 
 message UpdateLdapConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // New state for LDAP Configuration.
-  LDAPConfig result = 4;
+  LDAPConfig result = 1;
 }        
 
 message TestLdapConfigConnectionRequest {
@@ -5705,14 +5663,8 @@ message TestLdapConfigConnectionRequest {
 }        
 
 message TestLdapConfigConnectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Result info.
-  LDAPConfigTestResult result = 4;
+  LDAPConfigTestResult result = 1;
 }        
 
 message TestLdapConfigAuthRequest {
@@ -5720,14 +5672,8 @@ message TestLdapConfigAuthRequest {
 }        
 
 message TestLdapConfigAuthResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Result info.
-  LDAPConfigTestResult result = 4;
+  LDAPConfigTestResult result = 1;
 }        
 
 message TestLdapConfigUserInfoRequest {
@@ -5735,14 +5681,8 @@ message TestLdapConfigUserInfoRequest {
 }        
 
 message TestLdapConfigUserInfoResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Result info.
-  LDAPConfigTestResult result = 4;
+  LDAPConfigTestResult result = 1;
 }        
 
 message TestLdapConfigUserAuthRequest {
@@ -5750,14 +5690,8 @@ message TestLdapConfigUserAuthRequest {
 }        
 
 message TestLdapConfigUserAuthResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Result info.
-  LDAPConfigTestResult result = 4;
+  LDAPConfigTestResult result = 1;
 }        
 
 message AllOauthClientAppsRequest {
@@ -5766,14 +5700,8 @@ message AllOauthClientAppsRequest {
 }        
 
 message AllOauthClientAppsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OAuth Client App
-  repeated OauthClientApp result = 4;
+  repeated OauthClientApp result = 1;
 }        
 
 message OauthClientAppRequest {
@@ -5784,14 +5712,8 @@ message OauthClientAppRequest {
 }        
 
 message OauthClientAppResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OAuth Client App
-  OauthClientApp result = 4;
+  OauthClientApp result = 1;
 }        
 
 message RegisterOauthClientAppRequest {
@@ -5803,14 +5725,8 @@ message RegisterOauthClientAppRequest {
 }        
 
 message RegisterOauthClientAppResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OAuth Client App
-  OauthClientApp result = 4;
+  OauthClientApp result = 1;
 }        
 
 message UpdateOauthClientAppRequest {
@@ -5822,14 +5738,8 @@ message UpdateOauthClientAppRequest {
 }        
 
 message UpdateOauthClientAppResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OAuth Client App
-  OauthClientApp result = 4;
+  OauthClientApp result = 1;
 }        
 
 message DeleteOauthClientAppRequest {
@@ -5838,14 +5748,8 @@ message DeleteOauthClientAppRequest {
 }        
 
 message DeleteOauthClientAppResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message InvalidateTokensRequest {
@@ -5854,14 +5758,8 @@ message InvalidateTokensRequest {
 }        
 
 message InvalidateTokensResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message ActivateAppUserRequest {
@@ -5874,12 +5772,6 @@ message ActivateAppUserRequest {
 }        
 
 message ActivateAppUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -5893,14 +5785,8 @@ message DeactivateAppUserRequest {
 }        
 
 message DeactivateAppUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message OidcConfigRequest {
@@ -5908,14 +5794,8 @@ message OidcConfigRequest {
 }        
 
 message OidcConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OIDC Configuration.
-  OIDCConfig result = 4;
+  OIDCConfig result = 1;
 }        
 
 message UpdateOidcConfigRequest {
@@ -5923,14 +5803,8 @@ message UpdateOidcConfigRequest {
 }        
 
 message UpdateOidcConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // New state for OIDC Configuration.
-  OIDCConfig result = 4;
+  OIDCConfig result = 1;
 }        
 
 message OidcTestConfigRequest {
@@ -5939,14 +5813,8 @@ message OidcTestConfigRequest {
 }        
 
 message OidcTestConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OIDC test config.
-  OIDCConfig result = 4;
+  OIDCConfig result = 1;
 }        
 
 message DeleteOidcTestConfigRequest {
@@ -5955,14 +5823,8 @@ message DeleteOidcTestConfigRequest {
 }        
 
 message DeleteOidcTestConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test config succssfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message CreateOidcTestConfigRequest {
@@ -5970,14 +5832,8 @@ message CreateOidcTestConfigRequest {
 }        
 
 message CreateOidcTestConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OIDC test config
-  OIDCConfig result = 4;
+  OIDCConfig result = 1;
 }        
 
 message PasswordConfigRequest {
@@ -5985,14 +5841,8 @@ message PasswordConfigRequest {
 }        
 
 message PasswordConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Password Config
-  PasswordConfig result = 4;
+  PasswordConfig result = 1;
 }        
 
 message UpdatePasswordConfigRequest {
@@ -6000,14 +5850,8 @@ message UpdatePasswordConfigRequest {
 }        
 
 message UpdatePasswordConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Password Config
-  PasswordConfig result = 4;
+  PasswordConfig result = 1;
 }        
 
 message ForcePasswordResetAtNextLoginForAllUsersRequest {
@@ -6015,14 +5859,8 @@ message ForcePasswordResetAtNextLoginForAllUsersRequest {
 }        
 
 message ForcePasswordResetAtNextLoginForAllUsersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Password Config
-  string result = 4;
+  string result = 1;
 }        
 
 message SamlConfigRequest {
@@ -6030,14 +5868,8 @@ message SamlConfigRequest {
 }        
 
 message SamlConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SAML Configuration.
-  SamlConfig result = 4;
+  SamlConfig result = 1;
 }        
 
 message UpdateSamlConfigRequest {
@@ -6045,14 +5877,8 @@ message UpdateSamlConfigRequest {
 }        
 
 message UpdateSamlConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // New state for SAML Configuration.
-  SamlConfig result = 4;
+  SamlConfig result = 1;
 }        
 
 message SamlTestConfigRequest {
@@ -6061,14 +5887,8 @@ message SamlTestConfigRequest {
 }        
 
 message SamlTestConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SAML test config.
-  SamlConfig result = 4;
+  SamlConfig result = 1;
 }        
 
 message DeleteSamlTestConfigRequest {
@@ -6077,14 +5897,8 @@ message DeleteSamlTestConfigRequest {
 }        
 
 message DeleteSamlTestConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test config succssfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message CreateSamlTestConfigRequest {
@@ -6092,14 +5906,8 @@ message CreateSamlTestConfigRequest {
 }        
 
 message CreateSamlTestConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SAML test config
-  SamlConfig result = 4;
+  SamlConfig result = 1;
 }        
 
 message ParseSamlIdpMetadataRequest {
@@ -6107,14 +5915,8 @@ message ParseSamlIdpMetadataRequest {
 }        
 
 message ParseSamlIdpMetadataResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Parse result
-  SamlMetadataParseResult result = 4;
+  SamlMetadataParseResult result = 1;
 }        
 
 message FetchAndParseSamlIdpMetadataRequest {
@@ -6122,14 +5924,8 @@ message FetchAndParseSamlIdpMetadataRequest {
 }        
 
 message FetchAndParseSamlIdpMetadataResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Parse result
-  SamlMetadataParseResult result = 4;
+  SamlMetadataParseResult result = 1;
 }        
 
 message SessionConfigRequest {
@@ -6137,14 +5933,8 @@ message SessionConfigRequest {
 }        
 
 message SessionConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Session Config
-  SessionConfig result = 4;
+  SessionConfig result = 1;
 }        
 
 message UpdateSessionConfigRequest {
@@ -6152,14 +5942,8 @@ message UpdateSessionConfigRequest {
 }        
 
 message UpdateSessionConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Session Config
-  SessionConfig result = 4;
+  SessionConfig result = 1;
 }        
 
 message AllUserLoginLockoutsRequest {
@@ -6168,14 +5952,8 @@ message AllUserLoginLockoutsRequest {
 }        
 
 message AllUserLoginLockoutsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User Login Lockout
-  repeated UserLoginLockout result = 4;
+  repeated UserLoginLockout result = 1;
 }        
 
 message SearchUserLoginLockoutsRequest {
@@ -6200,14 +5978,8 @@ message SearchUserLoginLockoutsRequest {
 }        
 
 message SearchUserLoginLockoutsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User Login Lockout
-  repeated UserLoginLockout result = 4;
+  repeated UserLoginLockout result = 1;
 }        
 
 message DeleteUserLoginLockoutRequest {
@@ -6216,14 +5988,8 @@ message DeleteUserLoginLockoutRequest {
 }        
 
 message DeleteUserLoginLockoutResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllBoardsRequest {
@@ -6232,14 +5998,8 @@ message AllBoardsRequest {
 }        
 
 message AllBoardsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board
-  repeated Board result = 4;
+  repeated Board result = 1;
 }        
 
 message CreateBoardRequest {
@@ -6249,14 +6009,8 @@ message CreateBoardRequest {
 }        
 
 message CreateBoardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board
-  Board result = 4;
+  Board result = 1;
 }        
 
 message SearchBoardsRequest {
@@ -6289,14 +6043,8 @@ message SearchBoardsRequest {
 }        
 
 message SearchBoardsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // boards
-  repeated Board result = 4;
+  repeated Board result = 1;
 }        
 
 message BoardRequest {
@@ -6307,14 +6055,8 @@ message BoardRequest {
 }        
 
 message BoardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board
-  Board result = 4;
+  Board result = 1;
 }        
 
 message UpdateBoardRequest {
@@ -6326,14 +6068,8 @@ message UpdateBoardRequest {
 }        
 
 message UpdateBoardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board
-  Board result = 4;
+  Board result = 1;
 }        
 
 message DeleteBoardRequest {
@@ -6342,14 +6078,8 @@ message DeleteBoardRequest {
 }        
 
 message DeleteBoardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllBoardItemsRequest {
@@ -6362,14 +6092,8 @@ message AllBoardItemsRequest {
 }        
 
 message AllBoardItemsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board Item
-  repeated BoardItem result = 4;
+  repeated BoardItem result = 1;
 }        
 
 message CreateBoardItemRequest {
@@ -6379,14 +6103,8 @@ message CreateBoardItemRequest {
 }        
 
 message CreateBoardItemResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board Item
-  BoardItem result = 4;
+  BoardItem result = 1;
 }        
 
 message BoardItemRequest {
@@ -6397,14 +6115,8 @@ message BoardItemRequest {
 }        
 
 message BoardItemResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board Item
-  BoardItem result = 4;
+  BoardItem result = 1;
 }        
 
 message UpdateBoardItemRequest {
@@ -6416,14 +6128,8 @@ message UpdateBoardItemRequest {
 }        
 
 message UpdateBoardItemResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board Item
-  BoardItem result = 4;
+  BoardItem result = 1;
 }        
 
 message DeleteBoardItemRequest {
@@ -6432,14 +6138,8 @@ message DeleteBoardItemRequest {
 }        
 
 message DeleteBoardItemResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllBoardSectionsRequest {
@@ -6450,14 +6150,8 @@ message AllBoardSectionsRequest {
 }        
 
 message AllBoardSectionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board section
-  repeated BoardSection result = 4;
+  repeated BoardSection result = 1;
 }        
 
 message CreateBoardSectionRequest {
@@ -6467,14 +6161,8 @@ message CreateBoardSectionRequest {
 }        
 
 message CreateBoardSectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board section
-  BoardSection result = 4;
+  BoardSection result = 1;
 }        
 
 message BoardSectionRequest {
@@ -6485,14 +6173,8 @@ message BoardSectionRequest {
 }        
 
 message BoardSectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board section
-  BoardSection result = 4;
+  BoardSection result = 1;
 }        
 
 message UpdateBoardSectionRequest {
@@ -6504,14 +6186,8 @@ message UpdateBoardSectionRequest {
 }        
 
 message UpdateBoardSectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Board section
-  BoardSection result = 4;
+  BoardSection result = 1;
 }        
 
 message DeleteBoardSectionRequest {
@@ -6520,14 +6196,8 @@ message DeleteBoardSectionRequest {
 }        
 
 message DeleteBoardSectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllColorCollectionsRequest {
@@ -6536,14 +6206,8 @@ message AllColorCollectionsRequest {
 }        
 
 message AllColorCollectionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollections
-  repeated ColorCollection result = 4;
+  repeated ColorCollection result = 1;
 }        
 
 message CreateColorCollectionRequest {
@@ -6551,14 +6215,8 @@ message CreateColorCollectionRequest {
 }        
 
 message CreateColorCollectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollection
-  ColorCollection result = 4;
+  ColorCollection result = 1;
 }        
 
 message ColorCollectionsCustomRequest {
@@ -6567,14 +6225,8 @@ message ColorCollectionsCustomRequest {
 }        
 
 message ColorCollectionsCustomResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollections
-  repeated ColorCollection result = 4;
+  repeated ColorCollection result = 1;
 }        
 
 message ColorCollectionsStandardRequest {
@@ -6583,14 +6235,8 @@ message ColorCollectionsStandardRequest {
 }        
 
 message ColorCollectionsStandardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollections
-  repeated ColorCollection result = 4;
+  repeated ColorCollection result = 1;
 }        
 
 message DefaultColorCollectionRequest {
@@ -6598,14 +6244,8 @@ message DefaultColorCollectionRequest {
 }        
 
 message DefaultColorCollectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollection
-  ColorCollection result = 4;
+  ColorCollection result = 1;
 }        
 
 message SetDefaultColorCollectionRequest {
@@ -6614,14 +6254,8 @@ message SetDefaultColorCollectionRequest {
 }        
 
 message SetDefaultColorCollectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollection
-  ColorCollection result = 4;
+  ColorCollection result = 1;
 }        
 
 message ColorCollectionRequest {
@@ -6632,14 +6266,8 @@ message ColorCollectionRequest {
 }        
 
 message ColorCollectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollection
-  ColorCollection result = 4;
+  ColorCollection result = 1;
 }        
 
 message UpdateColorCollectionRequest {
@@ -6649,14 +6277,8 @@ message UpdateColorCollectionRequest {
 }        
 
 message UpdateColorCollectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ColorCollection
-  ColorCollection result = 4;
+  ColorCollection result = 1;
 }        
 
 message DeleteColorCollectionRequest {
@@ -6665,14 +6287,8 @@ message DeleteColorCollectionRequest {
 }        
 
 message DeleteColorCollectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message GetAllCommandsRequest {
@@ -6685,14 +6301,8 @@ message GetAllCommandsRequest {
 }        
 
 message GetAllCommandsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Commands
-  repeated Command result = 4;
+  repeated Command result = 1;
 }        
 
 message CreateCommandRequest {
@@ -6700,14 +6310,8 @@ message CreateCommandRequest {
 }        
 
 message CreateCommandResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // The command is saved.
-  Command result = 4;
+  Command result = 1;
 }        
 
 message UpdateCommandRequest {
@@ -6717,14 +6321,8 @@ message UpdateCommandRequest {
 }        
 
 message UpdateCommandResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // The command is updated.
-  Command result = 4;
+  Command result = 1;
 }        
 
 message DeleteCommandRequest {
@@ -6733,12 +6331,6 @@ message DeleteCommandRequest {
 }        
 
 message DeleteCommandResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // The command is deleted.
 }        
 
@@ -6747,14 +6339,8 @@ message CloudStorageConfigurationRequest {
 }        
 
 message CloudStorageConfigurationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Current Cloud Storage Configuration
-  BackupConfiguration result = 4;
+  BackupConfiguration result = 1;
 }        
 
 message UpdateCloudStorageConfigurationRequest {
@@ -6762,14 +6348,8 @@ message UpdateCloudStorageConfigurationRequest {
 }        
 
 message UpdateCloudStorageConfigurationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // New state for specified model set.
-  BackupConfiguration result = 4;
+  BackupConfiguration result = 1;
 }        
 
 message CustomWelcomeEmailRequest {
@@ -6777,14 +6357,8 @@ message CustomWelcomeEmailRequest {
 }        
 
 message CustomWelcomeEmailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Custom Welcome Email
-  CustomWelcomeEmail result = 4;
+  CustomWelcomeEmail result = 1;
 }        
 
 message UpdateCustomWelcomeEmailRequest {
@@ -6794,14 +6368,8 @@ message UpdateCustomWelcomeEmailRequest {
 }        
 
 message UpdateCustomWelcomeEmailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Custom Welcome Email
-  CustomWelcomeEmail result = 4;
+  CustomWelcomeEmail result = 1;
 }        
 
 message UpdateCustomWelcomeEmailTestRequest {
@@ -6809,14 +6377,8 @@ message UpdateCustomWelcomeEmailTestRequest {
 }        
 
 message UpdateCustomWelcomeEmailTestResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Send Test Welcome Email
-  WelcomeEmailTest result = 4;
+  WelcomeEmailTest result = 1;
 }        
 
 message DigestEmailsEnabledRequest {
@@ -6824,14 +6386,8 @@ message DigestEmailsEnabledRequest {
 }        
 
 message DigestEmailsEnabledResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Digest_emails
-  DigestEmails result = 4;
+  DigestEmails result = 1;
 }        
 
 message UpdateDigestEmailsEnabledRequest {
@@ -6839,14 +6395,8 @@ message UpdateDigestEmailsEnabledRequest {
 }        
 
 message UpdateDigestEmailsEnabledResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Digest_emails
-  DigestEmails result = 4;
+  DigestEmails result = 1;
 }        
 
 message CreateDigestEmailSendRequest {
@@ -6854,14 +6404,8 @@ message CreateDigestEmailSendRequest {
 }        
 
 message CreateDigestEmailSendResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Status of generating and sending the data
-  DigestEmailSend result = 4;
+  DigestEmailSend result = 1;
 }        
 
 message InternalHelpResourcesContentRequest {
@@ -6869,14 +6413,8 @@ message InternalHelpResourcesContentRequest {
 }        
 
 message InternalHelpResourcesContentResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Internal Help Resources Content
-  InternalHelpResourcesContent result = 4;
+  InternalHelpResourcesContent result = 1;
 }        
 
 message UpdateInternalHelpResourcesContentRequest {
@@ -6884,14 +6422,8 @@ message UpdateInternalHelpResourcesContentRequest {
 }        
 
 message UpdateInternalHelpResourcesContentResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Internal Help Resources Content
-  InternalHelpResourcesContent result = 4;
+  InternalHelpResourcesContent result = 1;
 }        
 
 message InternalHelpResourcesRequest {
@@ -6899,14 +6431,8 @@ message InternalHelpResourcesRequest {
 }        
 
 message InternalHelpResourcesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Internal Help Resources
-  InternalHelpResources result = 4;
+  InternalHelpResources result = 1;
 }        
 
 message UpdateInternalHelpResourcesRequest {
@@ -6914,14 +6440,8 @@ message UpdateInternalHelpResourcesRequest {
 }        
 
 message UpdateInternalHelpResourcesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Custom Welcome Email
-  InternalHelpResources result = 4;
+  InternalHelpResources result = 1;
 }        
 
 message AllLegacyFeaturesRequest {
@@ -6929,14 +6449,8 @@ message AllLegacyFeaturesRequest {
 }        
 
 message AllLegacyFeaturesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Legacy Feature
-  repeated LegacyFeature result = 4;
+  repeated LegacyFeature result = 1;
 }        
 
 message LegacyFeatureRequest {
@@ -6945,14 +6459,8 @@ message LegacyFeatureRequest {
 }        
 
 message LegacyFeatureResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Legacy Feature
-  LegacyFeature result = 4;
+  LegacyFeature result = 1;
 }        
 
 message UpdateLegacyFeatureRequest {
@@ -6962,14 +6470,8 @@ message UpdateLegacyFeatureRequest {
 }        
 
 message UpdateLegacyFeatureResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Legacy Feature
-  LegacyFeature result = 4;
+  LegacyFeature result = 1;
 }        
 
 message AllLocalesRequest {
@@ -6977,14 +6479,8 @@ message AllLocalesRequest {
 }        
 
 message AllLocalesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Locale
-  repeated Locale result = 4;
+  repeated Locale result = 1;
 }        
 
 message AllTimezonesRequest {
@@ -6992,14 +6488,8 @@ message AllTimezonesRequest {
 }        
 
 message AllTimezonesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Timezone
-  repeated Timezone result = 4;
+  repeated Timezone result = 1;
 }        
 
 message VersionsRequest {
@@ -7008,14 +6498,8 @@ message VersionsRequest {
 }        
 
 message VersionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // ApiVersion
-  ApiVersion result = 4;
+  ApiVersion result = 1;
 }        
 
 message WhitelabelConfigurationRequest {
@@ -7024,14 +6508,8 @@ message WhitelabelConfigurationRequest {
 }        
 
 message WhitelabelConfigurationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Whitelabel configuration
-  WhitelabelConfiguration result = 4;
+  WhitelabelConfiguration result = 1;
 }        
 
 message UpdateWhitelabelConfigurationRequest {
@@ -7039,14 +6517,8 @@ message UpdateWhitelabelConfigurationRequest {
 }        
 
 message UpdateWhitelabelConfigurationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Whitelabel configuration
-  WhitelabelConfiguration result = 4;
+  WhitelabelConfiguration result = 1;
 }        
 
 message AllConnectionsRequest {
@@ -7055,14 +6527,8 @@ message AllConnectionsRequest {
 }        
 
 message AllConnectionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Connection
-  repeated DBConnection result = 4;
+  repeated DBConnection result = 1;
 }        
 
 message CreateConnectionRequest {
@@ -7070,14 +6536,8 @@ message CreateConnectionRequest {
 }        
 
 message CreateConnectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Connection
-  DBConnection result = 4;
+  DBConnection result = 1;
 }        
 
 message ConnectionRequest {
@@ -7088,14 +6548,8 @@ message ConnectionRequest {
 }        
 
 message ConnectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Connection
-  DBConnection result = 4;
+  DBConnection result = 1;
 }        
 
 message UpdateConnectionRequest {
@@ -7105,14 +6559,8 @@ message UpdateConnectionRequest {
 }        
 
 message UpdateConnectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Connection
-  DBConnection result = 4;
+  DBConnection result = 1;
 }        
 
 message DeleteConnectionRequest {
@@ -7121,14 +6569,8 @@ message DeleteConnectionRequest {
 }        
 
 message DeleteConnectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message DeleteConnectionOverrideRequest {
@@ -7139,14 +6581,8 @@ message DeleteConnectionOverrideRequest {
 }        
 
 message DeleteConnectionOverrideResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message TestConnectionRequest {
@@ -7157,14 +6593,8 @@ message TestConnectionRequest {
 }        
 
 message TestConnectionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test results
-  repeated DBConnectionTestResult result = 4;
+  repeated DBConnectionTestResult result = 1;
 }        
 
 message TestConnectionConfigRequest {
@@ -7174,14 +6604,8 @@ message TestConnectionConfigRequest {
 }        
 
 message TestConnectionConfigResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test results
-  repeated DBConnectionTestResult result = 4;
+  repeated DBConnectionTestResult result = 1;
 }        
 
 message AllDialectInfosRequest {
@@ -7190,14 +6614,8 @@ message AllDialectInfosRequest {
 }        
 
 message AllDialectInfosResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dialect Info
-  repeated DialectInfo result = 4;
+  repeated DialectInfo result = 1;
 }        
 
 message AllExternalOauthApplicationsRequest {
@@ -7208,14 +6626,8 @@ message AllExternalOauthApplicationsRequest {
 }        
 
 message AllExternalOauthApplicationsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // External OAuth Application.  This is an OAuth Application which Looker uses to access external systems.
-  repeated ExternalOauthApplication result = 4;
+  repeated ExternalOauthApplication result = 1;
 }        
 
 message CreateExternalOauthApplicationRequest {
@@ -7223,14 +6635,8 @@ message CreateExternalOauthApplicationRequest {
 }        
 
 message CreateExternalOauthApplicationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // External OAuth Application.  This is an OAuth Application which Looker uses to access external systems.
-  ExternalOauthApplication result = 4;
+  ExternalOauthApplication result = 1;
 }        
 
 message AllSshServersRequest {
@@ -7239,14 +6645,8 @@ message AllSshServersRequest {
 }        
 
 message AllSshServersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Server
-  repeated SshServer result = 4;
+  repeated SshServer result = 1;
 }        
 
 message CreateSshServerRequest {
@@ -7254,14 +6654,8 @@ message CreateSshServerRequest {
 }        
 
 message CreateSshServerResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Server
-  SshServer result = 4;
+  SshServer result = 1;
 }        
 
 message SshServerRequest {
@@ -7270,14 +6664,8 @@ message SshServerRequest {
 }        
 
 message SshServerResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Server
-  SshServer result = 4;
+  SshServer result = 1;
 }        
 
 message UpdateSshServerRequest {
@@ -7287,14 +6675,8 @@ message UpdateSshServerRequest {
 }        
 
 message UpdateSshServerResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Server
-  SshServer result = 4;
+  SshServer result = 1;
 }        
 
 message DeleteSshServerRequest {
@@ -7303,14 +6685,8 @@ message DeleteSshServerRequest {
 }        
 
 message DeleteSshServerResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message TestSshServerRequest {
@@ -7319,14 +6695,8 @@ message TestSshServerRequest {
 }        
 
 message TestSshServerResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test SSH Server
-  SshServer result = 4;
+  SshServer result = 1;
 }        
 
 message AllSshTunnelsRequest {
@@ -7335,14 +6705,8 @@ message AllSshTunnelsRequest {
 }        
 
 message AllSshTunnelsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Tunnel
-  repeated SshTunnel result = 4;
+  repeated SshTunnel result = 1;
 }        
 
 message CreateSshTunnelRequest {
@@ -7350,14 +6714,8 @@ message CreateSshTunnelRequest {
 }        
 
 message CreateSshTunnelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Tunnel
-  SshTunnel result = 4;
+  SshTunnel result = 1;
 }        
 
 message SshTunnelRequest {
@@ -7366,14 +6724,8 @@ message SshTunnelRequest {
 }        
 
 message SshTunnelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Tunnel
-  SshTunnel result = 4;
+  SshTunnel result = 1;
 }        
 
 message UpdateSshTunnelRequest {
@@ -7383,14 +6735,8 @@ message UpdateSshTunnelRequest {
 }        
 
 message UpdateSshTunnelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Tunnel
-  SshTunnel result = 4;
+  SshTunnel result = 1;
 }        
 
 message DeleteSshTunnelRequest {
@@ -7399,14 +6745,8 @@ message DeleteSshTunnelRequest {
 }        
 
 message DeleteSshTunnelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message TestSshTunnelRequest {
@@ -7415,14 +6755,8 @@ message TestSshTunnelRequest {
 }        
 
 message TestSshTunnelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test SSH Tunnel
-  SshTunnel result = 4;
+  SshTunnel result = 1;
 }        
 
 message SshPublicKeyRequest {
@@ -7430,14 +6764,8 @@ message SshPublicKeyRequest {
 }        
 
 message SshPublicKeyResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SSH Public Key
-  SshPublicKey result = 4;
+  SshPublicKey result = 1;
 }        
 
 message SearchContentFavoritesRequest {
@@ -7466,14 +6794,8 @@ message SearchContentFavoritesRequest {
 }        
 
 message SearchContentFavoritesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Favorite Content
-  repeated ContentFavorite result = 4;
+  repeated ContentFavorite result = 1;
 }        
 
 message ContentFavoriteRequest {
@@ -7484,14 +6806,8 @@ message ContentFavoriteRequest {
 }        
 
 message ContentFavoriteResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Favorite Content
-  ContentFavorite result = 4;
+  ContentFavorite result = 1;
 }        
 
 message DeleteContentFavoriteRequest {
@@ -7500,14 +6816,8 @@ message DeleteContentFavoriteRequest {
 }        
 
 message DeleteContentFavoriteResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message CreateContentFavoriteRequest {
@@ -7515,14 +6825,8 @@ message CreateContentFavoriteRequest {
 }        
 
 message CreateContentFavoriteResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Favorite Content
-  ContentFavorite result = 4;
+  ContentFavorite result = 1;
 }        
 
 message AllContentMetadatasRequest {
@@ -7533,14 +6837,8 @@ message AllContentMetadatasRequest {
 }        
 
 message AllContentMetadatasResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content Metadata
-  repeated ContentMeta result = 4;
+  repeated ContentMeta result = 1;
 }        
 
 message ContentMetadataRequest {
@@ -7551,14 +6849,8 @@ message ContentMetadataRequest {
 }        
 
 message ContentMetadataResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content Metadata
-  ContentMeta result = 4;
+  ContentMeta result = 1;
 }        
 
 message UpdateContentMetadataRequest {
@@ -7568,14 +6860,8 @@ message UpdateContentMetadataRequest {
 }        
 
 message UpdateContentMetadataResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content Metadata
-  ContentMeta result = 4;
+  ContentMeta result = 1;
 }        
 
 message AllContentMetadataAccessesRequest {
@@ -7586,14 +6872,8 @@ message AllContentMetadataAccessesRequest {
 }        
 
 message AllContentMetadataAccessesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content Metadata Access
-  repeated ContentMetaGroupUser result = 4;
+  repeated ContentMetaGroupUser result = 1;
 }        
 
 message CreateContentMetadataAccessRequest {
@@ -7603,14 +6883,8 @@ message CreateContentMetadataAccessRequest {
 }        
 
 message CreateContentMetadataAccessResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content Metadata Access
-  ContentMetaGroupUser result = 4;
+  ContentMetaGroupUser result = 1;
 }        
 
 message UpdateContentMetadataAccessRequest {
@@ -7620,14 +6894,8 @@ message UpdateContentMetadataAccessRequest {
 }        
 
 message UpdateContentMetadataAccessResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content Metadata Access
-  ContentMetaGroupUser result = 4;
+  ContentMetaGroupUser result = 1;
 }        
 
 message DeleteContentMetadataAccessRequest {
@@ -7636,14 +6904,8 @@ message DeleteContentMetadataAccessRequest {
 }        
 
 message DeleteContentMetadataAccessResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message ContentThumbnailRequest {
@@ -7662,12 +6924,6 @@ message ContentThumbnailRequest {
 }        
 
 message ContentThumbnailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -7677,14 +6933,8 @@ message ContentValidationRequest {
 }        
 
 message ContentValidationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content validation results
-  ContentValidation result = 4;
+  ContentValidation result = 1;
 }        
 
 message SearchContentViewsRequest {
@@ -7717,14 +6967,8 @@ message SearchContentViewsRequest {
 }        
 
 message SearchContentViewsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Content View
-  repeated ContentView result = 4;
+  repeated ContentView result = 1;
 }        
 
 message VectorThumbnailRequest {
@@ -7737,14 +6981,8 @@ message VectorThumbnailRequest {
 }        
 
 message VectorThumbnailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Vector thumbnail
-  string result = 4;
+  string result = 1;
 }        
 
 message AllDashboardsRequest {
@@ -7753,14 +6991,8 @@ message AllDashboardsRequest {
 }        
 
 message AllDashboardsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // dashboards
-  repeated DashboardBase result = 4;
+  repeated DashboardBase result = 1;
 }        
 
 message CreateDashboardRequest {
@@ -7768,14 +7000,8 @@ message CreateDashboardRequest {
 }        
 
 message CreateDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard
-  Dashboard result = 4;
+  Dashboard result = 1;
 }        
 
 message SearchDashboardsRequest {
@@ -7820,14 +7046,8 @@ message SearchDashboardsRequest {
 }        
 
 message SearchDashboardsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // dashboards
-  repeated Dashboard result = 4;
+  repeated Dashboard result = 1;
 }        
 
 message ImportLookmlDashboardRequest {
@@ -7841,14 +7061,8 @@ message ImportLookmlDashboardRequest {
 }        
 
 message ImportLookmlDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard
-  Dashboard result = 4;
+  Dashboard result = 1;
 }        
 
 message SyncLookmlDashboardRequest {
@@ -7860,14 +7074,8 @@ message SyncLookmlDashboardRequest {
 }        
 
 message SyncLookmlDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Ids of all the dashboards that were updated by this operation
-  repeated int64 result = 4;
+  repeated int64 result = 1;
 }        
 
 message DashboardRequest {
@@ -7878,14 +7086,8 @@ message DashboardRequest {
 }        
 
 message DashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard
-  Dashboard result = 4;
+  Dashboard result = 1;
 }        
 
 message UpdateDashboardRequest {
@@ -7895,14 +7097,8 @@ message UpdateDashboardRequest {
 }        
 
 message UpdateDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard
-  Dashboard result = 4;
+  Dashboard result = 1;
 }        
 
 message DeleteDashboardRequest {
@@ -7911,14 +7107,8 @@ message DeleteDashboardRequest {
 }        
 
 message DeleteDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message DashboardAggregateTableLookmlRequest {
@@ -7927,14 +7117,8 @@ message DashboardAggregateTableLookmlRequest {
 }        
 
 message DashboardAggregateTableLookmlResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // JSON for Aggregate Table LookML
-  DashboardAggregateTableLookml result = 4;
+  DashboardAggregateTableLookml result = 1;
 }        
 
 message DashboardLookmlRequest {
@@ -7943,14 +7127,8 @@ message DashboardLookmlRequest {
 }        
 
 message DashboardLookmlResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // json of dashboard
-  DashboardLookml result = 4;
+  DashboardLookml result = 1;
 }        
 
 message SearchDashboardElementsRequest {
@@ -7971,14 +7149,8 @@ message SearchDashboardElementsRequest {
 }        
 
 message SearchDashboardElementsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard elements
-  repeated DashboardElement result = 4;
+  repeated DashboardElement result = 1;
 }        
 
 message DashboardElementRequest {
@@ -7989,14 +7161,8 @@ message DashboardElementRequest {
 }        
 
 message DashboardElementResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardElement
-  DashboardElement result = 4;
+  DashboardElement result = 1;
 }        
 
 message UpdateDashboardElementRequest {
@@ -8008,14 +7174,8 @@ message UpdateDashboardElementRequest {
 }        
 
 message UpdateDashboardElementResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardElement
-  DashboardElement result = 4;
+  DashboardElement result = 1;
 }        
 
 message DeleteDashboardElementRequest {
@@ -8024,14 +7184,8 @@ message DeleteDashboardElementRequest {
 }        
 
 message DeleteDashboardElementResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message DashboardDashboardElementsRequest {
@@ -8042,14 +7196,8 @@ message DashboardDashboardElementsRequest {
 }        
 
 message DashboardDashboardElementsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardElement
-  repeated DashboardElement result = 4;
+  repeated DashboardElement result = 1;
 }        
 
 message CreateDashboardElementRequest {
@@ -8059,14 +7207,8 @@ message CreateDashboardElementRequest {
 }        
 
 message CreateDashboardElementResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardElement
-  DashboardElement result = 4;
+  DashboardElement result = 1;
 }        
 
 message DashboardFilterRequest {
@@ -8077,14 +7219,8 @@ message DashboardFilterRequest {
 }        
 
 message DashboardFilterResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard Filter
-  DashboardFilter result = 4;
+  DashboardFilter result = 1;
 }        
 
 message UpdateDashboardFilterRequest {
@@ -8096,14 +7232,8 @@ message UpdateDashboardFilterRequest {
 }        
 
 message UpdateDashboardFilterResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard Filter
-  DashboardFilter result = 4;
+  DashboardFilter result = 1;
 }        
 
 message DeleteDashboardFilterRequest {
@@ -8112,14 +7242,8 @@ message DeleteDashboardFilterRequest {
 }        
 
 message DeleteDashboardFilterResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message DashboardDashboardFiltersRequest {
@@ -8130,14 +7254,8 @@ message DashboardDashboardFiltersRequest {
 }        
 
 message DashboardDashboardFiltersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard Filter
-  repeated DashboardFilter result = 4;
+  repeated DashboardFilter result = 1;
 }        
 
 message CreateDashboardFilterRequest {
@@ -8147,14 +7265,8 @@ message CreateDashboardFilterRequest {
 }        
 
 message CreateDashboardFilterResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard Filter
-  DashboardFilter result = 4;
+  DashboardFilter result = 1;
 }        
 
 message DashboardLayoutComponentRequest {
@@ -8165,14 +7277,8 @@ message DashboardLayoutComponentRequest {
 }        
 
 message DashboardLayoutComponentResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayoutComponent
-  DashboardLayoutComponent result = 4;
+  DashboardLayoutComponent result = 1;
 }        
 
 message UpdateDashboardLayoutComponentRequest {
@@ -8184,14 +7290,8 @@ message UpdateDashboardLayoutComponentRequest {
 }        
 
 message UpdateDashboardLayoutComponentResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayoutComponent
-  DashboardLayoutComponent result = 4;
+  DashboardLayoutComponent result = 1;
 }        
 
 message DashboardLayoutDashboardLayoutComponentsRequest {
@@ -8202,14 +7302,8 @@ message DashboardLayoutDashboardLayoutComponentsRequest {
 }        
 
 message DashboardLayoutDashboardLayoutComponentsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayoutComponent
-  repeated DashboardLayoutComponent result = 4;
+  repeated DashboardLayoutComponent result = 1;
 }        
 
 message DashboardLayoutRequest {
@@ -8220,14 +7314,8 @@ message DashboardLayoutRequest {
 }        
 
 message DashboardLayoutResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayout
-  DashboardLayout result = 4;
+  DashboardLayout result = 1;
 }        
 
 message UpdateDashboardLayoutRequest {
@@ -8239,14 +7327,8 @@ message UpdateDashboardLayoutRequest {
 }        
 
 message UpdateDashboardLayoutResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayout
-  DashboardLayout result = 4;
+  DashboardLayout result = 1;
 }        
 
 message DeleteDashboardLayoutRequest {
@@ -8255,14 +7337,8 @@ message DeleteDashboardLayoutRequest {
 }        
 
 message DeleteDashboardLayoutResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message DashboardDashboardLayoutsRequest {
@@ -8273,14 +7349,8 @@ message DashboardDashboardLayoutsRequest {
 }        
 
 message DashboardDashboardLayoutsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayout
-  repeated DashboardLayout result = 4;
+  repeated DashboardLayout result = 1;
 }        
 
 message CreateDashboardLayoutRequest {
@@ -8290,14 +7360,8 @@ message CreateDashboardLayoutRequest {
 }        
 
 message CreateDashboardLayoutResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // DashboardLayout
-  DashboardLayout result = 4;
+  DashboardLayout result = 1;
 }        
 
 message PerformDataActionRequest {
@@ -8305,14 +7369,8 @@ message PerformDataActionRequest {
 }        
 
 message PerformDataActionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Data Action Response
-  DataActionResponse result = 4;
+  DataActionResponse result = 1;
 }        
 
 message FetchRemoteDataActionFormRequest {
@@ -8320,14 +7378,8 @@ message FetchRemoteDataActionFormRequest {
 }        
 
 message FetchRemoteDataActionFormResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Data Action Form
-  DataActionForm result = 4;
+  DataActionForm result = 1;
 }        
 
 message AllDatagroupsRequest {
@@ -8335,14 +7387,8 @@ message AllDatagroupsRequest {
 }        
 
 message AllDatagroupsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Datagroup
-  repeated Datagroup result = 4;
+  repeated Datagroup result = 1;
 }        
 
 message DatagroupRequest {
@@ -8351,14 +7397,8 @@ message DatagroupRequest {
 }        
 
 message DatagroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Datagroup
-  Datagroup result = 4;
+  Datagroup result = 1;
 }        
 
 message UpdateDatagroupRequest {
@@ -8368,14 +7408,8 @@ message UpdateDatagroupRequest {
 }        
 
 message UpdateDatagroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Datagroup
-  Datagroup result = 4;
+  Datagroup result = 1;
 }        
 
 message SearchFoldersRequest {
@@ -8404,14 +7438,8 @@ message SearchFoldersRequest {
 }        
 
 message SearchFoldersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // folders
-  repeated Folder result = 4;
+  repeated Folder result = 1;
 }        
 
 message FolderRequest {
@@ -8422,14 +7450,8 @@ message FolderRequest {
 }        
 
 message FolderResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folder
-  Folder result = 4;
+  Folder result = 1;
 }        
 
 message UpdateFolderRequest {
@@ -8439,14 +7461,8 @@ message UpdateFolderRequest {
 }        
 
 message UpdateFolderResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folder
-  Folder result = 4;
+  Folder result = 1;
 }        
 
 message DeleteFolderRequest {
@@ -8455,14 +7471,8 @@ message DeleteFolderRequest {
 }        
 
 message DeleteFolderResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllFoldersRequest {
@@ -8471,14 +7481,8 @@ message AllFoldersRequest {
 }        
 
 message AllFoldersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folder
-  repeated Folder result = 4;
+  repeated Folder result = 1;
 }        
 
 message CreateFolderRequest {
@@ -8486,14 +7490,8 @@ message CreateFolderRequest {
 }        
 
 message CreateFolderResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folder
-  Folder result = 4;
+  Folder result = 1;
 }        
 
 message FolderChildrenRequest {
@@ -8510,14 +7508,8 @@ message FolderChildrenRequest {
 }        
 
 message FolderChildrenResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folders
-  repeated Folder result = 4;
+  repeated Folder result = 1;
 }        
 
 message FolderChildrenSearchRequest {
@@ -8532,14 +7524,8 @@ message FolderChildrenSearchRequest {
 }        
 
 message FolderChildrenSearchResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folders
-  repeated Folder result = 4;
+  repeated Folder result = 1;
 }        
 
 message FolderParentRequest {
@@ -8550,14 +7536,8 @@ message FolderParentRequest {
 }        
 
 message FolderParentResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folder
-  Folder result = 4;
+  Folder result = 1;
 }        
 
 message FolderAncestorsRequest {
@@ -8568,14 +7548,8 @@ message FolderAncestorsRequest {
 }        
 
 message FolderAncestorsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Folders
-  repeated Folder result = 4;
+  repeated Folder result = 1;
 }        
 
 message FolderLooksRequest {
@@ -8586,14 +7560,8 @@ message FolderLooksRequest {
 }        
 
 message FolderLooksResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Looks
-  repeated LookWithQuery result = 4;
+  repeated LookWithQuery result = 1;
 }        
 
 message FolderDashboardsRequest {
@@ -8604,14 +7572,8 @@ message FolderDashboardsRequest {
 }        
 
 message FolderDashboardsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Dashboard
-  repeated Dashboard result = 4;
+  repeated Dashboard result = 1;
 }        
 
 message AllGroupsRequest {
@@ -8632,14 +7594,8 @@ message AllGroupsRequest {
 }        
 
 message AllGroupsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  repeated Group result = 4;
+  repeated Group result = 1;
 }        
 
 message CreateGroupRequest {
@@ -8649,14 +7605,8 @@ message CreateGroupRequest {
 }        
 
 message CreateGroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  Group result = 4;
+  Group result = 1;
 }        
 
 message SearchGroupsRequest {
@@ -8683,14 +7633,8 @@ message SearchGroupsRequest {
 }        
 
 message SearchGroupsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  repeated Group result = 4;
+  repeated Group result = 1;
 }        
 
 message SearchGroupsWithRolesRequest {
@@ -8717,14 +7661,8 @@ message SearchGroupsWithRolesRequest {
 }        
 
 message SearchGroupsWithRolesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  repeated GroupSearch result = 4;
+  repeated GroupSearch result = 1;
 }        
 
 message SearchGroupsWithHierarchyRequest {
@@ -8751,14 +7689,8 @@ message SearchGroupsWithHierarchyRequest {
 }        
 
 message SearchGroupsWithHierarchyResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  repeated GroupHierarchy result = 4;
+  repeated GroupHierarchy result = 1;
 }        
 
 message GroupRequest {
@@ -8769,14 +7701,8 @@ message GroupRequest {
 }        
 
 message GroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  Group result = 4;
+  Group result = 1;
 }        
 
 message UpdateGroupRequest {
@@ -8788,14 +7714,8 @@ message UpdateGroupRequest {
 }        
 
 message UpdateGroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group
-  Group result = 4;
+  Group result = 1;
 }        
 
 message DeleteGroupRequest {
@@ -8804,14 +7724,8 @@ message DeleteGroupRequest {
 }        
 
 message DeleteGroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllGroupGroupsRequest {
@@ -8822,14 +7736,8 @@ message AllGroupGroupsRequest {
 }        
 
 message AllGroupGroupsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // All groups in group.
-  repeated Group result = 4;
+  repeated Group result = 1;
 }        
 
 message AddGroupGroupRequest {
@@ -8839,14 +7747,8 @@ message AddGroupGroupRequest {
 }        
 
 message AddGroupGroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Added group.
-  Group result = 4;
+  Group result = 1;
 }        
 
 message AllGroupUsersRequest {
@@ -8863,14 +7765,8 @@ message AllGroupUsersRequest {
 }        
 
 message AllGroupUsersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // All users in group.
-  repeated User result = 4;
+  repeated User result = 1;
 }        
 
 message AddGroupUserRequest {
@@ -8880,14 +7776,8 @@ message AddGroupUserRequest {
 }        
 
 message AddGroupUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Added user.
-  User result = 4;
+  User result = 1;
 }        
 
 message DeleteGroupUserRequest {
@@ -8898,12 +7788,6 @@ message DeleteGroupUserRequest {
 }        
 
 message DeleteGroupUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User successfully removed from group
 }        
 
@@ -8915,12 +7799,6 @@ message DeleteGroupFromGroupRequest {
 }        
 
 message DeleteGroupFromGroupResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group successfully deleted
 }        
 
@@ -8933,14 +7811,8 @@ message UpdateUserAttributeGroupValueRequest {
 }        
 
 message UpdateUserAttributeGroupValueResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Group value object.
-  UserAttributeGroupValue result = 4;
+  UserAttributeGroupValue result = 1;
 }        
 
 message DeleteUserAttributeGroupValueRequest {
@@ -8951,12 +7823,6 @@ message DeleteUserAttributeGroupValueRequest {
 }        
 
 message DeleteUserAttributeGroupValueResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Value successfully unset
 }        
 
@@ -8966,14 +7832,8 @@ message AllPrimaryHomepageSectionsRequest {
 }        
 
 message AllPrimaryHomepageSectionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Primary homepage section
-  repeated HomepageSection result = 4;
+  repeated HomepageSection result = 1;
 }        
 
 message AllIntegrationHubsRequest {
@@ -8982,14 +7842,8 @@ message AllIntegrationHubsRequest {
 }        
 
 message AllIntegrationHubsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration Hub
-  repeated IntegrationHub result = 4;
+  repeated IntegrationHub result = 1;
 }        
 
 message CreateIntegrationHubRequest {
@@ -8999,14 +7853,8 @@ message CreateIntegrationHubRequest {
 }        
 
 message CreateIntegrationHubResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration Hub
-  IntegrationHub result = 4;
+  IntegrationHub result = 1;
 }        
 
 message IntegrationHubRequest {
@@ -9017,14 +7865,8 @@ message IntegrationHubRequest {
 }        
 
 message IntegrationHubResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration Hub
-  IntegrationHub result = 4;
+  IntegrationHub result = 1;
 }        
 
 message UpdateIntegrationHubRequest {
@@ -9036,14 +7878,8 @@ message UpdateIntegrationHubRequest {
 }        
 
 message UpdateIntegrationHubResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration Hub
-  IntegrationHub result = 4;
+  IntegrationHub result = 1;
 }        
 
 message DeleteIntegrationHubRequest {
@@ -9052,14 +7888,8 @@ message DeleteIntegrationHubRequest {
 }        
 
 message DeleteIntegrationHubResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AcceptIntegrationHubLegalAgreementRequest {
@@ -9068,14 +7898,8 @@ message AcceptIntegrationHubLegalAgreementRequest {
 }        
 
 message AcceptIntegrationHubLegalAgreementResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration hub
-  IntegrationHub result = 4;
+  IntegrationHub result = 1;
 }        
 
 message AllIntegrationsRequest {
@@ -9086,14 +7910,8 @@ message AllIntegrationsRequest {
 }        
 
 message AllIntegrationsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration
-  repeated Integration result = 4;
+  repeated Integration result = 1;
 }        
 
 message IntegrationRequest {
@@ -9104,14 +7922,8 @@ message IntegrationRequest {
 }        
 
 message IntegrationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration
-  Integration result = 4;
+  Integration result = 1;
 }        
 
 message UpdateIntegrationRequest {
@@ -9123,14 +7935,8 @@ message UpdateIntegrationRequest {
 }        
 
 message UpdateIntegrationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Integration
-  Integration result = 4;
+  Integration result = 1;
 }        
 
 message FetchIntegrationFormRequest {
@@ -9140,14 +7946,8 @@ message FetchIntegrationFormRequest {
 }        
 
 message FetchIntegrationFormResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Data Action Form
-  DataActionForm result = 4;
+  DataActionForm result = 1;
 }        
 
 message TestIntegrationRequest {
@@ -9156,14 +7956,8 @@ message TestIntegrationRequest {
 }        
 
 message TestIntegrationResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Test Result
-  IntegrationTestResult result = 4;
+  IntegrationTestResult result = 1;
 }        
 
 message AllLooksRequest {
@@ -9172,14 +7966,8 @@ message AllLooksRequest {
 }        
 
 message AllLooksResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Look
-  repeated Look result = 4;
+  repeated Look result = 1;
 }        
 
 message CreateLookRequest {
@@ -9189,14 +7977,8 @@ message CreateLookRequest {
 }        
 
 message CreateLookResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Look
-  LookWithQuery result = 4;
+  LookWithQuery result = 1;
 }        
 
 message SearchLooksRequest {
@@ -9239,14 +8021,8 @@ message SearchLooksRequest {
 }        
 
 message SearchLooksResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // looks
-  repeated Look result = 4;
+  repeated Look result = 1;
 }        
 
 message LookRequest {
@@ -9257,14 +8033,8 @@ message LookRequest {
 }        
 
 message LookResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Look
-  LookWithQuery result = 4;
+  LookWithQuery result = 1;
 }        
 
 message UpdateLookRequest {
@@ -9276,14 +8046,8 @@ message UpdateLookRequest {
 }        
 
 message UpdateLookResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Look
-  LookWithQuery result = 4;
+  LookWithQuery result = 1;
 }        
 
 message DeleteLookRequest {
@@ -9292,14 +8056,8 @@ message DeleteLookRequest {
 }        
 
 message DeleteLookResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message RunLookRequest {
@@ -9334,12 +8092,6 @@ message RunLookRequest {
 }        
 
 message RunLookResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9349,14 +8101,8 @@ message AllLookmlModelsRequest {
 }        
 
 message AllLookmlModelsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Model
-  repeated LookmlModel result = 4;
+  repeated LookmlModel result = 1;
 }        
 
 message CreateLookmlModelRequest {
@@ -9364,14 +8110,8 @@ message CreateLookmlModelRequest {
 }        
 
 message CreateLookmlModelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Model
-  LookmlModel result = 4;
+  LookmlModel result = 1;
 }        
 
 message LookmlModelRequest {
@@ -9382,14 +8122,8 @@ message LookmlModelRequest {
 }        
 
 message LookmlModelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Model
-  LookmlModel result = 4;
+  LookmlModel result = 1;
 }        
 
 message UpdateLookmlModelRequest {
@@ -9399,14 +8133,8 @@ message UpdateLookmlModelRequest {
 }        
 
 message UpdateLookmlModelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Model
-  LookmlModel result = 4;
+  LookmlModel result = 1;
 }        
 
 message DeleteLookmlModelRequest {
@@ -9415,14 +8143,8 @@ message DeleteLookmlModelRequest {
 }        
 
 message DeleteLookmlModelResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message LookmlModelExploreRequest {
@@ -9435,14 +8157,8 @@ message LookmlModelExploreRequest {
 }        
 
 message LookmlModelExploreResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Model Explore
-  LookmlModelExplore result = 4;
+  LookmlModelExplore result = 1;
 }        
 
 message ModelFieldnameSuggestionsRequest {
@@ -9459,14 +8175,8 @@ message ModelFieldnameSuggestionsRequest {
 }        
 
 message ModelFieldnameSuggestionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Model view field suggestions
-  ModelFieldSuggestions result = 4;
+  ModelFieldSuggestions result = 1;
 }        
 
 message ConnectionDatabasesRequest {
@@ -9475,14 +8185,8 @@ message ConnectionDatabasesRequest {
 }        
 
 message ConnectionDatabasesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Database names
-  repeated string result = 4;
+  repeated string result = 1;
 }        
 
 message ConnectionFeaturesRequest {
@@ -9493,14 +8197,8 @@ message ConnectionFeaturesRequest {
 }        
 
 message ConnectionFeaturesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Connection features
-  ConnectionFeatures result = 4;
+  ConnectionFeatures result = 1;
 }        
 
 message ConnectionSchemasRequest {
@@ -9515,14 +8213,8 @@ message ConnectionSchemasRequest {
 }        
 
 message ConnectionSchemasResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Schemas for connection
-  repeated Schema result = 4;
+  repeated Schema result = 1;
 }        
 
 message ConnectionTablesRequest {
@@ -9539,14 +8231,8 @@ message ConnectionTablesRequest {
 }        
 
 message ConnectionTablesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Schemas and tables for connection
-  repeated SchemaTables result = 4;
+  repeated SchemaTables result = 1;
 }        
 
 message ConnectionColumnsRequest {
@@ -9567,14 +8253,8 @@ message ConnectionColumnsRequest {
 }        
 
 message ConnectionColumnsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Columns schema for connection
-  repeated SchemaColumns result = 4;
+  repeated SchemaColumns result = 1;
 }        
 
 message ConnectionSearchColumnsRequest {
@@ -9587,14 +8267,8 @@ message ConnectionSearchColumnsRequest {
 }        
 
 message ConnectionSearchColumnsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Column names matching search pattern
-  repeated ColumnSearch result = 4;
+  repeated ColumnSearch result = 1;
 }        
 
 message ConnectionCostEstimateRequest {
@@ -9606,14 +8280,8 @@ message ConnectionCostEstimateRequest {
 }        
 
 message ConnectionCostEstimateResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Connection cost estimates
-  CostEstimate result = 4;
+  CostEstimate result = 1;
 }        
 
 message LockAllRequest {
@@ -9624,12 +8292,6 @@ message LockAllRequest {
 }        
 
 message LockAllResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9639,14 +8301,8 @@ message AllGitBranchesRequest {
 }        
 
 message AllGitBranchesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Branch
-  repeated GitBranch result = 4;
+  repeated GitBranch result = 1;
 }        
 
 message GitBranchRequest {
@@ -9655,14 +8311,8 @@ message GitBranchRequest {
 }        
 
 message GitBranchResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Branch
-  GitBranch result = 4;
+  GitBranch result = 1;
 }        
 
 message UpdateGitBranchRequest {
@@ -9672,14 +8322,8 @@ message UpdateGitBranchRequest {
 }        
 
 message UpdateGitBranchResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Branch
-  GitBranch result = 4;
+  GitBranch result = 1;
 }        
 
 message CreateGitBranchRequest {
@@ -9689,14 +8333,8 @@ message CreateGitBranchRequest {
 }        
 
 message CreateGitBranchResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Branch
-  GitBranch result = 4;
+  GitBranch result = 1;
 }        
 
 message FindGitBranchRequest {
@@ -9707,14 +8345,8 @@ message FindGitBranchRequest {
 }        
 
 message FindGitBranchResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Branch
-  GitBranch result = 4;
+  GitBranch result = 1;
 }        
 
 message DeleteGitBranchRequest {
@@ -9725,14 +8357,8 @@ message DeleteGitBranchRequest {
 }        
 
 message DeleteGitBranchResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message DeployRefToProductionRequest {
@@ -9745,12 +8371,6 @@ message DeployRefToProductionRequest {
 }        
 
 message DeployRefToProductionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9760,12 +8380,6 @@ message DeployToProductionRequest {
 }        
 
 message DeployToProductionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9775,12 +8389,6 @@ message ResetProjectToProductionRequest {
 }        
 
 message ResetProjectToProductionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9790,12 +8398,6 @@ message ResetProjectToRemoteRequest {
 }        
 
 message ResetProjectToRemoteResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9805,14 +8407,8 @@ message AllProjectsRequest {
 }        
 
 message AllProjectsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project
-  repeated Project result = 4;
+  repeated Project result = 1;
 }        
 
 message CreateProjectRequest {
@@ -9820,14 +8416,8 @@ message CreateProjectRequest {
 }        
 
 message CreateProjectResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project
-  Project result = 4;
+  Project result = 1;
 }        
 
 message ProjectRequest {
@@ -9838,14 +8428,8 @@ message ProjectRequest {
 }        
 
 message ProjectResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project
-  Project result = 4;
+  Project result = 1;
 }        
 
 message UpdateProjectRequest {
@@ -9857,14 +8441,8 @@ message UpdateProjectRequest {
 }        
 
 message UpdateProjectResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project
-  Project result = 4;
+  Project result = 1;
 }        
 
 message ManifestRequest {
@@ -9873,14 +8451,8 @@ message ManifestRequest {
 }        
 
 message ManifestResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Manifest
-  Manifest result = 4;
+  Manifest result = 1;
 }        
 
 message GitDeployKeyRequest {
@@ -9889,14 +8461,8 @@ message GitDeployKeyRequest {
 }        
 
 message GitDeployKeyResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // The text of the public key portion of the deploy_key
-  string result = 4;
+  string result = 1;
 }        
 
 message CreateGitDeployKeyRequest {
@@ -9905,14 +8471,8 @@ message CreateGitDeployKeyRequest {
 }        
 
 message CreateGitDeployKeyResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project
-  string result = 4;
+  string result = 1;
 }        
 
 message ProjectValidationResultsRequest {
@@ -9923,12 +8483,6 @@ message ProjectValidationResultsRequest {
 }        
 
 message ProjectValidationResultsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -9940,14 +8494,8 @@ message ValidateProjectRequest {
 }        
 
 message ValidateProjectResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project validation results
-  ProjectValidation result = 4;
+  ProjectValidation result = 1;
 }        
 
 message ProjectWorkspaceRequest {
@@ -9958,14 +8506,8 @@ message ProjectWorkspaceRequest {
 }        
 
 message ProjectWorkspaceResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project Workspace
-  ProjectWorkspace result = 4;
+  ProjectWorkspace result = 1;
 }        
 
 message AllProjectFilesRequest {
@@ -9976,14 +8518,8 @@ message AllProjectFilesRequest {
 }        
 
 message AllProjectFilesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project File
-  repeated ProjectFile result = 4;
+  repeated ProjectFile result = 1;
 }        
 
 message ProjectFileRequest {
@@ -9996,14 +8532,8 @@ message ProjectFileRequest {
 }        
 
 message ProjectFileResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Project File
-  ProjectFile result = 4;
+  ProjectFile result = 1;
 }        
 
 message AllGitConnectionTestsRequest {
@@ -10014,14 +8544,8 @@ message AllGitConnectionTestsRequest {
 }        
 
 message AllGitConnectionTestsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Connection Test
-  repeated GitConnectionTest result = 4;
+  repeated GitConnectionTest result = 1;
 }        
 
 message RunGitConnectionTestRequest {
@@ -10034,14 +8558,8 @@ message RunGitConnectionTestRequest {
 }        
 
 message RunGitConnectionTestResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Git Connection Test Result
-  GitConnectionTestResult result = 4;
+  GitConnectionTestResult result = 1;
 }        
 
 message AllLookmlTestsRequest {
@@ -10052,14 +8570,8 @@ message AllLookmlTestsRequest {
 }        
 
 message AllLookmlTestsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Test
-  repeated LookmlTest result = 4;
+  repeated LookmlTest result = 1;
 }        
 
 message RunLookmlTestRequest {
@@ -10074,14 +8586,8 @@ message RunLookmlTestRequest {
 }        
 
 message RunLookmlTestResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LookML Test Results
-  repeated LookmlTestResult result = 4;
+  repeated LookmlTestResult result = 1;
 }        
 
 message UpdateRepositoryCredentialRequest {
@@ -10093,14 +8599,8 @@ message UpdateRepositoryCredentialRequest {
 }        
 
 message UpdateRepositoryCredentialResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Repository Credential
-  RepositoryCredential result = 4;
+  RepositoryCredential result = 1;
 }        
 
 message DeleteRepositoryCredentialRequest {
@@ -10111,14 +8611,8 @@ message DeleteRepositoryCredentialRequest {
 }        
 
 message DeleteRepositoryCredentialResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message GetAllRepositoryCredentialsRequest {
@@ -10127,14 +8621,8 @@ message GetAllRepositoryCredentialsRequest {
 }        
 
 message GetAllRepositoryCredentialsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Repository Credential
-  repeated RepositoryCredential result = 4;
+  repeated RepositoryCredential result = 1;
 }        
 
 message CreateQueryTaskRequest {
@@ -10168,14 +8656,8 @@ message CreateQueryTaskRequest {
 }        
 
 message CreateQueryTaskResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // query_task
-  QueryTask result = 4;
+  QueryTask result = 1;
 }        
 
 message QueryTaskMultiResultsRequest {
@@ -10184,14 +8666,8 @@ message QueryTaskMultiResultsRequest {
 }        
 
 message QueryTaskMultiResultsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Multiple query results
-  map<string, string> result = 4;
+  map<string, string> result = 1;
 }        
 
 message QueryTaskRequest {
@@ -10202,14 +8678,8 @@ message QueryTaskRequest {
 }        
 
 message QueryTaskResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // query_task
-  QueryTask result = 4;
+  QueryTask result = 1;
 }        
 
 message QueryTaskResultsRequest {
@@ -10218,12 +8688,6 @@ message QueryTaskResultsRequest {
 }        
 
 message QueryTaskResultsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -10235,14 +8699,8 @@ message QueryRequest {
 }        
 
 message QueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Query
-  Query result = 4;
+  Query result = 1;
 }        
 
 message QueryForSlugRequest {
@@ -10253,14 +8711,8 @@ message QueryForSlugRequest {
 }        
 
 message QueryForSlugResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Query
-  Query result = 4;
+  Query result = 1;
 }        
 
 message CreateQueryRequest {
@@ -10270,14 +8722,8 @@ message CreateQueryRequest {
 }        
 
 message CreateQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Query
-  Query result = 4;
+  Query result = 1;
 }        
 
 message RunQueryRequest {
@@ -10312,12 +8758,6 @@ message RunQueryRequest {
 }        
 
 message RunQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -10352,12 +8792,6 @@ message RunInlineQueryRequest {
 }        
 
 message RunInlineQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -10371,12 +8805,6 @@ message RunUrlEncodedQueryRequest {
 }        
 
 message RunUrlEncodedQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -10388,14 +8816,8 @@ message MergeQueryRequest {
 }        
 
 message MergeQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Merge Query
-  MergeQuery result = 4;
+  MergeQuery result = 1;
 }        
 
 message CreateMergeQueryRequest {
@@ -10405,14 +8827,8 @@ message CreateMergeQueryRequest {
 }        
 
 message CreateMergeQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Merge Query
-  MergeQuery result = 4;
+  MergeQuery result = 1;
 }        
 
 message AllRunningQueriesRequest {
@@ -10420,14 +8836,8 @@ message AllRunningQueriesRequest {
 }        
 
 message AllRunningQueriesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Running Queries.
-  repeated RunningQueries result = 4;
+  repeated RunningQueries result = 1;
 }        
 
 message KillQueryRequest {
@@ -10436,14 +8846,8 @@ message KillQueryRequest {
 }        
 
 message KillQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Query successfully killed.
-  string result = 4;
+  string result = 1;
 }        
 
 message SqlQueryRequest {
@@ -10452,14 +8856,8 @@ message SqlQueryRequest {
 }        
 
 message SqlQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SQL Runner Query
-  SqlQuery result = 4;
+  SqlQuery result = 1;
 }        
 
 message CreateSqlQueryRequest {
@@ -10467,14 +8865,8 @@ message CreateSqlQueryRequest {
 }        
 
 message CreateSqlQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // SQL Runner Query
-  SqlQuery result = 4;
+  SqlQuery result = 1;
 }        
 
 message RunSqlQueryRequest {
@@ -10487,12 +8879,6 @@ message RunSqlQueryRequest {
 }        
 
 message RunSqlQueryResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -10510,14 +8896,8 @@ message CreateLookRenderTaskRequest {
 }        
 
 message CreateLookRenderTaskResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Render Task
-  RenderTask result = 4;
+  RenderTask result = 1;
 }        
 
 message CreateQueryRenderTaskRequest {
@@ -10534,14 +8914,8 @@ message CreateQueryRenderTaskRequest {
 }        
 
 message CreateQueryRenderTaskResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Render Task
-  RenderTask result = 4;
+  RenderTask result = 1;
 }        
 
 message CreateDashboardRenderTaskRequest {
@@ -10565,14 +8939,8 @@ message CreateDashboardRenderTaskRequest {
 }        
 
 message CreateDashboardRenderTaskResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Render Task
-  RenderTask result = 4;
+  RenderTask result = 1;
 }        
 
 message RenderTaskRequest {
@@ -10583,14 +8951,8 @@ message RenderTaskRequest {
 }        
 
 message RenderTaskResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Render Task
-  RenderTask result = 4;
+  RenderTask result = 1;
 }        
 
 message RenderTaskResultsRequest {
@@ -10599,12 +8961,6 @@ message RenderTaskResultsRequest {
 }        
 
 message RenderTaskResultsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -10630,14 +8986,8 @@ message SearchModelSetsRequest {
 }        
 
 message SearchModelSetsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Model Set
-  repeated ModelSet result = 4;
+  repeated ModelSet result = 1;
 }        
 
 message ModelSetRequest {
@@ -10648,14 +8998,8 @@ message ModelSetRequest {
 }        
 
 message ModelSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Specified model set.
-  ModelSet result = 4;
+  ModelSet result = 1;
 }        
 
 message UpdateModelSetRequest {
@@ -10665,14 +9009,8 @@ message UpdateModelSetRequest {
 }        
 
 message UpdateModelSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // New state for specified model set.
-  ModelSet result = 4;
+  ModelSet result = 1;
 }        
 
 message DeleteModelSetRequest {
@@ -10681,14 +9019,8 @@ message DeleteModelSetRequest {
 }        
 
 message DeleteModelSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Model set succssfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllModelSetsRequest {
@@ -10697,14 +9029,8 @@ message AllModelSetsRequest {
 }        
 
 message AllModelSetsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // All model sets.
-  repeated ModelSet result = 4;
+  repeated ModelSet result = 1;
 }        
 
 message CreateModelSetRequest {
@@ -10712,14 +9038,8 @@ message CreateModelSetRequest {
 }        
 
 message CreateModelSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Newly created ModelSet
-  ModelSet result = 4;
+  ModelSet result = 1;
 }        
 
 message AllPermissionsRequest {
@@ -10727,14 +9047,8 @@ message AllPermissionsRequest {
 }        
 
 message AllPermissionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Permission
-  repeated Permission result = 4;
+  repeated Permission result = 1;
 }        
 
 message SearchPermissionSetsRequest {
@@ -10759,14 +9073,8 @@ message SearchPermissionSetsRequest {
 }        
 
 message SearchPermissionSetsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Permission Set
-  repeated PermissionSet result = 4;
+  repeated PermissionSet result = 1;
 }        
 
 message PermissionSetRequest {
@@ -10777,14 +9085,8 @@ message PermissionSetRequest {
 }        
 
 message PermissionSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Permission Set
-  PermissionSet result = 4;
+  PermissionSet result = 1;
 }        
 
 message UpdatePermissionSetRequest {
@@ -10794,14 +9096,8 @@ message UpdatePermissionSetRequest {
 }        
 
 message UpdatePermissionSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Permission Set
-  PermissionSet result = 4;
+  PermissionSet result = 1;
 }        
 
 message DeletePermissionSetRequest {
@@ -10810,14 +9106,8 @@ message DeletePermissionSetRequest {
 }        
 
 message DeletePermissionSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllPermissionSetsRequest {
@@ -10826,14 +9116,8 @@ message AllPermissionSetsRequest {
 }        
 
 message AllPermissionSetsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Permission Set
-  repeated PermissionSet result = 4;
+  repeated PermissionSet result = 1;
 }        
 
 message CreatePermissionSetRequest {
@@ -10841,14 +9125,8 @@ message CreatePermissionSetRequest {
 }        
 
 message CreatePermissionSetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Permission Set
-  PermissionSet result = 4;
+  PermissionSet result = 1;
 }        
 
 message AllRolesRequest {
@@ -10859,14 +9137,8 @@ message AllRolesRequest {
 }        
 
 message AllRolesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Role
-  repeated Role result = 4;
+  repeated Role result = 1;
 }        
 
 message CreateRoleRequest {
@@ -10874,14 +9146,8 @@ message CreateRoleRequest {
 }        
 
 message CreateRoleResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Role
-  Role result = 4;
+  Role result = 1;
 }        
 
 message SearchRolesRequest {
@@ -10904,14 +9170,8 @@ message SearchRolesRequest {
 }        
 
 message SearchRolesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Role
-  repeated Role result = 4;
+  repeated Role result = 1;
 }        
 
 message RoleRequest {
@@ -10920,14 +9180,8 @@ message RoleRequest {
 }        
 
 message RoleResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Role
-  Role result = 4;
+  Role result = 1;
 }        
 
 message UpdateRoleRequest {
@@ -10937,14 +9191,8 @@ message UpdateRoleRequest {
 }        
 
 message UpdateRoleResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Role
-  Role result = 4;
+  Role result = 1;
 }        
 
 message DeleteRoleRequest {
@@ -10953,14 +9201,8 @@ message DeleteRoleRequest {
 }        
 
 message DeleteRoleResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message RoleGroupsRequest {
@@ -10971,14 +9213,8 @@ message RoleGroupsRequest {
 }        
 
 message RoleGroupsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Groups with role.
-  repeated Group result = 4;
+  repeated Group result = 1;
 }        
 
 message SetRoleGroupsRequest {
@@ -10988,14 +9224,8 @@ message SetRoleGroupsRequest {
 }        
 
 message SetRoleGroupsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Groups with role.
-  repeated Group result = 4;
+  repeated Group result = 1;
 }        
 
 message RoleUsersRequest {
@@ -11008,14 +9238,8 @@ message RoleUsersRequest {
 }        
 
 message RoleUsersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Users with role.
-  repeated User result = 4;
+  repeated User result = 1;
 }        
 
 message SetRoleUsersRequest {
@@ -11025,14 +9249,8 @@ message SetRoleUsersRequest {
 }        
 
 message SetRoleUsersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Users with role.
-  repeated User result = 4;
+  repeated User result = 1;
 }        
 
 message ScheduledPlansForSpaceRequest {
@@ -11043,14 +9261,8 @@ message ScheduledPlansForSpaceRequest {
 }        
 
 message ScheduledPlansForSpaceResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  repeated ScheduledPlan result = 4;
+  repeated ScheduledPlan result = 1;
 }        
 
 message ScheduledPlanRequest {
@@ -11061,14 +9273,8 @@ message ScheduledPlanRequest {
 }        
 
 message ScheduledPlanResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  ScheduledPlan result = 4;
+  ScheduledPlan result = 1;
 }        
 
 message UpdateScheduledPlanRequest {
@@ -11078,14 +9284,8 @@ message UpdateScheduledPlanRequest {
 }        
 
 message UpdateScheduledPlanResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  ScheduledPlan result = 4;
+  ScheduledPlan result = 1;
 }        
 
 message DeleteScheduledPlanRequest {
@@ -11094,14 +9294,8 @@ message DeleteScheduledPlanRequest {
 }        
 
 message DeleteScheduledPlanResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllScheduledPlansRequest {
@@ -11114,14 +9308,8 @@ message AllScheduledPlansRequest {
 }        
 
 message AllScheduledPlansResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  repeated ScheduledPlan result = 4;
+  repeated ScheduledPlan result = 1;
 }        
 
 message CreateScheduledPlanRequest {
@@ -11129,14 +9317,8 @@ message CreateScheduledPlanRequest {
 }        
 
 message CreateScheduledPlanResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  ScheduledPlan result = 4;
+  ScheduledPlan result = 1;
 }        
 
 message ScheduledPlanRunOnceRequest {
@@ -11144,14 +9326,8 @@ message ScheduledPlanRunOnceRequest {
 }        
 
 message ScheduledPlanRunOnceResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  ScheduledPlan result = 4;
+  ScheduledPlan result = 1;
 }        
 
 message ScheduledPlansForLookRequest {
@@ -11166,14 +9342,8 @@ message ScheduledPlansForLookRequest {
 }        
 
 message ScheduledPlansForLookResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  repeated ScheduledPlan result = 4;
+  repeated ScheduledPlan result = 1;
 }        
 
 message ScheduledPlansForDashboardRequest {
@@ -11188,14 +9358,8 @@ message ScheduledPlansForDashboardRequest {
 }        
 
 message ScheduledPlansForDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  repeated ScheduledPlan result = 4;
+  repeated ScheduledPlan result = 1;
 }        
 
 message ScheduledPlansForLookmlDashboardRequest {
@@ -11210,14 +9374,8 @@ message ScheduledPlansForLookmlDashboardRequest {
 }        
 
 message ScheduledPlansForLookmlDashboardResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  repeated ScheduledPlan result = 4;
+  repeated ScheduledPlan result = 1;
 }        
 
 message ScheduledPlanRunOnceByIdRequest {
@@ -11227,14 +9385,8 @@ message ScheduledPlanRunOnceByIdRequest {
 }        
 
 message ScheduledPlanRunOnceByIdResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Scheduled Plan
-  ScheduledPlan result = 4;
+  ScheduledPlan result = 1;
 }        
 
 message SessionRequest {
@@ -11242,14 +9394,8 @@ message SessionRequest {
 }        
 
 message SessionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Session
-  ApiSession result = 4;
+  ApiSession result = 1;
 }        
 
 message UpdateSessionRequest {
@@ -11257,14 +9403,8 @@ message UpdateSessionRequest {
 }        
 
 message UpdateSessionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Session
-  ApiSession result = 4;
+  ApiSession result = 1;
 }        
 
 message AllThemesRequest {
@@ -11273,14 +9413,8 @@ message AllThemesRequest {
 }        
 
 message AllThemesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Themes
-  repeated Theme result = 4;
+  repeated Theme result = 1;
 }        
 
 message CreateThemeRequest {
@@ -11288,14 +9422,8 @@ message CreateThemeRequest {
 }        
 
 message CreateThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Theme
-  Theme result = 4;
+  Theme result = 1;
 }        
 
 message SearchThemesRequest {
@@ -11320,14 +9448,8 @@ message SearchThemesRequest {
 }        
 
 message SearchThemesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Themes
-  repeated Theme result = 4;
+  repeated Theme result = 1;
 }        
 
 message DefaultThemeRequest {
@@ -11336,14 +9458,8 @@ message DefaultThemeRequest {
 }        
 
 message DefaultThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Theme
-  Theme result = 4;
+  Theme result = 1;
 }        
 
 message SetDefaultThemeRequest {
@@ -11352,14 +9468,8 @@ message SetDefaultThemeRequest {
 }        
 
 message SetDefaultThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Theme
-  Theme result = 4;
+  Theme result = 1;
 }        
 
 message ActiveThemesRequest {
@@ -11372,14 +9482,8 @@ message ActiveThemesRequest {
 }        
 
 message ActiveThemesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Themes
-  repeated Theme result = 4;
+  repeated Theme result = 1;
 }        
 
 message ThemeOrDefaultRequest {
@@ -11390,14 +9494,8 @@ message ThemeOrDefaultRequest {
 }        
 
 message ThemeOrDefaultResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Theme
-  Theme result = 4;
+  Theme result = 1;
 }        
 
 message ValidateThemeRequest {
@@ -11405,12 +9503,6 @@ message ValidateThemeRequest {
 }        
 
 message ValidateThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   
 }        
 
@@ -11422,14 +9514,8 @@ message ThemeRequest {
 }        
 
 message ThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Theme
-  Theme result = 4;
+  Theme result = 1;
 }        
 
 message UpdateThemeRequest {
@@ -11439,14 +9525,8 @@ message UpdateThemeRequest {
 }        
 
 message UpdateThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Theme
-  Theme result = 4;
+  Theme result = 1;
 }        
 
 message DeleteThemeRequest {
@@ -11455,14 +9535,8 @@ message DeleteThemeRequest {
 }        
 
 message DeleteThemeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message MeRequest {
@@ -11471,14 +9545,8 @@ message MeRequest {
 }        
 
 message MeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Current user.
-  User result = 4;
+  User result = 1;
 }        
 
 message AllUsersRequest {
@@ -11495,14 +9563,8 @@ message AllUsersRequest {
 }        
 
 message AllUsersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // All users.
-  repeated User result = 4;
+  repeated User result = 1;
 }        
 
 message CreateUserRequest {
@@ -11512,14 +9574,8 @@ message CreateUserRequest {
 }        
 
 message CreateUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Created User
-  User result = 4;
+  User result = 1;
 }        
 
 message SearchUsersRequest {
@@ -11552,14 +9608,8 @@ message SearchUsersRequest {
 }        
 
 message SearchUsersResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Matching users.
-  repeated User result = 4;
+  repeated User result = 1;
 }        
 
 message SearchUsersNamesRequest {
@@ -11588,14 +9638,8 @@ message SearchUsersNamesRequest {
 }        
 
 message SearchUsersNamesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Matching users.
-  repeated User result = 4;
+  repeated User result = 1;
 }        
 
 message UserRequest {
@@ -11606,14 +9650,8 @@ message UserRequest {
 }        
 
 message UserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Specified user.
-  User result = 4;
+  User result = 1;
 }        
 
 message UpdateUserRequest {
@@ -11625,14 +9663,8 @@ message UpdateUserRequest {
 }        
 
 message UpdateUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // New state for specified user.
-  User result = 4;
+  User result = 1;
 }        
 
 message DeleteUserRequest {
@@ -11641,14 +9673,8 @@ message DeleteUserRequest {
 }        
 
 message DeleteUserResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserForCredentialRequest {
@@ -11661,14 +9687,8 @@ message UserForCredentialRequest {
 }        
 
 message UserForCredentialResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Specified user.
-  User result = 4;
+  User result = 1;
 }        
 
 message UserCredentialsEmailRequest {
@@ -11679,14 +9699,8 @@ message UserCredentialsEmailRequest {
 }        
 
 message UserCredentialsEmailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Email/Password Credential
-  CredentialsEmail result = 4;
+  CredentialsEmail result = 1;
 }        
 
 message CreateUserCredentialsEmailRequest {
@@ -11698,14 +9712,8 @@ message CreateUserCredentialsEmailRequest {
 }        
 
 message CreateUserCredentialsEmailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Email/Password Credential
-  CredentialsEmail result = 4;
+  CredentialsEmail result = 1;
 }        
 
 message UpdateUserCredentialsEmailRequest {
@@ -11717,14 +9725,8 @@ message UpdateUserCredentialsEmailRequest {
 }        
 
 message UpdateUserCredentialsEmailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Email/Password Credential
-  CredentialsEmail result = 4;
+  CredentialsEmail result = 1;
 }        
 
 message DeleteUserCredentialsEmailRequest {
@@ -11733,14 +9735,8 @@ message DeleteUserCredentialsEmailRequest {
 }        
 
 message DeleteUserCredentialsEmailResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserCredentialsTotpRequest {
@@ -11751,14 +9747,8 @@ message UserCredentialsTotpRequest {
 }        
 
 message UserCredentialsTotpResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Two-Factor Credential
-  CredentialsTotp result = 4;
+  CredentialsTotp result = 1;
 }        
 
 message CreateUserCredentialsTotpRequest {
@@ -11770,14 +9760,8 @@ message CreateUserCredentialsTotpRequest {
 }        
 
 message CreateUserCredentialsTotpResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Two-Factor Credential
-  CredentialsTotp result = 4;
+  CredentialsTotp result = 1;
 }        
 
 message DeleteUserCredentialsTotpRequest {
@@ -11786,14 +9770,8 @@ message DeleteUserCredentialsTotpRequest {
 }        
 
 message DeleteUserCredentialsTotpResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserCredentialsLdapRequest {
@@ -11804,14 +9782,8 @@ message UserCredentialsLdapRequest {
 }        
 
 message UserCredentialsLdapResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // LDAP Credential
-  CredentialsLDAP result = 4;
+  CredentialsLDAP result = 1;
 }        
 
 message DeleteUserCredentialsLdapRequest {
@@ -11820,14 +9792,8 @@ message DeleteUserCredentialsLdapRequest {
 }        
 
 message DeleteUserCredentialsLdapResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserCredentialsGoogleRequest {
@@ -11838,14 +9804,8 @@ message UserCredentialsGoogleRequest {
 }        
 
 message UserCredentialsGoogleResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Google Auth Credential
-  CredentialsGoogle result = 4;
+  CredentialsGoogle result = 1;
 }        
 
 message DeleteUserCredentialsGoogleRequest {
@@ -11854,14 +9814,8 @@ message DeleteUserCredentialsGoogleRequest {
 }        
 
 message DeleteUserCredentialsGoogleResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserCredentialsSamlRequest {
@@ -11872,14 +9826,8 @@ message UserCredentialsSamlRequest {
 }        
 
 message UserCredentialsSamlResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Saml Auth Credential
-  CredentialsSaml result = 4;
+  CredentialsSaml result = 1;
 }        
 
 message DeleteUserCredentialsSamlRequest {
@@ -11888,14 +9836,8 @@ message DeleteUserCredentialsSamlRequest {
 }        
 
 message DeleteUserCredentialsSamlResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserCredentialsOidcRequest {
@@ -11906,14 +9848,8 @@ message UserCredentialsOidcRequest {
 }        
 
 message UserCredentialsOidcResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // OIDC Auth Credential
-  CredentialsOIDC result = 4;
+  CredentialsOIDC result = 1;
 }        
 
 message DeleteUserCredentialsOidcRequest {
@@ -11922,14 +9858,8 @@ message DeleteUserCredentialsOidcRequest {
 }        
 
 message DeleteUserCredentialsOidcResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserCredentialsApi3Request {
@@ -11942,14 +9872,8 @@ message UserCredentialsApi3Request {
 }        
 
 message UserCredentialsApi3Response {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // API 3 Credential
-  CredentialsApi3 result = 4;
+  CredentialsApi3 result = 1;
 }        
 
 message DeleteUserCredentialsApi3Request {
@@ -11960,14 +9884,8 @@ message DeleteUserCredentialsApi3Request {
 }        
 
 message DeleteUserCredentialsApi3Response {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllUserCredentialsApi3sRequest {
@@ -11978,14 +9896,8 @@ message AllUserCredentialsApi3sRequest {
 }        
 
 message AllUserCredentialsApi3sResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // API 3 Credential
-  repeated CredentialsApi3 result = 4;
+  repeated CredentialsApi3 result = 1;
 }        
 
 message CreateUserCredentialsApi3Request {
@@ -11997,14 +9909,8 @@ message CreateUserCredentialsApi3Request {
 }        
 
 message CreateUserCredentialsApi3Response {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // API 3 Credential
-  CredentialsApi3 result = 4;
+  CredentialsApi3 result = 1;
 }        
 
 message UserCredentialsEmbedRequest {
@@ -12017,14 +9923,8 @@ message UserCredentialsEmbedRequest {
 }        
 
 message UserCredentialsEmbedResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Embedding Credential
-  CredentialsEmbed result = 4;
+  CredentialsEmbed result = 1;
 }        
 
 message DeleteUserCredentialsEmbedRequest {
@@ -12035,14 +9935,8 @@ message DeleteUserCredentialsEmbedRequest {
 }        
 
 message DeleteUserCredentialsEmbedResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllUserCredentialsEmbedsRequest {
@@ -12053,14 +9947,8 @@ message AllUserCredentialsEmbedsRequest {
 }        
 
 message AllUserCredentialsEmbedsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Embedding Credential
-  repeated CredentialsEmbed result = 4;
+  repeated CredentialsEmbed result = 1;
 }        
 
 message UserCredentialsLookerOpenidRequest {
@@ -12071,14 +9959,8 @@ message UserCredentialsLookerOpenidRequest {
 }        
 
 message UserCredentialsLookerOpenidResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Looker OpenId Credential
-  CredentialsLookerOpenid result = 4;
+  CredentialsLookerOpenid result = 1;
 }        
 
 message DeleteUserCredentialsLookerOpenidRequest {
@@ -12087,14 +9969,8 @@ message DeleteUserCredentialsLookerOpenidRequest {
 }        
 
 message DeleteUserCredentialsLookerOpenidResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message UserSessionRequest {
@@ -12107,14 +9983,8 @@ message UserSessionRequest {
 }        
 
 message UserSessionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Web Login Session
-  Session result = 4;
+  Session result = 1;
 }        
 
 message DeleteUserSessionRequest {
@@ -12125,14 +9995,8 @@ message DeleteUserSessionRequest {
 }        
 
 message DeleteUserSessionResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllUserSessionsRequest {
@@ -12143,14 +10007,8 @@ message AllUserSessionsRequest {
 }        
 
 message AllUserSessionsResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Web Login Session
-  repeated Session result = 4;
+  repeated Session result = 1;
 }        
 
 message CreateUserCredentialsEmailPasswordResetRequest {
@@ -12163,14 +10021,8 @@ message CreateUserCredentialsEmailPasswordResetRequest {
 }        
 
 message CreateUserCredentialsEmailPasswordResetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // email/password credential
-  CredentialsEmail result = 4;
+  CredentialsEmail result = 1;
 }        
 
 message UserRolesRequest {
@@ -12183,14 +10035,8 @@ message UserRolesRequest {
 }        
 
 message UserRolesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Roles of user.
-  repeated Role result = 4;
+  repeated Role result = 1;
 }        
 
 message SetUserRolesRequest {
@@ -12202,14 +10048,8 @@ message SetUserRolesRequest {
 }        
 
 message SetUserRolesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Roles of user.
-  repeated Role result = 4;
+  repeated Role result = 1;
 }        
 
 message UserAttributeUserValuesRequest {
@@ -12226,14 +10066,8 @@ message UserAttributeUserValuesRequest {
 }        
 
 message UserAttributeUserValuesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Value of user attribute.
-  repeated UserAttributeWithValue result = 4;
+  repeated UserAttributeWithValue result = 1;
 }        
 
 message SetUserAttributeUserValueRequest {
@@ -12245,14 +10079,8 @@ message SetUserAttributeUserValueRequest {
 }        
 
 message SetUserAttributeUserValueResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User attribute value.
-  UserAttributeWithValue result = 4;
+  UserAttributeWithValue result = 1;
 }        
 
 message DeleteUserAttributeUserValueRequest {
@@ -12263,12 +10091,6 @@ message DeleteUserAttributeUserValueRequest {
 }        
 
 message DeleteUserAttributeUserValueResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Deleted
 }        
 
@@ -12280,14 +10102,8 @@ message SendUserCredentialsEmailPasswordResetRequest {
 }        
 
 message SendUserCredentialsEmailPasswordResetResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // email/password credential
-  CredentialsEmail result = 4;
+  CredentialsEmail result = 1;
 }        
 
 message AllUserAttributesRequest {
@@ -12298,14 +10114,8 @@ message AllUserAttributesRequest {
 }        
 
 message AllUserAttributesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User Attribute
-  repeated UserAttribute result = 4;
+  repeated UserAttribute result = 1;
 }        
 
 message CreateUserAttributeRequest {
@@ -12315,14 +10125,8 @@ message CreateUserAttributeRequest {
 }        
 
 message CreateUserAttributeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User Attribute
-  UserAttribute result = 4;
+  UserAttribute result = 1;
 }        
 
 message UserAttributeRequest {
@@ -12333,14 +10137,8 @@ message UserAttributeRequest {
 }        
 
 message UserAttributeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User Attribute
-  UserAttribute result = 4;
+  UserAttribute result = 1;
 }        
 
 message UpdateUserAttributeRequest {
@@ -12352,14 +10150,8 @@ message UpdateUserAttributeRequest {
 }        
 
 message UpdateUserAttributeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // User Attribute
-  UserAttribute result = 4;
+  UserAttribute result = 1;
 }        
 
 message DeleteUserAttributeRequest {
@@ -12368,14 +10160,8 @@ message DeleteUserAttributeRequest {
 }        
 
 message DeleteUserAttributeResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Successfully deleted.
-  string result = 4;
+  string result = 1;
 }        
 
 message AllUserAttributeGroupValuesRequest {
@@ -12386,14 +10172,8 @@ message AllUserAttributeGroupValuesRequest {
 }        
 
 message AllUserAttributeGroupValuesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // All group values for attribute.
-  repeated UserAttributeGroupValue result = 4;
+  repeated UserAttributeGroupValue result = 1;
 }        
 
 message SetUserAttributeGroupValuesRequest {
@@ -12403,14 +10183,8 @@ message SetUserAttributeGroupValuesRequest {
 }        
 
 message SetUserAttributeGroupValuesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Array of group values.
-  repeated UserAttributeGroupValue result = 4;
+  repeated UserAttributeGroupValue result = 1;
 }        
 
 message AllWorkspacesRequest {
@@ -12418,14 +10192,8 @@ message AllWorkspacesRequest {
 }        
 
 message AllWorkspacesResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Workspace
-  repeated Workspace result = 4;
+  repeated Workspace result = 1;
 }        
 
 message WorkspaceRequest {
@@ -12434,12 +10202,6 @@ message WorkspaceRequest {
 }        
 
 message WorkspaceResponse {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
   // Workspace
-  Workspace result = 4;
+  Workspace result = 1;
 }        

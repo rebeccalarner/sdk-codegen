@@ -1,15 +1,25 @@
 package com.google.looker.server.rtl;
 
-public class TransportHandler {
+public class TransportFactory {
+
+  private static TransportFactory instance = new TransportFactory();
+
+  public static TransportFactory instance() {
+    return instance;
+  }
 
   final private Transport defaultTransport;
   final private Transport loginTransport;
   final private Transport logoutTransport;
 
-  public TransportHandler() {
+  private TransportFactory() {
     defaultTransport = new DefaultTransport();
     loginTransport = new LoginTransport();
     logoutTransport = new LogoutTransport();
+  }
+
+  public Transport getDefaultTransport() {
+    return defaultTransport;
   }
 
   public Transport getTransport(String path) {

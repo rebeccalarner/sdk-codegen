@@ -1,9 +1,12 @@
 package com.google.looker.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.google.looker.client.LookerGrpcClient;
 import com.google.looker.common.Constants;
+import com.google.looker.grpc.services.AccessToken;
 import com.google.looker.grpc.services.LoginRequest;
 import com.google.looker.grpc.services.LoginResponse;
 import com.google.looker.grpc.services.LookerServiceGrpc;
@@ -16,21 +19,21 @@ import org.slf4j.LoggerFactory;
 
 public class GrpcProtobufTests {
 
-  private static final Logger LOGGER = LoggerFactory.getLogger(GrpcProtobufTests.class);
-
-  private LookerGrpcClient lookerGrpcClient = new LookerGrpcClient();
+  final private static Logger LOGGER = LoggerFactory.getLogger(GrpcProtobufTests.class);
 
   @Test
   void ping() throws SSLException {
     LOGGER.debug("run ping test");
+    LookerGrpcClient lookerGrpcClient = new LookerGrpcClient();
     PingServiceGrpc.PingServiceBlockingStub stub = lookerGrpcClient.getPingBlockingStub();
     boolean active = stub.ping((PingRequest.newBuilder().build())).getActive();
     assertEquals(true, active);
   }
 
   @Test
-  void login() throws SSLException {
+  void rawLogin() throws SSLException {
     LOGGER.debug("run login test");
+    LookerGrpcClient lookerGrpcClient = new LookerGrpcClient();
     LookerServiceGrpc.LookerServiceBlockingStub stub = lookerGrpcClient.getLookerServiceBlockingStub();
     LoginResponse loginResponse = stub.login(
         LoginRequest
@@ -39,7 +42,19 @@ public class GrpcProtobufTests {
             .setClientSecret(System.getProperty(Constants.LOOKER_CLIENT_SECRET))
             .build()
     );
-    assertEquals(200, loginResponse.getStatusCode());
+    AccessToken accessToken = loginResponse.getResult();
+    assertNotNull(accessToken);
+    assertNotNull(accessToken.getAccessToken());
+  }
+
+  @Test
+  void clientLogout() throws SSLException {
+    LOGGER.debug("run login test");
+    LookerGrpcClient lookerGrpcClient = new LookerGrpcClient();
+    lookerGrpcClient.login();
+    assertNotNull(lookerGrpcClient.getAccessToken());
+    lookerGrpcClient.logout();
+    assertNull(lookerGrpcClient.getAccessToken());
   }
 
 }

@@ -151,13 +151,7 @@ ${this.methodArguments(method)}
 }        
 
 message ${titleCase(method.operationId)}Response {
-  // status code from call
-  sint32 status_code = 1;
-  // message in the event of an error
-  string message = 2;
-  // documentation url
-  string documentation_url = 3;
-  ${this.methodResponse(method, 4).trim()}
+  ${this.methodResponse(method, 1).trim()}
 }        
 `
       })

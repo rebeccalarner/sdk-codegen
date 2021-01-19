@@ -1,6 +1,11 @@
 package com.google.looker.client;
 
+import com.google.looker.common.BearerToken;
 import com.google.looker.common.Constants;
+import com.google.looker.grpc.services.AccessToken;
+import com.google.looker.grpc.services.LoginRequest;
+import com.google.looker.grpc.services.LoginResponse;
+import com.google.looker.grpc.services.LogoutRequest;
 import com.google.looker.grpc.services.LookerServiceGrpc;
 import com.google.looker.grpc.services.PingServiceGrpc;
 import io.github.cdimascio.dotenv.Dotenv;
@@ -26,6 +31,7 @@ public class LookerGrpcClient {
   private ManagedChannel channel;
   private PingServiceGrpc.PingServiceBlockingStub pingBlockingStub;
   private LookerServiceGrpc.LookerServiceBlockingStub lookerServiceBlockingStub;
+  private AccessToken accessTokenResult;
 
   public LookerGrpcClient() {
     try {
@@ -51,7 +57,8 @@ public class LookerGrpcClient {
       throw  initFailure;
     }
     if (pingBlockingStub == null) {
-      pingBlockingStub = PingServiceGrpc.newBlockingStub(channel);
+      pingBlockingStub = PingServiceGrpc
+          .newBlockingStub(channel);
     }
     return pingBlockingStub;
   }
@@ -61,8 +68,59 @@ public class LookerGrpcClient {
       throw  initFailure;
     }
     if (lookerServiceBlockingStub == null) {
-      lookerServiceBlockingStub = LookerServiceGrpc.newBlockingStub(channel);
+      if (accessTokenResult == null) {
+        LOGGER.debug("create blocking stub WITHOUT credentials");
+        lookerServiceBlockingStub = LookerServiceGrpc
+            .newBlockingStub(channel);
+      } else {
+        LOGGER.debug("create blocking stub WITH credentials: " + accessTokenResult.getAccessToken());
+        BearerToken token = new BearerToken(accessTokenResult.getAccessToken());
+        lookerServiceBlockingStub = LookerServiceGrpc
+            .newBlockingStub(channel)
+            .withCallCredentials(token);
+      }
     }
     return lookerServiceBlockingStub;
+  }
+
+  public void clearAccessToken() {
+    accessTokenResult = null;
+    lookerServiceBlockingStub = null;
+  }
+
+  public void login() throws SSLException {
+    accessTokenResult = null;
+    lookerServiceBlockingStub = null;
+    LookerServiceGrpc.LookerServiceBlockingStub stub = getLookerServiceBlockingStub();
+    LoginResponse response = stub.login(
+        LoginRequest
+            .newBuilder()
+            .setClientId(System.getProperty(Constants.LOOKER_CLIENT_ID))
+            .setClientSecret(System.getProperty(Constants.LOOKER_CLIENT_SECRET))
+            .build()
+    );
+    accessTokenResult = response.getResult();
+    lookerServiceBlockingStub = null;
+  }
+
+  public void logout() throws SSLException {
+    if (accessTokenResult != null) {
+      LookerServiceGrpc.LookerServiceBlockingStub stub = getLookerServiceBlockingStub();
+      accessTokenResult = null;
+      lookerServiceBlockingStub = null;
+      stub.logout(
+          LogoutRequest
+              .newBuilder()
+              .build()
+      );
+    }
+  }
+
+  public String getAccessToken() {
+    return accessTokenResult == null ? null: accessTokenResult.getAccessToken();
+  }
+
+  public long getAccessTokenExpires() {
+    return accessTokenResult == null ? -1: accessTokenResult.getExpiresIn();
   }
 }
