@@ -83,5 +83,8 @@ In no particular order of importance.
 7. Tests for java support functions.
 8. Add support fro productionized SSL connection.
 9. Separate client into another project. Tests utilizing should go with the client.
+10. Consider creating a new runtime that can be embedded in helltool. Note sure it
+can be done. Basically it would call the internal ruby API endpoint and negate the
+need for an extra network hop. Gets http2 for free?
 
 
