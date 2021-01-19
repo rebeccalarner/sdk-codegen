@@ -245,9 +245,9 @@ service ${serviceName} {
       '  ' +
       method.allParams
         .map((param) => {
-          return `${this.formatComments(param.description)}  string ${
-            param.name
-          } = ${this.generateIdentifier(param.name)};\n`
+          return `${this.formatComments(param.description)}  ${this.mapType(
+            param.type.name
+          )} ${param.name} = ${this.generateIdentifier(param.name)};\n`
         })
         .join('')
         .trim()
@@ -284,6 +284,9 @@ service ${serviceName} {
     } else if (type === 'any') {
       return 'google.protobuf.Any'
     } else if (type === 'uri') {
+      return 'string'
+    } else if (type.startsWith('DelimArray')) {
+      // TODO handle this better
       return 'string'
     } else {
       return type

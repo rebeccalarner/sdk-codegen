@@ -12,15 +12,15 @@ public class LookerClient {
   }
 
   public LookerClientResponse post(String path, String inputJson) {
-    return TransportFactory.instance().getTransport(path).request(apiVersion, Transport.HttpMethod.GET, path, inputJson);
+    return TransportFactory.instance().getTransport(path).request(apiVersion, Transport.HttpMethod.POST, path, inputJson);
   }
 
   public LookerClientResponse put(String path, String inputJson) {
-    return TransportFactory.instance().getTransport(path).request(apiVersion, Transport.HttpMethod.GET, path, inputJson);
+    return TransportFactory.instance().getTransport(path).request(apiVersion, Transport.HttpMethod.PUT, path, inputJson);
   }
 
   public LookerClientResponse patch(String path, String inputJson) {
-    return TransportFactory.instance().getTransport(path).request(apiVersion, Transport.HttpMethod.GET, path, inputJson);
+    return TransportFactory.instance().getTransport(path).request(apiVersion, Transport.HttpMethod.PATCH, path, inputJson);
   }
 
   public LookerClientResponse delete(String path, String inputJson) {

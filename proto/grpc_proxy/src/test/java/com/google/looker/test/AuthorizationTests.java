@@ -1,6 +1,5 @@
 package com.google.looker.test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
@@ -10,25 +9,14 @@ import com.google.looker.grpc.services.AccessToken;
 import com.google.looker.grpc.services.LoginRequest;
 import com.google.looker.grpc.services.LoginResponse;
 import com.google.looker.grpc.services.LookerServiceGrpc;
-import com.google.looker.grpc.services.PingServiceGrpc;
-import com.google.looker.server.rtl.PingRequest;
 import javax.net.ssl.SSLException;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class GrpcProtobufTests {
+public class AuthorizationTests {
 
-  final private static Logger LOGGER = LoggerFactory.getLogger(GrpcProtobufTests.class);
-
-  @Test
-  void ping() throws SSLException {
-    LOGGER.debug("run ping test");
-    LookerGrpcClient lookerGrpcClient = new LookerGrpcClient();
-    PingServiceGrpc.PingServiceBlockingStub stub = lookerGrpcClient.getPingBlockingStub();
-    boolean active = stub.ping((PingRequest.newBuilder().build())).getActive();
-    assertEquals(true, active);
-  }
+  final private static Logger LOGGER = LoggerFactory.getLogger(AuthorizationTests.class);
 
   @Test
   void rawLogin() throws SSLException {
