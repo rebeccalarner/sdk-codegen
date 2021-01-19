@@ -81,5 +81,7 @@ In no particular order of importance.
 5. Industrialize generation of proto ids (handle slight possibility of duplicates).
 6. Tests for generators.
 7. Tests for java support functions.
+8. Add support fro productionized SSL connection.
+9. Separate client into another project. Tests utilizing should go with the client.
 
 
