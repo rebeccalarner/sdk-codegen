@@ -23,6 +23,39 @@ Run `scripts/ssl_setup.sh`
 
 Run `scripts/gen_protobuf.sh`
 
+### .env setup
+
+Prior to server startup create a `.env` file in the root of this project (note
+that it should not be added to source control). A sample file, `.env_sample`,
+contains the entries required.
+
+```
+# host grpc server listens on. Used by the grpc client.
+GRPC_SERVER_HOST=localhost
+# port grpc server listens on. Used by grpc server and client.
+GRPC_SERVER_LISTEN_PORT=50051
+# Certificate chain file. Used by server to support SSL setup for development.
+CERT_CHAIN_FILE=ssl/server.crt
+# Private key file. Used by server to support SSL setup for development.
+PRIVATE_KEY_FILE=ssl/server.pem
+# Trust manager file. Used by client to support SSL setup for development.
+TRUST_MANAGER_FILE="ssl/ca.crt"
+# Looker client id
+LOOKER_CLIENT_ID=
+# Looker client secret
+LOOKER_CLIENT_SECRET=
+# Looker server base url
+LOOKER_BASE_URL=https://self-signed.looker.com:19999
+# Verify ssl. Set to false for development environmet
+LOOKER_VERIFY_SSL=false
+# Looker connection db username - used by ConnectionTests
+TEST_LOOKER_USERNAME=
+# Looker connection db password - used by ConnectionTests
+TEST_LOOKER_PASSWORD=
+# Looker connection name - used by ConnectionTests to test a connection
+TEST_CONNECTION_NAME=
+```
+
 ## Notes
 
 ### Protobuf identifier generation
@@ -37,10 +70,16 @@ To fix this negative values are multipled by -1 and values greater than
 536870911. So far their have been  no collisions but I suspect there are better
 implementations.
 
-### Server Start up
+## TODOs
 
-Prior to server startup create a `.env` file in the root of this project (note
-that it should not be added to source control). A sample file, `.env_sample`,
-contains the entries required.
+In no particular order of importance.
+
+1. Streaming support.
+2. Add rest endpoint to protobuf files.
+3. Sync Looker server environment variable names with other implementations.
+4. Handle response content types other that JSON.
+5. Industrialize generation of proto ids (handle slight possibility of duplicates).
+6. Tests for generators.
+7. Tests for java support functions.
 
 
