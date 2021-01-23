@@ -122,7 +122,7 @@ export class GrpcProxyGen extends CodeGen {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -133,21 +133,33 @@ export class GrpcProxyGen extends CodeGen {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     `
   }
 
   declareStreamer(_indent: string, _method: IMethod): string {
     const titleMethodName = titleCase(_method.operationId)
     const camelMethodName = camelCase(_method.operationId)
+    const returnCanStream = _method.returnType?.type.name.endsWith('[]')
+    const onNext = returnCanStream
+      ? `if (outputJson != null && responseBuilder.getResultCount() > 1) {
+          responseBuilder.getResultList().forEach(entry -> {
+            ${titleMethodName}Response.Builder responseBuilder2 = ${titleMethodName}Response.newBuilder();
+            responseBuilder2.addResult(entry);
+            responseObserver.onNext(responseBuilder2.build());
+          });
+        } else {
+          responseObserver.onNext(responseBuilder.build());
+        }`
+      : `responseObserver.onNext(responseBuilder.build());`
     return `${this.formatJavaDoc(_method.description)}
     @Override
     public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}Response> responseObserver) {
     try {
       String inputJson = JsonFormat
-          .printer()
-          .preservingProtoFieldNames()
-          .print(request);
+        .printer()
+        .preservingProtoFieldNames()
+        .print(request);
       LookerClientResponse lookerResponse = lookerClient.${_method.httpMethod.toLowerCase()}("${
       _method.endpoint
     }", inputJson);
@@ -159,18 +171,18 @@ export class GrpcProxyGen extends CodeGen {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
-          .ignoringUnknownFields()
-          .merge(outputJson, responseBuilder);
+            .parser()
+            .ignoringUnknownFields()
+            .merge(outputJson, responseBuilder);
         }
-        responseObserver.onNext(responseBuilder.build());
+        ${onNext}
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     `
   }
 

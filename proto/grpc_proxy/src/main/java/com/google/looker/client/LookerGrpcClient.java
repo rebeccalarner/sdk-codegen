@@ -7,6 +7,7 @@ import com.google.looker.grpc.services.LoginRequest;
 import com.google.looker.grpc.services.LoginResponse;
 import com.google.looker.grpc.services.LogoutRequest;
 import com.google.looker.grpc.services.LookerServiceGrpc;
+import com.google.looker.grpc.services.LookerStreamingServiceGrpc;
 import com.google.looker.grpc.services.PingServiceGrpc;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.grpc.ManagedChannel;
@@ -31,6 +32,7 @@ public class LookerGrpcClient {
   private ManagedChannel channel;
   private PingServiceGrpc.PingServiceBlockingStub pingBlockingStub;
   private LookerServiceGrpc.LookerServiceBlockingStub lookerServiceBlockingStub;
+  private LookerStreamingServiceGrpc.LookerStreamingServiceStub lookerStreamingServiceStub;
   private AccessToken accessTokenResult;
 
   public LookerGrpcClient() {
@@ -83,14 +85,36 @@ public class LookerGrpcClient {
     return lookerServiceBlockingStub;
   }
 
+  public LookerStreamingServiceGrpc.LookerStreamingServiceStub getLookerStreamingServiceStub() throws SSLException {
+    if (initFailure != null) {
+      throw  initFailure;
+    }
+    if (lookerStreamingServiceStub == null) {
+      if (accessTokenResult == null) {
+        LOGGER.debug("create blocking stub WITHOUT credentials");
+        lookerStreamingServiceStub = LookerStreamingServiceGrpc
+            .newStub(channel);
+      } else {
+        LOGGER.debug("create blocking stub WITH credentials: " + accessTokenResult.getAccessToken());
+        BearerToken token = new BearerToken(accessTokenResult.getAccessToken());
+        lookerStreamingServiceStub = LookerStreamingServiceGrpc
+            .newStub(channel)
+            .withCallCredentials(token);
+      }
+    }
+    return lookerStreamingServiceStub;
+  }
+
   public void clearAccessToken() {
     accessTokenResult = null;
     lookerServiceBlockingStub = null;
+    lookerStreamingServiceStub = null;
   }
 
   public void login() throws SSLException {
     accessTokenResult = null;
     lookerServiceBlockingStub = null;
+    lookerStreamingServiceStub = null;
     LookerServiceGrpc.LookerServiceBlockingStub stub = getLookerServiceBlockingStub();
     LoginResponse response = stub.login(
         LoginRequest

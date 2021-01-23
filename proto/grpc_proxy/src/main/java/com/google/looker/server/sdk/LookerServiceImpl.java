@@ -96,7 +96,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -107,7 +107,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -145,7 +145,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -156,7 +156,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -179,7 +179,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -190,7 +190,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion ApiAuth: API Authentication
@@ -250,7 +250,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -261,7 +261,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -308,7 +308,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -319,7 +319,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -357,7 +357,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -368,7 +368,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -401,7 +401,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -412,7 +412,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -452,7 +452,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -463,7 +463,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -506,7 +506,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -517,7 +517,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -549,7 +549,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -560,7 +560,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -592,7 +592,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -603,7 +603,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -632,7 +632,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -643,7 +643,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -668,7 +668,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -679,7 +679,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -707,7 +707,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -718,7 +718,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -743,7 +743,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -754,7 +754,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -782,7 +782,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -793,7 +793,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -819,7 +819,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -830,7 +830,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -859,7 +859,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -870,7 +870,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -902,7 +902,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -913,7 +913,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -947,7 +947,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -958,7 +958,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -989,7 +989,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1000,7 +1000,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1023,7 +1023,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1034,7 +1034,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1057,7 +1057,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1068,7 +1068,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1091,7 +1091,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1102,7 +1102,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1125,7 +1125,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1136,7 +1136,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1159,7 +1159,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1170,7 +1170,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1193,7 +1193,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1204,7 +1204,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1238,7 +1238,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1249,7 +1249,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1280,7 +1280,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1291,7 +1291,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1314,7 +1314,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1325,7 +1325,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1348,7 +1348,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1359,7 +1359,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1382,7 +1382,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1393,7 +1393,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1416,7 +1416,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1427,7 +1427,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1452,7 +1452,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1463,7 +1463,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1486,7 +1486,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1497,7 +1497,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1520,7 +1520,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1531,7 +1531,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1554,7 +1554,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1565,7 +1565,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1588,7 +1588,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1599,7 +1599,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1622,7 +1622,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1633,7 +1633,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Auth: Manage User Authentication Configuration
@@ -1660,7 +1660,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1671,7 +1671,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1694,7 +1694,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1705,7 +1705,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1750,7 +1750,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1761,7 +1761,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1784,7 +1784,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1795,7 +1795,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1818,7 +1818,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1829,7 +1829,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1852,7 +1852,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1863,7 +1863,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1886,7 +1886,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1897,7 +1897,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1920,7 +1920,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1931,7 +1931,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1954,7 +1954,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1965,7 +1965,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -1988,7 +1988,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -1999,7 +1999,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2022,7 +2022,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2033,7 +2033,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2056,7 +2056,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2067,7 +2067,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2090,7 +2090,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2101,7 +2101,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2124,7 +2124,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2135,7 +2135,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2158,7 +2158,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2169,7 +2169,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2192,7 +2192,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2203,7 +2203,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Board: Manage Boards
@@ -2238,7 +2238,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2249,7 +2249,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2281,7 +2281,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2292,7 +2292,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2321,7 +2321,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2332,7 +2332,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2361,7 +2361,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2372,7 +2372,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2399,7 +2399,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2410,7 +2410,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2437,7 +2437,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2448,7 +2448,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2481,7 +2481,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2492,7 +2492,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2517,7 +2517,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2528,7 +2528,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2559,7 +2559,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2570,7 +2570,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion ColorCollection: Manage Color Collections
@@ -2597,7 +2597,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2608,7 +2608,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2634,7 +2634,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2645,7 +2645,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2670,7 +2670,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2681,7 +2681,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2704,7 +2704,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2715,7 +2715,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Command: Manage Commands
@@ -2742,7 +2742,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2753,7 +2753,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2776,7 +2776,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2787,7 +2787,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2810,7 +2810,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2821,7 +2821,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2844,7 +2844,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2855,7 +2855,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2878,7 +2878,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2889,7 +2889,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2912,7 +2912,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2923,7 +2923,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2946,7 +2946,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2957,7 +2957,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -2981,7 +2981,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -2992,7 +2992,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3015,7 +3015,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3026,7 +3026,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3049,7 +3049,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3060,7 +3060,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3083,7 +3083,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3094,7 +3094,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3117,7 +3117,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3128,7 +3128,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3151,7 +3151,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3162,7 +3162,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3185,7 +3185,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3196,7 +3196,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3219,7 +3219,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3230,7 +3230,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3253,7 +3253,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3264,7 +3264,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3287,7 +3287,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3298,7 +3298,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3321,7 +3321,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3332,7 +3332,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3356,7 +3356,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3367,7 +3367,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3390,7 +3390,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3401,7 +3401,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Config: Manage General Configuration
@@ -3428,7 +3428,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3439,7 +3439,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3462,7 +3462,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3473,7 +3473,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3496,7 +3496,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3507,7 +3507,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3530,7 +3530,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3541,7 +3541,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3564,7 +3564,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3575,7 +3575,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3598,7 +3598,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3609,7 +3609,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3639,7 +3639,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3650,7 +3650,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3680,7 +3680,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3691,7 +3691,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3714,7 +3714,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3725,7 +3725,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3748,7 +3748,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3759,7 +3759,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3782,7 +3782,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3793,7 +3793,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3816,7 +3816,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3827,7 +3827,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3850,7 +3850,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3861,7 +3861,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3884,7 +3884,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3895,7 +3895,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3918,7 +3918,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3929,7 +3929,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3952,7 +3952,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3963,7 +3963,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -3986,7 +3986,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -3997,7 +3997,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4020,7 +4020,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4031,7 +4031,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4054,7 +4054,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4065,7 +4065,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4088,7 +4088,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4099,7 +4099,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4122,7 +4122,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4133,7 +4133,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4156,7 +4156,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4167,7 +4167,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4190,7 +4190,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4201,7 +4201,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4226,7 +4226,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4237,7 +4237,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Connection: Manage Database Connections
@@ -4286,7 +4286,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4297,7 +4297,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4319,7 +4319,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4330,7 +4330,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4352,7 +4352,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4363,7 +4363,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4385,7 +4385,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4396,7 +4396,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4419,7 +4419,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4430,7 +4430,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4453,7 +4453,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4464,7 +4464,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4487,7 +4487,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4498,7 +4498,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4521,7 +4521,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4532,7 +4532,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4555,7 +4555,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4566,7 +4566,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4589,7 +4589,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4600,7 +4600,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4623,7 +4623,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4634,7 +4634,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4660,7 +4660,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4671,7 +4671,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4697,7 +4697,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4708,7 +4708,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4753,7 +4753,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4764,7 +4764,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4792,7 +4792,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4803,7 +4803,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Content: Manage Content
@@ -4836,7 +4836,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4847,7 +4847,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4883,7 +4883,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4894,7 +4894,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4945,7 +4945,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -4956,7 +4956,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -4990,7 +4990,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5001,7 +5001,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5032,7 +5032,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5043,7 +5043,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5072,7 +5072,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5083,7 +5083,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5115,7 +5115,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5126,7 +5126,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5155,7 +5155,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5166,7 +5166,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5192,7 +5192,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5203,7 +5203,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5229,7 +5229,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5240,7 +5240,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5287,7 +5287,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5298,7 +5298,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5320,7 +5320,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5331,7 +5331,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5353,7 +5353,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5364,7 +5364,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5386,7 +5386,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5397,7 +5397,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5419,7 +5419,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5430,7 +5430,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5452,7 +5452,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5463,7 +5463,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5485,7 +5485,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5496,7 +5496,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5518,7 +5518,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5529,7 +5529,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5551,7 +5551,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5562,7 +5562,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5584,7 +5584,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5595,7 +5595,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5617,7 +5617,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5628,7 +5628,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5650,7 +5650,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5661,7 +5661,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5683,7 +5683,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5694,7 +5694,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5716,7 +5716,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5727,7 +5727,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5749,7 +5749,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5760,7 +5760,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5782,7 +5782,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5793,7 +5793,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5815,7 +5815,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5826,7 +5826,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5848,7 +5848,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5859,7 +5859,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5881,7 +5881,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5892,7 +5892,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Dashboard: Manage Dashboards
@@ -5918,7 +5918,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5929,7 +5929,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -5951,7 +5951,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -5962,7 +5962,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion DataAction: Run Data Actions
@@ -5989,7 +5989,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6000,7 +6000,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6023,7 +6023,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6034,7 +6034,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6057,7 +6057,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6068,7 +6068,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Datagroup: Manage Datagroups
@@ -6094,7 +6094,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6105,7 +6105,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6127,7 +6127,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6138,7 +6138,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6160,7 +6160,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6171,7 +6171,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6195,7 +6195,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6206,7 +6206,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6233,7 +6233,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6244,7 +6244,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6270,7 +6270,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6281,7 +6281,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6303,7 +6303,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6314,7 +6314,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6336,7 +6336,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6347,7 +6347,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6369,7 +6369,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6380,7 +6380,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6402,7 +6402,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6413,7 +6413,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6438,7 +6438,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6449,7 +6449,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6471,7 +6471,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6482,7 +6482,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Folder: Manage Folders
@@ -6509,7 +6509,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6520,7 +6520,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6543,7 +6543,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6554,7 +6554,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6601,7 +6601,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6612,7 +6612,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6659,7 +6659,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6670,7 +6670,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6718,7 +6718,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6729,7 +6729,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6752,7 +6752,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6763,7 +6763,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6785,7 +6785,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6796,7 +6796,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6819,7 +6819,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6830,7 +6830,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6853,7 +6853,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6864,7 +6864,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6887,7 +6887,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6898,7 +6898,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6921,7 +6921,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6932,7 +6932,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6955,7 +6955,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -6966,7 +6966,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -6989,7 +6989,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7000,7 +7000,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7023,7 +7023,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7034,7 +7034,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7059,7 +7059,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7070,7 +7070,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7093,7 +7093,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7104,7 +7104,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Group: Manage Groups
@@ -7131,7 +7131,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7142,7 +7142,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Homepage: Manage Homepage
@@ -7169,7 +7169,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7180,7 +7180,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7205,7 +7205,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7216,7 +7216,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7239,7 +7239,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7250,7 +7250,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7275,7 +7275,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7286,7 +7286,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7309,7 +7309,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7320,7 +7320,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7342,7 +7342,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7353,7 +7353,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7376,7 +7376,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7387,7 +7387,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7410,7 +7410,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7421,7 +7421,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7444,7 +7444,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7455,7 +7455,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7477,7 +7477,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7488,7 +7488,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7510,7 +7510,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7521,7 +7521,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Integration: Manage Integrations
@@ -7554,7 +7554,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7565,7 +7565,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7594,7 +7594,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7605,7 +7605,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7654,7 +7654,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7665,7 +7665,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7691,7 +7691,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7702,7 +7702,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7744,7 +7744,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7755,7 +7755,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7784,7 +7784,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7795,7 +7795,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7837,7 +7837,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7848,7 +7848,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Look: Run and Manage Looks
@@ -7875,7 +7875,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7886,7 +7886,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7909,7 +7909,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7920,7 +7920,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7943,7 +7943,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7954,7 +7954,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -7977,7 +7977,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -7988,7 +7988,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8011,7 +8011,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8022,7 +8022,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8045,7 +8045,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8056,7 +8056,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion LookmlModel: Manage LookML Models
@@ -8084,7 +8084,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8095,7 +8095,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8126,7 +8126,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8137,7 +8137,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8163,7 +8163,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8174,7 +8174,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8198,7 +8198,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8209,7 +8209,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8237,7 +8237,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8248,7 +8248,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8272,7 +8272,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8283,7 +8283,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8308,7 +8308,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8319,7 +8319,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8346,7 +8346,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8357,7 +8357,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Metadata: Connection Metadata Features
@@ -8391,7 +8391,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8402,7 +8402,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8427,7 +8427,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8438,7 +8438,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8463,7 +8463,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8474,7 +8474,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8506,7 +8506,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8517,7 +8517,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8548,7 +8548,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8559,7 +8559,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8584,7 +8584,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8595,7 +8595,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8620,7 +8620,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8631,7 +8631,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8663,7 +8663,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8674,7 +8674,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8709,7 +8709,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8720,7 +8720,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8745,7 +8745,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8756,7 +8756,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8781,7 +8781,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8792,7 +8792,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8817,7 +8817,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8828,7 +8828,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8858,7 +8858,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8869,7 +8869,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8894,7 +8894,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8905,7 +8905,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8950,7 +8950,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8961,7 +8961,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -8986,7 +8986,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -8997,7 +8997,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9022,7 +9022,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9033,7 +9033,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9064,7 +9064,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9075,7 +9075,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9109,7 +9109,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9120,7 +9120,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9151,7 +9151,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9162,7 +9162,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9187,7 +9187,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9198,7 +9198,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9223,7 +9223,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9234,7 +9234,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9259,7 +9259,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9270,7 +9270,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9302,7 +9302,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9313,7 +9313,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9342,7 +9342,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9353,7 +9353,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9380,7 +9380,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9391,7 +9391,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9416,7 +9416,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9427,7 +9427,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9456,7 +9456,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9467,7 +9467,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9495,7 +9495,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9506,7 +9506,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9531,7 +9531,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9542,7 +9542,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Project: Manage Projects
@@ -9574,7 +9574,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9585,7 +9585,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9614,7 +9614,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9625,7 +9625,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9654,7 +9654,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9665,7 +9665,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9710,7 +9710,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9721,7 +9721,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9761,7 +9761,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9772,7 +9772,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9811,7 +9811,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9822,7 +9822,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9853,7 +9853,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9864,7 +9864,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9909,7 +9909,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -9920,7 +9920,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -9994,7 +9994,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10005,7 +10005,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10081,7 +10081,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10092,7 +10092,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10117,7 +10117,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10128,7 +10128,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10167,7 +10167,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10178,7 +10178,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10201,7 +10201,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10212,7 +10212,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10235,7 +10235,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10246,7 +10246,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10268,7 +10268,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10279,7 +10279,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10304,7 +10304,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10315,7 +10315,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10337,7 +10337,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10348,7 +10348,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Query: Run and Manage Queries
@@ -10380,7 +10380,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10391,7 +10391,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10419,7 +10419,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10430,7 +10430,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10458,7 +10458,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10469,7 +10469,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10497,7 +10497,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10508,7 +10508,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10547,7 +10547,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10558,7 +10558,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion RenderTask: Manage Render Tasks
@@ -10607,7 +10607,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10618,7 +10618,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10641,7 +10641,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10652,7 +10652,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10675,7 +10675,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10686,7 +10686,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10709,7 +10709,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10720,7 +10720,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10743,7 +10743,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10754,7 +10754,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10777,7 +10777,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10788,7 +10788,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10811,7 +10811,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10822,7 +10822,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10867,7 +10867,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10878,7 +10878,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10901,7 +10901,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10912,7 +10912,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10935,7 +10935,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10946,7 +10946,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -10969,7 +10969,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -10980,7 +10980,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11003,7 +11003,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11014,7 +11014,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11037,7 +11037,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11048,7 +11048,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11071,7 +11071,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11082,7 +11082,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11105,7 +11105,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11116,7 +11116,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11163,7 +11163,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11174,7 +11174,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11197,7 +11197,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11208,7 +11208,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11231,7 +11231,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11242,7 +11242,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11265,7 +11265,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11276,7 +11276,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11299,7 +11299,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11310,7 +11310,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11333,7 +11333,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11344,7 +11344,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11367,7 +11367,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11378,7 +11378,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11401,7 +11401,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11412,7 +11412,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Role: Manage Roles
@@ -11441,7 +11441,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11452,7 +11452,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11477,7 +11477,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11488,7 +11488,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11554,7 +11554,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11565,7 +11565,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11592,7 +11592,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11603,7 +11603,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11638,7 +11638,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11649,7 +11649,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11731,7 +11731,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11742,7 +11742,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11803,7 +11803,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11814,7 +11814,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11849,7 +11849,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11860,7 +11860,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11895,7 +11895,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11906,7 +11906,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -11941,7 +11941,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -11952,7 +11952,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12022,7 +12022,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12033,7 +12033,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion ScheduledPlan: Manage Scheduled Plans
@@ -12062,7 +12062,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12073,7 +12073,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12115,7 +12115,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12126,7 +12126,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Session: Session Information
@@ -12160,7 +12160,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12171,7 +12171,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12209,7 +12209,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12220,7 +12220,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12281,7 +12281,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12292,7 +12292,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12321,7 +12321,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12332,7 +12332,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12366,7 +12366,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12377,7 +12377,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12410,7 +12410,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12421,7 +12421,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12450,7 +12450,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12461,7 +12461,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12491,7 +12491,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12502,7 +12502,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12530,7 +12530,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12541,7 +12541,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12567,7 +12567,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12578,7 +12578,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12610,7 +12610,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12621,7 +12621,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Theme: Manage Themes
@@ -12648,7 +12648,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12659,7 +12659,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12682,7 +12682,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12693,7 +12693,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12716,7 +12716,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12727,7 +12727,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12780,7 +12780,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12791,7 +12791,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12819,7 +12819,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12830,7 +12830,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12857,7 +12857,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12868,7 +12868,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12891,7 +12891,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12902,7 +12902,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12927,7 +12927,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -12938,7 +12938,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -12989,7 +12989,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13000,7 +13000,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13022,7 +13022,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13033,7 +13033,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13055,7 +13055,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13066,7 +13066,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13088,7 +13088,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13099,7 +13099,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13121,7 +13121,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13132,7 +13132,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13154,7 +13154,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13165,7 +13165,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13187,7 +13187,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13198,7 +13198,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13220,7 +13220,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13231,7 +13231,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13253,7 +13253,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13264,7 +13264,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13286,7 +13286,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13297,7 +13297,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13319,7 +13319,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13330,7 +13330,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13352,7 +13352,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13363,7 +13363,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13385,7 +13385,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13396,7 +13396,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13418,7 +13418,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13429,7 +13429,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13451,7 +13451,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13462,7 +13462,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13484,7 +13484,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13495,7 +13495,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13517,7 +13517,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13528,7 +13528,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13550,7 +13550,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13561,7 +13561,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13583,7 +13583,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13594,7 +13594,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13616,7 +13616,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13627,7 +13627,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13649,7 +13649,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13660,7 +13660,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13682,7 +13682,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13693,7 +13693,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13715,7 +13715,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13726,7 +13726,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13748,7 +13748,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13759,7 +13759,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13781,7 +13781,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13792,7 +13792,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13814,7 +13814,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13825,7 +13825,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13847,7 +13847,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13858,7 +13858,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13880,7 +13880,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13891,7 +13891,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13922,7 +13922,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13933,7 +13933,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13956,7 +13956,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -13967,7 +13967,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -13990,7 +13990,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14001,7 +14001,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14039,7 +14039,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14050,7 +14050,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14075,7 +14075,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14086,7 +14086,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14114,7 +14114,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14125,7 +14125,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14154,7 +14154,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14165,7 +14165,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion User: Manage Users
@@ -14192,7 +14192,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14203,7 +14203,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14235,7 +14235,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14246,7 +14246,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14269,7 +14269,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14280,7 +14280,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14303,7 +14303,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14314,7 +14314,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14337,7 +14337,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14348,7 +14348,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14377,7 +14377,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14388,7 +14388,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14430,7 +14430,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14441,7 +14441,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion UserAttribute: Manage User Attributes
@@ -14470,7 +14470,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14481,7 +14481,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   /**
@@ -14532,7 +14532,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
         String outputJson = lookerResponse.getJsonResponse();
         if (outputJson != null) {
           JsonFormat
-          .parser()            
+          .parser()
           .ignoringUnknownFields()
           .merge(outputJson, responseBuilder);
         }
@@ -14543,7 +14543,7 @@ public class LookerServiceImpl extends LookerServiceImplBase {
       LOGGER.error("invalid protobuf data", e);
       responseObserver.onError(Status.INVALID_ARGUMENT.asRuntimeException());
     }
-  }    
+  }
     
 
   //#endregion Workspace: Manage Workspaces
