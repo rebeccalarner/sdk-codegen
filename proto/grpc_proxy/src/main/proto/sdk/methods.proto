@@ -25,7 +25,7 @@
 
 syntax = "proto3";
 
-package looker;    
+package looker;
 
 option java_package = "com.google.looker.grpc.services";
 option java_multiple_files = true;

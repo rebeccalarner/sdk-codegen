@@ -33,7 +33,7 @@ option java_multiple_files = true;
 import "google/protobuf/any.proto";
 import "google/protobuf/timestamp.proto";
     
-      
+
 message AccessToken {
   // Access Token used for API calls
   string access_token = 484733480;
@@ -45,14 +45,14 @@ message AccessToken {
   string refresh_token = 358008858;
 }
 
-// The appropriate horizontal text alignment the values of this field should be displayed in. Valid values are: "left", "right".      
+// The appropriate horizontal text alignment the values of this field should be displayed in. Valid values are: "left", "right".
 enum Align {
   _ALIGN_UNSET = 0;
   ALIGN_LEFT = 528533215;
   ALIGN_RIGHT = 400500241;
 }
 
-      
+
 message ApiSession {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -62,7 +62,7 @@ message ApiSession {
   int64 sudo_user_id = 287410032;
 }
 
-      
+
 message ApiVersion {
   // Current Looker release version number
   string looker_release_version = 308761353;
@@ -71,7 +71,7 @@ message ApiVersion {
   repeated ApiVersionElement supported_versions = 507588669;
 }
 
-      
+
 message ApiVersionElement {
   // Version number as it appears in '/api/xxx/' urls
   string version = 351608024;
@@ -83,7 +83,7 @@ message ApiVersionElement {
   string swagger_url = 427126350;
 }
 
-      
+
 message BackupConfiguration {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -101,7 +101,7 @@ message BackupConfiguration {
   string url = 116079;
 }
 
-      
+
 message Board {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -129,7 +129,7 @@ message Board {
   bool primary_homepage = 522659170;
 }
 
-      
+
 message BoardItem {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -167,7 +167,7 @@ message BoardItem {
   int64 view_count = 383588418;
 }
 
-      
+
 message BoardSection {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -191,7 +191,7 @@ message BoardSection {
   google.protobuf.Timestamp updated_at = 295464393;
 }
 
-// Field category Valid values are: "parameter", "filter", "measure", "dimension".      
+// Field category Valid values are: "parameter", "filter", "measure", "dimension".
 enum Category {
   _CATEGORY_UNSET = 0;
   CATEGORY_PARAMETER = 421572962;
@@ -200,7 +200,7 @@ enum Category {
   CATEGORY_DIMENSION = 340795438;
 }
 
-      
+
 message ColorCollection {
   // Unique Id
   string id = 3355;
@@ -214,7 +214,7 @@ message ColorCollection {
   repeated ContinuousPalette divergingPalettes = 417697719;
 }
 
-      
+
 message ColorStop {
   // CSS color string
   string color = 94842723;
@@ -222,7 +222,7 @@ message ColorStop {
   int64 offset = 509889974;
 }
 
-      
+
 message ColumnSearch {
   // Name of schema containing the table
   string schema_name = 505336523;
@@ -234,7 +234,7 @@ message ColumnSearch {
   string data_type = 363359569;
 }
 
-      
+
 message Command {
   // Id of the command record
   int64 id = 3355;
@@ -250,7 +250,7 @@ message Command {
   LinkedContentType linked_content_type = 305853718;
 }
 
-      
+
 message ConnectionFeatures {
   // Name of the dialect for this connection
   string dialect_name = 453584193;
@@ -286,7 +286,7 @@ message ConnectionFeatures {
   bool connection_pooling = 516929414;
 }
 
-      
+
 message ContentFavorite {
   // Unique Id
   int64 id = 3355;
@@ -304,7 +304,7 @@ message ContentFavorite {
   int64 board_id = 402691141;
 }
 
-      
+
 message ContentMeta {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -330,7 +330,7 @@ message ContentMeta {
   string slug = 3533483;
 }
 
-      
+
 message ContentMetaGroupUser {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -346,7 +346,7 @@ message ContentMetaGroupUser {
   int64 user_id = 147132913;
 }
 
-      
+
 message ContentValidation {
   // A list of content errors
   repeated ContentValidatorError content_with_errors = 415894303;
@@ -366,7 +366,7 @@ message ContentValidation {
   int64 total_explores_validated = 481205653;
 }
 
-      
+
 message ContentValidationAlert {
   // ID of the alert
   int64 id = 3355;
@@ -378,7 +378,7 @@ message ContentValidationAlert {
   string custom_title = 365526021;
 }
 
-      
+
 message ContentValidationDashboard {
   // Description
   string description = 431136513;
@@ -389,7 +389,7 @@ message ContentValidationDashboard {
   string title = 110371416;
 }
 
-      
+
 message ContentValidationDashboardElement {
   // Text tile body text
   string body_text = 313253482;
@@ -421,7 +421,7 @@ message ContentValidationDashboardElement {
   string type = 3575610;
 }
 
-      
+
 message ContentValidationDashboardFilter {
   // Unique Id
   string id = 3355;
@@ -443,7 +443,7 @@ message ContentValidationDashboardFilter {
   string dimension = 273753254;
 }
 
-      
+
 message ContentValidationError {
   // Error message
   string message = 477462531;
@@ -457,7 +457,7 @@ message ContentValidationError {
   bool removable = 320564534;
 }
 
-      
+
 message ContentValidationFolder {
   // Unique Name
   string name = 3373707;
@@ -465,7 +465,7 @@ message ContentValidationFolder {
   string id = 3355;
 }
 
-      
+
 message ContentValidationLook {
   // Unique Id
   int64 id = 3355;
@@ -474,7 +474,7 @@ message ContentValidationLook {
   ContentValidationFolder folder = 317241572;
 }
 
-      
+
 message ContentValidationLookMLDashboard {
   // ID of the LookML Dashboard
   string id = 3355;
@@ -484,7 +484,7 @@ message ContentValidationLookMLDashboard {
   string space_id = 511862461;
 }
 
-      
+
 message ContentValidationLookMLDashboardElement {
   // Link ID of the LookML Dashboard Element
   string lookml_link_id = 458227247;
@@ -492,7 +492,7 @@ message ContentValidationLookMLDashboardElement {
   string title = 110371416;
 }
 
-      
+
 message ContentValidationScheduledPlan {
   // Name of this scheduled plan
   string name = 3373707;
@@ -502,7 +502,7 @@ message ContentValidationScheduledPlan {
   int64 id = 3355;
 }
 
-      
+
 message ContentValidatorError {
   ContentValidationLook look = 3327647;
   ContentValidationDashboard dashboard = 523930294;
@@ -518,7 +518,7 @@ message ContentValidatorError {
   string id = 3355;
 }
 
-      
+
 message ContentView {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -544,7 +544,7 @@ message ContentView {
   string start_of_week_date = 75308398;
 }
 
-      
+
 message ContinuousPalette {
   // Unique identity string
   string id = 3355;
@@ -556,7 +556,7 @@ message ContinuousPalette {
   repeated ColorStop stops = 109770929;
 }
 
-      
+
 message CostEstimate {
   // Cost of SQL statement
   int64 cost = 3059661;
@@ -568,13 +568,13 @@ message CostEstimate {
   string message = 477462531;
 }
 
-      
+
 message CreateCostEstimate {
   // SQL statement to estimate
   string sql = 114126;
 }
 
-      
+
 message CreateDashboardFilter {
   // Unique Id
   string id = 3355;
@@ -608,7 +608,7 @@ message CreateDashboardFilter {
   map<string, google.protobuf.Any> ui_config = 338401068;
 }
 
-      
+
 message CreateDashboardRenderTask {
   // Filter values to apply to the dashboard queries, in URL query format
   string dashboard_filters = 454602920;
@@ -616,7 +616,7 @@ message CreateDashboardRenderTask {
   string dashboard_style = 394441966;
 }
 
-      
+
 message CreateFolder {
   // Unique Name
   string name = 3373707;
@@ -624,7 +624,7 @@ message CreateFolder {
   string parent_id = 517581876;
 }
 
-      
+
 message CreateQueryTask {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -642,7 +642,7 @@ message CreateQueryTask {
   string dashboard_id = 496187565;
 }
 
-      
+
 message CredentialsApi3 {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -660,7 +660,7 @@ message CredentialsApi3 {
   string url = 116079;
 }
 
-      
+
 message CredentialsEmail {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -684,7 +684,7 @@ message CredentialsEmail {
   string user_url = 266140933;
 }
 
-      
+
 message CredentialsEmbed {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -706,7 +706,7 @@ message CredentialsEmbed {
   string url = 116079;
 }
 
-      
+
 message CredentialsGoogle {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -728,7 +728,7 @@ message CredentialsGoogle {
   string url = 116079;
 }
 
-      
+
 message CredentialsLDAP {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -750,7 +750,7 @@ message CredentialsLDAP {
   string url = 116079;
 }
 
-      
+
 message CredentialsLookerOpenid {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -772,7 +772,7 @@ message CredentialsLookerOpenid {
   string user_url = 266140933;
 }
 
-      
+
 message CredentialsOIDC {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -792,7 +792,7 @@ message CredentialsOIDC {
   string url = 116079;
 }
 
-      
+
 message CredentialsSaml {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -812,7 +812,7 @@ message CredentialsSaml {
   string url = 116079;
 }
 
-      
+
 message CredentialsTotp {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -828,7 +828,7 @@ message CredentialsTotp {
   string url = 116079;
 }
 
-      
+
 message CustomWelcomeEmail {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -842,7 +842,7 @@ message CustomWelcomeEmail {
   string header = 305317724;
 }
 
-      
+
 message Dashboard {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -923,7 +923,7 @@ message Dashboard {
   string preferred_viewer = 518361060;
 }
 
-      
+
 message DashboardAggregateTableLookml {
   // Dashboard Id
   string dashboard_id = 496187565;
@@ -931,7 +931,7 @@ message DashboardAggregateTableLookml {
   string aggregate_table_lookml = 152035185;
 }
 
-      
+
 message DashboardAppearance {
   // Page margin (side) width
   int64 page_side_margins = 294185644;
@@ -949,7 +949,7 @@ message DashboardAppearance {
   string key_color = 415126687;
 }
 
-      
+
 message DashboardBase {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -979,7 +979,7 @@ message DashboardBase {
   int64 user_id = 147132913;
 }
 
-      
+
 message DashboardElement {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1036,7 +1036,7 @@ message DashboardElement {
   string subtitle_text_as_html = 486874579;
 }
 
-      
+
 message DashboardFilter {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1072,7 +1072,7 @@ message DashboardFilter {
   map<string, google.protobuf.Any> ui_config = 338401068;
 }
 
-      
+
 message DashboardLayout {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1096,7 +1096,7 @@ message DashboardLayout {
   repeated DashboardLayoutComponent dashboard_layout_components = 358251928;
 }
 
-      
+
 message DashboardLayoutComponent {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1124,7 +1124,7 @@ message DashboardLayoutComponent {
   string vis_type = 393864446;
 }
 
-      
+
 message DashboardLookml {
   // Id of Dashboard
   string dashboard_id = 496187565;
@@ -1132,14 +1132,14 @@ message DashboardLookml {
   string lookml = 274273760;
 }
 
-      
+
 message DataActionForm {
   DataActionUserState state = 109757585;
   // Array of form fields.
   repeated DataActionFormField fields = 318677073;
 }
 
-      
+
 message DataActionFormField {
   // Name
   string name = 3373707;
@@ -1161,7 +1161,7 @@ message DataActionFormField {
   repeated DataActionFormSelectOption options = 312368728;
 }
 
-      
+
 message DataActionFormSelectOption {
   // Name
   string name = 3373707;
@@ -1169,7 +1169,7 @@ message DataActionFormSelectOption {
   string label = 102727412;
 }
 
-      
+
 message DataActionRequest {
   // The JSON describing the data action. This JSON should be considered opaque and should be passed through unmodified from the query result it came from.
   map<string, string> action = 355737714;
@@ -1177,7 +1177,7 @@ message DataActionRequest {
   map<string, string> form_values = 257529603;
 }
 
-      
+
 message DataActionResponse {
   // ID of the webhook event that sent this data action. In some error conditions, this may be null.
   string webhook_id = 311874531;
@@ -1190,7 +1190,7 @@ message DataActionResponse {
   string message = 477462531;
 }
 
-      
+
 message DataActionUserState {
   // User state data
   string data = 3076010;
@@ -1198,7 +1198,7 @@ message DataActionUserState {
   int64 refresh_time = 46200399;
 }
 
-      
+
 message Datagroup {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1222,7 +1222,7 @@ message Datagroup {
   int64 triggered_at = 380872987;
 }
 
-      
+
 message DBConnection {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1304,7 +1304,7 @@ message DBConnection {
   int64 oauth_application_id = 466979396;
 }
 
-      
+
 message DBConnectionBase {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1317,7 +1317,7 @@ message DBConnectionBase {
   bool pdts_enabled = 5079435;
 }
 
-      
+
 message DBConnectionOverride {
   // Context in which to override (`pdt` is the only allowed value)
   string context = 475765463;
@@ -1345,7 +1345,7 @@ message DBConnectionOverride {
   string after_connect_statements = 39151260;
 }
 
-      
+
 message DBConnectionTestResult {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1359,7 +1359,7 @@ message DBConnectionTestResult {
   string status = 446240775;
 }
 
-      
+
 message DelegateOauthTest {
   // Delegate Oauth Connection Name
   string name = 3373707;
@@ -1371,7 +1371,7 @@ message DelegateOauthTest {
   bool success = 466792447;
 }
 
-// Status of the dependencies in your project. Valid values are: "lock_optional", "lock_required", "lock_error", "install_none".      
+// Status of the dependencies in your project. Valid values are: "lock_optional", "lock_required", "lock_error", "install_none".
 enum DependencyStatus {
   _DEPENDENCY_STATUS_UNSET = 0;
   DEPENDENCY_STATUS_LOCK_OPTIONAL = 529686454;
@@ -1380,7 +1380,7 @@ enum DependencyStatus {
   DEPENDENCY_STATUS_INSTALL_NONE = 168704949;
 }
 
-      
+
 message Dialect {
   // The name of the dialect
   string name = 3373707;
@@ -1410,7 +1410,7 @@ message Dialect {
   bool has_ssl_support = 405011613;
 }
 
-      
+
 message DialectInfo {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1429,7 +1429,7 @@ message DialectInfo {
   DialectInfoOptions supported_options = 345365763;
 }
 
-      
+
 message DialectInfoOptions {
   // Has additional params support
   bool additional_params = 452971224;
@@ -1453,19 +1453,19 @@ message DialectInfoOptions {
   bool username_required = 358259002;
 }
 
-      
+
 message DigestEmails {
   // Whether or not digest emails are enabled
   bool is_enabled = 109284052;
 }
 
-      
+
 message DigestEmailSend {
   // True if content was successfully generated and delivered
   bool configuration_delivered = 415144673;
 }
 
-      
+
 message DiscretePalette {
   // Unique identity string
   string id = 3355;
@@ -1477,7 +1477,7 @@ message DiscretePalette {
   repeated string colors = 338710692;
 }
 
-      
+
 message EmbedParams {
   // The complete URL of the Looker UI page to display in the embed context. For example, to display the dashboard with id 34, `target_url` would look like: `https://mycompany.looker.com:9999/dashboards/34`. `target_uri` MUST contain a scheme (HTTPS), domain name, and URL path. Port must be included if it is required to reach the Looker server from browser clients. If the Looker instance is behind a load balancer or other proxy, `target_uri` must be the public-facing domain name and port required to reach the Looker instance, not the actual internal network machine name of the Looker instance.
   string target_url = 486946241;
@@ -1487,7 +1487,7 @@ message EmbedParams {
   bool force_logout_login = 429771950;
 }
 
-      
+
 message EmbedSsoParams {
   // The complete URL of the Looker UI page to display in the embed context. For example, to display the dashboard with id 34, `target_url` would look like: `https://mycompany.looker.com:9999/dashboards/34`. `target_uri` MUST contain a scheme (HTTPS), domain name, and URL path. Port must be included if it is required to reach the Looker server from browser clients. If the Looker instance is behind a load balancer or other proxy, `target_uri` must be the public-facing domain name and port required to reach the Looker instance, not the actual internal network machine name of the Looker instance.
   string target_url = 486946241;
@@ -1517,13 +1517,13 @@ message EmbedSsoParams {
   int64 secret_id = 369773947;
 }
 
-      
+
 message EmbedUrlResponse {
   // The embed URL. Any modification to this string will make the URL unusable.
   string url = 116079;
 }
 
-      
+
 message Error {
   // Error details
   string message = 477462531;
@@ -1531,7 +1531,7 @@ message Error {
   string documentation_url = 282180250;
 }
 
-      
+
 message ExternalOauthApplication {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1549,14 +1549,14 @@ message ExternalOauthApplication {
   google.protobuf.Timestamp created_at = 342420026;
 }
 
-// The style of dimension fill that is possible for this field. Null if no dimension fill is possible. Valid values are: "enumeration", "range".      
+// The style of dimension fill that is possible for this field. Null if no dimension fill is possible. Valid values are: "enumeration", "range".
 enum FillStyle {
   _FILL_STYLE_UNSET = 0;
   FILL_STYLE_ENUMERATION = 426018000;
   FILL_STYLE_RANGE = 273453555;
 }
 
-      
+
 message Folder {
   // Unique Name
   string name = 3373707;
@@ -1596,7 +1596,7 @@ message Folder {
   repeated LookWithDashboards looks = 103157172;
 }
 
-      
+
 message FolderBase {
   // Unique Name
   string name = 3373707;
@@ -1632,21 +1632,21 @@ message FolderBase {
   map<string, bool> can = 98256;
 }
 
-// Specifies the data format of the region information. Valid values are: "topojson", "vector_tile_region".      
+// Specifies the data format of the region information. Valid values are: "topojson", "vector_tile_region".
 enum Format {
   _FORMAT_UNSET = 0;
   FORMAT_TOPOJSON = 313154326;
   FORMAT_VECTOR_TILE_REGION = 387763843;
 }
 
-// Scheme that is running on application server (for PRs, file browsing, etc.) Valid values are: "http", "https".      
+// Scheme that is running on application server (for PRs, file browsing, etc.) Valid values are: "http", "https".
 enum GitApplicationServerHttpScheme {
   _GIT_APPLICATION_SERVER_HTTP_SCHEME_UNSET = 0;
   GIT_APPLICATION_SERVER_HTTP_SCHEME_HTTP = 392265021;
   GIT_APPLICATION_SERVER_HTTP_SCHEME_HTTPS = 349055574;
 }
 
-      
+
 message GitBranch {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1684,7 +1684,7 @@ message GitBranch {
   string remote_ref = 520824461;
 }
 
-      
+
 message GitConnectionTest {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1694,7 +1694,7 @@ message GitConnectionTest {
   string id = 3355;
 }
 
-      
+
 message GitConnectionTestResult {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1706,7 +1706,7 @@ message GitConnectionTestResult {
   string status = 446240775;
 }
 
-      
+
 message GitStatus {
   // Git action: add, delete, etc
   string action = 355737714;
@@ -1718,7 +1718,7 @@ message GitStatus {
   string text = 3556653;
 }
 
-      
+
 message Group {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1740,7 +1740,7 @@ message Group {
   int64 user_count = 479975142;
 }
 
-      
+
 message GroupHierarchy {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1766,19 +1766,19 @@ message GroupHierarchy {
   repeated int64 role_ids = 266265745;
 }
 
-      
+
 message GroupIdForGroupInclusion {
   // Id of group
   int64 group_id = 506361563;
 }
 
-      
+
 message GroupIdForGroupUserInclusion {
   // Id of user
   int64 user_id = 147132913;
 }
 
-      
+
 message GroupSearch {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1802,7 +1802,7 @@ message GroupSearch {
   repeated Role roles = 108695229;
 }
 
-      
+
 message HomepageItem {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1862,7 +1862,7 @@ message HomepageItem {
   int64 view_count = 383588418;
 }
 
-      
+
 message HomepageSection {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1890,7 +1890,7 @@ message HomepageSection {
   string description = 431136513;
 }
 
-      
+
 message ImportedProject {
   // Dependency name
   string name = 3373707;
@@ -1902,7 +1902,7 @@ message ImportedProject {
   bool is_remote = 470571781;
 }
 
-      
+
 message Integration {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1940,7 +1940,7 @@ message Integration {
   repeated int64 installed_delegate_oauth_targets = 448297026;
 }
 
-      
+
 message IntegrationHub {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -1966,7 +1966,7 @@ message IntegrationHub {
   string legal_agreement_text = 529546684;
 }
 
-      
+
 message IntegrationParam {
   // Name of the parameter.
   string name = 3373707;
@@ -1990,7 +1990,7 @@ message IntegrationParam {
   string delegate_oauth_url = 100182643;
 }
 
-      
+
 message IntegrationRequiredField {
   // Matches a field that has this tag.
   string tag = 114586;
@@ -2000,7 +2000,7 @@ message IntegrationRequiredField {
   repeated string all_tags = 449565693;
 }
 
-      
+
 message IntegrationTestResult {
   // Whether or not the test was successful
   bool success = 466792447;
@@ -2010,7 +2010,7 @@ message IntegrationTestResult {
   repeated DelegateOauthTest delegate_oauth_result = 363584319;
 }
 
-      
+
 message InternalHelpResources {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2018,7 +2018,7 @@ message InternalHelpResources {
   bool enabled = 402398511;
 }
 
-      
+
 message InternalHelpResourcesContent {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2028,7 +2028,7 @@ message InternalHelpResourcesContent {
   string markdown_content = 165250775;
 }
 
-      
+
 message LDAPConfig {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2118,7 +2118,7 @@ message LDAPConfig {
   string url = 116079;
 }
 
-      
+
 message LDAPConfigTestIssue {
   // Severity of the issue. Error or Warning
   string severity = 369575103;
@@ -2126,7 +2126,7 @@ message LDAPConfigTestIssue {
   string message = 477462531;
 }
 
-      
+
 message LDAPConfigTestResult {
   // Additional details for error cases
   string details = 389430416;
@@ -2143,7 +2143,7 @@ message LDAPConfigTestResult {
   string url = 116079;
 }
 
-      
+
 message LDAPGroupRead {
   // Unique Id
   int64 id = 3355;
@@ -2159,7 +2159,7 @@ message LDAPGroupRead {
   string url = 116079;
 }
 
-      
+
 message LDAPGroupWrite {
   // Unique Id
   int64 id = 3355;
@@ -2175,7 +2175,7 @@ message LDAPGroupWrite {
   string url = 116079;
 }
 
-      
+
 message LDAPUser {
   // Array of user's email addresses and aliases for use in migration
   repeated string all_emails = 283783469;
@@ -2199,7 +2199,7 @@ message LDAPUser {
   string url = 116079;
 }
 
-      
+
 message LDAPUserAttributeRead {
   // Name of User Attribute in LDAP
   string name = 3373707;
@@ -2211,7 +2211,7 @@ message LDAPUserAttributeRead {
   string url = 116079;
 }
 
-      
+
 message LDAPUserAttributeWrite {
   // Name of User Attribute in LDAP
   string name = 3373707;
@@ -2223,7 +2223,7 @@ message LDAPUserAttributeWrite {
   string url = 116079;
 }
 
-      
+
 message LegacyFeature {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2253,14 +2253,14 @@ message LegacyFeature {
   bool has_disabled_on_upgrade = 465129201;
 }
 
-// Name of the command Valid values are: "dashboard", "lookml_dashboard".      
+// Name of the command Valid values are: "dashboard", "lookml_dashboard".
 enum LinkedContentType {
   _LINKED_CONTENT_TYPE_UNSET = 0;
   LINKED_CONTENT_TYPE_DASHBOARD = 278150833;
   LINKED_CONTENT_TYPE_LOOKML_DASHBOARD = 441682131;
 }
 
-      
+
 message Locale {
   // Code for Locale
   string code = 3059181;
@@ -2270,7 +2270,7 @@ message Locale {
   string english_name = 277569798;
 }
 
-      
+
 message LocalizationSettings {
   // Default locale for localization
   string default_locale = 487618182;
@@ -2278,7 +2278,7 @@ message LocalizationSettings {
   string localization_level = 337718167;
 }
 
-      
+
 message Look {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2340,7 +2340,7 @@ message Look {
   int64 view_count = 383588418;
 }
 
-      
+
 message LookBasic {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2354,7 +2354,7 @@ message LookBasic {
   int64 user_id = 147132913;
 }
 
-      
+
 message LookmlModel {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2374,7 +2374,7 @@ message LookmlModel {
   bool unlimited_db_connections = 419500594;
 }
 
-      
+
 message LookmlModelExplore {
   // Fully qualified explore name (model name plus explore name)
   string id = 3355;
@@ -2453,7 +2453,7 @@ message LookmlModelExplore {
   repeated LookmlModelExploreSupportedMeasureType supported_measure_types = 277815363;
 }
 
-      
+
 message LookmlModelExploreAccessFilter {
   // Field to be filtered
   string field = 97427706;
@@ -2461,7 +2461,7 @@ message LookmlModelExploreAccessFilter {
   string user_attribute = 395043786;
 }
 
-      
+
 message LookmlModelExploreAlias {
   // Name
   string name = 3373707;
@@ -2469,7 +2469,7 @@ message LookmlModelExploreAlias {
   string value = 111972721;
 }
 
-      
+
 message LookmlModelExploreAlwaysFilter {
   // Name
   string name = 3373707;
@@ -2477,7 +2477,7 @@ message LookmlModelExploreAlwaysFilter {
   string value = 111972721;
 }
 
-      
+
 message LookmlModelExploreConditionallyFilter {
   // Name
   string name = 3373707;
@@ -2485,7 +2485,7 @@ message LookmlModelExploreConditionallyFilter {
   string value = 111972721;
 }
 
-      
+
 message LookmlModelExploreError {
   // Error Message
   string message = 477462531;
@@ -2497,7 +2497,7 @@ message LookmlModelExploreError {
   bool field_error = 344381761;
 }
 
-      
+
 message LookmlModelExploreField {
   // The appropriate horizontal text alignment the values of this field should be displayed in. Valid values are: "left", "right".
   Align align = 92903173;
@@ -2603,7 +2603,7 @@ message LookmlModelExploreField {
   int64 times_used = 422530629;
 }
 
-      
+
 message LookmlModelExploreFieldEnumeration {
   // Label
   string label = 102727412;
@@ -2611,7 +2611,7 @@ message LookmlModelExploreFieldEnumeration {
   google.protobuf.Any value = 111972721;
 }
 
-      
+
 message LookmlModelExploreFieldMapLayer {
   // URL to the map layer resource.
   string url = 116079;
@@ -2635,7 +2635,7 @@ message LookmlModelExploreFieldMapLayer {
   int64 min_zoom_level = 519890953;
 }
 
-      
+
 message LookmlModelExploreFieldMeasureFilters {
   // Filter field name
   string field = 97427706;
@@ -2643,7 +2643,7 @@ message LookmlModelExploreFieldMeasureFilters {
   string condition = 430655858;
 }
 
-      
+
 message LookmlModelExploreFieldset {
   // Array of dimensions
   repeated LookmlModelExploreField dimensions = 414334925;
@@ -2655,7 +2655,7 @@ message LookmlModelExploreFieldset {
   repeated LookmlModelExploreField parameters = 458736106;
 }
 
-      
+
 message LookmlModelExploreFieldSqlCase {
   // SQL Case label value
   string value = 111972721;
@@ -2663,7 +2663,7 @@ message LookmlModelExploreFieldSqlCase {
   string condition = 430655858;
 }
 
-      
+
 message LookmlModelExploreFieldTimeInterval {
   // The type of time interval this field represents a grouping of. Valid values are: "day", "hour", "minute", "second", "millisecond", "microsecond", "week", "month", "quarter", "year".
   Name name = 3373707;
@@ -2671,7 +2671,7 @@ message LookmlModelExploreFieldTimeInterval {
   int64 count = 94851343;
 }
 
-      
+
 message LookmlModelExploreJoins {
   // Name of this join (and name of the view to join)
   string name = 3373707;
@@ -2701,7 +2701,7 @@ message LookmlModelExploreJoins {
   string view_label = 381619401;
 }
 
-      
+
 message LookmlModelExploreSet {
   // Name
   string name = 3373707;
@@ -2709,13 +2709,13 @@ message LookmlModelExploreSet {
   repeated string value = 111972721;
 }
 
-      
+
 message LookmlModelExploreSupportedMeasureType {
   string dimension_type = 236959117;
   repeated string measure_types = 317184150;
 }
 
-      
+
 message LookmlModelNavExplore {
   // Name of the explore
   string name = 3373707;
@@ -2729,7 +2729,7 @@ message LookmlModelNavExplore {
   string group_label = 273739597;
 }
 
-      
+
 message LookmlTest {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2747,7 +2747,7 @@ message LookmlTest {
   int64 line = 3321844;
 }
 
-      
+
 message LookmlTestResult {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2767,7 +2767,7 @@ message LookmlTestResult {
   bool success = 466792447;
 }
 
-      
+
 message LookModel {
   // Model Id
   string id = 3355;
@@ -2775,7 +2775,7 @@ message LookModel {
   string label = 102727412;
 }
 
-      
+
 message LookWithDashboards {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2839,7 +2839,7 @@ message LookWithDashboards {
   repeated DashboardBase dashboards = 469015063;
 }
 
-      
+
 message LookWithQuery {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2904,7 +2904,7 @@ message LookWithQuery {
   string url = 116079;
 }
 
-      
+
 message Manifest {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2915,7 +2915,7 @@ message Manifest {
   LocalizationSettings localization_settings = 362233467;
 }
 
-      
+
 message MergeFields {
   // Field name to map onto in the merged results
   string field_name = 288329560;
@@ -2923,7 +2923,7 @@ message MergeFields {
   string source_field_name = 375791445;
 }
 
-      
+
 message MergeQuery {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2947,7 +2947,7 @@ message MergeQuery {
   map<string, string> vis_config = 422614288;
 }
 
-      
+
 message MergeQuerySourceQuery {
   // An array defining which fields of the source query are mapped onto fields of the merge query
   repeated MergeFields merge_fields = 483158960;
@@ -2957,7 +2957,7 @@ message MergeQuerySourceQuery {
   int64 query_id = 291663619;
 }
 
-      
+
 message ModelFieldSuggestions {
   // List of suggestions
   repeated string suggestions = 381329988;
@@ -2971,7 +2971,7 @@ message ModelFieldSuggestions {
   bool used_calcite_materialization = 412821088;
 }
 
-      
+
 message ModelSet {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -2986,7 +2986,7 @@ message ModelSet {
   string url = 116079;
 }
 
-      
+
 message ModelsNotValidated {
   // Model name
   string name = 3373707;
@@ -2994,7 +2994,7 @@ message ModelsNotValidated {
   string project_file_id = 523157964;
 }
 
-// The type of time interval this field represents a grouping of. Valid values are: "day", "hour", "minute", "second", "millisecond", "microsecond", "week", "month", "quarter", "year".      
+// The type of time interval this field represents a grouping of. Valid values are: "day", "hour", "minute", "second", "millisecond", "microsecond", "week", "month", "quarter", "year".
 enum Name {
   _NAME_UNSET = 0;
   NAME_DAY = 417621262;
@@ -3009,7 +3009,7 @@ enum Name {
   NAME_YEAR = 244800143;
 }
 
-      
+
 message OauthClientApp {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3031,7 +3031,7 @@ message OauthClientApp {
   repeated UserPublic activated_users = 331044486;
 }
 
-      
+
 message OIDCConfig {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3101,7 +3101,7 @@ message OIDCConfig {
   string url = 116079;
 }
 
-      
+
 message OIDCGroupRead {
   // Unique Id
   int64 id = 3355;
@@ -3115,7 +3115,7 @@ message OIDCGroupRead {
   repeated Role roles = 108695229;
 }
 
-      
+
 message OIDCGroupWrite {
   // Unique Id
   int64 id = 3355;
@@ -3129,7 +3129,7 @@ message OIDCGroupWrite {
   repeated int64 role_ids = 266265745;
 }
 
-      
+
 message OIDCUserAttributeRead {
   // Name of User Attribute in OIDC
   string name = 3373707;
@@ -3139,7 +3139,7 @@ message OIDCUserAttributeRead {
   repeated UserAttribute user_attributes = 435197330;
 }
 
-      
+
 message OIDCUserAttributeWrite {
   // Name of User Attribute in OIDC
   string name = 3373707;
@@ -3149,7 +3149,7 @@ message OIDCUserAttributeWrite {
   repeated int64 user_attribute_ids = 468967351;
 }
 
-      
+
 message PasswordConfig {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3163,7 +3163,7 @@ message PasswordConfig {
   bool require_special = 379956471;
 }
 
-      
+
 message Permission {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3175,7 +3175,7 @@ message Permission {
   string description = 431136513;
 }
 
-      
+
 message PermissionSet {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3190,14 +3190,14 @@ message PermissionSet {
   string url = 116079;
 }
 
-// Type of permission: "view" or "edit" Valid values are: "view", "edit".      
+// Type of permission: "view" or "edit" Valid values are: "view", "edit".
 enum PermissionType {
   _PERMISSION_TYPE_UNSET = 0;
   PERMISSION_TYPE_VIEW = 370880998;
   PERMISSION_TYPE_EDIT = 371392129;
 }
 
-      
+
 message Project {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3241,7 +3241,7 @@ message Project {
   string dependency_status = 50086042;
 }
 
-      
+
 message ProjectError {
   // A stable token that uniquely identifies this class of error, ignoring parameter values. Error message text may vary due to parameters or localization, but error codes do not. For example, a "File not found" error will have the same error code regardless of the filename in question or the user's display language
   string code = 3059181;
@@ -3269,7 +3269,7 @@ message ProjectError {
   string sanitized_message = 454942833;
 }
 
-      
+
 message ProjectFile {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3290,7 +3290,7 @@ message ProjectFile {
   GitStatus git_status = 436663488;
 }
 
-      
+
 message ProjectValidation {
   // A list of project errors
   repeated ProjectError errors = 323658789;
@@ -3302,7 +3302,7 @@ message ProjectValidation {
   float computation_time = 279797358;
 }
 
-      
+
 message ProjectValidationCache {
   // A list of project errors
   repeated ProjectError errors = 323658789;
@@ -3316,7 +3316,7 @@ message ProjectValidationCache {
   bool stale = 109757337;
 }
 
-      
+
 message ProjectWorkspace {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3335,7 +3335,7 @@ message ProjectWorkspace {
   string lookml_type = 315076713;
 }
 
-// The git pull request policy for this project. Valid values are: "off", "links", "recommended", "required".      
+// The git pull request policy for this project. Valid values are: "off", "links", "recommended", "required".
 enum PullRequestMode {
   _PULL_REQUEST_MODE_UNSET = 0;
   PULL_REQUEST_MODE_OFF = 481298627;
@@ -3344,7 +3344,7 @@ enum PullRequestMode {
   PULL_REQUEST_MODE_REQUIRED = 356618951;
 }
 
-      
+
 message Query {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3400,7 +3400,7 @@ message Query {
   bool has_table_calculations = 464917416;
 }
 
-      
+
 message QueryTask {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3441,7 +3441,7 @@ message QueryTask {
   string result_format = 283324265;
 }
 
-      
+
 message RenderTask {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3483,7 +3483,7 @@ message RenderTask {
   int64 width = 113126854;
 }
 
-      
+
 message RepositoryCredential {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3503,7 +3503,7 @@ message RepositoryCredential {
   bool is_configured = 289271523;
 }
 
-// Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "csv", "html", "md", "txt", "xlsx", "gsxml".      
+// Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "csv", "html", "md", "txt", "xlsx", "gsxml".
 enum ResultFormat {
   _RESULT_FORMAT_UNSET = 0;
   RESULT_FORMAT_INLINE_JSON = 466622342;
@@ -3518,7 +3518,7 @@ enum ResultFormat {
   RESULT_FORMAT_GSXML = 520451209;
 }
 
-      
+
 message ResultMakerFilterables {
   // The model this filterable comes from (used for field suggestions).
   string model = 104069929;
@@ -3530,7 +3530,7 @@ message ResultMakerFilterables {
   repeated ResultMakerFilterablesListen listen = 275627150;
 }
 
-      
+
 message ResultMakerFilterablesListen {
   // The name of a dashboard filter to listen to.
   string dashboard_filter_name = 270130631;
@@ -3538,7 +3538,7 @@ message ResultMakerFilterablesListen {
   string field = 97427706;
 }
 
-      
+
 message ResultMakerWithIdVisConfigAndDynamicFields {
   // Unique Id.
   int64 id = 3355;
@@ -3561,7 +3561,7 @@ message ResultMakerWithIdVisConfigAndDynamicFields {
   map<string, string> vis_config = 422614288;
 }
 
-      
+
 message Role {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3581,7 +3581,7 @@ message Role {
   string users_url = 357383864;
 }
 
-      
+
 message RunningQueries {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3623,7 +3623,7 @@ message RunningQueries {
   string sql = 114126;
 }
 
-      
+
 message SamlConfig {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3693,7 +3693,7 @@ message SamlConfig {
   string url = 116079;
 }
 
-      
+
 message SamlGroupRead {
   // Unique Id
   int64 id = 3355;
@@ -3709,7 +3709,7 @@ message SamlGroupRead {
   string url = 116079;
 }
 
-      
+
 message SamlGroupWrite {
   // Unique Id
   int64 id = 3355;
@@ -3725,7 +3725,7 @@ message SamlGroupWrite {
   string url = 116079;
 }
 
-      
+
 message SamlMetadataParseResult {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3737,7 +3737,7 @@ message SamlMetadataParseResult {
   string idp_cert = 164795758;
 }
 
-      
+
 message SamlUserAttributeRead {
   // Name of User Attribute in Saml
   string name = 3373707;
@@ -3749,7 +3749,7 @@ message SamlUserAttributeRead {
   string url = 116079;
 }
 
-      
+
 message SamlUserAttributeWrite {
   // Name of User Attribute in Saml
   string name = 3373707;
@@ -3761,7 +3761,7 @@ message SamlUserAttributeWrite {
   string url = 116079;
 }
 
-      
+
 message ScheduledPlan {
   // Name of this scheduled plan
   string name = 3373707;
@@ -3832,7 +3832,7 @@ message ScheduledPlan {
   map<string, bool> can = 98256;
 }
 
-      
+
 message ScheduledPlanDestination {
   // Unique Id
   int64 id = 3355;
@@ -3858,7 +3858,7 @@ message ScheduledPlanDestination {
   string message = 477462531;
 }
 
-      
+
 message Schema {
   // Schema name
   string name = 3373707;
@@ -3866,7 +3866,7 @@ message Schema {
   bool is_default = 312463349;
 }
 
-      
+
 message SchemaColumn {
   // Schema item name
   string name = 3373707;
@@ -3888,7 +3888,7 @@ message SchemaColumn {
   repeated Snippet snippets = 513815286;
 }
 
-      
+
 message SchemaColumns {
   // Schema item name
   string name = 3373707;
@@ -3900,7 +3900,7 @@ message SchemaColumns {
   repeated SchemaColumn columns = 474860526;
 }
 
-      
+
 message SchemaTable {
   // Schema item name
   string name = 3373707;
@@ -3916,7 +3916,7 @@ message SchemaTable {
   repeated Snippet snippets = 513815286;
 }
 
-      
+
 message SchemaTables {
   // Schema name
   string name = 3373707;
@@ -3926,7 +3926,7 @@ message SchemaTables {
   repeated SchemaTable tables = 440688845;
 }
 
-      
+
 message Session {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3960,7 +3960,7 @@ message Session {
   string url = 116079;
 }
 
-      
+
 message SessionConfig {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -3976,7 +3976,7 @@ message SessionConfig {
   bool track_session_location = 531851756;
 }
 
-      
+
 message Snippet {
   // Name of the snippet
   string name = 3373707;
@@ -3986,7 +3986,7 @@ message Snippet {
   string sql = 114126;
 }
 
-      
+
 message SqlQuery {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4016,7 +4016,7 @@ message SqlQuery {
   int64 result_maker_id = 347633462;
 }
 
-      
+
 message SqlQueryCreate {
   // Name of the db connection on which to run this query
   string connection_name = 365832102;
@@ -4030,13 +4030,13 @@ message SqlQueryCreate {
   map<string, google.protobuf.Any> vis_config = 422614288;
 }
 
-      
+
 message SshPublicKey {
   // The SSH public key created for this instance
   string public_key = 476203234;
 }
 
-      
+
 message SshServer {
   // A unique id used to identify this SSH Server
   string ssh_server_id = 326923896;
@@ -4058,7 +4058,7 @@ message SshServer {
   string status = 446240775;
 }
 
-      
+
 message SshTunnel {
   // Unique ID for the tunnel
   string tunnel_id = 313005097;
@@ -4084,7 +4084,7 @@ message SshTunnel {
   string status = 446240775;
 }
 
-// A list of action types the integration supports. Valid values are: "cell", "query", "dashboard".      
+// A list of action types the integration supports. Valid values are: "cell", "query", "dashboard".
 enum SupportedActionTypes {
   _SUPPORTED_ACTION_TYPES_UNSET = 0;
   SUPPORTED_ACTION_TYPES_CELL = 39602752;
@@ -4092,14 +4092,14 @@ enum SupportedActionTypes {
   SUPPORTED_ACTION_TYPES_DASHBOARD = 431901642;
 }
 
-// A list of all the download mechanisms the integration supports. The order of values is not significant: Looker will select the most appropriate supported download mechanism for a given query. The integration must ensure it can handle any of the mechanisms it claims to support. If unspecified, this defaults to all download setting values. Valid values are: "push", "url".      
+// A list of all the download mechanisms the integration supports. The order of values is not significant: Looker will select the most appropriate supported download mechanism for a given query. The integration must ensure it can handle any of the mechanisms it claims to support. If unspecified, this defaults to all download setting values. Valid values are: "push", "url".
 enum SupportedDownloadSettings {
   _SUPPORTED_DOWNLOAD_SETTINGS_UNSET = 0;
   SUPPORTED_DOWNLOAD_SETTINGS_PUSH = 431825476;
   SUPPORTED_DOWNLOAD_SETTINGS_URL = 505621465;
 }
 
-// A list of data formats the integration supports. If unspecified, the default is all data formats. Valid values are: "txt", "csv", "inline_json", "json", "json_label", "json_detail", "json_detail_lite_stream", "xlsx", "html", "wysiwyg_pdf", "assembled_pdf", "wysiwyg_png", "csv_zip".      
+// A list of data formats the integration supports. If unspecified, the default is all data formats. Valid values are: "txt", "csv", "inline_json", "json", "json_label", "json_detail", "json_detail_lite_stream", "xlsx", "html", "wysiwyg_pdf", "assembled_pdf", "wysiwyg_png", "csv_zip".
 enum SupportedFormats {
   _SUPPORTED_FORMATS_UNSET = 0;
   SUPPORTED_FORMATS_TXT = 273431079;
@@ -4117,21 +4117,21 @@ enum SupportedFormats {
   SUPPORTED_FORMATS_CSV_ZIP = 451048029;
 }
 
-// A list of formatting options the integration supports. If unspecified, defaults to all formats. Valid values are: "formatted", "unformatted".      
+// A list of formatting options the integration supports. If unspecified, defaults to all formats. Valid values are: "formatted", "unformatted".
 enum SupportedFormattings {
   _SUPPORTED_FORMATTINGS_UNSET = 0;
   SUPPORTED_FORMATTINGS_FORMATTED = 528102542;
   SUPPORTED_FORMATTINGS_UNFORMATTED = 272716527;
 }
 
-// A list of visualization formatting options the integration supports. If unspecified, defaults to all formats. Valid values are: "apply", "noapply".      
+// A list of visualization formatting options the integration supports. If unspecified, defaults to all formats. Valid values are: "apply", "noapply".
 enum SupportedVisualizationFormattings {
   _SUPPORTED_VISUALIZATION_FORMATTINGS_UNSET = 0;
   SUPPORTED_VISUALIZATION_FORMATTINGS_APPLY = 402869043;
   SUPPORTED_VISUALIZATION_FORMATTINGS_NOAPPLY = 464866640;
 }
 
-      
+
 message Theme {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4146,7 +4146,7 @@ message Theme {
   ThemeSettings settings = 358657800;
 }
 
-      
+
 message ThemeSettings {
   // Default background color
   string background_color = 509195076;
@@ -4184,7 +4184,7 @@ message ThemeSettings {
   bool tile_shadow = 410871563;
 }
 
-      
+
 message Timezone {
   // Timezone
   string value = 111972721;
@@ -4194,7 +4194,7 @@ message Timezone {
   string group = 98629247;
 }
 
-      
+
 message UpdateCommand {
   // Name of the command
   string name = 3373707;
@@ -4202,7 +4202,7 @@ message UpdateCommand {
   string description = 431136513;
 }
 
-      
+
 message UpdateFolder {
   // Unique Name
   string name = 3373707;
@@ -4210,7 +4210,7 @@ message UpdateFolder {
   string parent_id = 517581876;
 }
 
-      
+
 message User {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4277,7 +4277,7 @@ message User {
   string url = 116079;
 }
 
-      
+
 message UserAttribute {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4305,7 +4305,7 @@ message UserAttribute {
   string hidden_value_domain_whitelist = 389149836;
 }
 
-// An array of user attribute types that are allowed to be used in filters on this field. Valid values are: "advanced_filter_string", "advanced_filter_number", "advanced_filter_datetime", "string", "number", "datetime", "relative_url", "yesno", "zipcode".      
+// An array of user attribute types that are allowed to be used in filters on this field. Valid values are: "advanced_filter_string", "advanced_filter_number", "advanced_filter_datetime", "string", "number", "datetime", "relative_url", "yesno", "zipcode".
 enum UserAttributeFilterTypes {
   _USER_ATTRIBUTE_FILTER_TYPES_UNSET = 0;
   USER_ATTRIBUTE_FILTER_TYPES_ADVANCED_FILTER_STRING = 38119857;
@@ -4319,7 +4319,7 @@ enum UserAttributeFilterTypes {
   USER_ATTRIBUTE_FILTER_TYPES_ZIPCODE = 356288364;
 }
 
-      
+
 message UserAttributeGroupValue {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4337,7 +4337,7 @@ message UserAttributeGroupValue {
   string value = 111972721;
 }
 
-      
+
 message UserAttributeWithValue {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4363,7 +4363,7 @@ message UserAttributeWithValue {
   string hidden_value_domain_whitelist = 389149836;
 }
 
-      
+
 message UserLoginLockout {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4387,7 +4387,7 @@ message UserLoginLockout {
   google.protobuf.Timestamp lockout_at = 423752683;
 }
 
-      
+
 message UserPublic {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4405,7 +4405,7 @@ message UserPublic {
   string url = 116079;
 }
 
-      
+
 message ValidationError {
   // Error details
   string message = 477462531;
@@ -4415,7 +4415,7 @@ message ValidationError {
   string documentation_url = 282180250;
 }
 
-      
+
 message ValidationErrorDetail {
   // Field with error
   string field = 97427706;
@@ -4427,7 +4427,7 @@ message ValidationErrorDetail {
   string documentation_url = 282180250;
 }
 
-// The name of the starting day of the week. Valid values are: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".      
+// The name of the starting day of the week. Valid values are: "monday", "tuesday", "wednesday", "thursday", "friday", "saturday", "sunday".
 enum WeekStartDay {
   _WEEK_START_DAY_UNSET = 0;
   WEEK_START_DAY_MONDAY = 404658929;
@@ -4439,7 +4439,7 @@ enum WeekStartDay {
   WEEK_START_DAY_SUNDAY = 360329921;
 }
 
-      
+
 message WelcomeEmailTest {
   // The content that would be sent in the body of a custom welcome email
   string content = 475765308;
@@ -4449,7 +4449,7 @@ message WelcomeEmailTest {
   string header = 305317724;
 }
 
-      
+
 message WhitelabelConfiguration {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4487,7 +4487,7 @@ message WhitelabelConfiguration {
   bool folders_mentions = 269755200;
 }
 
-      
+
 message Workspace {
   // Operations the current user is able to perform on this object
   map<string, bool> can = 98256;
@@ -4498,14 +4498,14 @@ message Workspace {
 }
 
 // Dynamically generated writeable type for ApiSession removes properties:
-  // can, sudo_user_id      
+  // can, sudo_user_id
 message WriteApiSession {
   // The id of active workspace for this session
   string workspace_id = 394620993;
 }
 
 // Dynamically generated writeable type for BackupConfiguration removes properties:
-  // can, url      
+  // can, url
 message WriteBackupConfiguration {
   // Type of backup: looker-s3 or custom-s3
   string type = 3575610;
@@ -4520,7 +4520,7 @@ message WriteBackupConfiguration {
 }
 
 // Dynamically generated writeable type for Board removes properties:
-  // can, content_metadata_id, created_at, board_sections, id, updated_at, user_id, primary_homepage      
+  // can, content_metadata_id, created_at, board_sections, id, updated_at, user_id, primary_homepage
 message WriteBoard {
   // Date of board deletion
   google.protobuf.Timestamp deleted_at = 441264006;
@@ -4533,7 +4533,7 @@ message WriteBoard {
 }
 
 // Dynamically generated writeable type for BoardItem removes properties:
-  // can, content_created_by, content_favorite_id, content_metadata_id, content_updated_at, description, favorite_count, id, location, title, url, view_count      
+  // can, content_created_by, content_favorite_id, content_metadata_id, content_updated_at, description, favorite_count, id, location, title, url, view_count
 message WriteBoardItem {
   // Dashboard to base this item on
   int64 dashboard_id = 496187565;
@@ -4548,7 +4548,7 @@ message WriteBoardItem {
 }
 
 // Dynamically generated writeable type for BoardSection removes properties:
-  // can, created_at, board_items, id, updated_at      
+  // can, created_at, board_items, id, updated_at
 message WriteBoardSection {
   // Time at which this section was deleted.
   google.protobuf.Timestamp deleted_at = 441264006;
@@ -4563,7 +4563,7 @@ message WriteBoardSection {
 }
 
 // Dynamically generated writeable type for ColorCollection removes properties:
-  // id      
+  // id
 message WriteColorCollection {
   // Label of color collection
   string label = 102727412;
@@ -4576,7 +4576,7 @@ message WriteColorCollection {
 }
 
 // Dynamically generated writeable type for Command removes properties:
-  // id, author_id      
+  // id, author_id
 message WriteCommand {
   // Name of the command
   string name = 3373707;
@@ -4589,7 +4589,7 @@ message WriteCommand {
 }
 
 // Dynamically generated writeable type for ContentFavorite removes properties:
-  // id, look_id, dashboard_id, board_id      
+  // id, look_id, dashboard_id, board_id
 message WriteContentFavorite {
   // User Id which owns this ContentFavorite
   int64 user_id = 147132913;
@@ -4600,14 +4600,14 @@ message WriteContentFavorite {
 }
 
 // Dynamically generated writeable type for ContentMeta removes properties:
-  // can, id, name, parent_id, dashboard_id, look_id, folder_id, content_type, inheriting_id, slug      
+  // can, id, name, parent_id, dashboard_id, look_id, folder_id, content_type, inheriting_id, slug
 message WriteContentMeta {
   // Whether content inherits its access levels from parent
   bool inherits = 226856664;
 }
 
 // Dynamically generated writeable type for CreateDashboardFilter removes properties:
-  // id, field      
+  // id, field
 message WriteCreateDashboardFilter {
   // Id of Dashboard
   string dashboard_id = 496187565;
@@ -4638,7 +4638,7 @@ message WriteCreateDashboardFilter {
 }
 
 // Dynamically generated writeable type for CreateQueryTask removes properties:
-  // can      
+  // can
 message WriteCreateQueryTask {
   // Id of query to run
   int64 query_id = 291663619;
@@ -4655,7 +4655,7 @@ message WriteCreateQueryTask {
 }
 
 // Dynamically generated writeable type for CredentialsEmail removes properties:
-  // can, created_at, is_disabled, logged_in_at, password_reset_url, type, url, user_url      
+  // can, created_at, is_disabled, logged_in_at, password_reset_url, type, url, user_url
 message WriteCredentialsEmail {
   // EMail address used for user login
   string email = 96619420;
@@ -4664,7 +4664,7 @@ message WriteCredentialsEmail {
 }
 
 // Dynamically generated writeable type for CustomWelcomeEmail removes properties:
-  // can      
+  // can
 message WriteCustomWelcomeEmail {
   // If true, custom email content will replace the default body of welcome emails
   bool enabled = 402398511;
@@ -4677,7 +4677,7 @@ message WriteCustomWelcomeEmail {
 }
 
 // Dynamically generated writeable type for Dashboard removes properties:
-  // can, content_favorite_id, content_metadata_id, id, model, readonly, refresh_interval_to_i, user_id, created_at, dashboard_elements, dashboard_filters, dashboard_layouts, deleted_at, deleter_id, edit_uri, favorite_count, last_accessed_at, last_viewed_at, view_count      
+  // can, content_favorite_id, content_metadata_id, id, model, readonly, refresh_interval_to_i, user_id, created_at, dashboard_elements, dashboard_filters, dashboard_layouts, deleted_at, deleter_id, edit_uri, favorite_count, last_accessed_at, last_viewed_at, view_count
 message WriteDashboard {
   // Description
   string description = 431136513;
@@ -4722,13 +4722,13 @@ message WriteDashboard {
 }
 
 // Dynamically generated writeable type for DashboardBase removes properties:
-  // can, content_favorite_id, content_metadata_id, description, hidden, id, model, query_timezone, readonly, refresh_interval, refresh_interval_to_i, title, user_id      
+  // can, content_favorite_id, content_metadata_id, description, hidden, id, model, query_timezone, readonly, refresh_interval, refresh_interval_to_i, title, user_id
 message WriteDashboardBase {
   WriteFolderBase folder = 317241572;
 }
 
 // Dynamically generated writeable type for DashboardElement removes properties:
-  // can, body_text_as_html, edit_uri, id, lookml_link_id, note_text_as_html, refresh_interval_to_i, alert_count, title_text_as_html, subtitle_text_as_html      
+  // can, body_text_as_html, edit_uri, id, lookml_link_id, note_text_as_html, refresh_interval_to_i, alert_count, title_text_as_html, subtitle_text_as_html
 message WriteDashboardElement {
   // Text tile body text
   string body_text = 313253482;
@@ -4766,7 +4766,7 @@ message WriteDashboardElement {
 }
 
 // Dynamically generated writeable type for DashboardFilter removes properties:
-  // can, id, dashboard_id, field      
+  // can, id, dashboard_id, field
 message WriteDashboardFilter {
   // Name of filter
   string name = 3373707;
@@ -4795,7 +4795,7 @@ message WriteDashboardFilter {
 }
 
 // Dynamically generated writeable type for DashboardLayout removes properties:
-  // can, id, deleted, dashboard_title, dashboard_layout_components      
+  // can, id, deleted, dashboard_title, dashboard_layout_components
 message WriteDashboardLayout {
   // Id of Dashboard
   string dashboard_id = 496187565;
@@ -4810,7 +4810,7 @@ message WriteDashboardLayout {
 }
 
 // Dynamically generated writeable type for DashboardLayoutComponent removes properties:
-  // can, id, deleted, element_title, element_title_hidden, vis_type      
+  // can, id, deleted, element_title, element_title_hidden, vis_type
 message WriteDashboardLayoutComponent {
   // Id of Dashboard Layout
   string dashboard_layout_id = 343841433;
@@ -4827,7 +4827,7 @@ message WriteDashboardLayoutComponent {
 }
 
 // Dynamically generated writeable type for Datagroup removes properties:
-  // can, created_at, id, model_name, name, trigger_check_at, trigger_error, trigger_value      
+  // can, created_at, id, model_name, name, trigger_check_at, trigger_error, trigger_value
 message WriteDatagroup {
   // UNIX timestamp before which cache entries are considered stale. Cannot be in the future.
   int64 stale_before = 349731513;
@@ -4836,7 +4836,7 @@ message WriteDatagroup {
 }
 
 // Dynamically generated writeable type for DBConnection removes properties:
-  // can, dialect, snippets, pdts_enabled, uses_oauth, created_at, user_id, example, last_regen_at, last_reap_at, managed      
+  // can, dialect, snippets, pdts_enabled, uses_oauth, created_at, user_id, example, last_regen_at, last_reap_at, managed
 message WriteDBConnection {
   // Name of the connection. Also used as the unique identifier
   string name = 3373707;
@@ -4898,7 +4898,7 @@ message WriteDBConnection {
 }
 
 // Dynamically generated writeable type for DBConnectionOverride removes properties:
-  // has_password      
+  // has_password
 message WriteDBConnectionOverride {
   // Context in which to override (`pdt` is the only allowed value)
   string context = 475765463;
@@ -4925,7 +4925,7 @@ message WriteDBConnectionOverride {
 }
 
 // Dynamically generated writeable type for ExternalOauthApplication removes properties:
-  // can, id, created_at      
+  // can, id, created_at
 message WriteExternalOauthApplication {
   // The name of this application.  For Snowflake connections, this should be the name of the host database.
   string name = 3373707;
@@ -4938,7 +4938,7 @@ message WriteExternalOauthApplication {
 }
 
 // Dynamically generated writeable type for FolderBase removes properties:
-  // id, content_metadata_id, created_at, creator_id, child_count, external_id, is_embed, is_embed_shared_root, is_embed_users_root, is_personal, is_personal_descendant, is_shared_root, is_users_root, can      
+  // id, content_metadata_id, created_at, creator_id, child_count, external_id, is_embed, is_embed_shared_root, is_embed_users_root, is_personal, is_personal_descendant, is_shared_root, is_users_root, can
 message WriteFolderBase {
   // Unique Name
   string name = 3373707;
@@ -4947,7 +4947,7 @@ message WriteFolderBase {
 }
 
 // Dynamically generated writeable type for GitBranch removes properties:
-  // can, remote, remote_name, error, message, owner_name, readonly, personal, is_local, is_remote, is_production, ahead_count, behind_count, commit_at, remote_ref      
+  // can, remote, remote_name, error, message, owner_name, readonly, personal, is_local, is_remote, is_production, ahead_count, behind_count, commit_at, remote_ref
 message WriteGitBranch {
   // The short name on the local. Updating `name` results in `git checkout <new_name>`
   string name = 3373707;
@@ -4956,7 +4956,7 @@ message WriteGitBranch {
 }
 
 // Dynamically generated writeable type for Group removes properties:
-  // can, contains_current_user, external_group_id, externally_managed, id, include_by_default, user_count      
+  // can, contains_current_user, external_group_id, externally_managed, id, include_by_default, user_count
 message WriteGroup {
   // Group can be used in content access controls
   bool can_add_to_content_metadata = 97036652;
@@ -4965,7 +4965,7 @@ message WriteGroup {
 }
 
 // Dynamically generated writeable type for Integration removes properties:
-  // can, id, integration_hub_id, label, description, supported_formats, supported_action_types, supported_formattings, supported_visualization_formattings, supported_download_settings, icon_url, uses_oauth, required_fields, delegate_oauth      
+  // can, id, integration_hub_id, label, description, supported_formats, supported_action_types, supported_formattings, supported_visualization_formattings, supported_download_settings, icon_url, uses_oauth, required_fields, delegate_oauth
 message WriteIntegration {
   // Whether the integration is available to users.
   bool enabled = 402398511;
@@ -4976,7 +4976,7 @@ message WriteIntegration {
 }
 
 // Dynamically generated writeable type for IntegrationHub removes properties:
-  // can, id, label, official, fetch_error_message, has_authorization_token, legal_agreement_signed, legal_agreement_required, legal_agreement_text      
+  // can, id, label, official, fetch_error_message, has_authorization_token, legal_agreement_signed, legal_agreement_required, legal_agreement_text
 message WriteIntegrationHub {
   // URL of the hub.
   string url = 116079;
@@ -4985,14 +4985,14 @@ message WriteIntegrationHub {
 }
 
 // Dynamically generated writeable type for InternalHelpResources removes properties:
-  // can      
+  // can
 message WriteInternalHelpResources {
   // If true and internal help resources content is not blank then the link for internal help resources will be shown in the help menu and the content displayed within Looker
   bool enabled = 402398511;
 }
 
 // Dynamically generated writeable type for InternalHelpResourcesContent removes properties:
-  // can      
+  // can
 message WriteInternalHelpResourcesContent {
   // Text to display in the help menu item which will display the internal help resources
   string organization_name = 425834740;
@@ -5001,7 +5001,7 @@ message WriteInternalHelpResourcesContent {
 }
 
 // Dynamically generated writeable type for LDAPConfig removes properties:
-  // can, default_new_user_groups, default_new_user_roles, groups, has_auth_password, modified_at, modified_by, user_attributes, url      
+  // can, default_new_user_groups, default_new_user_roles, groups, has_auth_password, modified_at, modified_by, user_attributes, url
 message WriteLDAPConfig {
   // Allow alternate email-based login via '/login/email' for admins and for specified users with the 'login_special_email' permission. This option is useful as a fallback during ldap setup, if ldap config problems occur later, or if you need to support some users who are not in your ldap directory. Looker email/password logins are always disabled for regular users when ldap is enabled.
   bool alternate_email_login_allowed = 332315627;
@@ -5074,21 +5074,21 @@ message WriteLDAPConfig {
 }
 
 // Dynamically generated writeable type for LegacyFeature removes properties:
-  // can, id, name, description, enabled, disallowed_as_of_version, disable_on_upgrade_to_version, end_of_life_version, documentation_url, approximate_disable_date, approximate_end_of_life_date, has_disabled_on_upgrade      
+  // can, id, name, description, enabled, disallowed_as_of_version, disable_on_upgrade_to_version, end_of_life_version, documentation_url, approximate_disable_date, approximate_end_of_life_date, has_disabled_on_upgrade
 message WriteLegacyFeature {
   // Whether this feature has been enabled by a user
   bool enabled_locally = 472119345;
 }
 
 // Dynamically generated writeable type for LookBasic removes properties:
-  // can, content_metadata_id, id, title      
+  // can, content_metadata_id, id, title
 message WriteLookBasic {
   // User Id
   int64 user_id = 147132913;
 }
 
 // Dynamically generated writeable type for LookmlModel removes properties:
-  // can, explores, has_content, label      
+  // can, explores, has_content, label
 message WriteLookmlModel {
   // Array of names of connections this model is allowed to use
   repeated string allowed_db_connection_names = 482839655;
@@ -5101,7 +5101,7 @@ message WriteLookmlModel {
 }
 
 // Dynamically generated writeable type for LookWithQuery removes properties:
-  // can, content_metadata_id, id, content_favorite_id, created_at, deleted_at, deleter_id, embed_url, excel_file_url, favorite_count, google_spreadsheet_formula, image_embed_url, last_accessed_at, last_updater_id, last_viewed_at, model, public_slug, public_url, short_url, updated_at, view_count, url      
+  // can, content_metadata_id, id, content_favorite_id, created_at, deleted_at, deleter_id, embed_url, excel_file_url, favorite_count, google_spreadsheet_formula, image_embed_url, last_accessed_at, last_updater_id, last_viewed_at, model, public_slug, public_url, short_url, updated_at, view_count, url
 message WriteLookWithQuery {
   // Look Title
   string title = 110371416;
@@ -5124,7 +5124,7 @@ message WriteLookWithQuery {
 }
 
 // Dynamically generated writeable type for MergeQuery removes properties:
-  // can, id, result_maker_id      
+  // can, id, result_maker_id
 message WriteMergeQuery {
   // Column Limit
   string column_limit = 114546286;
@@ -5143,7 +5143,7 @@ message WriteMergeQuery {
 }
 
 // Dynamically generated writeable type for ModelSet removes properties:
-  // can, all_access, built_in, id, url      
+  // can, all_access, built_in, id, url
 message WriteModelSet {
   repeated string models = 534399691;
   // Name of ModelSet
@@ -5151,7 +5151,7 @@ message WriteModelSet {
 }
 
 // Dynamically generated writeable type for OauthClientApp removes properties:
-  // can, client_guid, tokens_invalid_before, activated_users      
+  // can, client_guid, tokens_invalid_before, activated_users
 message WriteOauthClientApp {
   // The uri with which this application will receive an auth code by browser redirect.
   string redirect_uri = 475615044;
@@ -5166,7 +5166,7 @@ message WriteOauthClientApp {
 }
 
 // Dynamically generated writeable type for OIDCConfig removes properties:
-  // can, default_new_user_groups, default_new_user_roles, groups, modified_at, modified_by, test_slug, user_attributes, url      
+  // can, default_new_user_groups, default_new_user_roles, groups, modified_at, modified_by, test_slug, user_attributes, url
 message WriteOIDCConfig {
   // Allow alternate email-based login via '/login/email' for admins and for specified users with the 'login_special_email' permission. This option is useful as a fallback during ldap setup, if ldap config problems occur later, or if you need to support some users who are not in your ldap directory. Looker email/password logins are always disabled for regular users when ldap is enabled.
   bool alternate_email_login_allowed = 332315627;
@@ -5219,7 +5219,7 @@ message WriteOIDCConfig {
 }
 
 // Dynamically generated writeable type for PasswordConfig removes properties:
-  // can      
+  // can
 message WritePasswordConfig {
   // Minimum number of characters required for a new password.  Must be between 7 and 100
   int64 min_length = 355788614;
@@ -5232,7 +5232,7 @@ message WritePasswordConfig {
 }
 
 // Dynamically generated writeable type for PermissionSet removes properties:
-  // can, all_access, built_in, id, url      
+  // can, all_access, built_in, id, url
 message WritePermissionSet {
   // Name of PermissionSet
   string name = 3373707;
@@ -5240,7 +5240,7 @@ message WritePermissionSet {
 }
 
 // Dynamically generated writeable type for Project removes properties:
-  // can, id, uses_git, is_example      
+  // can, id, uses_git, is_example
 message WriteProject {
   // Project display name
   string name = 3373707;
@@ -5277,7 +5277,7 @@ message WriteProject {
 }
 
 // Dynamically generated writeable type for Query removes properties:
-  // can, id, slug, share_url, expanded_share_url, url, has_table_calculations      
+  // can, id, slug, share_url, expanded_share_url, url, has_table_calculations
 message WriteQuery {
   // Model
   string model = 104069929;
@@ -5320,7 +5320,7 @@ message WriteQuery {
 }
 
 // Dynamically generated writeable type for RepositoryCredential removes properties:
-  // can, id, root_project_id, remote_url, is_configured      
+  // can, id, root_project_id, remote_url, is_configured
 message WriteRepositoryCredential {
   // Git username for HTTPS authentication.
   string git_username = 393319598;
@@ -5331,13 +5331,13 @@ message WriteRepositoryCredential {
 }
 
 // Dynamically generated writeable type for ResultMakerWithIdVisConfigAndDynamicFields removes properties:
-  // id, dynamic_fields, filterables, sorts, merge_result_id, total, query_id, sql_query_id, vis_config      
+  // id, dynamic_fields, filterables, sorts, merge_result_id, total, query_id, sql_query_id, vis_config
 message WriteResultMakerWithIdVisConfigAndDynamicFields {
   WriteQuery query = 107944136;
 }
 
 // Dynamically generated writeable type for Role removes properties:
-  // can, id, url, users_url      
+  // can, id, url, users_url
 message WriteRole {
   // Name of Role
   string name = 3373707;
@@ -5350,7 +5350,7 @@ message WriteRole {
 }
 
 // Dynamically generated writeable type for SamlConfig removes properties:
-  // can, test_slug, modified_at, modified_by, default_new_user_roles, default_new_user_groups, groups, user_attributes, url      
+  // can, test_slug, modified_at, modified_by, default_new_user_roles, default_new_user_groups, groups, user_attributes, url
 message WriteSamlConfig {
   // Enable/Disable Saml authentication for the server
   bool enabled = 402398511;
@@ -5403,7 +5403,7 @@ message WriteSamlConfig {
 }
 
 // Dynamically generated writeable type for ScheduledPlan removes properties:
-  // id, created_at, updated_at, title, user, next_run_at, last_run_at, can      
+  // id, created_at, updated_at, title, user, next_run_at, last_run_at, can
 message WriteScheduledPlan {
   // Name of this scheduled plan
   string name = 3373707;
@@ -5460,7 +5460,7 @@ message WriteScheduledPlan {
 }
 
 // Dynamically generated writeable type for SessionConfig removes properties:
-  // can      
+  // can
 message WriteSessionConfig {
   // Allow users to have persistent sessions when they login
   bool allow_persistent_sessions = 319921999;
@@ -5475,7 +5475,7 @@ message WriteSessionConfig {
 }
 
 // Dynamically generated writeable type for SshServer removes properties:
-  // ssh_server_id, finger_print, sha_finger_print, public_key, status      
+  // ssh_server_id, finger_print, sha_finger_print, public_key, status
 message WriteSshServer {
   // The name to identify this SSH Server
   string ssh_server_name = 432527764;
@@ -5488,7 +5488,7 @@ message WriteSshServer {
 }
 
 // Dynamically generated writeable type for SshTunnel removes properties:
-  // tunnel_id, ssh_server_name, ssh_server_host, ssh_server_port, ssh_server_user, last_attempt, local_host_port, status      
+  // tunnel_id, ssh_server_name, ssh_server_host, ssh_server_port, ssh_server_user, last_attempt, local_host_port, status
 message WriteSshTunnel {
   // SSH Server ID
   string ssh_server_id = 326923896;
@@ -5499,7 +5499,7 @@ message WriteSshTunnel {
 }
 
 // Dynamically generated writeable type for Theme removes properties:
-  // can, id      
+  // can, id
 message WriteTheme {
   // Timestamp for when this theme becomes active. Null=always
   google.protobuf.Timestamp begin_at = 372355810;
@@ -5511,7 +5511,7 @@ message WriteTheme {
 }
 
 // Dynamically generated writeable type for User removes properties:
-  // can, avatar_url, avatar_url_without_sizing, credentials_api3, credentials_embed, credentials_google, credentials_ldap, credentials_looker_openid, credentials_oidc, credentials_saml, credentials_totp, display_name, email, embed_group_space_id, group_ids, id, looker_versions, personal_folder_id, presumed_looker_employee, role_ids, sessions, verified_looker_employee, roles_externally_managed, allow_direct_roles, allow_normal_group_membership, allow_roles_from_normal_groups, url      
+  // can, avatar_url, avatar_url_without_sizing, credentials_api3, credentials_embed, credentials_google, credentials_ldap, credentials_looker_openid, credentials_oidc, credentials_saml, credentials_totp, display_name, email, embed_group_space_id, group_ids, id, looker_versions, personal_folder_id, presumed_looker_employee, role_ids, sessions, verified_looker_employee, roles_externally_managed, allow_direct_roles, allow_normal_group_membership, allow_roles_from_normal_groups, url
 message WriteUser {
   WriteCredentialsEmail credentials_email = 395554227;
   // First name
@@ -5531,7 +5531,7 @@ message WriteUser {
 }
 
 // Dynamically generated writeable type for UserAttribute removes properties:
-  // can, id, is_system, is_permanent      
+  // can, id, is_system, is_permanent
 message WriteUserAttribute {
   // Name of user attribute
   string name = 3373707;
@@ -5552,14 +5552,14 @@ message WriteUserAttribute {
 }
 
 // Dynamically generated writeable type for UserAttributeWithValue removes properties:
-  // can, name, label, rank, user_id, user_can_edit, value_is_hidden, user_attribute_id, source, hidden_value_domain_whitelist      
+  // can, name, label, rank, user_id, user_can_edit, value_is_hidden, user_attribute_id, source, hidden_value_domain_whitelist
 message WriteUserAttributeWithValue {
   // Value of attribute for user
   string value = 111972721;
 }
 
 // Dynamically generated writeable type for WhitelabelConfiguration removes properties:
-  // can, id, logo_url, favicon_url      
+  // can, id, logo_url, favicon_url
 message WriteWhitelabelConfiguration {
   // Customer logo image. Expected base64 encoded data (write-only)
   string logo_file = 390205724;
@@ -5593,174 +5593,179 @@ message LoginRequest {
   // client_id part of API3 Key.
   string client_id = 476022396;
   // client_secret part of API3 Key.
-  string client_secret = 278906578;    
-}        
+  string client_secret = 278906578;
+}
 
 message LoginResponse {
   // Access token with metadata.
   AccessToken result = 1;
-}        
+}
 
 message LoginUserRequest {
   // Id of user.
   int64 user_id = 147132913;
   // When true (default), API calls using the returned access_token are attributed to the admin user who created the access_token. When false, API activity is attributed to the user the access_token runs as. False requires a looker license.
-  bool associative = 87499439;    
-}        
+  bool associative = 87499439;
+}
 
 message LoginUserResponse {
   // Access token with metadata.
   AccessToken result = 1;
-}        
+}
 
 message LogoutRequest {
-      
-}        
+  
+}
 
 message LogoutResponse {
   // Logged out successfully.
   string result = 1;
-}        
+}
 
 message CreateSsoEmbedUrlRequest {
-  EmbedSsoParams body = 3029410;    
-}        
+  EmbedSsoParams body = 3029410;
+}
 
 message CreateSsoEmbedUrlResponse {
   // Signed SSO URL
   EmbedUrlResponse result = 1;
-}        
+}
 
 message CreateEmbedUrlAsMeRequest {
-  EmbedParams body = 3029410;    
-}        
+  EmbedParams body = 3029410;
+}
 
 message CreateEmbedUrlAsMeResponse {
   // Embed URL
   EmbedUrlResponse result = 1;
-}        
+}
 
 message LdapConfigRequest {
-      
-}        
+  
+}
 
 message LdapConfigResponse {
   // LDAP Configuration.
   LDAPConfig result = 1;
-}        
+}
 
 message UpdateLdapConfigRequest {
-  LDAPConfig body = 3029410;    
-}        
+  LDAPConfig body = 3029410;
+}
 
 message UpdateLdapConfigResponse {
   // New state for LDAP Configuration.
   LDAPConfig result = 1;
-}        
+}
 
 message TestLdapConfigConnectionRequest {
-  LDAPConfig body = 3029410;    
-}        
+  LDAPConfig body = 3029410;
+}
 
 message TestLdapConfigConnectionResponse {
   // Result info.
   LDAPConfigTestResult result = 1;
-}        
+}
 
 message TestLdapConfigAuthRequest {
-  LDAPConfig body = 3029410;    
-}        
+  LDAPConfig body = 3029410;
+}
 
 message TestLdapConfigAuthResponse {
   // Result info.
   LDAPConfigTestResult result = 1;
-}        
+}
 
 message TestLdapConfigUserInfoRequest {
-  LDAPConfig body = 3029410;    
-}        
+  LDAPConfig body = 3029410;
+}
 
 message TestLdapConfigUserInfoResponse {
   // Result info.
   LDAPConfigTestResult result = 1;
-}        
+}
 
 message TestLdapConfigUserAuthRequest {
-  LDAPConfig body = 3029410;    
-}        
+  LDAPConfig body = 3029410;
+}
 
 message TestLdapConfigUserAuthResponse {
   // Result info.
   LDAPConfigTestResult result = 1;
-}        
+}
 
 message AllOauthClientAppsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllOauthClientAppsResponse {
   // OAuth Client App
   repeated OauthClientApp result = 1;
-}        
+}
+
+message AllOauthClientAppsStreamResponse {
+  // OAuth Client App
+  OauthClientApp result = 1;
+}
 
 message OauthClientAppRequest {
   // The unique id of this application
   string client_guid = 174062979;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message OauthClientAppResponse {
   // OAuth Client App
   OauthClientApp result = 1;
-}        
+}
 
 message RegisterOauthClientAppRequest {
   // The unique id of this application
   string client_guid = 174062979;
   OauthClientApp body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message RegisterOauthClientAppResponse {
   // OAuth Client App
   OauthClientApp result = 1;
-}        
+}
 
 message UpdateOauthClientAppRequest {
   // The unique id of this application
   string client_guid = 174062979;
   OauthClientApp body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateOauthClientAppResponse {
   // OAuth Client App
   OauthClientApp result = 1;
-}        
+}
 
 message DeleteOauthClientAppRequest {
   // The unique id of this application
-  string client_guid = 174062979;    
-}        
+  string client_guid = 174062979;
+}
 
 message DeleteOauthClientAppResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message InvalidateTokensRequest {
   // The unique id of the application
-  string client_guid = 174062979;    
-}        
+  string client_guid = 174062979;
+}
 
 message InvalidateTokensResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message ActivateAppUserRequest {
   // The unique id of this application
@@ -5768,12 +5773,12 @@ message ActivateAppUserRequest {
   // The id of the user to enable use of this app
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ActivateAppUserResponse {
   
-}        
+}
 
 message DeactivateAppUserRequest {
   // The unique id of this application
@@ -5781,180 +5786,185 @@ message DeactivateAppUserRequest {
   // The id of the user to enable use of this app
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DeactivateAppUserResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message OidcConfigRequest {
-      
-}        
+  
+}
 
 message OidcConfigResponse {
   // OIDC Configuration.
   OIDCConfig result = 1;
-}        
+}
 
 message UpdateOidcConfigRequest {
-  OIDCConfig body = 3029410;    
-}        
+  OIDCConfig body = 3029410;
+}
 
 message UpdateOidcConfigResponse {
   // New state for OIDC Configuration.
   OIDCConfig result = 1;
-}        
+}
 
 message OidcTestConfigRequest {
   // Slug of test config
-  string test_slug = 295036274;    
-}        
+  string test_slug = 295036274;
+}
 
 message OidcTestConfigResponse {
   // OIDC test config.
   OIDCConfig result = 1;
-}        
+}
 
 message DeleteOidcTestConfigRequest {
   // Slug of test config
-  string test_slug = 295036274;    
-}        
+  string test_slug = 295036274;
+}
 
 message DeleteOidcTestConfigResponse {
   // Test config succssfully deleted.
   string result = 1;
-}        
+}
 
 message CreateOidcTestConfigRequest {
-  OIDCConfig body = 3029410;    
-}        
+  OIDCConfig body = 3029410;
+}
 
 message CreateOidcTestConfigResponse {
   // OIDC test config
   OIDCConfig result = 1;
-}        
+}
 
 message PasswordConfigRequest {
-      
-}        
+  
+}
 
 message PasswordConfigResponse {
   // Password Config
   PasswordConfig result = 1;
-}        
+}
 
 message UpdatePasswordConfigRequest {
-  PasswordConfig body = 3029410;    
-}        
+  PasswordConfig body = 3029410;
+}
 
 message UpdatePasswordConfigResponse {
   // Password Config
   PasswordConfig result = 1;
-}        
+}
 
 message ForcePasswordResetAtNextLoginForAllUsersRequest {
-      
-}        
+  
+}
 
 message ForcePasswordResetAtNextLoginForAllUsersResponse {
   // Password Config
   string result = 1;
-}        
+}
 
 message SamlConfigRequest {
-      
-}        
+  
+}
 
 message SamlConfigResponse {
   // SAML Configuration.
   SamlConfig result = 1;
-}        
+}
 
 message UpdateSamlConfigRequest {
-  SamlConfig body = 3029410;    
-}        
+  SamlConfig body = 3029410;
+}
 
 message UpdateSamlConfigResponse {
   // New state for SAML Configuration.
   SamlConfig result = 1;
-}        
+}
 
 message SamlTestConfigRequest {
   // Slug of test config
-  string test_slug = 295036274;    
-}        
+  string test_slug = 295036274;
+}
 
 message SamlTestConfigResponse {
   // SAML test config.
   SamlConfig result = 1;
-}        
+}
 
 message DeleteSamlTestConfigRequest {
   // Slug of test config
-  string test_slug = 295036274;    
-}        
+  string test_slug = 295036274;
+}
 
 message DeleteSamlTestConfigResponse {
   // Test config succssfully deleted.
   string result = 1;
-}        
+}
 
 message CreateSamlTestConfigRequest {
-  SamlConfig body = 3029410;    
-}        
+  SamlConfig body = 3029410;
+}
 
 message CreateSamlTestConfigResponse {
   // SAML test config
   SamlConfig result = 1;
-}        
+}
 
 message ParseSamlIdpMetadataRequest {
-  string body = 3029410;    
-}        
+  string body = 3029410;
+}
 
 message ParseSamlIdpMetadataResponse {
   // Parse result
   SamlMetadataParseResult result = 1;
-}        
+}
 
 message FetchAndParseSamlIdpMetadataRequest {
-  string body = 3029410;    
-}        
+  string body = 3029410;
+}
 
 message FetchAndParseSamlIdpMetadataResponse {
   // Parse result
   SamlMetadataParseResult result = 1;
-}        
+}
 
 message SessionConfigRequest {
-      
-}        
+  
+}
 
 message SessionConfigResponse {
   // Session Config
   SessionConfig result = 1;
-}        
+}
 
 message UpdateSessionConfigRequest {
-  SessionConfig body = 3029410;    
-}        
+  SessionConfig body = 3029410;
+}
 
 message UpdateSessionConfigResponse {
   // Session Config
   SessionConfig result = 1;
-}        
+}
 
 message AllUserLoginLockoutsRequest {
   // Include only these fields in the response
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllUserLoginLockoutsResponse {
   // User Login Lockout
   repeated UserLoginLockout result = 1;
-}        
+}
+
+message AllUserLoginLockoutsStreamResponse {
+  // User Login Lockout
+  UserLoginLockout result = 1;
+}
 
 message SearchUserLoginLockoutsRequest {
   // Include only these fields in the response
@@ -5974,44 +5984,54 @@ message SearchUserLoginLockoutsRequest {
   // Match remote LDAP ID
   string remote_id = 320131821;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchUserLoginLockoutsResponse {
   // User Login Lockout
   repeated UserLoginLockout result = 1;
-}        
+}
+
+message SearchUserLoginLockoutsStreamResponse {
+  // User Login Lockout
+  UserLoginLockout result = 1;
+}
 
 message DeleteUserLoginLockoutRequest {
   // The key associated with the locked user
-  string key = 106079;    
-}        
+  string key = 106079;
+}
 
 message DeleteUserLoginLockoutResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllBoardsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllBoardsResponse {
   // Board
   repeated Board result = 1;
-}        
+}
+
+message AllBoardsStreamResponse {
+  // Board
+  Board result = 1;
+}
 
 message CreateBoardRequest {
   Board body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateBoardResponse {
   // Board
   Board result = 1;
-}        
+}
 
 message SearchBoardsRequest {
   // Matches board title.
@@ -6039,48 +6059,53 @@ message SearchBoardsRequest {
   // The maximum number of items to return. (used with offset and takes priority over page and per_page)
   int64 limit = 102976443;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchBoardsResponse {
   // boards
   repeated Board result = 1;
-}        
+}
+
+message SearchBoardsStreamResponse {
+  // boards
+  Board result = 1;
+}
 
 message BoardRequest {
   // Id of board
   int64 board_id = 402691141;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message BoardResponse {
   // Board
   Board result = 1;
-}        
+}
 
 message UpdateBoardRequest {
   // Id of board
   int64 board_id = 402691141;
   Board body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateBoardResponse {
   // Board
   Board result = 1;
-}        
+}
 
 message DeleteBoardRequest {
   // Id of board
-  int64 board_id = 402691141;    
-}        
+  int64 board_id = 402691141;
+}
 
 message DeleteBoardResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllBoardItemsRequest {
   // Requested fields.
@@ -6088,208 +6113,233 @@ message AllBoardItemsRequest {
   // Fields to sort by.
   string sorts = 109624981;
   // Filter to a specific board section
-  string board_section_id = 501228011;    
-}        
+  string board_section_id = 501228011;
+}
 
 message AllBoardItemsResponse {
   // Board Item
   repeated BoardItem result = 1;
-}        
+}
+
+message AllBoardItemsStreamResponse {
+  // Board Item
+  BoardItem result = 1;
+}
 
 message CreateBoardItemRequest {
   BoardItem body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateBoardItemResponse {
   // Board Item
   BoardItem result = 1;
-}        
+}
 
 message BoardItemRequest {
   // Id of board item
   int64 board_item_id = 428047177;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message BoardItemResponse {
   // Board Item
   BoardItem result = 1;
-}        
+}
 
 message UpdateBoardItemRequest {
   // Id of board item
   int64 board_item_id = 428047177;
   BoardItem body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateBoardItemResponse {
   // Board Item
   BoardItem result = 1;
-}        
+}
 
 message DeleteBoardItemRequest {
   // Id of board_item
-  int64 board_item_id = 428047177;    
-}        
+  int64 board_item_id = 428047177;
+}
 
 message DeleteBoardItemResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllBoardSectionsRequest {
   // Requested fields.
   string fields = 318677073;
   // Fields to sort by.
-  string sorts = 109624981;    
-}        
+  string sorts = 109624981;
+}
 
 message AllBoardSectionsResponse {
   // Board section
   repeated BoardSection result = 1;
-}        
+}
+
+message AllBoardSectionsStreamResponse {
+  // Board section
+  BoardSection result = 1;
+}
 
 message CreateBoardSectionRequest {
   BoardSection body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateBoardSectionResponse {
   // Board section
   BoardSection result = 1;
-}        
+}
 
 message BoardSectionRequest {
   // Id of board section
   int64 board_section_id = 501228011;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message BoardSectionResponse {
   // Board section
   BoardSection result = 1;
-}        
+}
 
 message UpdateBoardSectionRequest {
   // Id of board section
   int64 board_section_id = 501228011;
   BoardSection body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateBoardSectionResponse {
   // Board section
   BoardSection result = 1;
-}        
+}
 
 message DeleteBoardSectionRequest {
   // Id of board section
-  int64 board_section_id = 501228011;    
-}        
+  int64 board_section_id = 501228011;
+}
 
 message DeleteBoardSectionResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllColorCollectionsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllColorCollectionsResponse {
   // ColorCollections
   repeated ColorCollection result = 1;
-}        
+}
+
+message AllColorCollectionsStreamResponse {
+  // ColorCollections
+  ColorCollection result = 1;
+}
 
 message CreateColorCollectionRequest {
-  ColorCollection body = 3029410;    
-}        
+  ColorCollection body = 3029410;
+}
 
 message CreateColorCollectionResponse {
   // ColorCollection
   ColorCollection result = 1;
-}        
+}
 
 message ColorCollectionsCustomRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ColorCollectionsCustomResponse {
   // ColorCollections
   repeated ColorCollection result = 1;
-}        
+}
+
+message ColorCollectionsCustomStreamResponse {
+  // ColorCollections
+  ColorCollection result = 1;
+}
 
 message ColorCollectionsStandardRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ColorCollectionsStandardResponse {
   // ColorCollections
   repeated ColorCollection result = 1;
-}        
+}
+
+message ColorCollectionsStandardStreamResponse {
+  // ColorCollections
+  ColorCollection result = 1;
+}
 
 message DefaultColorCollectionRequest {
-      
-}        
+  
+}
 
 message DefaultColorCollectionResponse {
   // ColorCollection
   ColorCollection result = 1;
-}        
+}
 
 message SetDefaultColorCollectionRequest {
   // ID of color collection to set as default
-  string collection_id = 410621138;    
-}        
+  string collection_id = 410621138;
+}
 
 message SetDefaultColorCollectionResponse {
   // ColorCollection
   ColorCollection result = 1;
-}        
+}
 
 message ColorCollectionRequest {
   // Id of Color Collection
   string collection_id = 410621138;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ColorCollectionResponse {
   // ColorCollection
   ColorCollection result = 1;
-}        
+}
 
 message UpdateColorCollectionRequest {
   // Id of Custom Color Collection
   string collection_id = 410621138;
-  ColorCollection body = 3029410;    
-}        
+  ColorCollection body = 3029410;
+}
 
 message UpdateColorCollectionResponse {
   // ColorCollection
   ColorCollection result = 1;
-}        
+}
 
 message DeleteColorCollectionRequest {
   // Id of Color Collection
-  string collection_id = 410621138;    
-}        
+  string collection_id = 410621138;
+}
 
 message DeleteColorCollectionResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message GetAllCommandsRequest {
   // Id of the associated content. This must be accompanied with content_type.
@@ -6297,476 +6347,531 @@ message GetAllCommandsRequest {
   // Type of the associated content. This must be accompanied with content_id.
   string content_type = 415923104;
   // Number of results to return.
-  int64 limit = 102976443;    
-}        
+  int64 limit = 102976443;
+}
 
 message GetAllCommandsResponse {
   // Commands
   repeated Command result = 1;
-}        
+}
+
+message GetAllCommandsStreamResponse {
+  // Commands
+  Command result = 1;
+}
 
 message CreateCommandRequest {
-  Command body = 3029410;    
-}        
+  Command body = 3029410;
+}
 
 message CreateCommandResponse {
   // The command is saved.
   Command result = 1;
-}        
+}
 
 message UpdateCommandRequest {
   // ID of a command
   int64 command_id = 392078663;
-  UpdateCommand body = 3029410;    
-}        
+  UpdateCommand body = 3029410;
+}
 
 message UpdateCommandResponse {
   // The command is updated.
   Command result = 1;
-}        
+}
 
 message DeleteCommandRequest {
   // ID of a command
-  int64 command_id = 392078663;    
-}        
+  int64 command_id = 392078663;
+}
 
 message DeleteCommandResponse {
   // The command is deleted.
-}        
+}
 
 message CloudStorageConfigurationRequest {
-      
-}        
+  
+}
 
 message CloudStorageConfigurationResponse {
   // Current Cloud Storage Configuration
   BackupConfiguration result = 1;
-}        
+}
 
 message UpdateCloudStorageConfigurationRequest {
-  BackupConfiguration body = 3029410;    
-}        
+  BackupConfiguration body = 3029410;
+}
 
 message UpdateCloudStorageConfigurationResponse {
   // New state for specified model set.
   BackupConfiguration result = 1;
-}        
+}
 
 message CustomWelcomeEmailRequest {
-      
-}        
+  
+}
 
 message CustomWelcomeEmailResponse {
   // Custom Welcome Email
   CustomWelcomeEmail result = 1;
-}        
+}
 
 message UpdateCustomWelcomeEmailRequest {
   CustomWelcomeEmail body = 3029410;
   // If true a test email with the content from the request will be sent to the current user after saving
-  bool send_test_welcome_email = 416442261;    
-}        
+  bool send_test_welcome_email = 416442261;
+}
 
 message UpdateCustomWelcomeEmailResponse {
   // Custom Welcome Email
   CustomWelcomeEmail result = 1;
-}        
+}
 
 message UpdateCustomWelcomeEmailTestRequest {
-  WelcomeEmailTest body = 3029410;    
-}        
+  WelcomeEmailTest body = 3029410;
+}
 
 message UpdateCustomWelcomeEmailTestResponse {
   // Send Test Welcome Email
   WelcomeEmailTest result = 1;
-}        
+}
 
 message DigestEmailsEnabledRequest {
-      
-}        
+  
+}
 
 message DigestEmailsEnabledResponse {
   // Digest_emails
   DigestEmails result = 1;
-}        
+}
 
 message UpdateDigestEmailsEnabledRequest {
-  DigestEmails body = 3029410;    
-}        
+  DigestEmails body = 3029410;
+}
 
 message UpdateDigestEmailsEnabledResponse {
   // Digest_emails
   DigestEmails result = 1;
-}        
+}
 
 message CreateDigestEmailSendRequest {
-      
-}        
+  
+}
 
 message CreateDigestEmailSendResponse {
   // Status of generating and sending the data
   DigestEmailSend result = 1;
-}        
+}
 
 message InternalHelpResourcesContentRequest {
-      
-}        
+  
+}
 
 message InternalHelpResourcesContentResponse {
   // Internal Help Resources Content
   InternalHelpResourcesContent result = 1;
-}        
+}
 
 message UpdateInternalHelpResourcesContentRequest {
-  InternalHelpResourcesContent body = 3029410;    
-}        
+  InternalHelpResourcesContent body = 3029410;
+}
 
 message UpdateInternalHelpResourcesContentResponse {
   // Internal Help Resources Content
   InternalHelpResourcesContent result = 1;
-}        
+}
 
 message InternalHelpResourcesRequest {
-      
-}        
+  
+}
 
 message InternalHelpResourcesResponse {
   // Internal Help Resources
   InternalHelpResources result = 1;
-}        
+}
 
 message UpdateInternalHelpResourcesRequest {
-  InternalHelpResources body = 3029410;    
-}        
+  InternalHelpResources body = 3029410;
+}
 
 message UpdateInternalHelpResourcesResponse {
   // Custom Welcome Email
   InternalHelpResources result = 1;
-}        
+}
 
 message AllLegacyFeaturesRequest {
-      
-}        
+  
+}
 
 message AllLegacyFeaturesResponse {
   // Legacy Feature
   repeated LegacyFeature result = 1;
-}        
+}
+
+message AllLegacyFeaturesStreamResponse {
+  // Legacy Feature
+  LegacyFeature result = 1;
+}
 
 message LegacyFeatureRequest {
   // id of legacy feature
-  string legacy_feature_id = 318344547;    
-}        
+  string legacy_feature_id = 318344547;
+}
 
 message LegacyFeatureResponse {
   // Legacy Feature
   LegacyFeature result = 1;
-}        
+}
 
 message UpdateLegacyFeatureRequest {
   // id of legacy feature
   string legacy_feature_id = 318344547;
-  LegacyFeature body = 3029410;    
-}        
+  LegacyFeature body = 3029410;
+}
 
 message UpdateLegacyFeatureResponse {
   // Legacy Feature
   LegacyFeature result = 1;
-}        
+}
 
 message AllLocalesRequest {
-      
-}        
+  
+}
 
 message AllLocalesResponse {
   // Locale
   repeated Locale result = 1;
-}        
+}
+
+message AllLocalesStreamResponse {
+  // Locale
+  Locale result = 1;
+}
 
 message AllTimezonesRequest {
-      
-}        
+  
+}
 
 message AllTimezonesResponse {
   // Timezone
   repeated Timezone result = 1;
-}        
+}
+
+message AllTimezonesStreamResponse {
+  // Timezone
+  Timezone result = 1;
+}
 
 message VersionsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message VersionsResponse {
   // ApiVersion
   ApiVersion result = 1;
-}        
+}
 
 message WhitelabelConfigurationRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message WhitelabelConfigurationResponse {
   // Whitelabel configuration
   WhitelabelConfiguration result = 1;
-}        
+}
 
 message UpdateWhitelabelConfigurationRequest {
-  WhitelabelConfiguration body = 3029410;    
-}        
+  WhitelabelConfiguration body = 3029410;
+}
 
 message UpdateWhitelabelConfigurationResponse {
   // Whitelabel configuration
   WhitelabelConfiguration result = 1;
-}        
+}
 
 message AllConnectionsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllConnectionsResponse {
   // Connection
   repeated DBConnection result = 1;
-}        
+}
+
+message AllConnectionsStreamResponse {
+  // Connection
+  DBConnection result = 1;
+}
 
 message CreateConnectionRequest {
-  DBConnection body = 3029410;    
-}        
+  DBConnection body = 3029410;
+}
 
 message CreateConnectionResponse {
   // Connection
   DBConnection result = 1;
-}        
+}
 
 message ConnectionRequest {
   // Name of connection
   string connection_name = 365832102;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionResponse {
   // Connection
   DBConnection result = 1;
-}        
+}
 
 message UpdateConnectionRequest {
   // Name of connection
   string connection_name = 365832102;
-  DBConnection body = 3029410;    
-}        
+  DBConnection body = 3029410;
+}
 
 message UpdateConnectionResponse {
   // Connection
   DBConnection result = 1;
-}        
+}
 
 message DeleteConnectionRequest {
   // Name of connection
-  string connection_name = 365832102;    
-}        
+  string connection_name = 365832102;
+}
 
 message DeleteConnectionResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message DeleteConnectionOverrideRequest {
   // Name of connection
   string connection_name = 365832102;
   // Context of connection override
-  string override_context = 284763377;    
-}        
+  string override_context = 284763377;
+}
 
 message DeleteConnectionOverrideResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message TestConnectionRequest {
   // Name of connection
   string connection_name = 365832102;
   // Array of names of tests to run
-  string tests = 110251553;    
-}        
+  string tests = 110251553;
+}
 
 message TestConnectionResponse {
   // Test results
   repeated DBConnectionTestResult result = 1;
-}        
+}
+
+message TestConnectionStreamResponse {
+  // Test results
+  DBConnectionTestResult result = 1;
+}
 
 message TestConnectionConfigRequest {
   DBConnection body = 3029410;
   // Array of names of tests to run
-  string tests = 110251553;    
-}        
+  string tests = 110251553;
+}
 
 message TestConnectionConfigResponse {
   // Test results
   repeated DBConnectionTestResult result = 1;
-}        
+}
+
+message TestConnectionConfigStreamResponse {
+  // Test results
+  DBConnectionTestResult result = 1;
+}
 
 message AllDialectInfosRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllDialectInfosResponse {
   // Dialect Info
   repeated DialectInfo result = 1;
-}        
+}
+
+message AllDialectInfosStreamResponse {
+  // Dialect Info
+  DialectInfo result = 1;
+}
 
 message AllExternalOauthApplicationsRequest {
   // Application name
   string name = 3373707;
   // Application Client ID
-  string client_id = 476022396;    
-}        
+  string client_id = 476022396;
+}
 
 message AllExternalOauthApplicationsResponse {
   // External OAuth Application.  This is an OAuth Application which Looker uses to access external systems.
   repeated ExternalOauthApplication result = 1;
-}        
+}
+
+message AllExternalOauthApplicationsStreamResponse {
+  // External OAuth Application.  This is an OAuth Application which Looker uses to access external systems.
+  ExternalOauthApplication result = 1;
+}
 
 message CreateExternalOauthApplicationRequest {
-  ExternalOauthApplication body = 3029410;    
-}        
+  ExternalOauthApplication body = 3029410;
+}
 
 message CreateExternalOauthApplicationResponse {
   // External OAuth Application.  This is an OAuth Application which Looker uses to access external systems.
   ExternalOauthApplication result = 1;
-}        
+}
 
 message AllSshServersRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllSshServersResponse {
   // SSH Server
   repeated SshServer result = 1;
-}        
+}
+
+message AllSshServersStreamResponse {
+  // SSH Server
+  SshServer result = 1;
+}
 
 message CreateSshServerRequest {
-  SshServer body = 3029410;    
-}        
+  SshServer body = 3029410;
+}
 
 message CreateSshServerResponse {
   // SSH Server
   SshServer result = 1;
-}        
+}
 
 message SshServerRequest {
   // Id of SSH Server
-  string ssh_server_id = 326923896;    
-}        
+  string ssh_server_id = 326923896;
+}
 
 message SshServerResponse {
   // SSH Server
   SshServer result = 1;
-}        
+}
 
 message UpdateSshServerRequest {
   // Id of SSH Server
   string ssh_server_id = 326923896;
-  SshServer body = 3029410;    
-}        
+  SshServer body = 3029410;
+}
 
 message UpdateSshServerResponse {
   // SSH Server
   SshServer result = 1;
-}        
+}
 
 message DeleteSshServerRequest {
   // Id of SSH Server
-  string ssh_server_id = 326923896;    
-}        
+  string ssh_server_id = 326923896;
+}
 
 message DeleteSshServerResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message TestSshServerRequest {
   // Id of SSH Server
-  string ssh_server_id = 326923896;    
-}        
+  string ssh_server_id = 326923896;
+}
 
 message TestSshServerResponse {
   // Test SSH Server
   SshServer result = 1;
-}        
+}
 
 message AllSshTunnelsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllSshTunnelsResponse {
   // SSH Tunnel
   repeated SshTunnel result = 1;
-}        
+}
+
+message AllSshTunnelsStreamResponse {
+  // SSH Tunnel
+  SshTunnel result = 1;
+}
 
 message CreateSshTunnelRequest {
-  SshTunnel body = 3029410;    
-}        
+  SshTunnel body = 3029410;
+}
 
 message CreateSshTunnelResponse {
   // SSH Tunnel
   SshTunnel result = 1;
-}        
+}
 
 message SshTunnelRequest {
   // Id of SSH Tunnel
-  string ssh_tunnel_id = 484247845;    
-}        
+  string ssh_tunnel_id = 484247845;
+}
 
 message SshTunnelResponse {
   // SSH Tunnel
   SshTunnel result = 1;
-}        
+}
 
 message UpdateSshTunnelRequest {
   // Id of SSH Tunnel
   string ssh_tunnel_id = 484247845;
-  SshTunnel body = 3029410;    
-}        
+  SshTunnel body = 3029410;
+}
 
 message UpdateSshTunnelResponse {
   // SSH Tunnel
   SshTunnel result = 1;
-}        
+}
 
 message DeleteSshTunnelRequest {
   // Id of SSH Tunnel
-  string ssh_tunnel_id = 484247845;    
-}        
+  string ssh_tunnel_id = 484247845;
+}
 
 message DeleteSshTunnelResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message TestSshTunnelRequest {
   // Id of SSH Tunnel
-  string ssh_tunnel_id = 484247845;    
-}        
+  string ssh_tunnel_id = 484247845;
+}
 
 message TestSshTunnelResponse {
   // Test SSH Tunnel
   SshTunnel result = 1;
-}        
+}
 
 message SshPublicKeyRequest {
-      
-}        
+  
+}
 
 message SshPublicKeyResponse {
   // SSH Public Key
   SshPublicKey result = 1;
-}        
+}
 
 message SearchContentFavoritesRequest {
   // Match content favorite id(s)
@@ -6790,123 +6895,138 @@ message SearchContentFavoritesRequest {
   // Requested fields.
   string fields = 318677073;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchContentFavoritesResponse {
   // Favorite Content
   repeated ContentFavorite result = 1;
-}        
+}
+
+message SearchContentFavoritesStreamResponse {
+  // Favorite Content
+  ContentFavorite result = 1;
+}
 
 message ContentFavoriteRequest {
   // Id of favorite content
   int64 content_favorite_id = 403544586;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ContentFavoriteResponse {
   // Favorite Content
   ContentFavorite result = 1;
-}        
+}
 
 message DeleteContentFavoriteRequest {
   // Id of favorite content
-  int64 content_favorite_id = 403544586;    
-}        
+  int64 content_favorite_id = 403544586;
+}
 
 message DeleteContentFavoriteResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message CreateContentFavoriteRequest {
-  ContentFavorite body = 3029410;    
-}        
+  ContentFavorite body = 3029410;
+}
 
 message CreateContentFavoriteResponse {
   // Favorite Content
   ContentFavorite result = 1;
-}        
+}
 
 message AllContentMetadatasRequest {
   // Parent space of content.
   int64 parent_id = 517581876;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllContentMetadatasResponse {
   // Content Metadata
   repeated ContentMeta result = 1;
-}        
+}
+
+message AllContentMetadatasStreamResponse {
+  // Content Metadata
+  ContentMeta result = 1;
+}
 
 message ContentMetadataRequest {
   // Id of content metadata
   int64 content_metadata_id = 293222822;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ContentMetadataResponse {
   // Content Metadata
   ContentMeta result = 1;
-}        
+}
 
 message UpdateContentMetadataRequest {
   // Id of content metadata
   int64 content_metadata_id = 293222822;
-  ContentMeta body = 3029410;    
-}        
+  ContentMeta body = 3029410;
+}
 
 message UpdateContentMetadataResponse {
   // Content Metadata
   ContentMeta result = 1;
-}        
+}
 
 message AllContentMetadataAccessesRequest {
   // Id of content metadata
   int64 content_metadata_id = 293222822;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllContentMetadataAccessesResponse {
   // Content Metadata Access
   repeated ContentMetaGroupUser result = 1;
-}        
+}
+
+message AllContentMetadataAccessesStreamResponse {
+  // Content Metadata Access
+  ContentMetaGroupUser result = 1;
+}
 
 message CreateContentMetadataAccessRequest {
   ContentMetaGroupUser body = 3029410;
   // Optionally sends notification email when granting access to a board.
-  bool send_boards_notification_email = 49054589;    
-}        
+  bool send_boards_notification_email = 49054589;
+}
 
 message CreateContentMetadataAccessResponse {
   // Content Metadata Access
   ContentMetaGroupUser result = 1;
-}        
+}
 
 message UpdateContentMetadataAccessRequest {
   // Id of content metadata access
   string content_metadata_access_id = 311738150;
-  ContentMetaGroupUser body = 3029410;    
-}        
+  ContentMetaGroupUser body = 3029410;
+}
 
 message UpdateContentMetadataAccessResponse {
   // Content Metadata Access
   ContentMetaGroupUser result = 1;
-}        
+}
 
 message DeleteContentMetadataAccessRequest {
   // Id of content metadata access
-  int64 content_metadata_access_id = 311738150;    
-}        
+  int64 content_metadata_access_id = 311738150;
+}
 
 message DeleteContentMetadataAccessResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message ContentThumbnailRequest {
   // Either dashboard or look
@@ -6920,22 +7040,22 @@ message ContentThumbnailRequest {
   // The width of the image if format is supplied
   int64 width = 113126854;
   // The height of the image if format is supplied
-  int64 height = 305257398;    
-}        
+  int64 height = 305257398;
+}
 
 message ContentThumbnailResponse {
   
-}        
+}
 
 message ContentValidationRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ContentValidationResponse {
   // Content validation results
   ContentValidation result = 1;
-}        
+}
 
 message SearchContentViewsRequest {
   // Match view count
@@ -6963,13 +7083,18 @@ message SearchContentViewsRequest {
   // Fields to sort by
   string sorts = 109624981;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchContentViewsResponse {
   // Content View
   repeated ContentView result = 1;
-}        
+}
+
+message SearchContentViewsStreamResponse {
+  // Content View
+  ContentView result = 1;
+}
 
 message VectorThumbnailRequest {
   // Either dashboard or look
@@ -6977,32 +7102,37 @@ message VectorThumbnailRequest {
   // ID of the dashboard or look to render
   string resource_id = 308634299;
   // Whether or not to refresh the rendered image with the latest content
-  string reload = 467320627;    
-}        
+  string reload = 467320627;
+}
 
 message VectorThumbnailResponse {
   // Vector thumbnail
   string result = 1;
-}        
+}
 
 message AllDashboardsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllDashboardsResponse {
   // dashboards
   repeated DashboardBase result = 1;
-}        
+}
+
+message AllDashboardsStreamResponse {
+  // dashboards
+  DashboardBase result = 1;
+}
 
 message CreateDashboardRequest {
-  Dashboard body = 3029410;    
-}        
+  Dashboard body = 3029410;
+}
 
 message CreateDashboardResponse {
   // Dashboard
   Dashboard result = 1;
-}        
+}
 
 message SearchDashboardsRequest {
   // Match dashboard id.
@@ -7042,13 +7172,18 @@ message SearchDashboardsRequest {
   // One or more fields to sort by. Sortable fields: [:title, :user_id, :id, :created_at, :space_id, :folder_id, :description, :view_count, :favorite_count, :slug, :content_favorite_id, :content_metadata_id, :deleted, :deleted_at, :last_viewed_at, :last_accessed_at]
   string sorts = 109624981;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchDashboardsResponse {
   // dashboards
   repeated Dashboard result = 1;
-}        
+}
+
+message SearchDashboardsStreamResponse {
+  // dashboards
+  Dashboard result = 1;
+}
 
 message ImportLookmlDashboardRequest {
   // Id of LookML dashboard
@@ -7057,79 +7192,84 @@ message ImportLookmlDashboardRequest {
   string space_id = 511862461;
   Dashboard body = 3029410;
   // If true, and this dashboard is localized, export it with the raw keys, not localized.
-  bool raw_locale = 401271403;    
-}        
+  bool raw_locale = 401271403;
+}
 
 message ImportLookmlDashboardResponse {
   // Dashboard
   Dashboard result = 1;
-}        
+}
 
 message SyncLookmlDashboardRequest {
   // Id of LookML dashboard, in the form 'model::dashboardname'
   string lookml_dashboard_id = 339184839;
   Dashboard body = 3029410;
   // If true, and this dashboard is localized, export it with the raw keys, not localized.
-  bool raw_locale = 401271403;    
-}        
+  bool raw_locale = 401271403;
+}
 
 message SyncLookmlDashboardResponse {
   // Ids of all the dashboards that were updated by this operation
   repeated int64 result = 1;
-}        
+}
+
+message SyncLookmlDashboardStreamResponse {
+  // Ids of all the dashboards that were updated by this operation
+  int64 result = 1;
+}
 
 message DashboardRequest {
   // Id of dashboard
   string dashboard_id = 496187565;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardResponse {
   // Dashboard
   Dashboard result = 1;
-}        
+}
 
 message UpdateDashboardRequest {
   // Id of dashboard
   string dashboard_id = 496187565;
-  Dashboard body = 3029410;    
-}        
+  Dashboard body = 3029410;
+}
 
 message UpdateDashboardResponse {
   // Dashboard
   Dashboard result = 1;
-}        
+}
 
 message DeleteDashboardRequest {
   // Id of dashboard
-  string dashboard_id = 496187565;    
-}        
+  string dashboard_id = 496187565;
+}
 
 message DeleteDashboardResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message DashboardAggregateTableLookmlRequest {
   // Id of dashboard
-  string dashboard_id = 496187565;    
-}        
+  string dashboard_id = 496187565;
+}
 
 message DashboardAggregateTableLookmlResponse {
   // JSON for Aggregate Table LookML
   DashboardAggregateTableLookml result = 1;
-}        
+}
 
 message DashboardLookmlRequest {
   // Id of dashboard
-  string dashboard_id = 496187565;    
-}        
+  string dashboard_id = 496187565;
+}
 
 message DashboardLookmlResponse {
   // json of dashboard
   DashboardLookml result = 1;
-}        
+}
 
 message SearchDashboardElementsRequest {
   // Select elements that refer to a given dashboard id
@@ -7145,272 +7285,302 @@ message SearchDashboardElementsRequest {
   // Combine given search criteria in a boolean OR expression
   bool filter_or = 440686075;
   // Fields to sort by. Sortable fields: [:look_id, :dashboard_id, :deleted, :title]
-  string sorts = 109624981;    
-}        
+  string sorts = 109624981;
+}
 
 message SearchDashboardElementsResponse {
   // Dashboard elements
   repeated DashboardElement result = 1;
-}        
+}
+
+message SearchDashboardElementsStreamResponse {
+  // Dashboard elements
+  DashboardElement result = 1;
+}
 
 message DashboardElementRequest {
   // Id of dashboard element
   string dashboard_element_id = 79370295;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardElementResponse {
   // DashboardElement
   DashboardElement result = 1;
-}        
+}
 
 message UpdateDashboardElementRequest {
   // Id of dashboard element
   string dashboard_element_id = 79370295;
   DashboardElement body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateDashboardElementResponse {
   // DashboardElement
   DashboardElement result = 1;
-}        
+}
 
 message DeleteDashboardElementRequest {
   // Id of dashboard element
-  string dashboard_element_id = 79370295;    
-}        
+  string dashboard_element_id = 79370295;
+}
 
 message DeleteDashboardElementResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message DashboardDashboardElementsRequest {
   // Id of dashboard
   string dashboard_id = 496187565;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardDashboardElementsResponse {
   // DashboardElement
   repeated DashboardElement result = 1;
-}        
+}
+
+message DashboardDashboardElementsStreamResponse {
+  // DashboardElement
+  DashboardElement result = 1;
+}
 
 message CreateDashboardElementRequest {
   DashboardElement body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateDashboardElementResponse {
   // DashboardElement
   DashboardElement result = 1;
-}        
+}
 
 message DashboardFilterRequest {
   // Id of dashboard filters
   string dashboard_filter_id = 467108821;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardFilterResponse {
   // Dashboard Filter
   DashboardFilter result = 1;
-}        
+}
 
 message UpdateDashboardFilterRequest {
   // Id of dashboard filter
   string dashboard_filter_id = 467108821;
   DashboardFilter body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateDashboardFilterResponse {
   // Dashboard Filter
   DashboardFilter result = 1;
-}        
+}
 
 message DeleteDashboardFilterRequest {
   // Id of dashboard filter
-  string dashboard_filter_id = 467108821;    
-}        
+  string dashboard_filter_id = 467108821;
+}
 
 message DeleteDashboardFilterResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message DashboardDashboardFiltersRequest {
   // Id of dashboard
   string dashboard_id = 496187565;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardDashboardFiltersResponse {
   // Dashboard Filter
   repeated DashboardFilter result = 1;
-}        
+}
+
+message DashboardDashboardFiltersStreamResponse {
+  // Dashboard Filter
+  DashboardFilter result = 1;
+}
 
 message CreateDashboardFilterRequest {
   CreateDashboardFilter body = 3029410;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateDashboardFilterResponse {
   // Dashboard Filter
   DashboardFilter result = 1;
-}        
+}
 
 message DashboardLayoutComponentRequest {
   // Id of dashboard layout component
   string dashboard_layout_component_id = 391026662;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardLayoutComponentResponse {
   // DashboardLayoutComponent
   DashboardLayoutComponent result = 1;
-}        
+}
 
 message UpdateDashboardLayoutComponentRequest {
   // Id of dashboard layout component
   string dashboard_layout_component_id = 391026662;
   DashboardLayoutComponent body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateDashboardLayoutComponentResponse {
   // DashboardLayoutComponent
   DashboardLayoutComponent result = 1;
-}        
+}
 
 message DashboardLayoutDashboardLayoutComponentsRequest {
   // Id of dashboard layout component
   string dashboard_layout_id = 343841433;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardLayoutDashboardLayoutComponentsResponse {
   // DashboardLayoutComponent
   repeated DashboardLayoutComponent result = 1;
-}        
+}
+
+message DashboardLayoutDashboardLayoutComponentsStreamResponse {
+  // DashboardLayoutComponent
+  DashboardLayoutComponent result = 1;
+}
 
 message DashboardLayoutRequest {
   // Id of dashboard layouts
   string dashboard_layout_id = 343841433;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardLayoutResponse {
   // DashboardLayout
   DashboardLayout result = 1;
-}        
+}
 
 message UpdateDashboardLayoutRequest {
   // Id of dashboard layout
   string dashboard_layout_id = 343841433;
   DashboardLayout body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateDashboardLayoutResponse {
   // DashboardLayout
   DashboardLayout result = 1;
-}        
+}
 
 message DeleteDashboardLayoutRequest {
   // Id of dashboard layout
-  string dashboard_layout_id = 343841433;    
-}        
+  string dashboard_layout_id = 343841433;
+}
 
 message DeleteDashboardLayoutResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message DashboardDashboardLayoutsRequest {
   // Id of dashboard
   string dashboard_id = 496187565;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message DashboardDashboardLayoutsResponse {
   // DashboardLayout
   repeated DashboardLayout result = 1;
-}        
+}
+
+message DashboardDashboardLayoutsStreamResponse {
+  // DashboardLayout
+  DashboardLayout result = 1;
+}
 
 message CreateDashboardLayoutRequest {
   DashboardLayout body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateDashboardLayoutResponse {
   // DashboardLayout
   DashboardLayout result = 1;
-}        
+}
 
 message PerformDataActionRequest {
-  DataActionRequest body = 3029410;    
-}        
+  DataActionRequest body = 3029410;
+}
 
 message PerformDataActionResponse {
   // Data Action Response
   DataActionResponse result = 1;
-}        
+}
 
 message FetchRemoteDataActionFormRequest {
-  map<string, string> body = 3029410;    
-}        
+  map<string, string> body = 3029410;
+}
 
 message FetchRemoteDataActionFormResponse {
   // Data Action Form
   DataActionForm result = 1;
-}        
+}
 
 message AllDatagroupsRequest {
-      
-}        
+  
+}
 
 message AllDatagroupsResponse {
   // Datagroup
   repeated Datagroup result = 1;
-}        
+}
+
+message AllDatagroupsStreamResponse {
+  // Datagroup
+  Datagroup result = 1;
+}
 
 message DatagroupRequest {
   // ID of datagroup.
-  int64 datagroup_id = 442238753;    
-}        
+  int64 datagroup_id = 442238753;
+}
 
 message DatagroupResponse {
   // Datagroup
   Datagroup result = 1;
-}        
+}
 
 message UpdateDatagroupRequest {
   // ID of datagroup.
   int64 datagroup_id = 442238753;
-  Datagroup body = 3029410;    
-}        
+  Datagroup body = 3029410;
+}
 
 message UpdateDatagroupResponse {
   // Datagroup
   Datagroup result = 1;
-}        
+}
 
 message SearchFoldersRequest {
   // Requested fields.
@@ -7434,65 +7604,75 @@ message SearchFoldersRequest {
   // Filter on folder created by a particular user.
   string creator_id = 344833155;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchFoldersResponse {
   // folders
   repeated Folder result = 1;
-}        
+}
+
+message SearchFoldersStreamResponse {
+  // folders
+  Folder result = 1;
+}
 
 message FolderRequest {
   // Id of folder
   string folder_id = 527488652;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message FolderResponse {
   // Folder
   Folder result = 1;
-}        
+}
 
 message UpdateFolderRequest {
   // Id of folder
   string folder_id = 527488652;
-  UpdateFolder body = 3029410;    
-}        
+  UpdateFolder body = 3029410;
+}
 
 message UpdateFolderResponse {
   // Folder
   Folder result = 1;
-}        
+}
 
 message DeleteFolderRequest {
   // Id of folder
-  string folder_id = 527488652;    
-}        
+  string folder_id = 527488652;
+}
 
 message DeleteFolderResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllFoldersRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllFoldersResponse {
   // Folder
   repeated Folder result = 1;
-}        
+}
+
+message AllFoldersStreamResponse {
+  // Folder
+  Folder result = 1;
+}
 
 message CreateFolderRequest {
-  CreateFolder body = 3029410;    
-}        
+  CreateFolder body = 3029410;
+}
 
 message CreateFolderResponse {
   // Folder
   Folder result = 1;
-}        
+}
 
 message FolderChildrenRequest {
   // Id of folder
@@ -7504,13 +7684,18 @@ message FolderChildrenRequest {
   // Results per page.
   int64 per_page = 424711281;
   // Fields to sort by.
-  string sorts = 109624981;    
-}        
+  string sorts = 109624981;
+}
 
 message FolderChildrenResponse {
   // Folders
   repeated Folder result = 1;
-}        
+}
+
+message FolderChildrenStreamResponse {
+  // Folders
+  Folder result = 1;
+}
 
 message FolderChildrenSearchRequest {
   // Id of folder
@@ -7520,61 +7705,81 @@ message FolderChildrenSearchRequest {
   // Fields to sort by.
   string sorts = 109624981;
   // Match folder name.
-  string name = 3373707;    
-}        
+  string name = 3373707;
+}
 
 message FolderChildrenSearchResponse {
   // Folders
   repeated Folder result = 1;
-}        
+}
+
+message FolderChildrenSearchStreamResponse {
+  // Folders
+  Folder result = 1;
+}
 
 message FolderParentRequest {
   // Id of folder
   string folder_id = 527488652;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message FolderParentResponse {
   // Folder
   Folder result = 1;
-}        
+}
 
 message FolderAncestorsRequest {
   // Id of folder
   string folder_id = 527488652;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message FolderAncestorsResponse {
   // Folders
   repeated Folder result = 1;
-}        
+}
+
+message FolderAncestorsStreamResponse {
+  // Folders
+  Folder result = 1;
+}
 
 message FolderLooksRequest {
   // Id of folder
   string folder_id = 527488652;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message FolderLooksResponse {
   // Looks
   repeated LookWithQuery result = 1;
-}        
+}
+
+message FolderLooksStreamResponse {
+  // Looks
+  LookWithQuery result = 1;
+}
 
 message FolderDashboardsRequest {
   // Id of folder
   string folder_id = 527488652;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message FolderDashboardsResponse {
   // Dashboard
   repeated Dashboard result = 1;
-}        
+}
+
+message FolderDashboardsStreamResponse {
+  // Dashboard
+  Dashboard result = 1;
+}
 
 message AllGroupsRequest {
   // Requested fields.
@@ -7590,24 +7795,29 @@ message AllGroupsRequest {
   // Id of content metadata to which groups must have access.
   int64 content_metadata_id = 293222822;
   // Select only groups that either can/cannot be given access to content.
-  bool can_add_to_content_metadata = 97036652;    
-}        
+  bool can_add_to_content_metadata = 97036652;
+}
 
 message AllGroupsResponse {
   // Group
   repeated Group result = 1;
-}        
+}
+
+message AllGroupsStreamResponse {
+  // Group
+  Group result = 1;
+}
 
 message CreateGroupRequest {
   Group body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateGroupResponse {
   // Group
   Group result = 1;
-}        
+}
 
 message SearchGroupsRequest {
   // Requested fields.
@@ -7629,13 +7839,18 @@ message SearchGroupsRequest {
   // Match group externally_managed.
   bool externally_managed = 317189570;
   // Match group externally_orphaned.
-  bool externally_orphaned = 390033015;    
-}        
+  bool externally_orphaned = 390033015;
+}
 
 message SearchGroupsResponse {
   // Group
   repeated Group result = 1;
-}        
+}
+
+message SearchGroupsStreamResponse {
+  // Group
+  Group result = 1;
+}
 
 message SearchGroupsWithRolesRequest {
   // Requested fields.
@@ -7657,13 +7872,18 @@ message SearchGroupsWithRolesRequest {
   // Match group externally_managed.
   bool externally_managed = 317189570;
   // Match group externally_orphaned.
-  bool externally_orphaned = 390033015;    
-}        
+  bool externally_orphaned = 390033015;
+}
 
 message SearchGroupsWithRolesResponse {
   // Group
   repeated GroupSearch result = 1;
-}        
+}
+
+message SearchGroupsWithRolesStreamResponse {
+  // Group
+  GroupSearch result = 1;
+}
 
 message SearchGroupsWithHierarchyRequest {
   // Requested fields.
@@ -7685,71 +7905,81 @@ message SearchGroupsWithHierarchyRequest {
   // Match group externally_managed.
   bool externally_managed = 317189570;
   // Match group externally_orphaned.
-  bool externally_orphaned = 390033015;    
-}        
+  bool externally_orphaned = 390033015;
+}
 
 message SearchGroupsWithHierarchyResponse {
   // Group
   repeated GroupHierarchy result = 1;
-}        
+}
+
+message SearchGroupsWithHierarchyStreamResponse {
+  // Group
+  GroupHierarchy result = 1;
+}
 
 message GroupRequest {
   // Id of group
   int64 group_id = 506361563;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message GroupResponse {
   // Group
   Group result = 1;
-}        
+}
 
 message UpdateGroupRequest {
   // Id of group
   int64 group_id = 506361563;
   Group body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateGroupResponse {
   // Group
   Group result = 1;
-}        
+}
 
 message DeleteGroupRequest {
   // Id of group
-  int64 group_id = 506361563;    
-}        
+  int64 group_id = 506361563;
+}
 
 message DeleteGroupResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllGroupGroupsRequest {
   // Id of group
   int64 group_id = 506361563;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllGroupGroupsResponse {
   // All groups in group.
   repeated Group result = 1;
-}        
+}
+
+message AllGroupGroupsStreamResponse {
+  // All groups in group.
+  Group result = 1;
+}
 
 message AddGroupGroupRequest {
   // Id of group
   int64 group_id = 506361563;
-  GroupIdForGroupInclusion body = 3029410;    
-}        
+  GroupIdForGroupInclusion body = 3029410;
+}
 
 message AddGroupGroupResponse {
   // Added group.
   Group result = 1;
-}        
+}
 
 message AllGroupUsersRequest {
   // Id of group
@@ -7761,225 +7991,250 @@ message AllGroupUsersRequest {
   // Results per page.
   int64 per_page = 424711281;
   // Fields to sort by.
-  string sorts = 109624981;    
-}        
+  string sorts = 109624981;
+}
 
 message AllGroupUsersResponse {
   // All users in group.
   repeated User result = 1;
-}        
+}
+
+message AllGroupUsersStreamResponse {
+  // All users in group.
+  User result = 1;
+}
 
 message AddGroupUserRequest {
   // Id of group
   int64 group_id = 506361563;
-  GroupIdForGroupUserInclusion body = 3029410;    
-}        
+  GroupIdForGroupUserInclusion body = 3029410;
+}
 
 message AddGroupUserResponse {
   // Added user.
   User result = 1;
-}        
+}
 
 message DeleteGroupUserRequest {
   // Id of group
   int64 group_id = 506361563;
   // Id of user to remove from group
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteGroupUserResponse {
   // User successfully removed from group
-}        
+}
 
 message DeleteGroupFromGroupRequest {
   // Id of group
   int64 group_id = 506361563;
   // Id of group to delete
-  int64 deleting_group_id = 340570313;    
-}        
+  int64 deleting_group_id = 340570313;
+}
 
 message DeleteGroupFromGroupResponse {
   // Group successfully deleted
-}        
+}
 
 message UpdateUserAttributeGroupValueRequest {
   // Id of group
   int64 group_id = 506361563;
   // Id of user attribute
   int64 user_attribute_id = 534680475;
-  UserAttributeGroupValue body = 3029410;    
-}        
+  UserAttributeGroupValue body = 3029410;
+}
 
 message UpdateUserAttributeGroupValueResponse {
   // Group value object.
   UserAttributeGroupValue result = 1;
-}        
+}
 
 message DeleteUserAttributeGroupValueRequest {
   // Id of group
   int64 group_id = 506361563;
   // Id of user attribute
-  int64 user_attribute_id = 534680475;    
-}        
+  int64 user_attribute_id = 534680475;
+}
 
 message DeleteUserAttributeGroupValueResponse {
   // Value successfully unset
-}        
+}
 
 message AllPrimaryHomepageSectionsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllPrimaryHomepageSectionsResponse {
   // Primary homepage section
   repeated HomepageSection result = 1;
-}        
+}
+
+message AllPrimaryHomepageSectionsStreamResponse {
+  // Primary homepage section
+  HomepageSection result = 1;
+}
 
 message AllIntegrationHubsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllIntegrationHubsResponse {
   // Integration Hub
   repeated IntegrationHub result = 1;
-}        
+}
+
+message AllIntegrationHubsStreamResponse {
+  // Integration Hub
+  IntegrationHub result = 1;
+}
 
 message CreateIntegrationHubRequest {
   IntegrationHub body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateIntegrationHubResponse {
   // Integration Hub
   IntegrationHub result = 1;
-}        
+}
 
 message IntegrationHubRequest {
   // Id of Integration Hub
   int64 integration_hub_id = 485110416;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message IntegrationHubResponse {
   // Integration Hub
   IntegrationHub result = 1;
-}        
+}
 
 message UpdateIntegrationHubRequest {
   // Id of Integration Hub
   int64 integration_hub_id = 485110416;
   IntegrationHub body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateIntegrationHubResponse {
   // Integration Hub
   IntegrationHub result = 1;
-}        
+}
 
 message DeleteIntegrationHubRequest {
   // Id of integration_hub
-  int64 integration_hub_id = 485110416;    
-}        
+  int64 integration_hub_id = 485110416;
+}
 
 message DeleteIntegrationHubResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AcceptIntegrationHubLegalAgreementRequest {
   // Id of integration_hub
-  int64 integration_hub_id = 485110416;    
-}        
+  int64 integration_hub_id = 485110416;
+}
 
 message AcceptIntegrationHubLegalAgreementResponse {
   // Integration hub
   IntegrationHub result = 1;
-}        
+}
 
 message AllIntegrationsRequest {
   // Requested fields.
   string fields = 318677073;
   // Filter to a specific provider
-  string integration_hub_id = 485110416;    
-}        
+  string integration_hub_id = 485110416;
+}
 
 message AllIntegrationsResponse {
   // Integration
   repeated Integration result = 1;
-}        
+}
+
+message AllIntegrationsStreamResponse {
+  // Integration
+  Integration result = 1;
+}
 
 message IntegrationRequest {
   // Id of integration
   string integration_id = 297185574;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message IntegrationResponse {
   // Integration
   Integration result = 1;
-}        
+}
 
 message UpdateIntegrationRequest {
   // Id of integration
   string integration_id = 297185574;
   Integration body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateIntegrationResponse {
   // Integration
   Integration result = 1;
-}        
+}
 
 message FetchIntegrationFormRequest {
   // Id of integration
   string integration_id = 297185574;
-  map<string, string> body = 3029410;    
-}        
+  map<string, string> body = 3029410;
+}
 
 message FetchIntegrationFormResponse {
   // Data Action Form
   DataActionForm result = 1;
-}        
+}
 
 message TestIntegrationRequest {
   // Id of integration
-  string integration_id = 297185574;    
-}        
+  string integration_id = 297185574;
+}
 
 message TestIntegrationResponse {
   // Test Result
   IntegrationTestResult result = 1;
-}        
+}
 
 message AllLooksRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllLooksResponse {
   // Look
   repeated Look result = 1;
-}        
+}
+
+message AllLooksStreamResponse {
+  // Look
+  Look result = 1;
+}
 
 message CreateLookRequest {
   LookWithQuery body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateLookResponse {
   // Look
   LookWithQuery result = 1;
-}        
+}
 
 message SearchLooksRequest {
   // Match look id.
@@ -8017,48 +8272,53 @@ message SearchLooksRequest {
   // One or more fields to sort results by. Sortable fields: [:title, :user_id, :id, :created_at, :space_id, :folder_id, :description, :updated_at, :last_updater_id, :view_count, :favorite_count, :content_favorite_id, :deleted, :deleted_at, :last_viewed_at, :last_accessed_at, :query_id]
   string sorts = 109624981;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchLooksResponse {
   // looks
   repeated Look result = 1;
-}        
+}
+
+message SearchLooksStreamResponse {
+  // looks
+  Look result = 1;
+}
 
 message LookRequest {
   // Id of look
   int64 look_id = 349778619;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message LookResponse {
   // Look
   LookWithQuery result = 1;
-}        
+}
 
 message UpdateLookRequest {
   // Id of look
   int64 look_id = 349778619;
   LookWithQuery body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateLookResponse {
   // Look
   LookWithQuery result = 1;
-}        
+}
 
 message DeleteLookRequest {
   // Id of look
-  int64 look_id = 349778619;    
-}        
+  int64 look_id = 349778619;
+}
 
 message DeleteLookResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message RunLookRequest {
   // Id of look
@@ -8088,64 +8348,69 @@ message RunLookRequest {
   // Rebuild PDTS used in query.
   bool rebuild_pdts = 256532759;
   // Perform table calculations on query results
-  bool server_table_calcs = 334030724;    
-}        
+  bool server_table_calcs = 334030724;
+}
 
 message RunLookResponse {
   
-}        
+}
 
 message AllLookmlModelsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllLookmlModelsResponse {
   // LookML Model
   repeated LookmlModel result = 1;
-}        
+}
+
+message AllLookmlModelsStreamResponse {
+  // LookML Model
+  LookmlModel result = 1;
+}
 
 message CreateLookmlModelRequest {
-  LookmlModel body = 3029410;    
-}        
+  LookmlModel body = 3029410;
+}
 
 message CreateLookmlModelResponse {
   // LookML Model
   LookmlModel result = 1;
-}        
+}
 
 message LookmlModelRequest {
   // Name of lookml model.
   string lookml_model_name = 273434863;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message LookmlModelResponse {
   // LookML Model
   LookmlModel result = 1;
-}        
+}
 
 message UpdateLookmlModelRequest {
   // Name of lookml model.
   string lookml_model_name = 273434863;
-  LookmlModel body = 3029410;    
-}        
+  LookmlModel body = 3029410;
+}
 
 message UpdateLookmlModelResponse {
   // LookML Model
   LookmlModel result = 1;
-}        
+}
 
 message DeleteLookmlModelRequest {
   // Name of lookml model.
-  string lookml_model_name = 273434863;    
-}        
+  string lookml_model_name = 273434863;
+}
 
 message DeleteLookmlModelResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message LookmlModelExploreRequest {
   // Name of lookml model.
@@ -8153,13 +8418,13 @@ message LookmlModelExploreRequest {
   // Name of explore.
   string explore_name = 485574866;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message LookmlModelExploreResponse {
   // LookML Model Explore
   LookmlModelExplore result = 1;
-}        
+}
 
 message ModelFieldnameSuggestionsRequest {
   // Name of model
@@ -8171,35 +8436,40 @@ message ModelFieldnameSuggestionsRequest {
   // Search term
   string term = 3556460;
   // Suggestion filters
-  string filters = 427273730;    
-}        
+  string filters = 427273730;
+}
 
 message ModelFieldnameSuggestionsResponse {
   // Model view field suggestions
   ModelFieldSuggestions result = 1;
-}        
+}
 
 message ConnectionDatabasesRequest {
   // Name of connection
-  string connection_name = 365832102;    
-}        
+  string connection_name = 365832102;
+}
 
 message ConnectionDatabasesResponse {
   // Database names
   repeated string result = 1;
-}        
+}
+
+message ConnectionDatabasesStreamResponse {
+  // Database names
+  string result = 1;
+}
 
 message ConnectionFeaturesRequest {
   // Name of connection
   string connection_name = 365832102;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionFeaturesResponse {
   // Connection features
   ConnectionFeatures result = 1;
-}        
+}
 
 message ConnectionSchemasRequest {
   // Name of connection
@@ -8209,13 +8479,18 @@ message ConnectionSchemasRequest {
   // True to use fetch from cache, false to load fresh
   bool cache = 94416770;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionSchemasResponse {
   // Schemas for connection
   repeated Schema result = 1;
-}        
+}
+
+message ConnectionSchemasStreamResponse {
+  // Schemas for connection
+  Schema result = 1;
+}
 
 message ConnectionTablesRequest {
   // Name of connection
@@ -8227,13 +8502,18 @@ message ConnectionTablesRequest {
   // True to fetch from cache, false to load fresh
   bool cache = 94416770;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionTablesResponse {
   // Schemas and tables for connection
   repeated SchemaTables result = 1;
-}        
+}
+
+message ConnectionTablesStreamResponse {
+  // Schemas and tables for connection
+  SchemaTables result = 1;
+}
 
 message ConnectionColumnsRequest {
   // Name of connection
@@ -8249,13 +8529,18 @@ message ConnectionColumnsRequest {
   // only fetch columns for a given (comma-separated) list of tables
   string table_names = 300544459;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionColumnsResponse {
   // Columns schema for connection
   repeated SchemaColumns result = 1;
-}        
+}
+
+message ConnectionColumnsStreamResponse {
+  // Columns schema for connection
+  SchemaColumns result = 1;
+}
 
 message ConnectionSearchColumnsRequest {
   // Name of connection
@@ -8263,103 +8548,113 @@ message ConnectionSearchColumnsRequest {
   // Column name to find
   string column_name = 417463574;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionSearchColumnsResponse {
   // Column names matching search pattern
   repeated ColumnSearch result = 1;
-}        
+}
+
+message ConnectionSearchColumnsStreamResponse {
+  // Column names matching search pattern
+  ColumnSearch result = 1;
+}
 
 message ConnectionCostEstimateRequest {
   // Name of connection
   string connection_name = 365832102;
   CreateCostEstimate body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ConnectionCostEstimateResponse {
   // Connection cost estimates
   CostEstimate result = 1;
-}        
+}
 
 message LockAllRequest {
   // Id of project
   string project_id = 492492543;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message LockAllResponse {
   
-}        
+}
 
 message AllGitBranchesRequest {
   // Project Id
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message AllGitBranchesResponse {
   // Git Branch
   repeated GitBranch result = 1;
-}        
+}
+
+message AllGitBranchesStreamResponse {
+  // Git Branch
+  GitBranch result = 1;
+}
 
 message GitBranchRequest {
   // Project Id
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message GitBranchResponse {
   // Git Branch
   GitBranch result = 1;
-}        
+}
 
 message UpdateGitBranchRequest {
   // Project Id
   string project_id = 492492543;
-  GitBranch body = 3029410;    
-}        
+  GitBranch body = 3029410;
+}
 
 message UpdateGitBranchResponse {
   // Git Branch
   GitBranch result = 1;
-}        
+}
 
 message CreateGitBranchRequest {
   // Project Id
   string project_id = 492492543;
-  GitBranch body = 3029410;    
-}        
+  GitBranch body = 3029410;
+}
 
 message CreateGitBranchResponse {
   // Git Branch
   GitBranch result = 1;
-}        
+}
 
 message FindGitBranchRequest {
   // Project Id
   string project_id = 492492543;
   // Branch Name
-  string branch_name = 496000636;    
-}        
+  string branch_name = 496000636;
+}
 
 message FindGitBranchResponse {
   // Git Branch
   GitBranch result = 1;
-}        
+}
 
 message DeleteGitBranchRequest {
   // Project Id
   string project_id = 492492543;
   // Branch Name
-  string branch_name = 496000636;    
-}        
+  string branch_name = 496000636;
+}
 
 message DeleteGitBranchResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message DeployRefToProductionRequest {
   // Id of project
@@ -8367,160 +8662,170 @@ message DeployRefToProductionRequest {
   // Branch to deploy to production
   string branch = 345257623;
   // Ref to deploy to production
-  string ref = 112787;    
-}        
+  string ref = 112787;
+}
 
 message DeployRefToProductionResponse {
   
-}        
+}
 
 message DeployToProductionRequest {
   // Id of project
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message DeployToProductionResponse {
   
-}        
+}
 
 message ResetProjectToProductionRequest {
   // Id of project
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message ResetProjectToProductionResponse {
   
-}        
+}
 
 message ResetProjectToRemoteRequest {
   // Id of project
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message ResetProjectToRemoteResponse {
   
-}        
+}
 
 message AllProjectsRequest {
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllProjectsResponse {
   // Project
   repeated Project result = 1;
-}        
+}
+
+message AllProjectsStreamResponse {
+  // Project
+  Project result = 1;
+}
 
 message CreateProjectRequest {
-  Project body = 3029410;    
-}        
+  Project body = 3029410;
+}
 
 message CreateProjectResponse {
   // Project
   Project result = 1;
-}        
+}
 
 message ProjectRequest {
   // Project Id
   string project_id = 492492543;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ProjectResponse {
   // Project
   Project result = 1;
-}        
+}
 
 message UpdateProjectRequest {
   // Project Id
   string project_id = 492492543;
   Project body = 3029410;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateProjectResponse {
   // Project
   Project result = 1;
-}        
+}
 
 message ManifestRequest {
   // Project Id
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message ManifestResponse {
   // Manifest
   Manifest result = 1;
-}        
+}
 
 message GitDeployKeyRequest {
   // Project Id
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message GitDeployKeyResponse {
   // The text of the public key portion of the deploy_key
   string result = 1;
-}        
+}
 
 message CreateGitDeployKeyRequest {
   // Project Id
-  string project_id = 492492543;    
-}        
+  string project_id = 492492543;
+}
 
 message CreateGitDeployKeyResponse {
   // Project
   string result = 1;
-}        
+}
 
 message ProjectValidationResultsRequest {
   // Project Id
   string project_id = 492492543;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ProjectValidationResultsResponse {
   
-}        
+}
 
 message ValidateProjectRequest {
   // Project Id
   string project_id = 492492543;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ValidateProjectResponse {
   // Project validation results
   ProjectValidation result = 1;
-}        
+}
 
 message ProjectWorkspaceRequest {
   // Project Id
   string project_id = 492492543;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ProjectWorkspaceResponse {
   // Project Workspace
   ProjectWorkspace result = 1;
-}        
+}
 
 message AllProjectFilesRequest {
   // Project Id
   string project_id = 492492543;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllProjectFilesResponse {
   // Project File
   repeated ProjectFile result = 1;
-}        
+}
+
+message AllProjectFilesStreamResponse {
+  // Project File
+  ProjectFile result = 1;
+}
 
 message ProjectFileRequest {
   // Project Id
@@ -8528,25 +8833,30 @@ message ProjectFileRequest {
   // File Id
   string file_id = 427500193;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ProjectFileResponse {
   // Project File
   ProjectFile result = 1;
-}        
+}
 
 message AllGitConnectionTestsRequest {
   // Project Id
   string project_id = 492492543;
   // (Optional: leave blank for root project) The remote url for remote dependency to test.
-  string remote_url = 520826107;    
-}        
+  string remote_url = 520826107;
+}
 
 message AllGitConnectionTestsResponse {
   // Git Connection Test
   repeated GitConnectionTest result = 1;
-}        
+}
+
+message AllGitConnectionTestsStreamResponse {
+  // Git Connection Test
+  GitConnectionTest result = 1;
+}
 
 message RunGitConnectionTestRequest {
   // Project Id
@@ -8554,25 +8864,30 @@ message RunGitConnectionTestRequest {
   // Test Id
   string test_id = 355613958;
   // (Optional: leave blank for root project) The remote url for remote dependency to test.
-  string remote_url = 520826107;    
-}        
+  string remote_url = 520826107;
+}
 
 message RunGitConnectionTestResponse {
   // Git Connection Test Result
   GitConnectionTestResult result = 1;
-}        
+}
 
 message AllLookmlTestsRequest {
   // Project Id
   string project_id = 492492543;
   // File Id
-  string file_id = 427500193;    
-}        
+  string file_id = 427500193;
+}
 
 message AllLookmlTestsResponse {
   // LookML Test
   repeated LookmlTest result = 1;
-}        
+}
+
+message AllLookmlTestsStreamResponse {
+  // LookML Test
+  LookmlTest result = 1;
+}
 
 message RunLookmlTestRequest {
   // Project Id
@@ -8582,48 +8897,58 @@ message RunLookmlTestRequest {
   // Test Name
   string test = 3556498;
   // Model Name
-  string model = 104069929;    
-}        
+  string model = 104069929;
+}
 
 message RunLookmlTestResponse {
   // LookML Test Results
   repeated LookmlTestResult result = 1;
-}        
+}
+
+message RunLookmlTestStreamResponse {
+  // LookML Test Results
+  LookmlTestResult result = 1;
+}
 
 message UpdateRepositoryCredentialRequest {
   // Root Project Id
   string root_project_id = 379036192;
   // Credential Id
   string credential_id = 371260031;
-  RepositoryCredential body = 3029410;    
-}        
+  RepositoryCredential body = 3029410;
+}
 
 message UpdateRepositoryCredentialResponse {
   // Repository Credential
   RepositoryCredential result = 1;
-}        
+}
 
 message DeleteRepositoryCredentialRequest {
   // Root Project Id
   string root_project_id = 379036192;
   // Credential Id
-  string credential_id = 371260031;    
-}        
+  string credential_id = 371260031;
+}
 
 message DeleteRepositoryCredentialResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message GetAllRepositoryCredentialsRequest {
   // Root Project Id
-  string root_project_id = 379036192;    
-}        
+  string root_project_id = 379036192;
+}
 
 message GetAllRepositoryCredentialsResponse {
   // Repository Credential
   repeated RepositoryCredential result = 1;
-}        
+}
+
+message GetAllRepositoryCredentialsStreamResponse {
+  // Repository Credential
+  RepositoryCredential result = 1;
+}
 
 message CreateQueryTaskRequest {
   CreateQueryTask body = 3029410;
@@ -8652,79 +8977,79 @@ message CreateQueryTaskRequest {
   // Perform table calculations on query results
   bool server_table_calcs = 334030724;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateQueryTaskResponse {
   // query_task
   QueryTask result = 1;
-}        
+}
 
 message QueryTaskMultiResultsRequest {
   // List of Query Task IDs
-  string query_task_ids = 467208869;    
-}        
+  string query_task_ids = 467208869;
+}
 
 message QueryTaskMultiResultsResponse {
   // Multiple query results
   map<string, string> result = 1;
-}        
+}
 
 message QueryTaskRequest {
   // ID of the Query Task
   string query_task_id = 435207576;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message QueryTaskResponse {
   // query_task
   QueryTask result = 1;
-}        
+}
 
 message QueryTaskResultsRequest {
   // ID of the Query Task
-  string query_task_id = 435207576;    
-}        
+  string query_task_id = 435207576;
+}
 
 message QueryTaskResultsResponse {
   
-}        
+}
 
 message QueryRequest {
   // Id of query
   int64 query_id = 291663619;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message QueryResponse {
   // Query
   Query result = 1;
-}        
+}
 
 message QueryForSlugRequest {
   // Slug of query
   string slug = 3533483;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message QueryForSlugResponse {
   // Query
   Query result = 1;
-}        
+}
 
 message CreateQueryRequest {
   Query body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateQueryResponse {
   // Query
   Query result = 1;
-}        
+}
 
 message RunQueryRequest {
   // Id of query
@@ -8754,12 +9079,12 @@ message RunQueryRequest {
   // Rebuild PDTS used in query.
   bool rebuild_pdts = 256532759;
   // Perform table calculations on query results
-  bool server_table_calcs = 334030724;    
-}        
+  bool server_table_calcs = 334030724;
+}
 
 message RunQueryResponse {
   
-}        
+}
 
 message RunInlineQueryRequest {
   // Format of result
@@ -8788,12 +9113,12 @@ message RunInlineQueryRequest {
   // Rebuild PDTS used in query.
   bool rebuild_pdts = 256532759;
   // Perform table calculations on query results
-  bool server_table_calcs = 334030724;    
-}        
+  bool server_table_calcs = 334030724;
+}
 
 message RunInlineQueryResponse {
   
-}        
+}
 
 message RunUrlEncodedQueryRequest {
   // Model name
@@ -8801,73 +9126,78 @@ message RunUrlEncodedQueryRequest {
   // View name
   string view_name = 393300486;
   // Format of result
-  string result_format = 283324265;    
-}        
+  string result_format = 283324265;
+}
 
 message RunUrlEncodedQueryResponse {
   
-}        
+}
 
 message MergeQueryRequest {
   // Merge Query Id
   string merge_query_id = 289061881;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message MergeQueryResponse {
   // Merge Query
   MergeQuery result = 1;
-}        
+}
 
 message CreateMergeQueryRequest {
   MergeQuery body = 3029410;
   // Requested fields
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateMergeQueryResponse {
   // Merge Query
   MergeQuery result = 1;
-}        
+}
 
 message AllRunningQueriesRequest {
-      
-}        
+  
+}
 
 message AllRunningQueriesResponse {
   // Running Queries.
   repeated RunningQueries result = 1;
-}        
+}
+
+message AllRunningQueriesStreamResponse {
+  // Running Queries.
+  RunningQueries result = 1;
+}
 
 message KillQueryRequest {
   // Query task id.
-  string query_task_id = 435207576;    
-}        
+  string query_task_id = 435207576;
+}
 
 message KillQueryResponse {
   // Query successfully killed.
   string result = 1;
-}        
+}
 
 message SqlQueryRequest {
   // slug of query
-  string slug = 3533483;    
-}        
+  string slug = 3533483;
+}
 
 message SqlQueryResponse {
   // SQL Runner Query
   SqlQuery result = 1;
-}        
+}
 
 message CreateSqlQueryRequest {
-  SqlQueryCreate body = 3029410;    
-}        
+  SqlQueryCreate body = 3029410;
+}
 
 message CreateSqlQueryResponse {
   // SQL Runner Query
   SqlQuery result = 1;
-}        
+}
 
 message RunSqlQueryRequest {
   // slug of query
@@ -8875,12 +9205,12 @@ message RunSqlQueryRequest {
   // Format of result, options are: ["inline_json", "json", "json_detail", "json_fe", "csv", "html", "md", "txt", "xlsx", "gsxml", "json_label"]
   string result_format = 283324265;
   // Defaults to false. If set to true, the HTTP response will have content-disposition and other headers set to make the HTTP response behave as a downloadable attachment instead of as inline content.
-  string download = 356954658;    
-}        
+  string download = 356954658;
+}
 
 message RunSqlQueryResponse {
   
-}        
+}
 
 message CreateLookRenderTaskRequest {
   // Id of look to render
@@ -8892,13 +9222,13 @@ message CreateLookRenderTaskRequest {
   // Output height in pixels
   int64 height = 305257398;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateLookRenderTaskResponse {
   // Render Task
   RenderTask result = 1;
-}        
+}
 
 message CreateQueryRenderTaskRequest {
   // Id of the query to render
@@ -8910,13 +9240,13 @@ message CreateQueryRenderTaskRequest {
   // Output height in pixels
   int64 height = 305257398;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateQueryRenderTaskResponse {
   // Render Task
   RenderTask result = 1;
-}        
+}
 
 message CreateDashboardRenderTaskRequest {
   // Id of dashboard to render. The ID can be a LookML dashboard also.
@@ -8935,34 +9265,34 @@ message CreateDashboardRenderTaskRequest {
   // Whether to render pdf in landscape paper orientation
   bool pdf_landscape = 359176724;
   // Whether or not to expand table vis to full length
-  bool long_tables = 359736222;    
-}        
+  bool long_tables = 359736222;
+}
 
 message CreateDashboardRenderTaskResponse {
   // Render Task
   RenderTask result = 1;
-}        
+}
 
 message RenderTaskRequest {
   // Id of render task
   string render_task_id = 274685669;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message RenderTaskResponse {
   // Render Task
   RenderTask result = 1;
-}        
+}
 
 message RenderTaskResultsRequest {
   // Id of render task
-  string render_task_id = 274685669;    
-}        
+  string render_task_id = 274685669;
+}
 
 message RenderTaskResultsResponse {
   
-}        
+}
 
 message SearchModelSetsRequest {
   // Requested fields.
@@ -8982,74 +9312,89 @@ message SearchModelSetsRequest {
   // Match model sets by built_in status.
   bool built_in = 357544798;
   // Combine given search criteria in a boolean OR expression.
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchModelSetsResponse {
   // Model Set
   repeated ModelSet result = 1;
-}        
+}
+
+message SearchModelSetsStreamResponse {
+  // Model Set
+  ModelSet result = 1;
+}
 
 message ModelSetRequest {
   // Id of model set
   int64 model_set_id = 1141778;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ModelSetResponse {
   // Specified model set.
   ModelSet result = 1;
-}        
+}
 
 message UpdateModelSetRequest {
   // id of model set
   int64 model_set_id = 1141778;
-  ModelSet body = 3029410;    
-}        
+  ModelSet body = 3029410;
+}
 
 message UpdateModelSetResponse {
   // New state for specified model set.
   ModelSet result = 1;
-}        
+}
 
 message DeleteModelSetRequest {
   // id of model set
-  int64 model_set_id = 1141778;    
-}        
+  int64 model_set_id = 1141778;
+}
 
 message DeleteModelSetResponse {
   // Model set succssfully deleted.
   string result = 1;
-}        
+}
 
 message AllModelSetsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllModelSetsResponse {
   // All model sets.
   repeated ModelSet result = 1;
-}        
+}
+
+message AllModelSetsStreamResponse {
+  // All model sets.
+  ModelSet result = 1;
+}
 
 message CreateModelSetRequest {
-  ModelSet body = 3029410;    
-}        
+  ModelSet body = 3029410;
+}
 
 message CreateModelSetResponse {
   // Newly created ModelSet
   ModelSet result = 1;
-}        
+}
 
 message AllPermissionsRequest {
-      
-}        
+  
+}
 
 message AllPermissionsResponse {
   // Permission
   repeated Permission result = 1;
-}        
+}
+
+message AllPermissionsStreamResponse {
+  // Permission
+  Permission result = 1;
+}
 
 message SearchPermissionSetsRequest {
   // Requested fields.
@@ -9069,86 +9414,101 @@ message SearchPermissionSetsRequest {
   // Match permission sets by built_in status.
   bool built_in = 357544798;
   // Combine given search criteria in a boolean OR expression.
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchPermissionSetsResponse {
   // Permission Set
   repeated PermissionSet result = 1;
-}        
+}
+
+message SearchPermissionSetsStreamResponse {
+  // Permission Set
+  PermissionSet result = 1;
+}
 
 message PermissionSetRequest {
   // Id of permission set
   int64 permission_set_id = 379867460;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message PermissionSetResponse {
   // Permission Set
   PermissionSet result = 1;
-}        
+}
 
 message UpdatePermissionSetRequest {
   // id of permission set
   int64 permission_set_id = 379867460;
-  PermissionSet body = 3029410;    
-}        
+  PermissionSet body = 3029410;
+}
 
 message UpdatePermissionSetResponse {
   // Permission Set
   PermissionSet result = 1;
-}        
+}
 
 message DeletePermissionSetRequest {
   // Id of permission set
-  int64 permission_set_id = 379867460;    
-}        
+  int64 permission_set_id = 379867460;
+}
 
 message DeletePermissionSetResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllPermissionSetsRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllPermissionSetsResponse {
   // Permission Set
   repeated PermissionSet result = 1;
-}        
+}
+
+message AllPermissionSetsStreamResponse {
+  // Permission Set
+  PermissionSet result = 1;
+}
 
 message CreatePermissionSetRequest {
-  PermissionSet body = 3029410;    
-}        
+  PermissionSet body = 3029410;
+}
 
 message CreatePermissionSetResponse {
   // Permission Set
   PermissionSet result = 1;
-}        
+}
 
 message AllRolesRequest {
   // Requested fields.
   string fields = 318677073;
   // Optional list of ids to get specific roles.
-  string ids = 104120;    
-}        
+  string ids = 104120;
+}
 
 message AllRolesResponse {
   // Role
   repeated Role result = 1;
-}        
+}
+
+message AllRolesStreamResponse {
+  // Role
+  Role result = 1;
+}
 
 message CreateRoleRequest {
-  Role body = 3029410;    
-}        
+  Role body = 3029410;
+}
 
 message CreateRoleResponse {
   // Role
   Role result = 1;
-}        
+}
 
 message SearchRolesRequest {
   // Requested fields.
@@ -9166,67 +9526,82 @@ message SearchRolesRequest {
   // Match roles by built_in status.
   bool built_in = 357544798;
   // Combine given search criteria in a boolean OR expression.
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchRolesResponse {
   // Role
   repeated Role result = 1;
-}        
+}
+
+message SearchRolesStreamResponse {
+  // Role
+  Role result = 1;
+}
 
 message RoleRequest {
   // id of role
-  int64 role_id = 344221025;    
-}        
+  int64 role_id = 344221025;
+}
 
 message RoleResponse {
   // Role
   Role result = 1;
-}        
+}
 
 message UpdateRoleRequest {
   // id of role
   int64 role_id = 344221025;
-  Role body = 3029410;    
-}        
+  Role body = 3029410;
+}
 
 message UpdateRoleResponse {
   // Role
   Role result = 1;
-}        
+}
 
 message DeleteRoleRequest {
   // id of role
-  int64 role_id = 344221025;    
-}        
+  int64 role_id = 344221025;
+}
 
 message DeleteRoleResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message RoleGroupsRequest {
   // id of role
   int64 role_id = 344221025;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message RoleGroupsResponse {
   // Groups with role.
   repeated Group result = 1;
-}        
+}
+
+message RoleGroupsStreamResponse {
+  // Groups with role.
+  Group result = 1;
+}
 
 message SetRoleGroupsRequest {
   // Id of Role
   int64 role_id = 344221025;
-  repeated int64 body = 3029410;    
-}        
+  repeated int64 body = 3029410;
+}
 
 message SetRoleGroupsResponse {
   // Groups with role.
   repeated Group result = 1;
-}        
+}
+
+message SetRoleGroupsStreamResponse {
+  // Groups with role.
+  Group result = 1;
+}
 
 message RoleUsersRequest {
   // id of user
@@ -9234,69 +9609,84 @@ message RoleUsersRequest {
   // Requested fields.
   string fields = 318677073;
   // Get only users associated directly with the role: exclude those only associated through groups.
-  bool direct_association_only = 533341840;    
-}        
+  bool direct_association_only = 533341840;
+}
 
 message RoleUsersResponse {
   // Users with role.
   repeated User result = 1;
-}        
+}
+
+message RoleUsersStreamResponse {
+  // Users with role.
+  User result = 1;
+}
 
 message SetRoleUsersRequest {
   // id of role
   int64 role_id = 344221025;
-  repeated int64 body = 3029410;    
-}        
+  repeated int64 body = 3029410;
+}
 
 message SetRoleUsersResponse {
   // Users with role.
   repeated User result = 1;
-}        
+}
+
+message SetRoleUsersStreamResponse {
+  // Users with role.
+  User result = 1;
+}
 
 message ScheduledPlansForSpaceRequest {
   // Space Id
   int64 space_id = 511862461;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ScheduledPlansForSpaceResponse {
   // Scheduled Plan
   repeated ScheduledPlan result = 1;
-}        
+}
+
+message ScheduledPlansForSpaceStreamResponse {
+  // Scheduled Plan
+  ScheduledPlan result = 1;
+}
 
 message ScheduledPlanRequest {
   // Scheduled Plan Id
   int64 scheduled_plan_id = 335709463;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ScheduledPlanResponse {
   // Scheduled Plan
   ScheduledPlan result = 1;
-}        
+}
 
 message UpdateScheduledPlanRequest {
   // Scheduled Plan Id
   int64 scheduled_plan_id = 335709463;
-  ScheduledPlan body = 3029410;    
-}        
+  ScheduledPlan body = 3029410;
+}
 
 message UpdateScheduledPlanResponse {
   // Scheduled Plan
   ScheduledPlan result = 1;
-}        
+}
 
 message DeleteScheduledPlanRequest {
   // Scheduled Plan Id
-  int64 scheduled_plan_id = 335709463;    
-}        
+  int64 scheduled_plan_id = 335709463;
+}
 
 message DeleteScheduledPlanResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllScheduledPlansRequest {
   // Return scheduled plans belonging to this user_id. If not provided, returns scheduled plans owned by the caller.
@@ -9304,31 +9694,36 @@ message AllScheduledPlansRequest {
   // Comma delimited list of field names. If provided, only the fields specified will be included in the response
   string fields = 318677073;
   // Return scheduled plans belonging to all users (caller needs see_schedules permission)
-  bool all_users = 86970902;    
-}        
+  bool all_users = 86970902;
+}
 
 message AllScheduledPlansResponse {
   // Scheduled Plan
   repeated ScheduledPlan result = 1;
-}        
+}
+
+message AllScheduledPlansStreamResponse {
+  // Scheduled Plan
+  ScheduledPlan result = 1;
+}
 
 message CreateScheduledPlanRequest {
-  ScheduledPlan body = 3029410;    
-}        
+  ScheduledPlan body = 3029410;
+}
 
 message CreateScheduledPlanResponse {
   // Scheduled Plan
   ScheduledPlan result = 1;
-}        
+}
 
 message ScheduledPlanRunOnceRequest {
-  ScheduledPlan body = 3029410;    
-}        
+  ScheduledPlan body = 3029410;
+}
 
 message ScheduledPlanRunOnceResponse {
   // Scheduled Plan
   ScheduledPlan result = 1;
-}        
+}
 
 message ScheduledPlansForLookRequest {
   // Look Id
@@ -9338,13 +9733,18 @@ message ScheduledPlansForLookRequest {
   // Requested fields.
   string fields = 318677073;
   // Return scheduled plans belonging to all users for the look
-  bool all_users = 86970902;    
-}        
+  bool all_users = 86970902;
+}
 
 message ScheduledPlansForLookResponse {
   // Scheduled Plan
   repeated ScheduledPlan result = 1;
-}        
+}
+
+message ScheduledPlansForLookStreamResponse {
+  // Scheduled Plan
+  ScheduledPlan result = 1;
+}
 
 message ScheduledPlansForDashboardRequest {
   // Dashboard Id
@@ -9354,13 +9754,18 @@ message ScheduledPlansForDashboardRequest {
   // Return scheduled plans belonging to all users for the dashboard
   bool all_users = 86970902;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ScheduledPlansForDashboardResponse {
   // Scheduled Plan
   repeated ScheduledPlan result = 1;
-}        
+}
+
+message ScheduledPlansForDashboardStreamResponse {
+  // Scheduled Plan
+  ScheduledPlan result = 1;
+}
 
 message ScheduledPlansForLookmlDashboardRequest {
   // LookML Dashboard Id
@@ -9370,61 +9775,71 @@ message ScheduledPlansForLookmlDashboardRequest {
   // Requested fields.
   string fields = 318677073;
   // Return scheduled plans belonging to all users for the dashboard
-  bool all_users = 86970902;    
-}        
+  bool all_users = 86970902;
+}
 
 message ScheduledPlansForLookmlDashboardResponse {
   // Scheduled Plan
   repeated ScheduledPlan result = 1;
-}        
+}
+
+message ScheduledPlansForLookmlDashboardStreamResponse {
+  // Scheduled Plan
+  ScheduledPlan result = 1;
+}
 
 message ScheduledPlanRunOnceByIdRequest {
   // Id of schedule plan to copy and run
   int64 scheduled_plan_id = 335709463;
-  WriteScheduledPlan body = 3029410;    
-}        
+  WriteScheduledPlan body = 3029410;
+}
 
 message ScheduledPlanRunOnceByIdResponse {
   // Scheduled Plan
   ScheduledPlan result = 1;
-}        
+}
 
 message SessionRequest {
-      
-}        
+  
+}
 
 message SessionResponse {
   // Session
   ApiSession result = 1;
-}        
+}
 
 message UpdateSessionRequest {
-  ApiSession body = 3029410;    
-}        
+  ApiSession body = 3029410;
+}
 
 message UpdateSessionResponse {
   // Session
   ApiSession result = 1;
-}        
+}
 
 message AllThemesRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllThemesResponse {
   // Themes
   repeated Theme result = 1;
-}        
+}
+
+message AllThemesStreamResponse {
+  // Themes
+  Theme result = 1;
+}
 
 message CreateThemeRequest {
-  Theme body = 3029410;    
-}        
+  Theme body = 3029410;
+}
 
 message CreateThemeResponse {
   // Theme
   Theme result = 1;
-}        
+}
 
 message SearchThemesRequest {
   // Match theme id.
@@ -9444,33 +9859,38 @@ message SearchThemesRequest {
   // Requested fields.
   string fields = 318677073;
   // Combine given search criteria in a boolean OR expression
-  bool filter_or = 440686075;    
-}        
+  bool filter_or = 440686075;
+}
 
 message SearchThemesResponse {
   // Themes
   repeated Theme result = 1;
-}        
+}
+
+message SearchThemesStreamResponse {
+  // Themes
+  Theme result = 1;
+}
 
 message DefaultThemeRequest {
   // Timestamp representing the target datetime for the active period. Defaults to 'now'
-  google.protobuf.Timestamp ts = 3711;    
-}        
+  google.protobuf.Timestamp ts = 3711;
+}
 
 message DefaultThemeResponse {
   // Theme
   Theme result = 1;
-}        
+}
 
 message SetDefaultThemeRequest {
   // Name of theme to set as default
-  string name = 3373707;    
-}        
+  string name = 3373707;
+}
 
 message SetDefaultThemeResponse {
   // Theme
   Theme result = 1;
-}        
+}
 
 message ActiveThemesRequest {
   // Name of theme
@@ -9478,76 +9898,81 @@ message ActiveThemesRequest {
   // Timestamp representing the target datetime for the active period. Defaults to 'now'
   google.protobuf.Timestamp ts = 3711;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ActiveThemesResponse {
   // Themes
   repeated Theme result = 1;
-}        
+}
+
+message ActiveThemesStreamResponse {
+  // Themes
+  Theme result = 1;
+}
 
 message ThemeOrDefaultRequest {
   // Name of theme
   string name = 3373707;
   // Timestamp representing the target datetime for the active period. Defaults to 'now'
-  google.protobuf.Timestamp ts = 3711;    
-}        
+  google.protobuf.Timestamp ts = 3711;
+}
 
 message ThemeOrDefaultResponse {
   // Theme
   Theme result = 1;
-}        
+}
 
 message ValidateThemeRequest {
-  Theme body = 3029410;    
-}        
+  Theme body = 3029410;
+}
 
 message ValidateThemeResponse {
   
-}        
+}
 
 message ThemeRequest {
   // Id of theme
   int64 theme_id = 277237460;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message ThemeResponse {
   // Theme
   Theme result = 1;
-}        
+}
 
 message UpdateThemeRequest {
   // Id of theme
   int64 theme_id = 277237460;
-  Theme body = 3029410;    
-}        
+  Theme body = 3029410;
+}
 
 message UpdateThemeResponse {
   // Theme
   Theme result = 1;
-}        
+}
 
 message DeleteThemeRequest {
   // Id of theme
-  string theme_id = 277237460;    
-}        
+  string theme_id = 277237460;
+}
 
 message DeleteThemeResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message MeRequest {
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message MeResponse {
   // Current user.
   User result = 1;
-}        
+}
 
 message AllUsersRequest {
   // Requested fields.
@@ -9559,24 +9984,29 @@ message AllUsersRequest {
   // Fields to sort by.
   string sorts = 109624981;
   // Optional list of ids to get specific users.
-  string ids = 104120;    
-}        
+  string ids = 104120;
+}
 
 message AllUsersResponse {
   // All users.
   repeated User result = 1;
-}        
+}
+
+message AllUsersStreamResponse {
+  // All users.
+  User result = 1;
+}
 
 message CreateUserRequest {
   User body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateUserResponse {
   // Created User
   User result = 1;
-}        
+}
 
 message SearchUsersRequest {
   // Include only these fields in the response
@@ -9604,13 +10034,18 @@ message SearchUsersRequest {
   // Search for users who have access to this content_metadata item
   string content_metadata_id = 293222822;
   // Search for users who are direct members of this group
-  string group_id = 506361563;    
-}        
+  string group_id = 506361563;
+}
 
 message SearchUsersResponse {
   // Matching users.
   repeated User result = 1;
-}        
+}
+
+message SearchUsersStreamResponse {
+  // Matching users.
+  User result = 1;
+}
 
 message SearchUsersNamesRequest {
   // Pattern to match
@@ -9634,48 +10069,53 @@ message SearchUsersNamesRequest {
   // Match Email Address
   string email = 96619420;
   // Include or exclude disabled accounts in the results
-  bool is_disabled = 464089615;    
-}        
+  bool is_disabled = 464089615;
+}
 
 message SearchUsersNamesResponse {
   // Matching users.
   repeated User result = 1;
-}        
+}
+
+message SearchUsersNamesStreamResponse {
+  // Matching users.
+  User result = 1;
+}
 
 message UserRequest {
   // Id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserResponse {
   // Specified user.
   User result = 1;
-}        
+}
 
 message UpdateUserRequest {
   // Id of user
   int64 user_id = 147132913;
   User body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateUserResponse {
   // New state for specified user.
   User result = 1;
-}        
+}
 
 message DeleteUserRequest {
   // Id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserResponse {
   // User successfully deleted.
   string result = 1;
-}        
+}
 
 message UserForCredentialRequest {
   // Type name of credential
@@ -9683,184 +10123,184 @@ message UserForCredentialRequest {
   // Id of credential
   string credential_id = 371260031;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserForCredentialResponse {
   // Specified user.
   User result = 1;
-}        
+}
 
 message UserCredentialsEmailRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsEmailResponse {
   // Email/Password Credential
   CredentialsEmail result = 1;
-}        
+}
 
 message CreateUserCredentialsEmailRequest {
   // id of user
   int64 user_id = 147132913;
   CredentialsEmail body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateUserCredentialsEmailResponse {
   // Email/Password Credential
   CredentialsEmail result = 1;
-}        
+}
 
 message UpdateUserCredentialsEmailRequest {
   // id of user
   int64 user_id = 147132913;
   CredentialsEmail body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateUserCredentialsEmailResponse {
   // Email/Password Credential
   CredentialsEmail result = 1;
-}        
+}
 
 message DeleteUserCredentialsEmailRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsEmailResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserCredentialsTotpRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsTotpResponse {
   // Two-Factor Credential
   CredentialsTotp result = 1;
-}        
+}
 
 message CreateUserCredentialsTotpRequest {
   // id of user
   int64 user_id = 147132913;
   CredentialsTotp body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateUserCredentialsTotpResponse {
   // Two-Factor Credential
   CredentialsTotp result = 1;
-}        
+}
 
 message DeleteUserCredentialsTotpRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsTotpResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserCredentialsLdapRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsLdapResponse {
   // LDAP Credential
   CredentialsLDAP result = 1;
-}        
+}
 
 message DeleteUserCredentialsLdapRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsLdapResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserCredentialsGoogleRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsGoogleResponse {
   // Google Auth Credential
   CredentialsGoogle result = 1;
-}        
+}
 
 message DeleteUserCredentialsGoogleRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsGoogleResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserCredentialsSamlRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsSamlResponse {
   // Saml Auth Credential
   CredentialsSaml result = 1;
-}        
+}
 
 message DeleteUserCredentialsSamlRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsSamlResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserCredentialsOidcRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsOidcResponse {
   // OIDC Auth Credential
   CredentialsOIDC result = 1;
-}        
+}
 
 message DeleteUserCredentialsOidcRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsOidcResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserCredentialsApi3Request {
   // Id of user
@@ -9868,50 +10308,55 @@ message UserCredentialsApi3Request {
   // Id of API 3 Credential
   int64 credentials_api3_id = 395298239;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsApi3Response {
   // API 3 Credential
   CredentialsApi3 result = 1;
-}        
+}
 
 message DeleteUserCredentialsApi3Request {
   // id of user
   int64 user_id = 147132913;
   // id of API 3 Credential
-  int64 credentials_api3_id = 395298239;    
-}        
+  int64 credentials_api3_id = 395298239;
+}
 
 message DeleteUserCredentialsApi3Response {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllUserCredentialsApi3sRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllUserCredentialsApi3sResponse {
   // API 3 Credential
   repeated CredentialsApi3 result = 1;
-}        
+}
+
+message AllUserCredentialsApi3sStreamResponse {
+  // API 3 Credential
+  CredentialsApi3 result = 1;
+}
 
 message CreateUserCredentialsApi3Request {
   // id of user
   int64 user_id = 147132913;
   CredentialsApi3 body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateUserCredentialsApi3Response {
   // API 3 Credential
   CredentialsApi3 result = 1;
-}        
+}
 
 message UserCredentialsEmbedRequest {
   // Id of user
@@ -9919,59 +10364,64 @@ message UserCredentialsEmbedRequest {
   // Id of Embedding Credential
   int64 credentials_embed_id = 350409591;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsEmbedResponse {
   // Embedding Credential
   CredentialsEmbed result = 1;
-}        
+}
 
 message DeleteUserCredentialsEmbedRequest {
   // id of user
   int64 user_id = 147132913;
   // id of Embedding Credential
-  int64 credentials_embed_id = 350409591;    
-}        
+  int64 credentials_embed_id = 350409591;
+}
 
 message DeleteUserCredentialsEmbedResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllUserCredentialsEmbedsRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllUserCredentialsEmbedsResponse {
   // Embedding Credential
   repeated CredentialsEmbed result = 1;
-}        
+}
+
+message AllUserCredentialsEmbedsStreamResponse {
+  // Embedding Credential
+  CredentialsEmbed result = 1;
+}
 
 message UserCredentialsLookerOpenidRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserCredentialsLookerOpenidResponse {
   // Looker OpenId Credential
   CredentialsLookerOpenid result = 1;
-}        
+}
 
 message DeleteUserCredentialsLookerOpenidRequest {
   // id of user
-  int64 user_id = 147132913;    
-}        
+  int64 user_id = 147132913;
+}
 
 message DeleteUserCredentialsLookerOpenidResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message UserSessionRequest {
   // Id of user
@@ -9979,37 +10429,42 @@ message UserSessionRequest {
   // Id of Web Login Session
   int64 session_id = 415463385;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserSessionResponse {
   // Web Login Session
   Session result = 1;
-}        
+}
 
 message DeleteUserSessionRequest {
   // id of user
   int64 user_id = 147132913;
   // id of Web Login Session
-  int64 session_id = 415463385;    
-}        
+  int64 session_id = 415463385;
+}
 
 message DeleteUserSessionResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllUserSessionsRequest {
   // id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllUserSessionsResponse {
   // Web Login Session
   repeated Session result = 1;
-}        
+}
+
+message AllUserSessionsStreamResponse {
+  // Web Login Session
+  Session result = 1;
+}
 
 message CreateUserCredentialsEmailPasswordResetRequest {
   // Id of user
@@ -10017,13 +10472,13 @@ message CreateUserCredentialsEmailPasswordResetRequest {
   // Expiring token.
   bool expires = 327308851;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateUserCredentialsEmailPasswordResetResponse {
   // email/password credential
   CredentialsEmail result = 1;
-}        
+}
 
 message UserRolesRequest {
   // id of user
@@ -10031,26 +10486,36 @@ message UserRolesRequest {
   // Requested fields.
   string fields = 318677073;
   // Get only roles associated directly with the user: exclude those only associated through groups.
-  bool direct_association_only = 533341840;    
-}        
+  bool direct_association_only = 533341840;
+}
 
 message UserRolesResponse {
   // Roles of user.
   repeated Role result = 1;
-}        
+}
+
+message UserRolesStreamResponse {
+  // Roles of user.
+  Role result = 1;
+}
 
 message SetUserRolesRequest {
   // id of user
   int64 user_id = 147132913;
   repeated int64 body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message SetUserRolesResponse {
   // Roles of user.
   repeated Role result = 1;
-}        
+}
+
+message SetUserRolesStreamResponse {
+  // Roles of user.
+  Role result = 1;
+}
 
 message UserAttributeUserValuesRequest {
   // Id of user
@@ -10062,146 +10527,171 @@ message UserAttributeUserValuesRequest {
   // If true, returns all values in the search path instead of just the first value found. Useful for debugging group precedence.
   bool all_values = 402771552;
   // If true, returns an empty record for each requested attribute that has no user, group, or default value.
-  bool include_unset = 384531147;    
-}        
+  bool include_unset = 384531147;
+}
 
 message UserAttributeUserValuesResponse {
   // Value of user attribute.
   repeated UserAttributeWithValue result = 1;
-}        
+}
+
+message UserAttributeUserValuesStreamResponse {
+  // Value of user attribute.
+  UserAttributeWithValue result = 1;
+}
 
 message SetUserAttributeUserValueRequest {
   // Id of user
   int64 user_id = 147132913;
   // Id of user attribute
   int64 user_attribute_id = 534680475;
-  UserAttributeWithValue body = 3029410;    
-}        
+  UserAttributeWithValue body = 3029410;
+}
 
 message SetUserAttributeUserValueResponse {
   // User attribute value.
   UserAttributeWithValue result = 1;
-}        
+}
 
 message DeleteUserAttributeUserValueRequest {
   // Id of user
   int64 user_id = 147132913;
   // Id of user attribute
-  int64 user_attribute_id = 534680475;    
-}        
+  int64 user_attribute_id = 534680475;
+}
 
 message DeleteUserAttributeUserValueResponse {
   // Deleted
-}        
+}
 
 message SendUserCredentialsEmailPasswordResetRequest {
   // Id of user
   int64 user_id = 147132913;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message SendUserCredentialsEmailPasswordResetResponse {
   // email/password credential
   CredentialsEmail result = 1;
-}        
+}
 
 message AllUserAttributesRequest {
   // Requested fields.
   string fields = 318677073;
   // Fields to order the results by. Sortable fields include: name, label
-  string sorts = 109624981;    
-}        
+  string sorts = 109624981;
+}
 
 message AllUserAttributesResponse {
   // User Attribute
   repeated UserAttribute result = 1;
-}        
+}
+
+message AllUserAttributesStreamResponse {
+  // User Attribute
+  UserAttribute result = 1;
+}
 
 message CreateUserAttributeRequest {
   UserAttribute body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message CreateUserAttributeResponse {
   // User Attribute
   UserAttribute result = 1;
-}        
+}
 
 message UserAttributeRequest {
   // Id of user attribute
   int64 user_attribute_id = 534680475;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UserAttributeResponse {
   // User Attribute
   UserAttribute result = 1;
-}        
+}
 
 message UpdateUserAttributeRequest {
   // Id of user attribute
   int64 user_attribute_id = 534680475;
   UserAttribute body = 3029410;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message UpdateUserAttributeResponse {
   // User Attribute
   UserAttribute result = 1;
-}        
+}
 
 message DeleteUserAttributeRequest {
   // Id of user_attribute
-  int64 user_attribute_id = 534680475;    
-}        
+  int64 user_attribute_id = 534680475;
+}
 
 message DeleteUserAttributeResponse {
   // Successfully deleted.
   string result = 1;
-}        
+}
 
 message AllUserAttributeGroupValuesRequest {
   // Id of user attribute
   int64 user_attribute_id = 534680475;
   // Requested fields.
-  string fields = 318677073;    
-}        
+  string fields = 318677073;
+}
 
 message AllUserAttributeGroupValuesResponse {
   // All group values for attribute.
   repeated UserAttributeGroupValue result = 1;
-}        
+}
+
+message AllUserAttributeGroupValuesStreamResponse {
+  // All group values for attribute.
+  UserAttributeGroupValue result = 1;
+}
 
 message SetUserAttributeGroupValuesRequest {
   // Id of user attribute
   int64 user_attribute_id = 534680475;
-  repeated UserAttributeGroupValue body = 3029410;    
-}        
+  repeated UserAttributeGroupValue body = 3029410;
+}
 
 message SetUserAttributeGroupValuesResponse {
   // Array of group values.
   repeated UserAttributeGroupValue result = 1;
-}        
+}
+
+message SetUserAttributeGroupValuesStreamResponse {
+  // Array of group values.
+  UserAttributeGroupValue result = 1;
+}
 
 message AllWorkspacesRequest {
-      
-}        
+  
+}
 
 message AllWorkspacesResponse {
   // Workspace
   repeated Workspace result = 1;
-}        
+}
+
+message AllWorkspacesStreamResponse {
+  // Workspace
+  Workspace result = 1;
+}
 
 message WorkspaceRequest {
   // Id of the workspace 
-  string workspace_id = 394620993;    
-}        
+  string workspace_id = 394620993;
+}
 
 message WorkspaceResponse {
   // Workspace
   Workspace result = 1;
-}        
+}

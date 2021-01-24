@@ -617,7 +617,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allOauthClientApps(AllOauthClientAppsRequest request, StreamObserver<AllOauthClientAppsResponse> responseObserver) {
+    public void allOauthClientApps(AllOauthClientAppsRequest request, StreamObserver<AllOauthClientAppsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -636,15 +636,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllOauthClientAppsResponse.Builder responseBuilder2 = AllOauthClientAppsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllOauthClientAppsStreamResponse.Builder responseBuilder2 = AllOauthClientAppsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -1547,7 +1543,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allUserLoginLockouts(AllUserLoginLockoutsRequest request, StreamObserver<AllUserLoginLockoutsResponse> responseObserver) {
+    public void allUserLoginLockouts(AllUserLoginLockoutsRequest request, StreamObserver<AllUserLoginLockoutsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -1566,15 +1562,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUserLoginLockoutsResponse.Builder responseBuilder2 = AllUserLoginLockoutsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUserLoginLockoutsStreamResponse.Builder responseBuilder2 = AllUserLoginLockoutsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -1589,7 +1581,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchUserLoginLockouts(SearchUserLoginLockoutsRequest request, StreamObserver<SearchUserLoginLockoutsResponse> responseObserver) {
+    public void searchUserLoginLockouts(SearchUserLoginLockoutsRequest request, StreamObserver<SearchUserLoginLockoutsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -1608,15 +1600,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchUserLoginLockoutsResponse.Builder responseBuilder2 = SearchUserLoginLockoutsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchUserLoginLockoutsStreamResponse.Builder responseBuilder2 = SearchUserLoginLockoutsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -1669,7 +1657,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allBoards(AllBoardsRequest request, StreamObserver<AllBoardsResponse> responseObserver) {
+    public void allBoards(AllBoardsRequest request, StreamObserver<AllBoardsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -1688,15 +1676,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllBoardsResponse.Builder responseBuilder2 = AllBoardsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllBoardsStreamResponse.Builder responseBuilder2 = AllBoardsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -1767,7 +1751,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchBoards(SearchBoardsRequest request, StreamObserver<SearchBoardsResponse> responseObserver) {
+    public void searchBoards(SearchBoardsRequest request, StreamObserver<SearchBoardsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -1786,15 +1770,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchBoardsResponse.Builder responseBuilder2 = SearchBoardsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchBoardsStreamResponse.Builder responseBuilder2 = SearchBoardsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -1911,7 +1891,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allBoardItems(AllBoardItemsRequest request, StreamObserver<AllBoardItemsResponse> responseObserver) {
+    public void allBoardItems(AllBoardItemsRequest request, StreamObserver<AllBoardItemsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -1930,15 +1910,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllBoardItemsResponse.Builder responseBuilder2 = AllBoardItemsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllBoardItemsStreamResponse.Builder responseBuilder2 = AllBoardItemsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -2089,7 +2065,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allBoardSections(AllBoardSectionsRequest request, StreamObserver<AllBoardSectionsResponse> responseObserver) {
+    public void allBoardSections(AllBoardSectionsRequest request, StreamObserver<AllBoardSectionsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -2108,15 +2084,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllBoardSectionsResponse.Builder responseBuilder2 = AllBoardSectionsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllBoardSectionsStreamResponse.Builder responseBuilder2 = AllBoardSectionsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -2279,7 +2251,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allColorCollections(AllColorCollectionsRequest request, StreamObserver<AllColorCollectionsResponse> responseObserver) {
+    public void allColorCollections(AllColorCollectionsRequest request, StreamObserver<AllColorCollectionsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -2298,15 +2270,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllColorCollectionsResponse.Builder responseBuilder2 = AllColorCollectionsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllColorCollectionsStreamResponse.Builder responseBuilder2 = AllColorCollectionsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -2370,7 +2338,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void colorCollectionsCustom(ColorCollectionsCustomRequest request, StreamObserver<ColorCollectionsCustomResponse> responseObserver) {
+    public void colorCollectionsCustom(ColorCollectionsCustomRequest request, StreamObserver<ColorCollectionsCustomStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -2389,15 +2357,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ColorCollectionsCustomResponse.Builder responseBuilder2 = ColorCollectionsCustomResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ColorCollectionsCustomStreamResponse.Builder responseBuilder2 = ColorCollectionsCustomStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -2418,7 +2382,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void colorCollectionsStandard(ColorCollectionsStandardRequest request, StreamObserver<ColorCollectionsStandardResponse> responseObserver) {
+    public void colorCollectionsStandard(ColorCollectionsStandardRequest request, StreamObserver<ColorCollectionsStandardStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -2437,15 +2401,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ColorCollectionsStandardResponse.Builder responseBuilder2 = ColorCollectionsStandardResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ColorCollectionsStandardStreamResponse.Builder responseBuilder2 = ColorCollectionsStandardStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -2662,7 +2622,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void getAllCommands(GetAllCommandsRequest request, StreamObserver<GetAllCommandsResponse> responseObserver) {
+    public void getAllCommands(GetAllCommandsRequest request, StreamObserver<GetAllCommandsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -2681,15 +2641,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            GetAllCommandsResponse.Builder responseBuilder2 = GetAllCommandsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          GetAllCommandsStreamResponse.Builder responseBuilder2 = GetAllCommandsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3224,7 +3180,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allLegacyFeatures(AllLegacyFeaturesRequest request, StreamObserver<AllLegacyFeaturesResponse> responseObserver) {
+    public void allLegacyFeatures(AllLegacyFeaturesRequest request, StreamObserver<AllLegacyFeaturesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3243,15 +3199,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllLegacyFeaturesResponse.Builder responseBuilder2 = AllLegacyFeaturesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllLegacyFeaturesStreamResponse.Builder responseBuilder2 = AllLegacyFeaturesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3334,7 +3286,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allLocales(AllLocalesRequest request, StreamObserver<AllLocalesResponse> responseObserver) {
+    public void allLocales(AllLocalesRequest request, StreamObserver<AllLocalesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3353,15 +3305,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllLocalesResponse.Builder responseBuilder2 = AllLocalesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllLocalesStreamResponse.Builder responseBuilder2 = AllLocalesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3376,7 +3324,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allTimezones(AllTimezonesRequest request, StreamObserver<AllTimezonesResponse> responseObserver) {
+    public void allTimezones(AllTimezonesRequest request, StreamObserver<AllTimezonesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3395,15 +3343,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllTimezonesResponse.Builder responseBuilder2 = AllTimezonesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllTimezonesStreamResponse.Builder responseBuilder2 = AllTimezonesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3525,7 +3469,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allConnections(AllConnectionsRequest request, StreamObserver<AllConnectionsResponse> responseObserver) {
+    public void allConnections(AllConnectionsRequest request, StreamObserver<AllConnectionsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3544,15 +3488,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllConnectionsResponse.Builder responseBuilder2 = AllConnectionsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllConnectionsStreamResponse.Builder responseBuilder2 = AllConnectionsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3744,7 +3684,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void testConnection(TestConnectionRequest request, StreamObserver<TestConnectionResponse> responseObserver) {
+    public void testConnection(TestConnectionRequest request, StreamObserver<TestConnectionStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3763,15 +3703,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            TestConnectionResponse.Builder responseBuilder2 = TestConnectionResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          TestConnectionStreamResponse.Builder responseBuilder2 = TestConnectionStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3793,7 +3729,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void testConnectionConfig(TestConnectionConfigRequest request, StreamObserver<TestConnectionConfigResponse> responseObserver) {
+    public void testConnectionConfig(TestConnectionConfigRequest request, StreamObserver<TestConnectionConfigStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3812,15 +3748,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            TestConnectionConfigResponse.Builder responseBuilder2 = TestConnectionConfigResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          TestConnectionConfigStreamResponse.Builder responseBuilder2 = TestConnectionConfigStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3835,7 +3767,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allDialectInfos(AllDialectInfosRequest request, StreamObserver<AllDialectInfosResponse> responseObserver) {
+    public void allDialectInfos(AllDialectInfosRequest request, StreamObserver<AllDialectInfosStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3854,15 +3786,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllDialectInfosResponse.Builder responseBuilder2 = AllDialectInfosResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllDialectInfosStreamResponse.Builder responseBuilder2 = AllDialectInfosStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3877,7 +3805,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allExternalOauthApplications(AllExternalOauthApplicationsRequest request, StreamObserver<AllExternalOauthApplicationsResponse> responseObserver) {
+    public void allExternalOauthApplications(AllExternalOauthApplicationsRequest request, StreamObserver<AllExternalOauthApplicationsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3896,15 +3824,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllExternalOauthApplicationsResponse.Builder responseBuilder2 = AllExternalOauthApplicationsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllExternalOauthApplicationsStreamResponse.Builder responseBuilder2 = AllExternalOauthApplicationsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -3953,7 +3877,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allSshServers(AllSshServersRequest request, StreamObserver<AllSshServersResponse> responseObserver) {
+    public void allSshServers(AllSshServersRequest request, StreamObserver<AllSshServersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -3972,15 +3896,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllSshServersResponse.Builder responseBuilder2 = AllSshServersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllSshServersStreamResponse.Builder responseBuilder2 = AllSshServersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -4165,7 +4085,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allSshTunnels(AllSshTunnelsRequest request, StreamObserver<AllSshTunnelsResponse> responseObserver) {
+    public void allSshTunnels(AllSshTunnelsRequest request, StreamObserver<AllSshTunnelsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -4184,15 +4104,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllSshTunnelsResponse.Builder responseBuilder2 = AllSshTunnelsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllSshTunnelsStreamResponse.Builder responseBuilder2 = AllSshTunnelsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -4439,7 +4355,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchContentFavorites(SearchContentFavoritesRequest request, StreamObserver<SearchContentFavoritesResponse> responseObserver) {
+    public void searchContentFavorites(SearchContentFavoritesRequest request, StreamObserver<SearchContentFavoritesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -4458,15 +4374,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchContentFavoritesResponse.Builder responseBuilder2 = SearchContentFavoritesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchContentFavoritesStreamResponse.Builder responseBuilder2 = SearchContentFavoritesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -4580,7 +4492,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allContentMetadatas(AllContentMetadatasRequest request, StreamObserver<AllContentMetadatasResponse> responseObserver) {
+    public void allContentMetadatas(AllContentMetadatasRequest request, StreamObserver<AllContentMetadatasStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -4599,15 +4511,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllContentMetadatasResponse.Builder responseBuilder2 = AllContentMetadatasResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllContentMetadatasStreamResponse.Builder responseBuilder2 = AllContentMetadatasStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -4690,7 +4598,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allContentMetadataAccesses(AllContentMetadataAccessesRequest request, StreamObserver<AllContentMetadataAccessesResponse> responseObserver) {
+    public void allContentMetadataAccesses(AllContentMetadataAccessesRequest request, StreamObserver<AllContentMetadataAccessesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -4709,15 +4617,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllContentMetadataAccessesResponse.Builder responseBuilder2 = AllContentMetadataAccessesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllContentMetadataAccessesStreamResponse.Builder responseBuilder2 = AllContentMetadataAccessesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -4930,7 +4834,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchContentViews(SearchContentViewsRequest request, StreamObserver<SearchContentViewsResponse> responseObserver) {
+    public void searchContentViews(SearchContentViewsRequest request, StreamObserver<SearchContentViewsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -4949,15 +4853,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchContentViewsResponse.Builder responseBuilder2 = SearchContentViewsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchContentViewsStreamResponse.Builder responseBuilder2 = SearchContentViewsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5021,7 +4921,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allDashboards(AllDashboardsRequest request, StreamObserver<AllDashboardsResponse> responseObserver) {
+    public void allDashboards(AllDashboardsRequest request, StreamObserver<AllDashboardsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5040,15 +4940,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllDashboardsResponse.Builder responseBuilder2 = AllDashboardsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllDashboardsStreamResponse.Builder responseBuilder2 = AllDashboardsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5138,7 +5034,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchDashboards(SearchDashboardsRequest request, StreamObserver<SearchDashboardsResponse> responseObserver) {
+    public void searchDashboards(SearchDashboardsRequest request, StreamObserver<SearchDashboardsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5157,15 +5053,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchDashboardsResponse.Builder responseBuilder2 = SearchDashboardsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchDashboardsStreamResponse.Builder responseBuilder2 = SearchDashboardsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5233,7 +5125,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void syncLookmlDashboard(SyncLookmlDashboardRequest request, StreamObserver<SyncLookmlDashboardResponse> responseObserver) {
+    public void syncLookmlDashboard(SyncLookmlDashboardRequest request, StreamObserver<SyncLookmlDashboardStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5252,15 +5144,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SyncLookmlDashboardResponse.Builder responseBuilder2 = SyncLookmlDashboardResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SyncLookmlDashboardStreamResponse.Builder responseBuilder2 = SyncLookmlDashboardStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5496,7 +5384,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchDashboardElements(SearchDashboardElementsRequest request, StreamObserver<SearchDashboardElementsResponse> responseObserver) {
+    public void searchDashboardElements(SearchDashboardElementsRequest request, StreamObserver<SearchDashboardElementsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5515,15 +5403,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchDashboardElementsResponse.Builder responseBuilder2 = SearchDashboardElementsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchDashboardElementsStreamResponse.Builder responseBuilder2 = SearchDashboardElementsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5636,7 +5520,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get information about all the dashboard elements on a dashboard with a specific id.
    */
     @Override
-    public void dashboardDashboardElements(DashboardDashboardElementsRequest request, StreamObserver<DashboardDashboardElementsResponse> responseObserver) {
+    public void dashboardDashboardElements(DashboardDashboardElementsRequest request, StreamObserver<DashboardDashboardElementsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5655,15 +5539,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            DashboardDashboardElementsResponse.Builder responseBuilder2 = DashboardDashboardElementsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          DashboardDashboardElementsStreamResponse.Builder responseBuilder2 = DashboardDashboardElementsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5809,7 +5689,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get information about all the dashboard filters on a dashboard with a specific id.
    */
     @Override
-    public void dashboardDashboardFilters(DashboardDashboardFiltersRequest request, StreamObserver<DashboardDashboardFiltersResponse> responseObserver) {
+    public void dashboardDashboardFilters(DashboardDashboardFiltersRequest request, StreamObserver<DashboardDashboardFiltersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5828,15 +5708,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            DashboardDashboardFiltersResponse.Builder responseBuilder2 = DashboardDashboardFiltersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          DashboardDashboardFiltersStreamResponse.Builder responseBuilder2 = DashboardDashboardFiltersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -5949,7 +5825,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get information about all the dashboard layout components for a dashboard layout with a specific id.
    */
     @Override
-    public void dashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest request, StreamObserver<DashboardLayoutDashboardLayoutComponentsResponse> responseObserver) {
+    public void dashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest request, StreamObserver<DashboardLayoutDashboardLayoutComponentsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -5968,15 +5844,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            DashboardLayoutDashboardLayoutComponentsResponse.Builder responseBuilder2 = DashboardLayoutDashboardLayoutComponentsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          DashboardLayoutDashboardLayoutComponentsStreamResponse.Builder responseBuilder2 = DashboardLayoutDashboardLayoutComponentsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6089,7 +5961,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get information about all the dashboard elements on a dashboard with a specific id.
    */
     @Override
-    public void dashboardDashboardLayouts(DashboardDashboardLayoutsRequest request, StreamObserver<DashboardDashboardLayoutsResponse> responseObserver) {
+    public void dashboardDashboardLayouts(DashboardDashboardLayoutsRequest request, StreamObserver<DashboardDashboardLayoutsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6108,15 +5980,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            DashboardDashboardLayoutsResponse.Builder responseBuilder2 = DashboardDashboardLayoutsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          DashboardDashboardLayoutsStreamResponse.Builder responseBuilder2 = DashboardDashboardLayoutsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6238,7 +6106,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allDatagroups(AllDatagroupsRequest request, StreamObserver<AllDatagroupsResponse> responseObserver) {
+    public void allDatagroups(AllDatagroupsRequest request, StreamObserver<AllDatagroupsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6257,15 +6125,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllDatagroupsResponse.Builder responseBuilder2 = AllDatagroupsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllDatagroupsStreamResponse.Builder responseBuilder2 = AllDatagroupsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6351,7 +6215,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * Search for folders by creator id, parent id, name, etc
    */
     @Override
-    public void searchFolders(SearchFoldersRequest request, StreamObserver<SearchFoldersResponse> responseObserver) {
+    public void searchFolders(SearchFoldersRequest request, StreamObserver<SearchFoldersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6370,15 +6234,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchFoldersResponse.Builder responseBuilder2 = SearchFoldersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchFoldersStreamResponse.Builder responseBuilder2 = SearchFoldersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6498,7 +6358,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allFolders(AllFoldersRequest request, StreamObserver<AllFoldersResponse> responseObserver) {
+    public void allFolders(AllFoldersRequest request, StreamObserver<AllFoldersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6517,15 +6377,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllFoldersResponse.Builder responseBuilder2 = AllFoldersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllFoldersStreamResponse.Builder responseBuilder2 = AllFoldersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6576,7 +6432,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get the children of a folder.
    */
     @Override
-    public void folderChildren(FolderChildrenRequest request, StreamObserver<FolderChildrenResponse> responseObserver) {
+    public void folderChildren(FolderChildrenRequest request, StreamObserver<FolderChildrenStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6595,15 +6451,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            FolderChildrenResponse.Builder responseBuilder2 = FolderChildrenResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          FolderChildrenStreamResponse.Builder responseBuilder2 = FolderChildrenStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6617,7 +6469,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Search the children of a folder
    */
     @Override
-    public void folderChildrenSearch(FolderChildrenSearchRequest request, StreamObserver<FolderChildrenSearchResponse> responseObserver) {
+    public void folderChildrenSearch(FolderChildrenSearchRequest request, StreamObserver<FolderChildrenSearchStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6636,15 +6488,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            FolderChildrenSearchResponse.Builder responseBuilder2 = FolderChildrenSearchResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          FolderChildrenSearchStreamResponse.Builder responseBuilder2 = FolderChildrenSearchStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6691,7 +6539,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get the ancestors of a folder
    */
     @Override
-    public void folderAncestors(FolderAncestorsRequest request, StreamObserver<FolderAncestorsResponse> responseObserver) {
+    public void folderAncestors(FolderAncestorsRequest request, StreamObserver<FolderAncestorsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6710,15 +6558,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            FolderAncestorsResponse.Builder responseBuilder2 = FolderAncestorsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          FolderAncestorsStreamResponse.Builder responseBuilder2 = FolderAncestorsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6735,7 +6579,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void folderLooks(FolderLooksRequest request, StreamObserver<FolderLooksResponse> responseObserver) {
+    public void folderLooks(FolderLooksRequest request, StreamObserver<FolderLooksStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6754,15 +6598,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            FolderLooksResponse.Builder responseBuilder2 = FolderLooksResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          FolderLooksStreamResponse.Builder responseBuilder2 = FolderLooksStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6776,7 +6616,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Get the dashboards in a folder
    */
     @Override
-    public void folderDashboards(FolderDashboardsRequest request, StreamObserver<FolderDashboardsResponse> responseObserver) {
+    public void folderDashboards(FolderDashboardsRequest request, StreamObserver<FolderDashboardsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6795,15 +6635,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            FolderDashboardsResponse.Builder responseBuilder2 = FolderDashboardsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          FolderDashboardsStreamResponse.Builder responseBuilder2 = FolderDashboardsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6822,7 +6658,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allGroups(AllGroupsRequest request, StreamObserver<AllGroupsResponse> responseObserver) {
+    public void allGroups(AllGroupsRequest request, StreamObserver<AllGroupsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6841,15 +6677,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllGroupsResponse.Builder responseBuilder2 = AllGroupsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllGroupsStreamResponse.Builder responseBuilder2 = AllGroupsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6922,7 +6754,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchGroups(SearchGroupsRequest request, StreamObserver<SearchGroupsResponse> responseObserver) {
+    public void searchGroups(SearchGroupsRequest request, StreamObserver<SearchGroupsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -6941,15 +6773,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchGroupsResponse.Builder responseBuilder2 = SearchGroupsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchGroupsStreamResponse.Builder responseBuilder2 = SearchGroupsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -6988,7 +6816,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchGroupsWithRoles(SearchGroupsWithRolesRequest request, StreamObserver<SearchGroupsWithRolesResponse> responseObserver) {
+    public void searchGroupsWithRoles(SearchGroupsWithRolesRequest request, StreamObserver<SearchGroupsWithRolesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7007,15 +6835,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchGroupsWithRolesResponse.Builder responseBuilder2 = SearchGroupsWithRolesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchGroupsWithRolesStreamResponse.Builder responseBuilder2 = SearchGroupsWithRolesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7055,7 +6879,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest request, StreamObserver<SearchGroupsWithHierarchyResponse> responseObserver) {
+    public void searchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest request, StreamObserver<SearchGroupsWithHierarchyStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7074,15 +6898,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchGroupsWithHierarchyResponse.Builder responseBuilder2 = SearchGroupsWithHierarchyResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchGroupsWithHierarchyStreamResponse.Builder responseBuilder2 = SearchGroupsWithHierarchyStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7198,7 +7018,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allGroupGroups(AllGroupGroupsRequest request, StreamObserver<AllGroupGroupsResponse> responseObserver) {
+    public void allGroupGroups(AllGroupGroupsRequest request, StreamObserver<AllGroupGroupsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7217,15 +7037,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllGroupGroupsResponse.Builder responseBuilder2 = AllGroupGroupsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllGroupGroupsStreamResponse.Builder responseBuilder2 = AllGroupGroupsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7274,7 +7090,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allGroupUsers(AllGroupUsersRequest request, StreamObserver<AllGroupUsersResponse> responseObserver) {
+    public void allGroupUsers(AllGroupUsersRequest request, StreamObserver<AllGroupUsersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7293,15 +7109,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllGroupUsersResponse.Builder responseBuilder2 = AllGroupUsersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllGroupUsersStreamResponse.Builder responseBuilder2 = AllGroupUsersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7492,7 +7304,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest request, StreamObserver<AllPrimaryHomepageSectionsResponse> responseObserver) {
+    public void allPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest request, StreamObserver<AllPrimaryHomepageSectionsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7511,15 +7323,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllPrimaryHomepageSectionsResponse.Builder responseBuilder2 = AllPrimaryHomepageSectionsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllPrimaryHomepageSectionsStreamResponse.Builder responseBuilder2 = AllPrimaryHomepageSectionsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7538,7 +7346,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allIntegrationHubs(AllIntegrationHubsRequest request, StreamObserver<AllIntegrationHubsResponse> responseObserver) {
+    public void allIntegrationHubs(AllIntegrationHubsRequest request, StreamObserver<AllIntegrationHubsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7557,15 +7365,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllIntegrationHubsResponse.Builder responseBuilder2 = AllIntegrationHubsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllIntegrationHubsStreamResponse.Builder responseBuilder2 = AllIntegrationHubsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7753,7 +7557,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allIntegrations(AllIntegrationsRequest request, StreamObserver<AllIntegrationsResponse> responseObserver) {
+    public void allIntegrations(AllIntegrationsRequest request, StreamObserver<AllIntegrationsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7772,15 +7576,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllIntegrationsResponse.Builder responseBuilder2 = AllIntegrationsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllIntegrationsStreamResponse.Builder responseBuilder2 = AllIntegrationsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -7939,7 +7739,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allLooks(AllLooksRequest request, StreamObserver<AllLooksResponse> responseObserver) {
+    public void allLooks(AllLooksRequest request, StreamObserver<AllLooksStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -7958,15 +7758,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllLooksResponse.Builder responseBuilder2 = AllLooksResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllLooksStreamResponse.Builder responseBuilder2 = AllLooksStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8047,7 +7843,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchLooks(SearchLooksRequest request, StreamObserver<SearchLooksResponse> responseObserver) {
+    public void searchLooks(SearchLooksRequest request, StreamObserver<SearchLooksStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8066,15 +7862,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchLooksResponse.Builder responseBuilder2 = SearchLooksResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchLooksStreamResponse.Builder responseBuilder2 = SearchLooksStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8276,7 +8068,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allLookmlModels(AllLookmlModelsRequest request, StreamObserver<AllLookmlModelsResponse> responseObserver) {
+    public void allLookmlModels(AllLookmlModelsRequest request, StreamObserver<AllLookmlModelsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8295,15 +8087,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllLookmlModelsResponse.Builder responseBuilder2 = AllLookmlModelsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllLookmlModelsStreamResponse.Builder responseBuilder2 = AllLookmlModelsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8535,7 +8323,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void connectionDatabases(ConnectionDatabasesRequest request, StreamObserver<ConnectionDatabasesResponse> responseObserver) {
+    public void connectionDatabases(ConnectionDatabasesRequest request, StreamObserver<ConnectionDatabasesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8554,15 +8342,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ConnectionDatabasesResponse.Builder responseBuilder2 = ConnectionDatabasesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ConnectionDatabasesStreamResponse.Builder responseBuilder2 = ConnectionDatabasesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8615,7 +8399,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void connectionSchemas(ConnectionSchemasRequest request, StreamObserver<ConnectionSchemasResponse> responseObserver) {
+    public void connectionSchemas(ConnectionSchemasRequest request, StreamObserver<ConnectionSchemasStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8634,15 +8418,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ConnectionSchemasResponse.Builder responseBuilder2 = ConnectionSchemasResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ConnectionSchemasStreamResponse.Builder responseBuilder2 = ConnectionSchemasStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8662,7 +8442,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void connectionTables(ConnectionTablesRequest request, StreamObserver<ConnectionTablesResponse> responseObserver) {
+    public void connectionTables(ConnectionTablesRequest request, StreamObserver<ConnectionTablesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8681,15 +8461,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ConnectionTablesResponse.Builder responseBuilder2 = ConnectionTablesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ConnectionTablesStreamResponse.Builder responseBuilder2 = ConnectionTablesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8705,7 +8481,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void connectionColumns(ConnectionColumnsRequest request, StreamObserver<ConnectionColumnsResponse> responseObserver) {
+    public void connectionColumns(ConnectionColumnsRequest request, StreamObserver<ConnectionColumnsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8724,15 +8500,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ConnectionColumnsResponse.Builder responseBuilder2 = ConnectionColumnsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ConnectionColumnsStreamResponse.Builder responseBuilder2 = ConnectionColumnsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8749,7 +8521,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void connectionSearchColumns(ConnectionSearchColumnsRequest request, StreamObserver<ConnectionSearchColumnsResponse> responseObserver) {
+    public void connectionSearchColumns(ConnectionSearchColumnsRequest request, StreamObserver<ConnectionSearchColumnsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8768,15 +8540,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ConnectionSearchColumnsResponse.Builder responseBuilder2 = ConnectionSearchColumnsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ConnectionSearchColumnsStreamResponse.Builder responseBuilder2 = ConnectionSearchColumnsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -8876,7 +8644,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allGitBranches(AllGitBranchesRequest request, StreamObserver<AllGitBranchesResponse> responseObserver) {
+    public void allGitBranches(AllGitBranchesRequest request, StreamObserver<AllGitBranchesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -8895,15 +8663,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllGitBranchesResponse.Builder responseBuilder2 = AllGitBranchesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllGitBranchesStreamResponse.Builder responseBuilder2 = AllGitBranchesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -9274,7 +9038,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allProjects(AllProjectsRequest request, StreamObserver<AllProjectsResponse> responseObserver) {
+    public void allProjects(AllProjectsRequest request, StreamObserver<AllProjectsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -9293,15 +9057,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllProjectsResponse.Builder responseBuilder2 = AllProjectsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllProjectsStreamResponse.Builder responseBuilder2 = AllProjectsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -9688,7 +9448,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allProjectFiles(AllProjectFilesRequest request, StreamObserver<AllProjectFilesResponse> responseObserver) {
+    public void allProjectFiles(AllProjectFilesRequest request, StreamObserver<AllProjectFilesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -9707,15 +9467,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllProjectFilesResponse.Builder responseBuilder2 = AllProjectFilesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllProjectFilesStreamResponse.Builder responseBuilder2 = AllProjectFilesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -9775,7 +9531,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allGitConnectionTests(AllGitConnectionTestsRequest request, StreamObserver<AllGitConnectionTestsResponse> responseObserver) {
+    public void allGitConnectionTests(AllGitConnectionTestsRequest request, StreamObserver<AllGitConnectionTestsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -9794,15 +9550,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllGitConnectionTestsResponse.Builder responseBuilder2 = AllGitConnectionTestsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllGitConnectionTestsStreamResponse.Builder responseBuilder2 = AllGitConnectionTestsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -9861,7 +9613,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allLookmlTests(AllLookmlTestsRequest request, StreamObserver<AllLookmlTestsResponse> responseObserver) {
+    public void allLookmlTests(AllLookmlTestsRequest request, StreamObserver<AllLookmlTestsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -9880,15 +9632,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllLookmlTestsResponse.Builder responseBuilder2 = AllLookmlTestsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllLookmlTestsStreamResponse.Builder responseBuilder2 = AllLookmlTestsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -9905,7 +9653,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void runLookmlTest(RunLookmlTestRequest request, StreamObserver<RunLookmlTestResponse> responseObserver) {
+    public void runLookmlTest(RunLookmlTestRequest request, StreamObserver<RunLookmlTestStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -9924,15 +9672,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            RunLookmlTestResponse.Builder responseBuilder2 = RunLookmlTestResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          RunLookmlTestStreamResponse.Builder responseBuilder2 = RunLookmlTestStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -10028,7 +9772,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void getAllRepositoryCredentials(GetAllRepositoryCredentialsRequest request, StreamObserver<GetAllRepositoryCredentialsResponse> responseObserver) {
+    public void getAllRepositoryCredentials(GetAllRepositoryCredentialsRequest request, StreamObserver<GetAllRepositoryCredentialsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -10047,15 +9791,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            GetAllRepositoryCredentialsResponse.Builder responseBuilder2 = GetAllRepositoryCredentialsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          GetAllRepositoryCredentialsStreamResponse.Builder responseBuilder2 = GetAllRepositoryCredentialsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -10706,7 +10446,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allRunningQueries(AllRunningQueriesRequest request, StreamObserver<AllRunningQueriesResponse> responseObserver) {
+    public void allRunningQueries(AllRunningQueriesRequest request, StreamObserver<AllRunningQueriesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -10725,15 +10465,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllRunningQueriesResponse.Builder responseBuilder2 = AllRunningQueriesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllRunningQueriesStreamResponse.Builder responseBuilder2 = AllRunningQueriesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11120,7 +10856,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchModelSets(SearchModelSetsRequest request, StreamObserver<SearchModelSetsResponse> responseObserver) {
+    public void searchModelSets(SearchModelSetsRequest request, StreamObserver<SearchModelSetsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11139,15 +10875,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchModelSetsResponse.Builder responseBuilder2 = SearchModelSetsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchModelSetsStreamResponse.Builder responseBuilder2 = SearchModelSetsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11264,7 +10996,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allModelSets(AllModelSetsRequest request, StreamObserver<AllModelSetsResponse> responseObserver) {
+    public void allModelSets(AllModelSetsRequest request, StreamObserver<AllModelSetsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11283,15 +11015,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllModelSetsResponse.Builder responseBuilder2 = AllModelSetsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllModelSetsStreamResponse.Builder responseBuilder2 = AllModelSetsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11340,7 +11068,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allPermissions(AllPermissionsRequest request, StreamObserver<AllPermissionsResponse> responseObserver) {
+    public void allPermissions(AllPermissionsRequest request, StreamObserver<AllPermissionsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11359,15 +11087,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllPermissionsResponse.Builder responseBuilder2 = AllPermissionsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllPermissionsStreamResponse.Builder responseBuilder2 = AllPermissionsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11404,7 +11128,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchPermissionSets(SearchPermissionSetsRequest request, StreamObserver<SearchPermissionSetsResponse> responseObserver) {
+    public void searchPermissionSets(SearchPermissionSetsRequest request, StreamObserver<SearchPermissionSetsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11423,15 +11147,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchPermissionSetsResponse.Builder responseBuilder2 = SearchPermissionSetsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchPermissionSetsStreamResponse.Builder responseBuilder2 = SearchPermissionSetsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11548,7 +11268,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allPermissionSets(AllPermissionSetsRequest request, StreamObserver<AllPermissionSetsResponse> responseObserver) {
+    public void allPermissionSets(AllPermissionSetsRequest request, StreamObserver<AllPermissionSetsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11567,15 +11287,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllPermissionSetsResponse.Builder responseBuilder2 = AllPermissionSetsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllPermissionSetsStreamResponse.Builder responseBuilder2 = AllPermissionSetsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11624,7 +11340,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allRoles(AllRolesRequest request, StreamObserver<AllRolesResponse> responseObserver) {
+    public void allRoles(AllRolesRequest request, StreamObserver<AllRolesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11643,15 +11359,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllRolesResponse.Builder responseBuilder2 = AllRolesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllRolesStreamResponse.Builder responseBuilder2 = AllRolesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11724,7 +11436,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchRoles(SearchRolesRequest request, StreamObserver<SearchRolesResponse> responseObserver) {
+    public void searchRoles(SearchRolesRequest request, StreamObserver<SearchRolesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11743,15 +11455,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchRolesResponse.Builder responseBuilder2 = SearchRolesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchRolesStreamResponse.Builder responseBuilder2 = SearchRolesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11868,7 +11576,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void roleGroups(RoleGroupsRequest request, StreamObserver<RoleGroupsResponse> responseObserver) {
+    public void roleGroups(RoleGroupsRequest request, StreamObserver<RoleGroupsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11887,15 +11595,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            RoleGroupsResponse.Builder responseBuilder2 = RoleGroupsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          RoleGroupsStreamResponse.Builder responseBuilder2 = RoleGroupsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11910,7 +11614,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void setRoleGroups(SetRoleGroupsRequest request, StreamObserver<SetRoleGroupsResponse> responseObserver) {
+    public void setRoleGroups(SetRoleGroupsRequest request, StreamObserver<SetRoleGroupsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11929,15 +11633,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SetRoleGroupsResponse.Builder responseBuilder2 = SetRoleGroupsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SetRoleGroupsStreamResponse.Builder responseBuilder2 = SetRoleGroupsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11952,7 +11652,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void roleUsers(RoleUsersRequest request, StreamObserver<RoleUsersResponse> responseObserver) {
+    public void roleUsers(RoleUsersRequest request, StreamObserver<RoleUsersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -11971,15 +11671,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            RoleUsersResponse.Builder responseBuilder2 = RoleUsersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          RoleUsersStreamResponse.Builder responseBuilder2 = RoleUsersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -11994,7 +11690,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void setRoleUsers(SetRoleUsersRequest request, StreamObserver<SetRoleUsersResponse> responseObserver) {
+    public void setRoleUsers(SetRoleUsersRequest request, StreamObserver<SetRoleUsersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12013,15 +11709,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SetRoleUsersResponse.Builder responseBuilder2 = SetRoleUsersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SetRoleUsersStreamResponse.Builder responseBuilder2 = SetRoleUsersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12042,7 +11734,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void scheduledPlansForSpace(ScheduledPlansForSpaceRequest request, StreamObserver<ScheduledPlansForSpaceResponse> responseObserver) {
+    public void scheduledPlansForSpace(ScheduledPlansForSpaceRequest request, StreamObserver<ScheduledPlansForSpaceStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12061,15 +11753,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ScheduledPlansForSpaceResponse.Builder responseBuilder2 = ScheduledPlansForSpaceResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ScheduledPlansForSpaceStreamResponse.Builder responseBuilder2 = ScheduledPlansForSpaceStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12247,7 +11935,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allScheduledPlans(AllScheduledPlansRequest request, StreamObserver<AllScheduledPlansResponse> responseObserver) {
+    public void allScheduledPlans(AllScheduledPlansRequest request, StreamObserver<AllScheduledPlansStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12266,15 +11954,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllScheduledPlansResponse.Builder responseBuilder2 = AllScheduledPlansResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllScheduledPlansStreamResponse.Builder responseBuilder2 = AllScheduledPlansStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12466,7 +12150,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void scheduledPlansForLook(ScheduledPlansForLookRequest request, StreamObserver<ScheduledPlansForLookResponse> responseObserver) {
+    public void scheduledPlansForLook(ScheduledPlansForLookRequest request, StreamObserver<ScheduledPlansForLookStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12485,15 +12169,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ScheduledPlansForLookResponse.Builder responseBuilder2 = ScheduledPlansForLookResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ScheduledPlansForLookStreamResponse.Builder responseBuilder2 = ScheduledPlansForLookStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12520,7 +12200,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void scheduledPlansForDashboard(ScheduledPlansForDashboardRequest request, StreamObserver<ScheduledPlansForDashboardResponse> responseObserver) {
+    public void scheduledPlansForDashboard(ScheduledPlansForDashboardRequest request, StreamObserver<ScheduledPlansForDashboardStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12539,15 +12219,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ScheduledPlansForDashboardResponse.Builder responseBuilder2 = ScheduledPlansForDashboardResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ScheduledPlansForDashboardStreamResponse.Builder responseBuilder2 = ScheduledPlansForDashboardStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12574,7 +12250,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void scheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest request, StreamObserver<ScheduledPlansForLookmlDashboardResponse> responseObserver) {
+    public void scheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest request, StreamObserver<ScheduledPlansForLookmlDashboardStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12593,15 +12269,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ScheduledPlansForLookmlDashboardResponse.Builder responseBuilder2 = ScheduledPlansForLookmlDashboardResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ScheduledPlansForLookmlDashboardStreamResponse.Builder responseBuilder2 = ScheduledPlansForLookmlDashboardStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12801,7 +12473,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allThemes(AllThemesRequest request, StreamObserver<AllThemesResponse> responseObserver) {
+    public void allThemes(AllThemesRequest request, StreamObserver<AllThemesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12820,15 +12492,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllThemesResponse.Builder responseBuilder2 = AllThemesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllThemesStreamResponse.Builder responseBuilder2 = AllThemesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -12930,7 +12598,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchThemes(SearchThemesRequest request, StreamObserver<SearchThemesResponse> responseObserver) {
+    public void searchThemes(SearchThemesRequest request, StreamObserver<SearchThemesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -12949,15 +12617,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchThemesResponse.Builder responseBuilder2 = SearchThemesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchThemesStreamResponse.Builder responseBuilder2 = SearchThemesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -13067,7 +12731,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void activeThemes(ActiveThemesRequest request, StreamObserver<ActiveThemesResponse> responseObserver) {
+    public void activeThemes(ActiveThemesRequest request, StreamObserver<ActiveThemesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -13086,15 +12750,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ActiveThemesResponse.Builder responseBuilder2 = ActiveThemesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          ActiveThemesStreamResponse.Builder responseBuilder2 = ActiveThemesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -13347,7 +13007,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allUsers(AllUsersRequest request, StreamObserver<AllUsersResponse> responseObserver) {
+    public void allUsers(AllUsersRequest request, StreamObserver<AllUsersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -13366,15 +13026,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUsersResponse.Builder responseBuilder2 = AllUsersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUsersStreamResponse.Builder responseBuilder2 = AllUsersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -13453,7 +13109,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchUsers(SearchUsersRequest request, StreamObserver<SearchUsersResponse> responseObserver) {
+    public void searchUsers(SearchUsersRequest request, StreamObserver<SearchUsersStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -13472,15 +13128,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchUsersResponse.Builder responseBuilder2 = SearchUsersResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchUsersStreamResponse.Builder responseBuilder2 = SearchUsersStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -13500,7 +13152,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void searchUsersNames(SearchUsersNamesRequest request, StreamObserver<SearchUsersNamesResponse> responseObserver) {
+    public void searchUsersNames(SearchUsersNamesRequest request, StreamObserver<SearchUsersNamesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -13519,15 +13171,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SearchUsersNamesResponse.Builder responseBuilder2 = SearchUsersNamesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SearchUsersNamesStreamResponse.Builder responseBuilder2 = SearchUsersNamesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14272,7 +13920,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
    */
     @Override
-    public void allUserCredentialsApi3s(AllUserCredentialsApi3sRequest request, StreamObserver<AllUserCredentialsApi3sResponse> responseObserver) {
+    public void allUserCredentialsApi3s(AllUserCredentialsApi3sRequest request, StreamObserver<AllUserCredentialsApi3sStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14291,15 +13939,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUserCredentialsApi3sResponse.Builder responseBuilder2 = AllUserCredentialsApi3sResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUserCredentialsApi3sStreamResponse.Builder responseBuilder2 = AllUserCredentialsApi3sStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14412,7 +14056,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Embed login information for the specified user.
    */
     @Override
-    public void allUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest request, StreamObserver<AllUserCredentialsEmbedsResponse> responseObserver) {
+    public void allUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest request, StreamObserver<AllUserCredentialsEmbedsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14431,15 +14075,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUserCredentialsEmbedsResponse.Builder responseBuilder2 = AllUserCredentialsEmbedsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUserCredentialsEmbedsStreamResponse.Builder responseBuilder2 = AllUserCredentialsEmbedsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14585,7 +14225,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * ### Web login session for the specified user.
    */
     @Override
-    public void allUserSessions(AllUserSessionsRequest request, StreamObserver<AllUserSessionsResponse> responseObserver) {
+    public void allUserSessions(AllUserSessionsRequest request, StreamObserver<AllUserSessionsStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14604,15 +14244,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUserSessionsResponse.Builder responseBuilder2 = AllUserSessionsResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUserSessionsStreamResponse.Builder responseBuilder2 = AllUserSessionsStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14669,7 +14305,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void userRoles(UserRolesRequest request, StreamObserver<UserRolesResponse> responseObserver) {
+    public void userRoles(UserRolesRequest request, StreamObserver<UserRolesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14688,15 +14324,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            UserRolesResponse.Builder responseBuilder2 = UserRolesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          UserRolesStreamResponse.Builder responseBuilder2 = UserRolesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14711,7 +14343,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void setUserRoles(SetUserRolesRequest request, StreamObserver<SetUserRolesResponse> responseObserver) {
+    public void setUserRoles(SetUserRolesRequest request, StreamObserver<SetUserRolesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14730,15 +14362,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SetUserRolesResponse.Builder responseBuilder2 = SetUserRolesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SetUserRolesStreamResponse.Builder responseBuilder2 = SetUserRolesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14768,7 +14396,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void userAttributeUserValues(UserAttributeUserValuesRequest request, StreamObserver<UserAttributeUserValuesResponse> responseObserver) {
+    public void userAttributeUserValues(UserAttributeUserValuesRequest request, StreamObserver<UserAttributeUserValuesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14787,15 +14415,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            UserAttributeUserValuesResponse.Builder responseBuilder2 = UserAttributeUserValuesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          UserAttributeUserValuesStreamResponse.Builder responseBuilder2 = UserAttributeUserValuesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -14929,7 +14553,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allUserAttributes(AllUserAttributesRequest request, StreamObserver<AllUserAttributesResponse> responseObserver) {
+    public void allUserAttributes(AllUserAttributesRequest request, StreamObserver<AllUserAttributesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -14948,15 +14572,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUserAttributesResponse.Builder responseBuilder2 = AllUserAttributesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUserAttributesStreamResponse.Builder responseBuilder2 = AllUserAttributesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -15122,7 +14742,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allUserAttributeGroupValues(AllUserAttributeGroupValuesRequest request, StreamObserver<AllUserAttributeGroupValuesResponse> responseObserver) {
+    public void allUserAttributeGroupValues(AllUserAttributeGroupValuesRequest request, StreamObserver<AllUserAttributeGroupValuesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -15141,15 +14761,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllUserAttributeGroupValuesResponse.Builder responseBuilder2 = AllUserAttributeGroupValuesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllUserAttributeGroupValuesStreamResponse.Builder responseBuilder2 = AllUserAttributeGroupValuesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -15183,7 +14799,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void setUserAttributeGroupValues(SetUserAttributeGroupValuesRequest request, StreamObserver<SetUserAttributeGroupValuesResponse> responseObserver) {
+    public void setUserAttributeGroupValues(SetUserAttributeGroupValuesRequest request, StreamObserver<SetUserAttributeGroupValuesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -15202,15 +14818,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            SetUserAttributeGroupValuesResponse.Builder responseBuilder2 = SetUserAttributeGroupValuesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          SetUserAttributeGroupValuesStreamResponse.Builder responseBuilder2 = SetUserAttributeGroupValuesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {
@@ -15231,7 +14843,7 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
    * 
    */
     @Override
-    public void allWorkspaces(AllWorkspacesRequest request, StreamObserver<AllWorkspacesResponse> responseObserver) {
+    public void allWorkspaces(AllWorkspacesRequest request, StreamObserver<AllWorkspacesStreamResponse> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()
@@ -15250,15 +14862,11 @@ public class LookerStreamingServiceImpl extends LookerStreamingServiceImplBase {
             .ignoringUnknownFields()
             .merge(outputJson, responseBuilder);
         }
-        if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            AllWorkspacesResponse.Builder responseBuilder2 = AllWorkspacesResponse.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }
+        responseBuilder.getResultList().forEach(entry -> {
+          AllWorkspacesStreamResponse.Builder responseBuilder2 = AllWorkspacesStreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });
         responseObserver.onCompleted();
       }
     } catch (InvalidProtocolBufferException e) {

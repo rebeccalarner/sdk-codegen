@@ -141,20 +141,19 @@ export class GrpcProxyGen extends CodeGen {
     const titleMethodName = titleCase(_method.operationId)
     const camelMethodName = camelCase(_method.operationId)
     const returnCanStream = _method.returnType?.type.name.endsWith('[]')
+    const streamResponse = _method.returnType?.type.name.endsWith('[]')
+      ? 'Stream'
+      : ''
     const onNext = returnCanStream
-      ? `if (outputJson != null && responseBuilder.getResultCount() > 1) {
-          responseBuilder.getResultList().forEach(entry -> {
-            ${titleMethodName}Response.Builder responseBuilder2 = ${titleMethodName}Response.newBuilder();
-            responseBuilder2.addResult(entry);
-            responseObserver.onNext(responseBuilder2.build());
-          });
-        } else {
-          responseObserver.onNext(responseBuilder.build());
-        }`
+      ? `responseBuilder.getResultList().forEach(entry -> {
+          ${titleMethodName}StreamResponse.Builder responseBuilder2 = ${titleMethodName}StreamResponse.newBuilder();
+          responseBuilder2.setResult(entry);
+          responseObserver.onNext(responseBuilder2.build());
+        });`
       : `responseObserver.onNext(responseBuilder.build());`
     return `${this.formatJavaDoc(_method.description)}
     @Override
-    public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}Response> responseObserver) {
+    public void ${camelMethodName}(${titleMethodName}Request request, StreamObserver<${titleMethodName}${streamResponse}Response> responseObserver) {
     try {
       String inputJson = JsonFormat
         .printer()

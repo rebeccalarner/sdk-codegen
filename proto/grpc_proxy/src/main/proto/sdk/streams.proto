@@ -25,7 +25,7 @@
 
 syntax = "proto3";
 
-package looker;    
+package looker;
 
 option java_package = "com.google.looker.grpc.services";
 option java_multiple_files = true;
@@ -271,7 +271,7 @@ service LookerStreamingService {
   // Results are filtered to include only the apps that the caller (current user)
   // has permission to see.
   // 
-  rpc AllOauthClientApps(AllOauthClientAppsRequest) returns (stream AllOauthClientAppsResponse);
+  rpc AllOauthClientApps(AllOauthClientAppsRequest) returns (stream AllOauthClientAppsStreamResponse);
 
   // ### Get Oauth Client App
   // 
@@ -443,11 +443,11 @@ service LookerStreamingService {
 
   // ### Get currently locked-out users.
   // 
-  rpc AllUserLoginLockouts(AllUserLoginLockoutsRequest) returns (stream AllUserLoginLockoutsResponse);
+  rpc AllUserLoginLockouts(AllUserLoginLockoutsRequest) returns (stream AllUserLoginLockoutsStreamResponse);
 
   // ### Search currently locked-out users.
   // 
-  rpc SearchUserLoginLockouts(SearchUserLoginLockoutsRequest) returns (stream SearchUserLoginLockoutsResponse);
+  rpc SearchUserLoginLockouts(SearchUserLoginLockoutsRequest) returns (stream SearchUserLoginLockoutsStreamResponse);
 
   // ### Removes login lockout for the associated user.
   // 
@@ -459,7 +459,7 @@ service LookerStreamingService {
 
   // ### Get information about all boards.
   // 
-  rpc AllBoards(AllBoardsRequest) returns (stream AllBoardsResponse);
+  rpc AllBoards(AllBoardsRequest) returns (stream AllBoardsStreamResponse);
 
   // ### Create a new board.
   // 
@@ -489,7 +489,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchBoards(SearchBoardsRequest) returns (stream SearchBoardsResponse);
+  rpc SearchBoards(SearchBoardsRequest) returns (stream SearchBoardsStreamResponse);
 
   // ### Get information about a board.
   // 
@@ -505,7 +505,7 @@ service LookerStreamingService {
 
   // ### Get information about all board items.
   // 
-  rpc AllBoardItems(AllBoardItemsRequest) returns (stream AllBoardItemsResponse);
+  rpc AllBoardItems(AllBoardItemsRequest) returns (stream AllBoardItemsStreamResponse);
 
   // ### Create a new board item.
   // 
@@ -525,7 +525,7 @@ service LookerStreamingService {
 
   // ### Get information about all board sections.
   // 
-  rpc AllBoardSections(AllBoardSectionsRequest) returns (stream AllBoardSectionsResponse);
+  rpc AllBoardSections(AllBoardSectionsRequest) returns (stream AllBoardSectionsStreamResponse);
 
   // ### Create a new board section.
   // 
@@ -557,7 +557,7 @@ service LookerStreamingService {
   // **Note**: Only an API user with the Admin role can call this endpoint. Unauthorized requests will return `Not Found` (404) errors.
   // 
   // 
-  rpc AllColorCollections(AllColorCollectionsRequest) returns (stream AllColorCollectionsResponse);
+  rpc AllColorCollections(AllColorCollectionsRequest) returns (stream AllColorCollectionsStreamResponse);
 
   // ### Create a custom color collection with the specified information
   // 
@@ -580,7 +580,7 @@ service LookerStreamingService {
   // **Note**: Only an API user with the Admin role can call this endpoint. Unauthorized requests will return `Not Found` (404) errors.
   // 
   // 
-  rpc ColorCollectionsCustom(ColorCollectionsCustomRequest) returns (stream ColorCollectionsCustomResponse);
+  rpc ColorCollectionsCustom(ColorCollectionsCustomRequest) returns (stream ColorCollectionsCustomStreamResponse);
 
   // ### Get an array of all existing **Standard** Color Collections
   // Get a **single** color collection by id with [ColorCollection](#!/ColorCollection/color_collection)
@@ -590,7 +590,7 @@ service LookerStreamingService {
   // **Note**: Only an API user with the Admin role can call this endpoint. Unauthorized requests will return `Not Found` (404) errors.
   // 
   // 
-  rpc ColorCollectionsStandard(ColorCollectionsStandardRequest) returns (stream ColorCollectionsStandardResponse);
+  rpc ColorCollectionsStandard(ColorCollectionsStandardRequest) returns (stream ColorCollectionsStandardStreamResponse);
 
   // ### Get the default color collection
   // 
@@ -646,7 +646,7 @@ service LookerStreamingService {
 
   // ### Get All Commands.
   // 
-  rpc GetAllCommands(GetAllCommandsRequest) returns (stream GetAllCommandsResponse);
+  rpc GetAllCommands(GetAllCommandsRequest) returns (stream GetAllCommandsStreamResponse);
 
   // ### Create a new command.
   // # Required fields: [:name, :linked_content_id, :linked_content_type]
@@ -720,7 +720,7 @@ service LookerStreamingService {
 
   // ### Get all legacy features.
   // 
-  rpc AllLegacyFeatures(AllLegacyFeaturesRequest) returns (stream AllLegacyFeaturesResponse);
+  rpc AllLegacyFeatures(AllLegacyFeaturesRequest) returns (stream AllLegacyFeaturesStreamResponse);
 
   // ### Get information about the legacy feature with a specific id.
   // 
@@ -732,11 +732,11 @@ service LookerStreamingService {
 
   // ### Get a list of locales that Looker supports.
   // 
-  rpc AllLocales(AllLocalesRequest) returns (stream AllLocalesResponse);
+  rpc AllLocales(AllLocalesRequest) returns (stream AllLocalesStreamResponse);
 
   // ### Get a list of timezones that Looker supports (e.g. useful for scheduling tasks).
   // 
-  rpc AllTimezones(AllTimezonesRequest) returns (stream AllTimezonesResponse);
+  rpc AllTimezones(AllTimezonesRequest) returns (stream AllTimezonesStreamResponse);
 
   // ### Get information about all API versions supported by this Looker instance.
   // 
@@ -757,7 +757,7 @@ service LookerStreamingService {
 
   // ### Get information about all connections.
   // 
-  rpc AllConnections(AllConnectionsRequest) returns (stream AllConnectionsResponse);
+  rpc AllConnections(AllConnectionsRequest) returns (stream AllConnectionsStreamResponse);
 
   // ### Create a connection using the specified configuration.
   // 
@@ -788,7 +788,7 @@ service LookerStreamingService {
   // 
   // Unsupported tests in the request will be ignored.
   // 
-  rpc TestConnection(TestConnectionRequest) returns (stream TestConnectionResponse);
+  rpc TestConnection(TestConnectionRequest) returns (stream TestConnectionStreamResponse);
 
   // ### Test a connection configuration.
   // 
@@ -799,15 +799,15 @@ service LookerStreamingService {
   // 
   // Unsupported tests in the request will be ignored.
   // 
-  rpc TestConnectionConfig(TestConnectionConfigRequest) returns (stream TestConnectionConfigResponse);
+  rpc TestConnectionConfig(TestConnectionConfigRequest) returns (stream TestConnectionConfigStreamResponse);
 
   // ### Get information about all dialects.
   // 
-  rpc AllDialectInfos(AllDialectInfosRequest) returns (stream AllDialectInfosResponse);
+  rpc AllDialectInfos(AllDialectInfosRequest) returns (stream AllDialectInfosStreamResponse);
 
   // ### Get all External OAuth Applications.
   // 
-  rpc AllExternalOauthApplications(AllExternalOauthApplicationsRequest) returns (stream AllExternalOauthApplicationsResponse);
+  rpc AllExternalOauthApplications(AllExternalOauthApplicationsRequest) returns (stream AllExternalOauthApplicationsStreamResponse);
 
   // ### Create an OAuth Application using the specified configuration.
   // 
@@ -815,7 +815,7 @@ service LookerStreamingService {
 
   // ### Get information about all SSH Servers.
   // 
-  rpc AllSshServers(AllSshServersRequest) returns (stream AllSshServersResponse);
+  rpc AllSshServers(AllSshServersRequest) returns (stream AllSshServersStreamResponse);
 
   // ### Create an SSH Server.
   // 
@@ -839,7 +839,7 @@ service LookerStreamingService {
 
   // ### Get information about all SSH Tunnels.
   // 
-  rpc AllSshTunnels(AllSshTunnelsRequest) returns (stream AllSshTunnelsResponse);
+  rpc AllSshTunnels(AllSshTunnelsRequest) returns (stream AllSshTunnelsStreamResponse);
 
   // ### Create an SSH Tunnel
   // 
@@ -895,7 +895,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchContentFavorites(SearchContentFavoritesRequest) returns (stream SearchContentFavoritesResponse);
+  rpc SearchContentFavorites(SearchContentFavoritesRequest) returns (stream SearchContentFavoritesStreamResponse);
 
   // ### Get favorite content by its id
   rpc ContentFavorite(ContentFavoriteRequest) returns (stream ContentFavoriteResponse);
@@ -908,7 +908,7 @@ service LookerStreamingService {
 
   // ### Get information about all content metadata in a space.
   // 
-  rpc AllContentMetadatas(AllContentMetadatasRequest) returns (stream AllContentMetadatasResponse);
+  rpc AllContentMetadatas(AllContentMetadatasRequest) returns (stream AllContentMetadatasStreamResponse);
 
   // ### Get information about an individual content metadata record.
   // 
@@ -920,7 +920,7 @@ service LookerStreamingService {
 
   // ### All content metadata access records for a content metadata item.
   // 
-  rpc AllContentMetadataAccesses(AllContentMetadataAccessesRequest) returns (stream AllContentMetadataAccessesResponse);
+  rpc AllContentMetadataAccesses(AllContentMetadataAccessesRequest) returns (stream AllContentMetadataAccessesStreamResponse);
 
   // ### Create content metadata access.
   // 
@@ -972,7 +972,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchContentViews(SearchContentViewsRequest) returns (stream SearchContentViewsResponse);
+  rpc SearchContentViews(SearchContentViewsRequest) returns (stream SearchContentViewsStreamResponse);
 
   // ### Get a vector image representing the contents of a dashboard or look.
   // 
@@ -995,7 +995,7 @@ service LookerStreamingService {
   // 
   // Find **deleted dashboards** with [search_dashboards()](#!/Dashboard/search_dashboards)
   // 
-  rpc AllDashboards(AllDashboardsRequest) returns (stream AllDashboardsResponse);
+  rpc AllDashboards(AllDashboardsRequest) returns (stream AllDashboardsStreamResponse);
 
   // ### Create a new dashboard
   // 
@@ -1044,7 +1044,7 @@ service LookerStreamingService {
   // 
   // Get a **single dashboard** by id with [dashboard()](#!/Dashboard/dashboard)
   // 
-  rpc SearchDashboards(SearchDashboardsRequest) returns (stream SearchDashboardsResponse);
+  rpc SearchDashboards(SearchDashboardsRequest) returns (stream SearchDashboardsStreamResponse);
 
   // ### Import a LookML dashboard to a space as a UDD
   // Creates a UDD (a dashboard which exists in the Looker database rather than as a LookML file) from the LookML dashboard
@@ -1071,7 +1071,7 @@ service LookerStreamingService {
   // 
   // To **link** or **unlink** a UDD set the `lookml_link_id` property with [update_dashboard()](#!/Dashboard/update_dashboard)
   // 
-  rpc SyncLookmlDashboard(SyncLookmlDashboardRequest) returns (stream SyncLookmlDashboardResponse);
+  rpc SyncLookmlDashboard(SyncLookmlDashboardRequest) returns (stream SyncLookmlDashboardStreamResponse);
 
   // ### Get information about a dashboard
   // 
@@ -1146,7 +1146,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchDashboardElements(SearchDashboardElementsRequest) returns (stream SearchDashboardElementsResponse);
+  rpc SearchDashboardElements(SearchDashboardElementsRequest) returns (stream SearchDashboardElementsStreamResponse);
 
   // ### Get information about the dashboard element with a specific id.
   rpc DashboardElement(DashboardElementRequest) returns (stream DashboardElementResponse);
@@ -1158,7 +1158,7 @@ service LookerStreamingService {
   rpc DeleteDashboardElement(DeleteDashboardElementRequest) returns (stream DeleteDashboardElementResponse);
 
   // ### Get information about all the dashboard elements on a dashboard with a specific id.
-  rpc DashboardDashboardElements(DashboardDashboardElementsRequest) returns (stream DashboardDashboardElementsResponse);
+  rpc DashboardDashboardElements(DashboardDashboardElementsRequest) returns (stream DashboardDashboardElementsStreamResponse);
 
   // ### Create a dashboard element on the dashboard with a specific id.
   rpc CreateDashboardElement(CreateDashboardElementRequest) returns (stream CreateDashboardElementResponse);
@@ -1173,7 +1173,7 @@ service LookerStreamingService {
   rpc DeleteDashboardFilter(DeleteDashboardFilterRequest) returns (stream DeleteDashboardFilterResponse);
 
   // ### Get information about all the dashboard filters on a dashboard with a specific id.
-  rpc DashboardDashboardFilters(DashboardDashboardFiltersRequest) returns (stream DashboardDashboardFiltersResponse);
+  rpc DashboardDashboardFilters(DashboardDashboardFiltersRequest) returns (stream DashboardDashboardFiltersStreamResponse);
 
   // ### Create a dashboard filter on the dashboard with a specific id.
   rpc CreateDashboardFilter(CreateDashboardFilterRequest) returns (stream CreateDashboardFilterResponse);
@@ -1185,7 +1185,7 @@ service LookerStreamingService {
   rpc UpdateDashboardLayoutComponent(UpdateDashboardLayoutComponentRequest) returns (stream UpdateDashboardLayoutComponentResponse);
 
   // ### Get information about all the dashboard layout components for a dashboard layout with a specific id.
-  rpc DashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest) returns (stream DashboardLayoutDashboardLayoutComponentsResponse);
+  rpc DashboardLayoutDashboardLayoutComponents(DashboardLayoutDashboardLayoutComponentsRequest) returns (stream DashboardLayoutDashboardLayoutComponentsStreamResponse);
 
   // ### Get information about the dashboard layouts with a specific id.
   rpc DashboardLayout(DashboardLayoutRequest) returns (stream DashboardLayoutResponse);
@@ -1197,7 +1197,7 @@ service LookerStreamingService {
   rpc DeleteDashboardLayout(DeleteDashboardLayoutRequest) returns (stream DeleteDashboardLayoutResponse);
 
   // ### Get information about all the dashboard elements on a dashboard with a specific id.
-  rpc DashboardDashboardLayouts(DashboardDashboardLayoutsRequest) returns (stream DashboardDashboardLayoutsResponse);
+  rpc DashboardDashboardLayouts(DashboardDashboardLayoutsRequest) returns (stream DashboardDashboardLayoutsStreamResponse);
 
   // ### Create a dashboard layout on the dashboard with a specific id.
   rpc CreateDashboardLayout(CreateDashboardLayoutRequest) returns (stream CreateDashboardLayoutResponse);
@@ -1218,7 +1218,7 @@ service LookerStreamingService {
 
   // ### Get information about all datagroups.
   // 
-  rpc AllDatagroups(AllDatagroupsRequest) returns (stream AllDatagroupsResponse);
+  rpc AllDatagroups(AllDatagroupsRequest) returns (stream AllDatagroupsStreamResponse);
 
   // ### Get information about a datagroup.
   // 
@@ -1233,7 +1233,7 @@ service LookerStreamingService {
   // Folder: Manage Folders
 
   // Search for folders by creator id, parent id, name, etc
-  rpc SearchFolders(SearchFoldersRequest) returns (stream SearchFoldersResponse);
+  rpc SearchFolders(SearchFoldersRequest) returns (stream SearchFoldersStreamResponse);
 
   // ### Get information about the folder with a specific id.
   rpc Folder(FolderRequest) returns (stream FolderResponse);
@@ -1252,7 +1252,7 @@ service LookerStreamingService {
   // In API 4.0+, all personal folders will be returned.
   // 
   // 
-  rpc AllFolders(AllFoldersRequest) returns (stream AllFoldersResponse);
+  rpc AllFolders(AllFoldersRequest) returns (stream AllFoldersStreamResponse);
 
   // ### Create a folder with specified information.
   // 
@@ -1262,25 +1262,25 @@ service LookerStreamingService {
   rpc CreateFolder(CreateFolderRequest) returns (stream CreateFolderResponse);
 
   // ### Get the children of a folder.
-  rpc FolderChildren(FolderChildrenRequest) returns (stream FolderChildrenResponse);
+  rpc FolderChildren(FolderChildrenRequest) returns (stream FolderChildrenStreamResponse);
 
   // ### Search the children of a folder
-  rpc FolderChildrenSearch(FolderChildrenSearchRequest) returns (stream FolderChildrenSearchResponse);
+  rpc FolderChildrenSearch(FolderChildrenSearchRequest) returns (stream FolderChildrenSearchStreamResponse);
 
   // ### Get the parent of a folder
   rpc FolderParent(FolderParentRequest) returns (stream FolderParentResponse);
 
   // ### Get the ancestors of a folder
-  rpc FolderAncestors(FolderAncestorsRequest) returns (stream FolderAncestorsResponse);
+  rpc FolderAncestors(FolderAncestorsRequest) returns (stream FolderAncestorsStreamResponse);
 
   // ### Get all looks in a folder.
   // In API 3.x, this will return all looks in a folder, including looks in the trash.
   // In API 4.0+, all looks in a folder will be returned, excluding looks in the trash.
   // 
-  rpc FolderLooks(FolderLooksRequest) returns (stream FolderLooksResponse);
+  rpc FolderLooks(FolderLooksRequest) returns (stream FolderLooksStreamResponse);
 
   // ### Get the dashboards in a folder
-  rpc FolderDashboards(FolderDashboardsRequest) returns (stream FolderDashboardsResponse);
+  rpc FolderDashboards(FolderDashboardsRequest) returns (stream FolderDashboardsStreamResponse);
 
 
 
@@ -1288,7 +1288,7 @@ service LookerStreamingService {
 
   // ### Get information about all groups.
   // 
-  rpc AllGroups(AllGroupsRequest) returns (stream AllGroupsResponse);
+  rpc AllGroups(AllGroupsRequest) returns (stream AllGroupsStreamResponse);
 
   // ### Creates a new group (admin only).
   // 
@@ -1320,7 +1320,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchGroups(SearchGroupsRequest) returns (stream SearchGroupsResponse);
+  rpc SearchGroups(SearchGroupsRequest) returns (stream SearchGroupsStreamResponse);
 
   // ### Search groups include roles
   // 
@@ -1348,7 +1348,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchGroupsWithRoles(SearchGroupsWithRolesRequest) returns (stream SearchGroupsWithRolesResponse);
+  rpc SearchGroupsWithRoles(SearchGroupsWithRolesRequest) returns (stream SearchGroupsWithRolesStreamResponse);
 
   // ### Search groups include hierarchy
   // 
@@ -1377,7 +1377,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest) returns (stream SearchGroupsWithHierarchyResponse);
+  rpc SearchGroupsWithHierarchy(SearchGroupsWithHierarchyRequest) returns (stream SearchGroupsWithHierarchyStreamResponse);
 
   // ### Get information about a group.
   // 
@@ -1392,7 +1392,7 @@ service LookerStreamingService {
 
   // ### Get information about all the groups in a group
   // 
-  rpc AllGroupGroups(AllGroupGroupsRequest) returns (stream AllGroupGroupsResponse);
+  rpc AllGroupGroups(AllGroupGroupsRequest) returns (stream AllGroupGroupsStreamResponse);
 
   // ### Adds a new group to a group.
   // 
@@ -1400,7 +1400,7 @@ service LookerStreamingService {
 
   // ### Get information about all the users directly included in a group.
   // 
-  rpc AllGroupUsers(AllGroupUsersRequest) returns (stream AllGroupUsersResponse);
+  rpc AllGroupUsers(AllGroupUsersRequest) returns (stream AllGroupUsersStreamResponse);
 
   // ### Adds a new user to a group.
   // 
@@ -1430,7 +1430,7 @@ service LookerStreamingService {
 
   // ### Get information about the primary homepage's sections.
   // 
-  rpc AllPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest) returns (stream AllPrimaryHomepageSectionsResponse);
+  rpc AllPrimaryHomepageSections(AllPrimaryHomepageSectionsRequest) returns (stream AllPrimaryHomepageSectionsStreamResponse);
 
 
 
@@ -1438,7 +1438,7 @@ service LookerStreamingService {
 
   // ### Get information about all Integration Hubs.
   // 
-  rpc AllIntegrationHubs(AllIntegrationHubsRequest) returns (stream AllIntegrationHubsResponse);
+  rpc AllIntegrationHubs(AllIntegrationHubsRequest) returns (stream AllIntegrationHubsStreamResponse);
 
   // ### Create a new Integration Hub.
   // 
@@ -1465,7 +1465,7 @@ service LookerStreamingService {
 
   // ### Get information about all Integrations.
   // 
-  rpc AllIntegrations(AllIntegrationsRequest) returns (stream AllIntegrationsResponse);
+  rpc AllIntegrations(AllIntegrationsRequest) returns (stream AllIntegrationsStreamResponse);
 
   // ### Get information about a Integration.
   // 
@@ -1493,7 +1493,7 @@ service LookerStreamingService {
   // 
   // Find **soft-deleted looks** with [search_looks()](#!/Look/search_looks)
   // 
-  rpc AllLooks(AllLooksRequest) returns (stream AllLooksResponse);
+  rpc AllLooks(AllLooksRequest) returns (stream AllLooksStreamResponse);
 
   // ### Create a Look
   // 
@@ -1533,7 +1533,7 @@ service LookerStreamingService {
   // 
   // Get a **single look** by id with [look(id)](#!/Look/look)
   // 
-  rpc SearchLooks(SearchLooksRequest) returns (stream SearchLooksResponse);
+  rpc SearchLooks(SearchLooksRequest) returns (stream SearchLooksStreamResponse);
 
   // ### Get a Look.
   // 
@@ -1604,7 +1604,7 @@ service LookerStreamingService {
 
   // ### Get information about all lookml models.
   // 
-  rpc AllLookmlModels(AllLookmlModelsRequest) returns (stream AllLookmlModelsResponse);
+  rpc AllLookmlModels(AllLookmlModelsRequest) returns (stream AllLookmlModelsStreamResponse);
 
   // ### Create a lookml model using the specified configuration.
   // 
@@ -1645,7 +1645,7 @@ service LookerStreamingService {
   // **Note**: [Connection Features](#!/Metadata/connection_features) can be used to determine if a connection supports
   // multiple databases.
   // 
-  rpc ConnectionDatabases(ConnectionDatabasesRequest) returns (stream ConnectionDatabasesResponse);
+  rpc ConnectionDatabases(ConnectionDatabasesRequest) returns (stream ConnectionDatabasesStreamResponse);
 
   // ### Retrieve metadata features for this connection
   // 
@@ -1657,7 +1657,7 @@ service LookerStreamingService {
   // ### Get the list of schemas and tables for a connection
   // 
   // 
-  rpc ConnectionSchemas(ConnectionSchemasRequest) returns (stream ConnectionSchemasResponse);
+  rpc ConnectionSchemas(ConnectionSchemasRequest) returns (stream ConnectionSchemasStreamResponse);
 
   // ### Get the list of tables for a schema
   // 
@@ -1666,18 +1666,18 @@ service LookerStreamingService {
   // 
   // For dialects that do **not** support multiple databases, **do not use** the database parameter
   // 
-  rpc ConnectionTables(ConnectionTablesRequest) returns (stream ConnectionTablesResponse);
+  rpc ConnectionTables(ConnectionTablesRequest) returns (stream ConnectionTablesStreamResponse);
 
   // ### Get the columns (and therefore also the tables) in a specific schema
   // 
   // 
-  rpc ConnectionColumns(ConnectionColumnsRequest) returns (stream ConnectionColumnsResponse);
+  rpc ConnectionColumns(ConnectionColumnsRequest) returns (stream ConnectionColumnsStreamResponse);
 
   // ### Search a connection for columns matching the specified name
   // 
   // **Note**: `column_name` must be a valid column name. It is not a search pattern.
   // 
-  rpc ConnectionSearchColumns(ConnectionSearchColumnsRequest) returns (stream ConnectionSearchColumnsResponse);
+  rpc ConnectionSearchColumns(ConnectionSearchColumnsRequest) returns (stream ConnectionSearchColumnsStreamResponse);
 
   // ### Connection cost estimating
   // 
@@ -1706,7 +1706,7 @@ service LookerStreamingService {
   // 
   // Returns a list of git branches in the project repository
   // 
-  rpc AllGitBranches(AllGitBranchesRequest) returns (stream AllGitBranchesResponse);
+  rpc AllGitBranches(AllGitBranchesRequest) returns (stream AllGitBranchesStreamResponse);
 
   // ### Get the Current Git Branch
   // 
@@ -1796,7 +1796,7 @@ service LookerStreamingService {
   // 
   // Returns all projects visible to the current user
   // 
-  rpc AllProjects(AllProjectsRequest) returns (stream AllProjectsResponse);
+  rpc AllProjects(AllProjectsRequest) returns (stream AllProjectsStreamResponse);
 
   // ### Create A Project
   // 
@@ -1902,7 +1902,7 @@ service LookerStreamingService {
   // 
   // Returns a list of the files in the project
   // 
-  rpc AllProjectFiles(AllProjectFilesRequest) returns (stream AllProjectFilesResponse);
+  rpc AllProjectFiles(AllProjectFilesRequest) returns (stream AllProjectFilesStreamResponse);
 
   // ### Get Project File Info
   // 
@@ -1921,7 +1921,7 @@ service LookerStreamingService {
   // 
   // For example, a late-stage test for write access is meaningless if connecting to the git server (an early test) is failing.
   // 
-  rpc AllGitConnectionTests(AllGitConnectionTestsRequest) returns (stream AllGitConnectionTestsResponse);
+  rpc AllGitConnectionTests(AllGitConnectionTestsRequest) returns (stream AllGitConnectionTestsStreamResponse);
 
   // ### Run a git connection test
   // 
@@ -1939,13 +1939,13 @@ service LookerStreamingService {
   // optionally filtered by the file id.
   // Call [Run LookML Test](#!/Project/run_lookml_test) to execute tests.
   // 
-  rpc AllLookmlTests(AllLookmlTestsRequest) returns (stream AllLookmlTestsResponse);
+  rpc AllLookmlTests(AllLookmlTestsRequest) returns (stream AllLookmlTestsStreamResponse);
 
   // ### Run LookML Tests
   // 
   // Runs all tests in the project, optionally filtered by file, test, and/or model.
   // 
-  rpc RunLookmlTest(RunLookmlTestRequest) returns (stream RunLookmlTestResponse);
+  rpc RunLookmlTest(RunLookmlTestRequest) returns (stream RunLookmlTestStreamResponse);
 
   // ### Configure Repository Credential for a remote dependency
   // 
@@ -1970,7 +1970,7 @@ service LookerStreamingService {
   // 
   // `root_project_id` is required.
   // 
-  rpc GetAllRepositoryCredentials(GetAllRepositoryCredentialsRequest) returns (stream GetAllRepositoryCredentialsResponse);
+  rpc GetAllRepositoryCredentials(GetAllRepositoryCredentialsRequest) returns (stream GetAllRepositoryCredentialsStreamResponse);
 
 
 
@@ -2250,7 +2250,7 @@ service LookerStreamingService {
 
   // Get information about all running queries.
   // 
-  rpc AllRunningQueries(AllRunningQueriesRequest) returns (stream AllRunningQueriesResponse);
+  rpc AllRunningQueries(AllRunningQueriesRequest) returns (stream AllRunningQueriesStreamResponse);
 
   // Kill a query with a specific query_task_id.
   // 
@@ -2356,7 +2356,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchModelSets(SearchModelSetsRequest) returns (stream SearchModelSetsResponse);
+  rpc SearchModelSets(SearchModelSetsRequest) returns (stream SearchModelSetsStreamResponse);
 
   // ### Get information about the model set with a specific id.
   // 
@@ -2372,7 +2372,7 @@ service LookerStreamingService {
 
   // ### Get information about all model sets.
   // 
-  rpc AllModelSets(AllModelSetsRequest) returns (stream AllModelSetsResponse);
+  rpc AllModelSets(AllModelSetsRequest) returns (stream AllModelSetsStreamResponse);
 
   // ### Create a model set with the specified information. Model sets are used by Roles.
   // 
@@ -2380,7 +2380,7 @@ service LookerStreamingService {
 
   // ### Get all supported permissions.
   // 
-  rpc AllPermissions(AllPermissionsRequest) returns (stream AllPermissionsResponse);
+  rpc AllPermissions(AllPermissionsRequest) returns (stream AllPermissionsStreamResponse);
 
   // ### Search permission sets
   // Returns all permission set records that match the given search criteria.
@@ -2406,7 +2406,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchPermissionSets(SearchPermissionSetsRequest) returns (stream SearchPermissionSetsResponse);
+  rpc SearchPermissionSets(SearchPermissionSetsRequest) returns (stream SearchPermissionSetsStreamResponse);
 
   // ### Get information about the permission set with a specific id.
   // 
@@ -2422,7 +2422,7 @@ service LookerStreamingService {
 
   // ### Get information about all permission sets.
   // 
-  rpc AllPermissionSets(AllPermissionSetsRequest) returns (stream AllPermissionSetsResponse);
+  rpc AllPermissionSets(AllPermissionSetsRequest) returns (stream AllPermissionSetsStreamResponse);
 
   // ### Create a permission set with the specified information. Permission sets are used by Roles.
   // 
@@ -2430,7 +2430,7 @@ service LookerStreamingService {
 
   // ### Get information about all roles.
   // 
-  rpc AllRoles(AllRolesRequest) returns (stream AllRolesResponse);
+  rpc AllRoles(AllRolesRequest) returns (stream AllRolesStreamResponse);
 
   // ### Create a role with the specified information.
   // 
@@ -2462,7 +2462,7 @@ service LookerStreamingService {
   // Boolean search params accept only "true" and "false" as values.
   // 
   // 
-  rpc SearchRoles(SearchRolesRequest) returns (stream SearchRolesResponse);
+  rpc SearchRoles(SearchRolesRequest) returns (stream SearchRolesStreamResponse);
 
   // ### Get information about the role with a specific id.
   // 
@@ -2478,19 +2478,19 @@ service LookerStreamingService {
 
   // ### Get information about all the groups with the role that has a specific id.
   // 
-  rpc RoleGroups(RoleGroupsRequest) returns (stream RoleGroupsResponse);
+  rpc RoleGroups(RoleGroupsRequest) returns (stream RoleGroupsStreamResponse);
 
   // ### Set all groups for a role, removing all existing group associations from that role.
   // 
-  rpc SetRoleGroups(SetRoleGroupsRequest) returns (stream SetRoleGroupsResponse);
+  rpc SetRoleGroups(SetRoleGroupsRequest) returns (stream SetRoleGroupsStreamResponse);
 
   // ### Get information about all the users with the role that has a specific id.
   // 
-  rpc RoleUsers(RoleUsersRequest) returns (stream RoleUsersResponse);
+  rpc RoleUsers(RoleUsersRequest) returns (stream RoleUsersStreamResponse);
 
   // ### Set all the users of the role with a specific id.
   // 
-  rpc SetRoleUsers(SetRoleUsersRequest) returns (stream SetRoleUsersResponse);
+  rpc SetRoleUsers(SetRoleUsersRequest) returns (stream SetRoleUsersStreamResponse);
 
 
 
@@ -2500,7 +2500,7 @@ service LookerStreamingService {
   // 
   // Returns scheduled plans owned by the caller for a given space id.
   // 
-  rpc ScheduledPlansForSpace(ScheduledPlansForSpaceRequest) returns (stream ScheduledPlansForSpaceResponse);
+  rpc ScheduledPlansForSpace(ScheduledPlansForSpaceRequest) returns (stream ScheduledPlansForSpaceStreamResponse);
 
   // ### Get Information About a Scheduled Plan
   // 
@@ -2577,7 +2577,7 @@ service LookerStreamingService {
   // 
   // 
   // 
-  rpc AllScheduledPlans(AllScheduledPlansRequest) returns (stream AllScheduledPlansResponse);
+  rpc AllScheduledPlans(AllScheduledPlansRequest) returns (stream AllScheduledPlansStreamResponse);
 
   // ### Create a Scheduled Plan
   // 
@@ -2698,7 +2698,7 @@ service LookerStreamingService {
   // 
   // 
   // 
-  rpc ScheduledPlansForLook(ScheduledPlansForLookRequest) returns (stream ScheduledPlansForLookResponse);
+  rpc ScheduledPlansForLook(ScheduledPlansForLookRequest) returns (stream ScheduledPlansForLookStreamResponse);
 
   // ### Get Scheduled Plans for a Dashboard
   // 
@@ -2714,7 +2714,7 @@ service LookerStreamingService {
   // 
   // 
   // 
-  rpc ScheduledPlansForDashboard(ScheduledPlansForDashboardRequest) returns (stream ScheduledPlansForDashboardResponse);
+  rpc ScheduledPlansForDashboard(ScheduledPlansForDashboardRequest) returns (stream ScheduledPlansForDashboardStreamResponse);
 
   // ### Get Scheduled Plans for a LookML Dashboard
   // 
@@ -2730,7 +2730,7 @@ service LookerStreamingService {
   // 
   // 
   // 
-  rpc ScheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest) returns (stream ScheduledPlansForLookmlDashboardResponse);
+  rpc ScheduledPlansForLookmlDashboard(ScheduledPlansForLookmlDashboardRequest) returns (stream ScheduledPlansForLookmlDashboardStreamResponse);
 
   // ### Run a Scheduled Plan By Id Immediately
   // This function creates a run-once schedule plan based on an existing scheduled plan,
@@ -2829,7 +2829,7 @@ service LookerStreamingService {
   // **Note**: Custom themes needs to be enabled by Looker. Unless custom themes are enabled, only the automatically generated default theme can be used. Please contact your Account Manager or help.looker.com to update your license for this feature.
   // 
   // 
-  rpc AllThemes(AllThemesRequest) returns (stream AllThemesResponse);
+  rpc AllThemes(AllThemesRequest) returns (stream AllThemesStreamResponse);
 
   // ### Create a theme
   // 
@@ -2890,7 +2890,7 @@ service LookerStreamingService {
   // **Note**: Custom themes needs to be enabled by Looker. Unless custom themes are enabled, only the automatically generated default theme can be used. Please contact your Account Manager or help.looker.com to update your license for this feature.
   // 
   // 
-  rpc SearchThemes(SearchThemesRequest) returns (stream SearchThemesResponse);
+  rpc SearchThemes(SearchThemesRequest) returns (stream SearchThemesStreamResponse);
 
   // ### Get the default theme
   // 
@@ -2929,7 +2929,7 @@ service LookerStreamingService {
   // 
   // 
   // 
-  rpc ActiveThemes(ActiveThemesRequest) returns (stream ActiveThemesResponse);
+  rpc ActiveThemes(ActiveThemesRequest) returns (stream ActiveThemesStreamResponse);
 
   // ### Get the named theme if it's active. Otherwise, return the default theme
   // 
@@ -2991,7 +2991,7 @@ service LookerStreamingService {
 
   // ### Get information about all users.
   // 
-  rpc AllUsers(AllUsersRequest) returns (stream AllUsersResponse);
+  rpc AllUsers(AllUsersRequest) returns (stream AllUsersStreamResponse);
 
   // ### Create a user with the specified information.
   // 
@@ -3029,7 +3029,7 @@ service LookerStreamingService {
   // names of other users who are members of the same group as the user.
   // 
   // 
-  rpc SearchUsers(SearchUsersRequest) returns (stream SearchUsersResponse);
+  rpc SearchUsers(SearchUsersRequest) returns (stream SearchUsersStreamResponse);
 
   // ### Search for user accounts by name
   // 
@@ -3038,7 +3038,7 @@ service LookerStreamingService {
   // 
   // Any additional search params will be combined into a logical AND expression.
   // 
-  rpc SearchUsersNames(SearchUsersNamesRequest) returns (stream SearchUsersNamesResponse);
+  rpc SearchUsersNames(SearchUsersNamesRequest) returns (stream SearchUsersNamesStreamResponse);
 
   // ### Get information about the user with a specific id.
   // 
@@ -3142,7 +3142,7 @@ service LookerStreamingService {
   rpc DeleteUserCredentialsApi3(DeleteUserCredentialsApi3Request) returns (stream DeleteUserCredentialsApi3Response);
 
   // ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
-  rpc AllUserCredentialsApi3s(AllUserCredentialsApi3sRequest) returns (stream AllUserCredentialsApi3sResponse);
+  rpc AllUserCredentialsApi3s(AllUserCredentialsApi3sRequest) returns (stream AllUserCredentialsApi3sStreamResponse);
 
   // ### API 3 login information for the specified user. This is for the newer API keys that can be added for any user.
   rpc CreateUserCredentialsApi3(CreateUserCredentialsApi3Request) returns (stream CreateUserCredentialsApi3Response);
@@ -3154,7 +3154,7 @@ service LookerStreamingService {
   rpc DeleteUserCredentialsEmbed(DeleteUserCredentialsEmbedRequest) returns (stream DeleteUserCredentialsEmbedResponse);
 
   // ### Embed login information for the specified user.
-  rpc AllUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest) returns (stream AllUserCredentialsEmbedsResponse);
+  rpc AllUserCredentialsEmbeds(AllUserCredentialsEmbedsRequest) returns (stream AllUserCredentialsEmbedsStreamResponse);
 
   // ### Looker Openid login information for the specified user. Used by Looker Analysts.
   rpc UserCredentialsLookerOpenid(UserCredentialsLookerOpenidRequest) returns (stream UserCredentialsLookerOpenidResponse);
@@ -3169,7 +3169,7 @@ service LookerStreamingService {
   rpc DeleteUserSession(DeleteUserSessionRequest) returns (stream DeleteUserSessionResponse);
 
   // ### Web login session for the specified user.
-  rpc AllUserSessions(AllUserSessionsRequest) returns (stream AllUserSessionsResponse);
+  rpc AllUserSessions(AllUserSessionsRequest) returns (stream AllUserSessionsStreamResponse);
 
   // ### Create a password reset token.
   // This will create a cryptographically secure random password reset token for the user.
@@ -3185,11 +3185,11 @@ service LookerStreamingService {
 
   // ### Get information about roles of a given user
   // 
-  rpc UserRoles(UserRolesRequest) returns (stream UserRolesResponse);
+  rpc UserRoles(UserRolesRequest) returns (stream UserRolesStreamResponse);
 
   // ### Set roles of the user with a specific id.
   // 
-  rpc SetUserRoles(SetUserRolesRequest) returns (stream SetUserRolesResponse);
+  rpc SetUserRoles(SetUserRolesRequest) returns (stream SetUserRolesStreamResponse);
 
   // ### Get user attribute values for a given user.
   // 
@@ -3208,7 +3208,7 @@ service LookerStreamingService {
   // 
   // The value of all hidden user attributes will be blank.
   // 
-  rpc UserAttributeUserValues(UserAttributeUserValuesRequest) returns (stream UserAttributeUserValuesResponse);
+  rpc UserAttributeUserValues(UserAttributeUserValuesRequest) returns (stream UserAttributeUserValuesStreamResponse);
 
   // ### Store a custom value for a user attribute in a user's account settings.
   // 
@@ -3241,7 +3241,7 @@ service LookerStreamingService {
 
   // ### Get information about all user attributes.
   // 
-  rpc AllUserAttributes(AllUserAttributesRequest) returns (stream AllUserAttributesResponse);
+  rpc AllUserAttributes(AllUserAttributesRequest) returns (stream AllUserAttributesStreamResponse);
 
   // ### Create a new user attribute
   // 
@@ -3276,7 +3276,7 @@ service LookerStreamingService {
   // 
   // Results will only include groups that the caller's user account has permission to see.
   // 
-  rpc AllUserAttributeGroupValues(AllUserAttributeGroupValuesRequest) returns (stream AllUserAttributeGroupValuesResponse);
+  rpc AllUserAttributeGroupValues(AllUserAttributeGroupValuesRequest) returns (stream AllUserAttributeGroupValuesStreamResponse);
 
   // ### Define values for a user attribute across a set of groups, in priority order.
   // 
@@ -3299,7 +3299,7 @@ service LookerStreamingService {
   //   To set a user attribute value for a single user, see [Set User Attribute User Value](#!/User/set_user_attribute_user_value).
   // To set a user attribute value for all members of a group, see [Set User Attribute Group Value](#!/Group/update_user_attribute_group_value).
   // 
-  rpc SetUserAttributeGroupValues(SetUserAttributeGroupValuesRequest) returns (stream SetUserAttributeGroupValuesResponse);
+  rpc SetUserAttributeGroupValues(SetUserAttributeGroupValuesRequest) returns (stream SetUserAttributeGroupValuesStreamResponse);
 
 
 
@@ -3309,7 +3309,7 @@ service LookerStreamingService {
   // 
   // Returns all workspaces available to the calling user.
   // 
-  rpc AllWorkspaces(AllWorkspacesRequest) returns (stream AllWorkspacesResponse);
+  rpc AllWorkspaces(AllWorkspacesRequest) returns (stream AllWorkspacesStreamResponse);
 
   // ### Get A Workspace
   // 

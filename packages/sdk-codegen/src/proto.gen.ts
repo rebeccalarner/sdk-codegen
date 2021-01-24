@@ -107,9 +107,12 @@ export class ProtoGen extends CodeGen {
 
   declareStreamer(_indent: string, _method: IMethod): string {
     const methodName = titleCase(_method.operationId)
+    const streamResponse = _method.returnType?.type.name.endsWith('[]')
+      ? 'Stream'
+      : ''
     return `${this.formatComments(
       _method.description
-    )}  rpc ${methodName}(${methodName}Request) returns (stream ${methodName}Response);`
+    )}  rpc ${methodName}(${methodName}Request) returns (stream ${methodName}${streamResponse}Response);`
   }
 
   declareParameter(
@@ -145,14 +148,26 @@ export class ProtoGen extends CodeGen {
   modelsEpilogue(_indent: string): string {
     return this.saveMethods
       .map((method) => {
+        const isStreamResponse = method.returnType?.type.name.endsWith('[]')
+        let streamResponse = ''
+        if (isStreamResponse) {
+          console.log(
+            `stream response ${method.name} ${method.returnType?.type.name}`
+          )
+          streamResponse = `
+
+message ${titleCase(method.operationId)}StreamResponse {
+  ${this.methodResponse(method, 1, true).trim()}
+}`
+        }
         return `
 message ${titleCase(method.operationId)}Request {
-${this.methodArguments(method)}    
-}        
+${this.methodArguments(method)}
+}
 
 message ${titleCase(method.operationId)}Response {
   ${this.methodResponse(method, 1).trim()}
-}        
+}${streamResponse}
 `
       })
       .join('')
@@ -210,7 +225,7 @@ import "google/protobuf/timestamp.proto";
         .join('')
     }
 
-    return `${this.formatComments(type.description).trim()}      
+    return `${this.formatComments(type.description).trim()}
 ${typeType} ${type.name} {
   ${propertyValues.trim()}
 }`
@@ -220,7 +235,7 @@ ${typeType} ${type.name} {
     return `
 syntax = "proto3";
 
-package looker;    
+package looker;
 
 option java_package = "com.google.looker.grpc.services";
 option java_multiple_files = true;
@@ -254,7 +269,11 @@ service ${serviceName} {
     )
   }
 
-  private methodResponse(method: IMethod, index: number) {
+  private methodResponse(
+    method: IMethod,
+    index: number,
+    isStreamResponse = false
+  ) {
     if (method.returnType) {
       const description = this.formatComments(
         method.returnType?.description || ''
@@ -264,7 +283,8 @@ service ${serviceName} {
         return `${description}`
       } else {
         return `${description}  ${this.mapType(
-          returnType
+          returnType,
+          isStreamResponse
         )} result = ${index};\n`
       }
     } else {
@@ -272,11 +292,15 @@ service ${serviceName} {
     }
   }
 
-  private mapType(type: string): string {
+  private mapType(type: string, isStreamResponse = false): string {
     if (type.startsWith('Hash[')) {
       return `map<string, ${this.mapType(type.substring(5, type.length - 1))}>`
     } else if (type.endsWith('[]')) {
-      return `repeated ${type.substring(0, type.length - 2)}`
+      if (isStreamResponse) {
+        return `${type.substring(0, type.length - 2)}`
+      } else {
+        return `repeated ${type.substring(0, type.length - 2)}`
+      }
     } else if (type === 'boolean') {
       return 'bool'
     } else if (type === 'datetime') {

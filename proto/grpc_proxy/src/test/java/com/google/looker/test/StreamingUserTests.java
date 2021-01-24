@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.google.looker.client.LookerGrpcClient;
 import com.google.looker.grpc.services.AllUsersRequest;
-import com.google.looker.grpc.services.AllUsersResponse;
+import com.google.looker.grpc.services.AllUsersStreamResponse;
 import com.google.looker.grpc.services.LookerStreamingServiceGrpc;
 import com.google.looker.grpc.services.User;
 import io.grpc.stub.StreamObserver;
@@ -43,12 +43,12 @@ public class StreamingUserTests {
     CountDownLatch latch = new CountDownLatch(1);
     List<User> users = new ArrayList<>();
     int[] countChunks = {0};
-    StreamObserver<AllUsersResponse> responseObserver = new StreamObserver<AllUsersResponse>() {
+    StreamObserver<AllUsersStreamResponse> responseObserver = new StreamObserver<AllUsersStreamResponse>() {
 
       @Override
-      public void onNext(AllUsersResponse value) {
+      public void onNext(AllUsersStreamResponse value) {
         countChunks[0] += 1;
-        users.addAll(value.getResultList());
+        users.add(value.getResult());
       }
 
       @Override
