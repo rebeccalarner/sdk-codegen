@@ -39,8 +39,9 @@ import {
 } from '@looker/components'
 import { Routes } from '../../routes/AppRouter'
 import { resources } from './resource_data'
+import { getExtensionSDK } from '@looker/extension-sdk'
 
-interface ResourceSceneProps {}
+interface ResourceSceneProps { }
 
 export const ResourceScene: FC<ResourceSceneProps> = () => {
   const history = useHistory()
@@ -58,14 +59,19 @@ export const ResourceScene: FC<ResourceSceneProps> = () => {
     filterValues.length === 0
       ? resources
       : resources.filter((resource) => {
-          return filterValues.includes(resource.tag)
-        })
+        return filterValues.includes(resource.tag)
+      })
 
   const updateFilterValue = (values: string[]) => {
     const search = values.length === 0 ? '' : `?fv=${values.join(',')}`
     if (history.location.search !== search) {
       history.push(`${Routes.RESOURCES}${search}`)
     }
+  }
+
+  const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault()
+    getExtensionSDK().openBrowserWindow(e.currentTarget.href)
   }
 
   return (
@@ -92,8 +98,8 @@ export const ResourceScene: FC<ResourceSceneProps> = () => {
         {selectedResources.map((_k, index) => (
           <Link
             href={selectedResources[index].link}
-            target="_blank"
             key={index}
+            onClick={onClick}
           >
             <Card raised key={index} height="25vh">
               <CardContent>

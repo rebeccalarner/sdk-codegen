@@ -23,186 +23,184 @@
  SOFTWARE.
 
  */
-export const resources = [
+
+export interface Resource {
+  content: string
+  type: string
+  tag: string
+  link: string
+  shortenedLink: string
+  title: string
+}
+
+export const resources: Array<Resource> = [
   {
-    id: 1,
-    content: 'The API Explorer lets you learn + interact with the Looker API.',
+    content: 'The API Explorer lets you learn and interact with Looker API.',
     type: 'Resource',
     tag: 'api',
     link: 'https://hack.looker.com/extensions/marketplace_git_github_com_looker_open_source_extension_api_explorer_git::api-explorer',
+    shortenedLink: 'https://bit.ly/3j1sdWD',
     title: 'API Explorer',
   },
   {
-    id: 2,
     content: 'Gzr is a Looker Content Utility developer tool',
     type: 'Example',
     tag: 'devtool',
     link: 'https://github.com/looker-open-source/gzr',
+    shortenedLink: 'https://bit.ly/3mSyZiu',
     title: 'Gzr',
   },
   {
-    id: 3,
-    content: "LookR is the Looker SDK. It's in need of some revitalization!",
-    type: 'Example',
-    tag: 'api',
-    link: 'https://github.com/looker-open-source/lookr',
-    title: 'LookR SDK',
-  },
-  {
-    id: 4,
     content:
       'The SDK Codegen is the source of truth for all SDKs and lets you create them for any language',
     type: 'Resource',
     tag: 'api',
     link: 'https://github.com/looker-open-source/sdk-codegen',
+    shortenedLink: 'https://bit.ly/3lIk23g',
     title: 'SDK Codegen',
   },
   {
-    id: 5,
     content:
-      'These are all the examples we catalog for our SDKs. Currently: C#, Java, Kotlin, Python, R, Ruby, Swift, and TypeScript.',
+      'Our collection of SDK examples currently in: C#, Java, Kotlin, Python, R, Ruby, Swift, and TypeScript.',
     type: 'Resource',
     tag: 'api',
     link: 'https://github.com/looker-open-source/sdk-codegen/tree/main/examples',
+    shortenedLink: 'https://bit.ly/3AL4VdI',
     title: 'SDK Examples',
   },
   {
-    id: 6,
     content:
-      "LAMS is a style guide and linter for Looker's LookML data modeling language. It is designed to help a team of developers to produce more maintainable LookML projects.",
+      "Look At Me Sideways (LAMS) is a style guide and linter for LookML. It is designed to help a team of developers to produce more maintainable LookML projects.",
     type: 'Example',
     tag: 'devtool',
     link: 'https://github.com/looker-open-source/look-at-me-sideways',
-    title: 'Look At Me Sideways',
+    shortenedLink: 'https://bit.ly/3DOrMGS',
+    title: 'LookML Style Guide & Linter',
   },
   {
-    id: 7,
     content:
       'Looker Components are a collection of tools for building Looker data experiences.',
     type: 'Resource',
     tag: 'other',
     link: 'https://components.looker.com/',
+    shortenedLink: 'https://bit.ly/3DOrMGS',
     title: 'Looker Components',
   },
   {
-    id: 7,
     content:
-      'Looker Components are a collection of tools for building Looker data experiences. Check out the storybook for examples.',
+      'Looker Components Storybook contains component examples',
     type: 'Resource',
     tag: 'other',
     link: 'https://components.looker.com/storybook',
-    title: 'Components Storybook',
+    shortenedLink: 'https://bit.ly/3pbpygP',
+    title: 'Components Examples Storybook',
   },
   {
-    id: 8,
     content:
-      'The Looker JavaScript Embed SDK is designed to facilitate using Looker embedded content in your web application. It makes embedding easy!',
+      'The Looker JavaScript Embed SDK makes embedding Looker content in your web application easy!',
     type: 'Resource',
     tag: 'embed',
     link: 'https://github.com/looker-open-source/embed-sdk',
+    shortenedLink: 'https://bit.ly/3n2mDEJ',
     title: 'Embed SDK',
   },
   {
-    id: 9,
     content:
-      'Henry is a command line tool that helps determine model bloat in your Looker instance and identify unused content in models and explores.',
+      'Henry is a command line tool that finds model bloat in your Looker instance and identifies unused content in models and explores.',
     type: 'example',
     tag: 'devtool',
     link: 'https://github.com/looker-open-source/henry',
+    shortenedLink: 'https://bit.ly/3j1NShp',
     title: 'Henry',
   },
   {
-    id: 10,
     content:
-      "This is a simple React based extension template. It's functional out of the box and a great starting point.",
+      "A repository with multiple Extension Framework examples using Typescript, Javascript, React, and Redux",
     type: 'example',
     tag: 'extension',
-    link: 'https://github.com/looker-open-source/extension-template-react',
-    title: 'Extension Template: React',
+    link: 'https://github.com/looker-open-source/extension-examples',
+    shortenedLink: 'https://bit.ly/2YYdlkM',
+    title: 'Extension Framework Examples',
   },
   {
-    id: 11,
     content:
-      'This repository serves as a template for creating a new Looker Extension using React and Redux.',
+      `The Kitchensink Extension Framework example demonstrates most of Extension SDK's functionality and is a great starting point.`,
     type: 'example',
     tag: 'extension',
-    link: 'https://github.com/looker-open-source/extension-template-redux',
-    title: 'Extension Template: Redux',
+    link: 'https://github.com/looker-open-source/extension-examples/tree/main/react/typescript/kitchensink',
+    shortenedLink: 'https://bit.ly/3n1zbMk',
+    title: 'Main Extension Framework Example',
   },
   {
-    id: 12,
     content:
-      "This repository demonstrates all the functionality that is available to the Extension SDK. It's a great starting point for developing your own extensions.",
-    type: 'example',
-    tag: 'extension',
-    link: 'https://github.com/looker-open-source/extension-template-kitchensink',
-    title: 'Extension Template: KitchenSink',
-  },
-  {
-    id: 13,
-    content:
-      'The spec for the React Extension SDK. This lets you build a Looker extension— See the templates for more.',
+      'The React Extension SDK npm package. This lets you build a Looker extension — See the Extension Framework Examples for examples.',
     type: 'resource',
     tag: 'extension',
     link: 'https://www.npmjs.com/package/@looker/extension-sdk-react',
+    shortenedLink: 'https://bit.ly/3pbzoPN',
     title: 'Extension SDK: React',
   },
   {
-    id: 14,
     content:
       'Chatty is a simple web browser iframe host/client channel message manager. We use it for iframe communication.',
     type: 'resources',
     tag: 'embed',
     link: 'https://github.com/looker-open-source/chatty',
-    title: 'Chatty',
+    shortenedLink: 'https://bit.ly/2Z2NrfP',
+    title: 'Chatty - Iframe Msg Manager',
   },
   {
-    id: 15,
     content:
-      'This repository contains the Snowflake based LookML, for both the model and dashboards, for demonstrating Looker’s ability to provide value within the digital marketing landscape.',
+      'A Snowflake based LookML that demonstrates Looker’s value in the digital marketing landscape.',
     type: 'example',
     tag: 'lookml',
     link: 'https://github.com/looker-open-source/marketing_demo',
+    shortenedLink: 'https://bit.ly/2YR9rKN',
     title: 'Digital Marketing Demo',
   },
   {
-    id: 15,
     content:
-      'This repository contains the BigQuery based LookML, for both the model and dashboards, for demonstrating Looker’s ability to provide value within the healthcare landscape.',
+      'A BigQuery based LookML that demonstrates Looker’s value in the healthcare landscape.',
     type: 'example',
     tag: 'lookml',
     link: 'https://github.com/looker-open-source/healthcare_demo',
+    shortenedLink: 'https://bit.ly/3FUokfN',
     title: 'Healthcare Demo',
   },
   {
-    id: 16,
     content:
       'This is the official Looker Data Dictionary, fully open source and available as an example.',
     type: 'example',
     tag: 'extension',
     link: 'https://github.com/looker-open-source/app-data-dictionary',
+    shortenedLink: 'https://bit.ly/3vhMlZh',
     title: 'Data Dictionary Extension',
   },
   {
-    id: 17,
     content:
-      'This COVID-19 Block consists of LookML models, pre-built dashboards, and explores. The data that powers the block is currently only available in BigQuery and will work with any Looker instance with an existing BigQuery connection.',
+      'Thinking of doing a data analysis project for your hack? Browse and explore BigQuery public datasets through the hackathon instance',
+    type: 'resources',
+    tag: 'other',
+    link: 'https://hack.looker.com/dashboards/16',
+    title: 'Public Datasets',
+  },
+  {
+    content:
+      'This COVID-19 Block consists of LookML models, pre-built dashboards, and explores. The underlying data is only available in BigQuery.',
     type: 'example',
     tag: 'lookml',
     link: 'https://github.com/looker/covid19/blob/master/readme.md',
     title: 'COVID-19 Data Block',
   },
   {
-    id: 18,
     content:
-      'For immediate access to the frontend COVID-19 data, use our prebuilt models.',
+      'Prebuilt dashboards for immediate access to COVID-19 data.',
     type: 'resource',
     tag: 'lookml',
     link: 'https://covid19response.cloud.looker.com/embed/dashboards-next/51',
-    title: 'COVID-19 Prebuilt Dashboards',
+    title: 'COVID-19 Dashboards',
   },
   {
-    id: 19,
     content:
       'This repository demonstrates how to write a Looker extension that needs an access key to run.',
     type: 'example',
@@ -211,24 +209,21 @@ export const resources = [
     title: 'Extension Template: Access Key',
   },
   {
-    id: 20,
-    content: 'A very early-stage mockup of a Twitter-style Looker Extension.',
+    content: 'An early-stage mockup of a Twitter-style Looker Extension.',
     type: 'example',
     tag: 'extension',
     link: 'https://github.com/bryan-at-looker/looker-feed',
     title: 'Looker Feed',
   },
   {
-    id: 21,
     content:
-      'The official Looker Action Hub repository, for all your action requirements. It is full of examples.',
+      'The official Looker Action Hub repository for all your action requirements and examples.',
     type: 'example',
     tag: 'action',
     link: 'https://github.com/looker/actions',
     title: 'Action Hub',
   },
   {
-    id: 22,
     content:
       'Direct link to the directory with all the complete Actions in the official action hub.',
     type: 'example',
@@ -237,7 +232,6 @@ export const resources = [
     title: 'Actions Examples',
   },
   {
-    id: 23,
     content:
       'Simple Mock ActionHub for local or serverless (GCF) use. Super useful as a starter.',
     type: 'example',
@@ -246,7 +240,6 @@ export const resources = [
     title: 'Cloud Function Action Template',
   },
   {
-    id: 24,
     content:
       'Write an action that exports the Results of a Looker Query to BigQuery',
     type: 'tutorial',
@@ -255,7 +248,6 @@ export const resources = [
     title: 'Bigquery writeback action',
   },
   {
-    id: 25,
     content:
       'The official API and examples repo for Looker Custom Visualizations',
     type: 'example',
@@ -264,7 +256,6 @@ export const resources = [
     title: 'Looker Custom Viz v2',
   },
   {
-    id: 26,
     content:
       'Direct link to the examples repo for Looker Custom Visualizations',
     type: 'example',
@@ -273,7 +264,6 @@ export const resources = [
     title: 'Custom Viz Examples',
   },
   {
-    id: 27,
     content: 'Web IDE to help developer Looker custom visualizations',
     type: 'resource',
     tag: 'viz',
@@ -281,7 +271,6 @@ export const resources = [
     title: 'Looker Vis Builder',
   },
   {
-    id: 28,
     content:
       'Very thorough tutorial to build a custom viz development environment',
     type: 'tutorial',
@@ -290,7 +279,6 @@ export const resources = [
     title: 'Creating a Development Environment for Custom Visualizations',
   },
   {
-    id: 29,
     content:
       'An example custom viz development environment, developed by Headset',
     type: 'example',
@@ -299,7 +287,6 @@ export const resources = [
     title: 'Viz development environment example',
   },
   {
-    id: 29,
     content: 'An older demo of Lookers custom viz capabilities',
     type: 'resource',
     tag: 'viz',
@@ -307,7 +294,6 @@ export const resources = [
     title: 'Custom Viz Demo Video',
   },
   {
-    id: 30,
     content:
       'This Google Apps Script uses Looker API to load Looks, get data dictionaries, etc.',
     type: 'example',
@@ -316,7 +302,6 @@ export const resources = [
     title: 'Looker API for Google Sheets',
   },
   {
-    id: 31,
     content:
       'This is by far the best way to troubleshoot SSO embed URLs generated by your scripts',
     type: 'resource',
@@ -325,7 +310,6 @@ export const resources = [
     title: 'SSO Embed Tool',
   },
   {
-    id: 32,
     content:
       'If you want to make your own or improve it: This is the code for the best way to troubleshoot SSO embed URLs generated by your scripts',
     type: 'example',
@@ -334,7 +318,6 @@ export const resources = [
     title: 'SSO Embed Tool source code',
   },
   {
-    id: 33,
     content: 'An awesome example of an ever-useful LookML Style Guide',
     type: 'example',
     tag: 'lookml',
@@ -342,7 +325,6 @@ export const resources = [
     title: 'Matts LookML Style Guide',
   },
   {
-    id: 34,
     content: 'vim syntax for LookML',
     type: 'example',
     tag: 'devtool',
@@ -350,7 +332,6 @@ export const resources = [
     title: 'lkml.vim',
   },
   {
-    id: 35,
     content: 'VSCode syntax for LookML',
     type: 'example',
     tag: 'devtool',
@@ -358,7 +339,6 @@ export const resources = [
     title: 'VSCode Looker',
   },
   {
-    id: 36,
     content:
       'Automated EAV builder for... EAV schemas! Turn this into an extension!',
     type: 'example',
@@ -367,7 +347,6 @@ export const resources = [
     title: 'EAV Builder',
   },
   {
-    id: 37,
     content:
       'Basic instructions on how to deploy an AWS Lambda function and set up your Looker instance to poll an initiate changes to your LookML model through the Lambda function.',
     type: 'tutorial',
@@ -376,7 +355,6 @@ export const resources = [
     title: 'Automating schemas w/ Lambda',
   },
   {
-    id: 38,
     content:
       'Developed by WW, This repository contains some tools to handle best practices of a set of developers working on LookML files.',
     type: 'example',
@@ -385,7 +363,6 @@ export const resources = [
     title: 'LookML Tools',
   },
   {
-    id: 39,
     content:
       'This script was designed for Looker users who have columns in their data tables with JSON objects. It creates a LookML view file that generates a dimension for each field within a JSON object, and pushes that file into github.',
     type: 'example',
@@ -394,7 +371,6 @@ export const resources = [
     title: 'JSON 2 LookML',
   },
   {
-    id: 40,
     content:
       'A tool to persist descriptions from your dbt project your lookml project.',
     type: 'example',
@@ -403,7 +379,6 @@ export const resources = [
     title: 'DBTdocs 2 LookML',
   },
   {
-    id: 41,
     content:
       'A speedy LookML parser and serializer implemented in pure Python.',
     type: 'resource',
@@ -412,7 +387,6 @@ export const resources = [
     title: 'lkml parser',
   },
   {
-    id: 42,
     content: "A comprehensive demo of Looker's embedding capabilities",
     type: 'example',
     tag: 'embed',
@@ -420,11 +394,18 @@ export const resources = [
     title: 'Atom Fashion Embed Demo',
   },
   {
-    id: 43,
     content: 'An awesome list of awesome Looker projects.',
     type: 'resource',
     tag: 'other',
     link: 'https://github.com/alison985/awesome-looker',
     title: 'Awesome Looker List',
+  },
+  {
+    content: "Looker 3.0 SDK for R",
+    type: 'Example',
+    tag: 'api',
+    link: 'https://github.com/looker-open-source/lookr',
+    shortenedLink: 'https://bit.ly/3vfJwIr',
+    title: 'Looker R SDK 3.0',
   },
 ]
