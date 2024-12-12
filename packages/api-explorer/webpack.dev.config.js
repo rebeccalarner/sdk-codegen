@@ -24,10 +24,10 @@
 
  */
 
-const path = require('path')
-const { merge } = require('webpack-merge')
-const base = require('../../webpack.base.config')(__dirname)
-const browser = require('../../webpack.browser.config')()
+const path = require('path');
+const { merge } = require('webpack-merge');
+const base = require('../../webpack.base.config')(__dirname);
+const browser = require('../../webpack.browser.config')();
 
 module.exports = merge(base, browser, {
   entry: {
@@ -35,15 +35,19 @@ module.exports = merge(base, browser, {
   },
   mode: 'development',
   devServer: {
-    contentBase: path.join(__dirname, 'public'),
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
     historyApiFallback: {
       disableDotRule: true,
     },
-    publicPath: '/dist/',
+    devMiddleware: {
+      publicPath: '/dist/',
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': '*',
       'Access-Control-Allow-Headers': '*',
     },
   },
-})
+});

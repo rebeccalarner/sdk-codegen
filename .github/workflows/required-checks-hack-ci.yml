@@ -37,39 +37,56 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Repo Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - uses: tony84727/changed-file-filter@v0.2.0
+      - uses: tony84727/changed-file-filter@v0.2.3
         id: filter
         with:
           filters: |
             apix:
-              - packages/code-editor/**/*
-              - packages/run-it/**/*
-              - packages/api-explorer/**/*
-              - packages/extension-api-explorer/**/*
-              - packages/extension-utils/**/*
+              - 'package.json'
+              - 'packages/code-editor/**/*'
+              - 'packages/run-it/**/*'
+              - 'packages/api-explorer/**/*'
+              - 'packages/extension-api-explorer/**/*'
+              - 'packages/extension-utils/**/*'
+              - '.github/workflows/apix-ci.yml'
+              - 'yarn.lock'
             codegen:
-              - packages/sdk-codegen/**/*
-              - packages/sdk-codegen-utils/**/*
-              - packages/sdk-codegen-scripts/**/*
+              - 'package.json'
+              - 'packages/sdk-codegen/**/*'
+              - 'packages/sdk-codegen-utils/**/*'
+              - 'packages/sdk-codegen-scripts/**/*'
+              - '.github/workflows/codegen-ci.yml'
+              - 'yarn.lock'
             hackathon:
-              - packages/wholly-sheet/**/*
-              - packages/hackathon/**/*
+              - 'package.json'
+              - 'packages/wholly-sheet/**/*'
+              - 'packages/hackathon/**/*'
+              - '.github/workflows/hackathon-ci.yml'
+              - 'yarn.lock'
             python:
-              - python/**/*
+              - 'Pipfile'
+              - 'Pipfile.lock'
+              - 'python/**/*'
+              - '.github/workflows/python-ci.yml'
             resources:
-              - bin/looker-resources-index/**/*
-              - docs/resources/**/*
+              - 'bin/looker-resources-index/**/*'
+              - 'docs/resources/**/*'
+              - '.github/workflows/resources-ci.yml'
             tssdk:
-              - packages/sdk/**/*
-              - packages/sdk-rtl/**/*
-              - packages/sdk-node/**/*
-              - packages/extension-sdk/**/*
-              - packages/extension-sdk-react/**/*
-              - packages/extension-utils/**/*
+              - 'package.json'
+              - 'packages/sdk/**/*'
+              - 'packages/sdk-rtl/**/*'
+              - 'packages/sdk-node/**/*'
+              - 'packages/extension-sdk/**/*'
+              - 'packages/extension-sdk-react/**/*'
+              - 'packages/extension-utils/**/*'
+              - '.github/workflows/tssdk-ci.yml'
+              - 'yarn.lock'
             gosdk:
-              - packages/go/**/*
+              - 'packages/go/**/*'
+              - '.github/workflows/go-ci.yml'
 
       - name: Debug info
         run: |

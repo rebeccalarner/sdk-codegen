@@ -23,19 +23,19 @@
  SOFTWARE.
 
  */
-import type { FC } from 'react'
-import React from 'react'
-import { Grid, Flex, FlexItem, Code, Heading } from '@looker/components'
-import type { DiffRow, IMethod } from '@looker/sdk-codegen'
-import { DiffLegend } from './DiffLegend'
+import type { FC } from 'react';
+import React from 'react';
+import { Code, Flex, FlexItem, Grid, Heading } from '@looker/components';
+import type { DiffRow, IMethod } from '@looker/sdk-codegen';
+import { DiffLegend } from './DiffLegend';
 
 interface DiffBannerProps {
-  item: DiffRow
-  method: IMethod
+  item: DiffRow;
+  method: IMethod;
 }
 
 export const DiffBanner: FC<DiffBannerProps> = ({ item, method }) => (
-  <Grid justifyContent="space-between" columns={4}>
+  <Grid justifyItems="space-between" columns={4}>
     <FlexItem>
       <Code>{item.name}</Code>
     </FlexItem>
@@ -53,4 +53,4 @@ export const DiffBanner: FC<DiffBannerProps> = ({ item, method }) => (
       <DiffLegend count={item.diffCount} />
     </Flex>
   </Grid>
-)
+);

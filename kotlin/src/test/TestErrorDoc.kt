@@ -38,6 +38,7 @@ val errorCodeType = object : TypeToken<ErrorCodeIndex>() {}.type
 class TestErrorDoc {
     val external = "https://docs.looker.com/r/err/4.0/429/delete/bogus/:namespace/purge"
     val internal = "https://docs.looker.com/r/err/internal/422/post/bogus/bulk"
+    val cloud = "https://cloud.google.com/looker/docs/r/err/internal/422/post/bogus/bulk"
     val badLogin = "https://docs.looker.com/r/err/4.0/404/post/login"
     val config = TestConfig()
     val errDoc = ErrorDoc(config.sdk)
@@ -52,6 +53,11 @@ class TestErrorDoc {
         assertEquals("/delete/bogus/:namespace/purge", actual.apiPath)
         actual = errDoc.parse(internal)
         assertEquals("https://docs.looker.com/r/err/", actual.redirector)
+        assertEquals("internal", actual.apiVersion)
+        assertEquals("422", actual.statusCode)
+        assertEquals("/post/bogus/bulk", actual.apiPath)
+        actual = errDoc.parse(cloud)
+        assertEquals("https://cloud.google.com/looker/docs/r/err/", actual.redirector)
         assertEquals("internal", actual.apiVersion)
         assertEquals("422", actual.statusCode)
         assertEquals("/post/bogus/bulk", actual.apiPath)
@@ -100,7 +106,7 @@ class TestErrorDoc {
         assertEquals("login", errDoc.methodName("/login_404.md"))
         assertEquals("login_2", errDoc.methodName("/login_2_404.md"))
         assertEquals("and_another", errDoc.methodName("/and_another_404.md"))
-        assertEquals("login", errDoc.methodName("errorcodes/live/login_404.md"))
-        assertEquals("login", errDoc.methodName("https://foo.bar.com/live/login_404.md"))
+        assertEquals("login", errDoc.methodName("errorcodes/login_404.md"))
+        assertEquals("login", errDoc.methodName("https://foo.bar.com/login_404.md"))
     }
 }

@@ -42,6 +42,7 @@ val BinaryMatch = Regex(MATCH_MODE_BINARY, RegexOption.IGNORE_CASE)
 
 const val DEFAULT_TIMEOUT = 120
 const val DEFAULT_API_VERSION = "4.0" // Kotlin requires at least API 4.0
+const val DEFAULT_HTTP_TRANSPORT = "apache"
 
 typealias Values = Map<String, Any?>
 
@@ -61,12 +62,12 @@ class DelimArray<T> : Array<T>() {
  */
 
 fun isTrue(value: String?): Boolean {
-    val low = unQuote(value?.toLowerCase())
+    val low = unQuote(value?.lowercase())
     return low == "true" || low == "1" || low == "t" || low == "y" || low == "yes"
 }
 
 fun isFalse(value: String?): Boolean {
-    val low = unQuote(value?.toLowerCase())
+    val low = unQuote(value?.lowercase())
     return low == "false" || low == "0" || low == "f" || low == "n" || low == "no"
 }
 
@@ -95,7 +96,7 @@ fun unQuote(value: String?): String {
 enum class ResponseMode {
     String,
     Binary,
-    Unknown
+    Unknown,
 }
 
 fun responseMode(contentType: String): ResponseMode {
@@ -109,7 +110,7 @@ internal fun ZonedDateTime(utcDateTime: String): ZonedDateTime {
 }
 
 internal fun Date(utcDateTime: String): Date {
-    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'")
+    val utcFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US)
     utcFormat.timeZone = TimeZone.getTimeZone("UTC")
     return utcFormat.parse(utcDateTime)
 }

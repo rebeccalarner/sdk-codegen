@@ -23,44 +23,41 @@
  SOFTWARE.
 
  */
-import { all, call, put, takeEvery, select } from 'redux-saga/effects'
-import type { SagaIterator } from 'redux-saga'
-import type { IProjectProps } from '../../models'
-import { actionMessage, beginLoading, endLoading } from '../common/actions'
-import { sheetsClient } from '../sheets_client'
+import { all, call, put, select, takeEvery } from 'redux-saga/effects';
+import type { SagaIterator } from 'redux-saga';
+import type { IProjectProps } from '../../models';
+import { actionMessage, beginLoading, endLoading } from '../common/actions';
+import { sheetsClient } from '../sheets_client';
 import type {
-  UpdateProjectAction,
-  DeleteProjectAction,
-  LockProjectsAction,
-  LockProjectAction,
-  CreateProjectAction,
   ChangeMembershipAction,
+  CreateProjectAction,
+  DeleteProjectAction,
   GetProjectRequestAction,
-} from './actions'
+  LockProjectAction,
+  LockProjectsAction,
+  UpdateProjectAction,
+} from './actions';
 import {
   Actions,
-  currentProjectsRequest,
   allProjectsResponse,
+  currentProjectsRequest,
   currentProjectsResponse,
-  saveProjectResponse,
   getProjectResponse,
-} from './actions'
-import { getCurrentProjectsState, getIsProjectMemberState } from './selectors'
+  saveProjectResponse,
+} from './actions';
+import { getCurrentProjectsState, getIsProjectMemberState } from './selectors';
 
 const createNewProject = (): IProjectProps => {
   const newProject: unknown = {
     title: '',
-    description: `<Put a project overview here. Should be at least one paragraph.>
+    description: `ADD SHORT ONE PARAGRAPH OVERVIEW HERE
 
-Team name: **My fabulous team**
-- Pre-recorded demo video link. Keep it as short as possible. (preferably youtube)
-  - [demo video link](https://youtube.com)
-- Working demo link (optional). Provide any relevant start-up instructions for someone to run the demo.
-  - [demo link](https://looker.com)
-  - start-up instructions
-- Links to any other supporting resources(slides, images, etc.) (preferably google slides and imgur)
-  - [supporting resource link](https://docs.google.com)
-- Add your pictures/screenshots of your team hacking to the [Hack@Home 2021 shared folder](https://bit.ly/hack2021pics). Create your own team folder inside it if you'd like!
+<!-- Fill out additional details below -->
+- Team name: **My fabulous team**
+- [Demo video link](https://youtube.com) <!--Required pre-recorded demo video link. 3 minutes max. Youtube only-->
+- [Working demo link](https://looker.com) <!--Optional-->
+  - <!--Provide any instructions in sub bullet for someone to run the demo.-->
+- [Demo slides](https://slides.google.com)<!--Optional-->    
 `,
     project_type: 'Open',
     contestant: true,
@@ -70,34 +67,34 @@ Team name: **My fabulous team**
     $team: [],
     $members: [],
     $judges: [],
-  }
-  return newProject as IProjectProps
-}
+  };
+  return newProject as IProjectProps;
+};
 
 function* allProjectsSaga(): SagaIterator {
   try {
-    yield put(beginLoading())
-    const result = yield call([sheetsClient, sheetsClient.getProjects])
-    yield put(endLoading())
-    yield put(allProjectsResponse(result))
+    yield put(beginLoading());
+    const result = yield call([sheetsClient, sheetsClient.getProjects]);
+    yield put(endLoading());
+    yield put(allProjectsResponse(result));
   } catch (err) {
-    console.error(err)
-    yield put(actionMessage('A problem occurred loading the data', 'critical'))
+    console.error(err);
+    yield put(actionMessage('A problem occurred loading the data', 'critical'));
   }
 }
 
 function* currentProjectsSaga(): SagaIterator<IProjectProps[]> {
-  let projects: IProjectProps[] = []
+  let projects: IProjectProps[] = [];
   try {
-    yield put(beginLoading())
-    projects = yield call([sheetsClient, sheetsClient.getCurrentProjects])
-    yield put(endLoading())
-    yield put(currentProjectsResponse(projects))
+    yield put(beginLoading());
+    projects = yield call([sheetsClient, sheetsClient.getCurrentProjects]);
+    yield put(currentProjectsResponse(projects));
+    yield put(endLoading());
   } catch (err) {
-    console.error(err)
-    yield put(actionMessage('A problem occurred loading the data', 'critical'))
+    console.error(err);
+    yield put(actionMessage('A problem occurred loading the data', 'critical'));
   }
-  return projects
+  return projects;
 }
 
 function* getProjectSaga({
@@ -106,195 +103,195 @@ function* getProjectSaga({
   try {
     if (!projectId) {
       // For new projects initialize empty project props
-      yield put(getProjectResponse(createNewProject(), false))
+      yield put(getProjectResponse(createNewProject(), false));
     } else {
       // Pull prpjects out of state.
-      const state = yield select()
-      let projects = getCurrentProjectsState(state)
+      const state = yield select();
+      let projects = getCurrentProjectsState(state);
       if (projects.length === 0) {
         // projects are lost on page reload so load them
-        projects = yield currentProjectsSaga() as any
+        projects = yield currentProjectsSaga() as any;
       }
-      const project = projects.find((p) => p._id === projectId)
-      let isProjectMember
+      const project = projects.find(p => p._id === projectId);
+      let isProjectMember;
       if (project) {
-        const hacker = yield call([sheetsClient, sheetsClient.getHacker])
+        const hacker = yield call([sheetsClient, sheetsClient.getHacker]);
         isProjectMember = !!project.$team.find(
-          (teamMember) => teamMember.user_id === String(hacker.id)
-        )
+          teamMember => teamMember.user_id === String(hacker.id)
+        );
       }
-      yield put(getProjectResponse(project, isProjectMember))
+      yield put(getProjectResponse(project, isProjectMember));
     }
   } catch (err) {
-    console.error(err)
-    yield put(actionMessage('A problem occurred loading the data', 'critical'))
+    console.error(err);
+    yield put(actionMessage('A problem occurred loading the data', 'critical'));
   }
 }
 
 function* createProjectSaga(action: CreateProjectAction): SagaIterator<void> {
   try {
-    const { project, hackerId } = action.payload
-    yield put(beginLoading())
+    const { project, hackerId } = action.payload;
+    yield put(beginLoading());
     const validationMessages = yield call(
       [sheetsClient, sheetsClient.validateProject],
       project
-    )
-    const state = yield select()
-    const isProjectMember = getIsProjectMemberState(state)
+    );
+    const state = yield select();
+    const isProjectMember = getIsProjectMemberState(state);
     if (validationMessages) {
       yield put(
         saveProjectResponse(project, isProjectMember, validationMessages)
-      )
-      yield put(actionMessage('Please fix errors', 'critical'))
+      );
+      yield put(actionMessage('Please fix errors', 'critical'));
     } else {
       const projectId = yield call(
         [sheetsClient, sheetsClient.createProject],
         hackerId,
         project
-      )
+      );
       const updatedProject = yield call(
         [sheetsClient, sheetsClient.getProject],
         projectId
-      )
-      yield put(saveProjectResponse(updatedProject, isProjectMember))
-      yield put(actionMessage('Project has been saved', 'positive'))
+      );
+      yield put(saveProjectResponse(updatedProject, isProjectMember));
+      yield put(actionMessage('Project has been saved', 'positive'));
     }
-    yield put(endLoading())
+    yield put(endLoading());
   } catch (err) {
-    console.error(err)
+    console.error(err);
     yield put(
       actionMessage('A problem occurred while saving the project', 'critical')
-    )
+    );
   }
 }
 
 function* updateProjectSaga(action: UpdateProjectAction): SagaIterator {
   try {
-    yield put(beginLoading())
+    yield put(beginLoading());
 
-    const project = action.payload
+    const project = action.payload;
     const validationMessages = yield call(
       [sheetsClient, sheetsClient.validateProject],
       project
-    )
-    const state = yield select()
-    const isProjectMember = getIsProjectMemberState(state)
+    );
+    const state = yield select();
+    const isProjectMember = getIsProjectMemberState(state);
     if (validationMessages) {
       yield put(
         saveProjectResponse(project, isProjectMember, validationMessages)
-      )
-      yield put(actionMessage('Please fix errors', 'critical'))
+      );
+      yield put(actionMessage('Please fix errors', 'critical'));
     } else {
-      yield call([sheetsClient, sheetsClient.updateProject], project)
+      yield call([sheetsClient, sheetsClient.updateProject], project);
       const updatedProject = yield call(
         [sheetsClient, sheetsClient.getProject],
         project._id
-      )
-      yield put(saveProjectResponse(updatedProject, isProjectMember))
-      yield put(actionMessage('Project has been saved', 'positive'))
+      );
+      yield put(saveProjectResponse(updatedProject, isProjectMember));
+      yield put(actionMessage('Project has been saved', 'positive'));
     }
-    yield put(endLoading())
+    yield put(endLoading());
   } catch (err) {
-    console.error(err)
+    console.error(err);
     yield put(
       actionMessage('A problem occurred while editing the project', 'critical')
-    )
+    );
   }
 }
 
 function* deleteProjectSaga(action: DeleteProjectAction) {
   try {
-    yield put(beginLoading())
+    yield put(beginLoading());
     yield call(
       [sheetsClient, sheetsClient.deleteProject],
       action.payload.projectId
-    )
-    yield put(actionMessage('Project has been deleted', 'positive'))
-    yield put(currentProjectsRequest())
+    );
+    yield put(actionMessage('Project has been deleted', 'positive'));
+    yield put(currentProjectsRequest());
   } catch (err) {
-    console.error(err)
+    console.error(err);
     yield put(
       actionMessage('A problem occurred while deleting the project', 'critical')
-    )
+    );
   }
 }
 
 function* lockProjectsSaga(action: LockProjectsAction) {
   try {
-    const { lock, hackathonId } = action.payload
-    yield put(beginLoading())
-    yield call([sheetsClient, sheetsClient.lockProjects], lock, hackathonId)
+    const { lock, hackathonId } = action.payload;
+    yield put(beginLoading());
+    yield call([sheetsClient, sheetsClient.lockProjects], lock, hackathonId);
     yield put(
       actionMessage(
         `Projects have been ${lock ? 'locked' : 'unlocked'}`,
         'positive'
       )
-    )
-    yield put(currentProjectsRequest())
+    );
+    yield put(currentProjectsRequest());
   } catch (err) {
-    console.error(err)
+    console.error(err);
     yield put(
       actionMessage(
         'A problem occurred while locking the hackathon projects',
         'critical'
       )
-    )
+    );
   }
 }
 
 function* lockProjectSaga(action: LockProjectAction): SagaIterator {
   try {
-    const { lock, projectId } = action.payload
-    yield put(beginLoading())
-    const state = yield select()
-    const isProjectMember = getIsProjectMemberState(state)
-    yield call([sheetsClient, sheetsClient.lockProject], lock, projectId)
+    const { lock, projectId } = action.payload;
+    yield put(beginLoading());
+    const state = yield select();
+    const isProjectMember = getIsProjectMemberState(state);
+    yield call([sheetsClient, sheetsClient.lockProject], lock, projectId);
     const updatedProject = yield call(
       [sheetsClient, sheetsClient.getProject],
       projectId
-    )
-    yield put(saveProjectResponse(updatedProject, isProjectMember))
+    );
+    yield put(saveProjectResponse(updatedProject, isProjectMember));
     yield put(
       actionMessage(
         `Project has been ${lock ? 'locked' : 'unlocked'}`,
         'positive'
       )
-    )
-    yield put(endLoading())
+    );
+    yield put(endLoading());
   } catch (err) {
-    console.error(err)
+    console.error(err);
     yield put(
       actionMessage('A problem occurred while locking the project', 'critical')
-    )
+    );
   }
 }
 
 function* changeMembershipSaga(action: ChangeMembershipAction): SagaIterator {
   try {
-    yield put(beginLoading())
-    const { projectId, hackerId, leave } = action.payload
+    yield put(beginLoading());
+    const { projectId, hackerId, leave } = action.payload;
     const project = yield call(
       [sheetsClient, sheetsClient.changeMembership],
       projectId,
       hackerId,
       leave
-    )
-    yield put(saveProjectResponse(project, !leave))
+    );
+    yield put(saveProjectResponse(project, !leave));
+    const projects = yield call([
+      sheetsClient,
+      sheetsClient.getCurrentProjects,
+    ]);
+    yield put(currentProjectsResponse(projects));
     yield put(
       actionMessage(
         `You have ${leave ? 'left' : 'joined'} the project`,
         'positive'
       )
-    )
-    yield put(endLoading())
+    );
+    yield put(endLoading());
   } catch (err) {
-    console.error(err)
-    yield put(
-      actionMessage(
-        'A problem occurred while locking the hackathon projects',
-        'critical'
-      )
-    )
+    console.error(err);
+    yield put(actionMessage((err as Error).message, 'critical'));
   }
 }
 
@@ -309,5 +306,5 @@ export function* registerProjectsSagas() {
     takeEvery(Actions.LOCK_PROJECTS, lockProjectsSaga),
     takeEvery(Actions.LOCK_PROJECT, lockProjectSaga),
     takeEvery(Actions.CHANGE_MEMBERSHIP, changeMembershipSaga),
-  ])
+  ]);
 }

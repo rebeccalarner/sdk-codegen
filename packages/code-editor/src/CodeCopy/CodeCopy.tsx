@@ -23,19 +23,18 @@
  SOFTWARE.
 
  */
-import type { FC } from 'react'
-import React from 'react'
-import { Space, CopyToClipboard } from '@looker/components'
-import type { CodeDisplayProps } from '..'
-import { CodeDisplay } from '..'
+import React from 'react';
+import { CopyToClipboard, Space } from '@looker/components';
+import type { CodeDisplayProps } from '..';
+import { CodeDisplay } from '..';
 
 interface CodeCopyProps extends CodeDisplayProps {
-  caption?: string
+  caption?: string;
 }
 /**
  * Shows code with clipboard copying support
  */
-export const CodeCopy: FC<CodeCopyProps> = ({
+export const CodeCopy = ({
   language = 'json',
   code,
   caption = 'Copy',
@@ -43,7 +42,7 @@ export const CodeCopy: FC<CodeCopyProps> = ({
   transparent = false,
   inline = false,
   lineNumbers = true,
-}) => {
+}: CodeCopyProps) => {
   return (
     <Space between align="start" pt="xsmall">
       <CodeDisplay
@@ -54,7 +53,8 @@ export const CodeCopy: FC<CodeCopyProps> = ({
         inline={inline}
         lineNumbers={lineNumbers}
       />
-      <CopyToClipboard content={code}>{caption}</CopyToClipboard>
+      {/* TODO why is caption || 'Copy' required here? */}
+      <CopyToClipboard content={code}>{caption || 'Copy'}</CopyToClipboard>
     </Space>
-  )
-}
+  );
+};

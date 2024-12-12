@@ -1,6 +1,6 @@
 /// MIT License
 ///
-/// Copyright (c) 2021 Looker Data Sciences, Inc.
+/// Copyright (c) 2023 Looker Data Sciences, Inc.
 ///
 /// Permission is hereby granted, free of charge, to any person obtaining a copy
 /// of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,7 @@
 /// SOFTWARE.
 ///
 
-/// 316 API models: 235 Spec, 0 Request, 60 Write, 21 Enum
+/// 342 API models: 259 Spec, 0 Request, 61 Write, 22 Enum
 
 #nullable enable
 using System;
@@ -55,11 +55,19 @@ public class Alert : SdkModel
 {
   /// <summary>Filters coming from the dashboard that are applied. Example `[{ "filter_title": "Name", "field_name": "distribution_centers.name", "filter_value": "Los Angeles CA" }]`</summary>
   public AlertAppliedDashboardFilter[]? applied_dashboard_filters { get; set; } = null;
-  /// <summary>This property informs the check what kind of comparison we are performing. Only certain condition types are valid for time series alerts. For details, refer to [Setting Alert Conditions](https://docs.looker.com/sharing-and-publishing/creating-alerts#setting_alert_conditions) Valid values are: "EQUAL_TO", "GREATER_THAN", "GREATER_THAN_OR_EQUAL_TO", "LESS_THAN", "LESS_THAN_OR_EQUAL_TO", "INCREASES_BY", "DECREASES_BY", "CHANGES_BY".</summary>
+  /// <summary>This property informs the check what kind of comparison we are performing. Only certain condition types are valid for time series alerts. For details, refer to [Setting Alert Conditions](https://cloud.google.com/looker/docs/sharing-and-publishing/creating-alerts#setting_alert_conditions) Valid values are: "EQUAL_TO", "GREATER_THAN", "GREATER_THAN_OR_EQUAL_TO", "LESS_THAN", "LESS_THAN_OR_EQUAL_TO", "INCREASES_BY", "DECREASES_BY", "CHANGES_BY".</summary>
   [JsonConverter(typeof(StringEnumConverter))]
   public ComparisonType comparison_type { get; set; }
-  /// <summary>Vixie-Style crontab specification when to run. At minumum, it has to be longer than 15 minute intervals</summary>
+  /// <summary>Vixie-Style crontab specification when to run. At minimum, it has to be longer than 15 minute intervals</summary>
   public string cron { get; set; } = "";
+  /// <summary>Domain for the custom url selected by the alert creator from the admin defined domain allowlist</summary>
+  public string? custom_url_base { get; set; } = null;
+  /// <summary>Parameters and path for the custom url defined by the alert creator</summary>
+  public string? custom_url_params { get; set; } = null;
+  /// <summary>Label for the custom url defined by the alert creator</summary>
+  public string? custom_url_label { get; set; } = null;
+  /// <summary>Boolean to determine if the custom url should be used</summary>
+  public bool? show_custom_url { get; set; } = null;
   /// <summary>An optional, user-defined title for the alert</summary>
   public string? custom_title { get; set; } = null;
   /// <summary>ID of the dashboard element associated with the alert. Refer to [dashboard_element()](#!/Dashboard/DashboardElement)</summary>
@@ -107,7 +115,7 @@ public class AlertAppliedDashboardFilter : SdkModel
   public string filter_title { get; set; } = "";
   /// <summary>Field Name. Refer to `DashboardFilter.dimension` in [DashboardFilter](#!/types/DashboardFilter). Example `distribution_centers.name`</summary>
   public string field_name { get; set; } = "";
-  /// <summary>Field Value. [Filter Expressions](https://docs.looker.com/reference/filter-expressions). Example `Los Angeles CA`</summary>
+  /// <summary>Field Value. [Filter Expressions](https://cloud.google.com/looker/docs/reference/filter-expressions). Example `Los Angeles CA`</summary>
   public string filter_value { get; set; } = "";
   /// <summary>Human Readable Filter Description. This may be null or auto-generated. Example `is Los Angeles CA` (read-only)</summary>
   public string? filter_description { get; set; } = null;
@@ -138,7 +146,7 @@ public class AlertField : SdkModel
 {
   /// <summary>Field's title. Usually auto-generated to reflect field name and its filters</summary>
   public string title { get; set; } = "";
-  /// <summary>Field's name. Has the format `<view>.<field>` Refer to [docs](https://docs.looker.com/sharing-and-publishing/creating-alerts) for more details</summary>
+  /// <summary>Field's name. Has the format `<view>.<field>` Refer to [docs](https://cloud.google.com/looker/docs/sharing-and-publishing/creating-alerts) for more details</summary>
   public string name { get; set; } = "";
   /// <summary>(Optional / Advance Use) List of fields filter. This further restricts the alert to certain dashboard element's field values. This can be used on top of dashboard filters `applied_dashboard_filters`. To keep thing simple, it's suggested to just use dashboard filters. Example: `{ 'title': '12 Number on Hand', 'name': 'inventory_items.number_on_hand', 'filter': [{ 'field_name': 'inventory_items.id', 'field_value': 12, 'filter_value': null }] }`</summary>
   public AlertFieldFilter[]? filter { get; set; } = null;
@@ -148,9 +156,9 @@ public class AlertFieldFilter : SdkModel
 {
   /// <summary>Field Name. Has format `<view>.<field>`</summary>
   public string field_name { get; set; } = "";
-  /// <summary>Field Value. Depends on the type of field - numeric or string. For [location](https://docs.looker.com/reference/field-reference/dimension-type-reference#location) type, it's a list of floats. Example `[1.0, 56.0]`</summary>
+  /// <summary>Field Value. Depends on the type of field - numeric or string. For [location](https://cloud.google.com/looker/docs/reference/field-reference/dimension-type-reference#location) type, it's a list of floats. Example `[1.0, 56.0]`</summary>
   public object field_value { get; set; } = null;
-  /// <summary>Filter Value. Usually null except for [location](https://docs.looker.com/reference/field-reference/dimension-type-reference#location) type. It'll be a string of lat,long ie `'1.0,56.0'`</summary>
+  /// <summary>Filter Value. Usually null except for [location](https://cloud.google.com/looker/docs/reference/field-reference/dimension-type-reference#location) type. It'll be a string of lat,long ie `'1.0,56.0'`</summary>
   public string? filter_value { get; set; } = null;
 }
 
@@ -229,6 +237,46 @@ public class ApiVersionElement : SdkModel
   public string? status { get; set; } = null;
   /// <summary>Url for swagger.json for this version (read-only)</summary>
   public string? swagger_url { get; set; } = null;
+}
+
+public class Artifact : SdkModel
+{
+  /// <summary>Key of value to store. Namespace + Key must be unique.</summary>
+  public string key { get; set; } = "";
+  /// <summary>Value to store.</summary>
+  public string value { get; set; } = "";
+  /// <summary>MIME type of content. This can only be used to override content that is detected as text/plain. Needed to set application/json content types, which are analyzed as plain text.</summary>
+  public string? content_type { get; set; } = null;
+  /// <summary>Version number of the stored value. The version must be provided for any updates to an existing artifact. (read-only)</summary>
+  public long? version { get; set; } = null;
+  /// <summary>Artifact storage namespace. (read-only)</summary>
+  public string @namespace { get; set; } = "";
+  /// <summary>Timestamp when this artifact was created. (read-only)</summary>
+  public DateTime created_at { get; set; }
+  /// <summary>Timestamp when this artifact was updated. (read-only)</summary>
+  public DateTime updated_at { get; set; }
+  /// <summary>Size (in bytes) of the stored value. (read-only)</summary>
+  public long value_size { get; set; }
+  /// <summary>User id of the artifact creator. (read-only)</summary>
+  public string created_by_userid { get; set; } = "";
+  /// <summary>User id of the artifact updater. (read-only)</summary>
+  public string updated_by_userid { get; set; } = "";
+}
+
+public class ArtifactNamespace : SdkModel
+{
+  /// <summary>Artifact storage namespace. (read-only)</summary>
+  public string @namespace { get; set; } = "";
+  /// <summary>The number of artifacts stored in the namespace. (read-only)</summary>
+  public long count { get; set; }
+}
+
+public class ArtifactUsage : SdkModel
+{
+  /// <summary>The configured maximum size in bytes of the entire artifact store. (read-only)</summary>
+  public long max_size { get; set; }
+  /// <summary>The currently used storage size in bytes of the entire artifact store. (read-only)</summary>
+  public long usage { get; set; }
 }
 
 public class BackupConfiguration : SdkModel
@@ -408,7 +456,7 @@ public class ColumnSearch : SdkModel
   public string? data_type { get; set; } = null;
 }
 
-/// This property informs the check what kind of comparison we are performing. Only certain condition types are valid for time series alerts. For details, refer to [Setting Alert Conditions](https://docs.looker.com/sharing-and-publishing/creating-alerts#setting_alert_conditions) Valid values are: "EQUAL_TO", "GREATER_THAN", "GREATER_THAN_OR_EQUAL_TO", "LESS_THAN", "LESS_THAN_OR_EQUAL_TO", "INCREASES_BY", "DECREASES_BY", "CHANGES_BY". (Enum defined in Alert)
+/// This property informs the check what kind of comparison we are performing. Only certain condition types are valid for time series alerts. For details, refer to [Setting Alert Conditions](https://cloud.google.com/looker/docs/sharing-and-publishing/creating-alerts#setting_alert_conditions) Valid values are: "EQUAL_TO", "GREATER_THAN", "GREATER_THAN_OR_EQUAL_TO", "LESS_THAN", "LESS_THAN_OR_EQUAL_TO", "INCREASES_BY", "DECREASES_BY", "CHANGES_BY". (Enum defined in Alert)
 public enum ComparisonType
 {
   [EnumMember(Value = "EQUAL_TO")]
@@ -527,6 +575,72 @@ public class ContentMetaGroupUser : SdkModel
   public string? user_id { get; set; } = null;
 }
 
+public class ContentSearch : SdkModel
+{
+  /// <summary>Operations the current user is able to perform on this object (read-only)</summary>
+  public StringDictionary<bool>? can { get; set; } = null;
+  /// <summary>Primary id associated with the content (read-only)</summary>
+  public string? content_id { get; set; } = null;
+  /// <summary>Type of content (read-only)</summary>
+  public string? type { get; set; } = null;
+  /// <summary>Content title (read-only)</summary>
+  public string? title { get; set; } = null;
+  /// <summary>Content description (read-only)</summary>
+  public string? description { get; set; } = null;
+  /// <summary>Id of the folder where the content is saved (read-only)</summary>
+  public string? folder_id { get; set; } = null;
+  /// <summary>Name of the folder where the content is saved (read-only)</summary>
+  public string? folder_name { get; set; } = null;
+  /// <summary>Number of times the content has been viewed (read-only)</summary>
+  public long? view_count { get; set; } = null;
+  /// <summary>Preferred way of viewing the content (only applies to dashboards) (read-only)</summary>
+  public string? preferred_viewer { get; set; } = null;
+  /// <summary>Name of the model the explore belongs to (read-only)</summary>
+  public string? model { get; set; } = null;
+}
+
+public class ContentSummary : SdkModel
+{
+  /// <summary>Operations the current user is able to perform on this object (read-only)</summary>
+  public StringDictionary<bool>? can { get; set; } = null;
+  /// <summary>Unique id (read-only)</summary>
+  public string? id { get; set; } = null;
+  /// <summary>Content type (read-only)</summary>
+  public string? content_type { get; set; } = null;
+  /// <summary>Content id (read-only)</summary>
+  public string? content_id { get; set; } = null;
+  /// <summary>Content slug (read-only)</summary>
+  public string? content_slug { get; set; } = null;
+  /// <summary>Content url (read-only)</summary>
+  public string? content_url { get; set; } = null;
+  /// <summary>Content title (read-only)</summary>
+  public string? title { get; set; } = null;
+  /// <summary>Content Description (read-only)</summary>
+  public string? description { get; set; } = null;
+  /// <summary>Last time viewed by current user (read-only)</summary>
+  public DateTime? last_viewed_at { get; set; } = null;
+  /// <summary>ID of user who created the content (read-only)</summary>
+  public string? user_id { get; set; } = null;
+  /// <summary>Full name of user who created the content (read-only)</summary>
+  public string? user_full_name { get; set; } = null;
+  /// <summary>If the content is scheduled by the current user (read-only)</summary>
+  public bool? is_scheduled { get; set; } = null;
+  /// <summary>Number of favorites (read-only)</summary>
+  public long? favorite_count { get; set; } = null;
+  /// <summary>Number of views (read-only)</summary>
+  public long? view_count { get; set; } = null;
+  /// <summary>Corresponding favorite id if item is favorited by current user (read-only)</summary>
+  public string? favorite_id { get; set; } = null;
+  /// <summary> (read-only)</summary>
+  public float? weighted_score { get; set; } = null;
+  /// <summary> (read-only)</summary>
+  public float? group_weighted_score { get; set; } = null;
+  /// <summary> (read-only)</summary>
+  public float? suggestion_score { get; set; } = null;
+  /// <summary>The preferred route for viewing this content (ie: dashboards or dashboards-next) (read-only)</summary>
+  public string? preferred_viewer { get; set; } = null;
+}
+
 public class ContentValidation : SdkModel
 {
   /// <summary>A list of content errors (read-only)</summary>
@@ -555,6 +669,14 @@ public class ContentValidationAlert : SdkModel
   public string? lookml_dashboard_id { get; set; } = null;
   /// <summary>ID of the LookML dashboard element associated with the alert</summary>
   public string? lookml_link_id { get; set; } = null;
+  /// <summary>Domain for the custom url selected by the alert creator from the admin defined domain allowlist</summary>
+  public string? custom_url_base { get; set; } = null;
+  /// <summary>Parameters and path for the custom url defined by the alert creator</summary>
+  public string? custom_url_params { get; set; } = null;
+  /// <summary>Label for the custom url defined by the alert creator</summary>
+  public string? custom_url_label { get; set; } = null;
+  /// <summary>Boolean to determine if the custom url should be used</summary>
+  public bool? show_custom_url { get; set; } = null;
   /// <summary>An optional, user-defined title for the alert</summary>
   public string? custom_title { get; set; } = null;
 }
@@ -604,6 +726,8 @@ public class ContentValidationDashboardElement : SdkModel
   public string? type { get; set; } = null;
   /// <summary>JSON with all the properties required for rich editor and buttons elements</summary>
   public string? rich_content_json { get; set; } = null;
+  /// <summary>Extension ID</summary>
+  public string? extension_id { get; set; } = null;
 }
 
 public class ContentValidationDashboardFilter : SdkModel
@@ -863,7 +987,7 @@ public class CreateQueryTask : SdkModel
   public StringDictionary<bool>? can { get; set; } = null;
   /// <summary>Id of query to run</summary>
   public string query_id { get; set; } = "";
-  /// <summary>Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "csv", "html", "md", "txt", "xlsx", "gsxml".</summary>
+  /// <summary>Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "json_bi", "csv", "html", "md", "txt", "xlsx", "gsxml", "sql".</summary>
   [JsonConverter(typeof(StringEnumConverter))]
   public ResultFormat result_format { get; set; }
   /// <summary>Source of query task</summary>
@@ -904,12 +1028,20 @@ public class CredentialsEmail : SdkModel
   public string? email { get; set; } = null;
   /// <summary>Force the user to change their password upon their next login</summary>
   public bool? forced_password_reset_at_next_login { get; set; } = null;
+  /// <summary>Unique Id of the user (read-only)</summary>
+  public string? user_id { get; set; } = null;
   /// <summary>Has this credential been disabled? (read-only)</summary>
   public bool? is_disabled { get; set; } = null;
   /// <summary>Timestamp for most recent login using credential (read-only)</summary>
   public string? logged_in_at { get; set; } = null;
   /// <summary>Url with one-time use secret token that the user can use to reset password (read-only)</summary>
   public string? password_reset_url { get; set; } = null;
+  /// <summary>Url with one-time use secret token that the user can use to setup account (read-only)</summary>
+  public string? account_setup_url { get; set; } = null;
+  /// <summary>Is password_reset_url expired or not present? (read-only)</summary>
+  public bool? password_reset_url_expired { get; set; } = null;
+  /// <summary>Is account_setup_url expired or not present? (read-only)</summary>
+  public bool? account_setup_url_expired { get; set; } = null;
   /// <summary>Short name for the type of this kind of credential (read-only)</summary>
   public string? type { get; set; } = null;
   /// <summary>Link to get this item (read-only)</summary>
@@ -928,12 +1060,20 @@ public class CredentialsEmailSearch : SdkModel
   public string? email { get; set; } = null;
   /// <summary>Force the user to change their password upon their next login</summary>
   public bool? forced_password_reset_at_next_login { get; set; } = null;
+  /// <summary>Unique Id of the user (read-only)</summary>
+  public string? user_id { get; set; } = null;
   /// <summary>Has this credential been disabled? (read-only)</summary>
   public bool? is_disabled { get; set; } = null;
   /// <summary>Timestamp for most recent login using credential (read-only)</summary>
   public string? logged_in_at { get; set; } = null;
   /// <summary>Url with one-time use secret token that the user can use to reset password (read-only)</summary>
   public string? password_reset_url { get; set; } = null;
+  /// <summary>Url with one-time use secret token that the user can use to setup account (read-only)</summary>
+  public string? account_setup_url { get; set; } = null;
+  /// <summary>Is password_reset_url expired or not present? (read-only)</summary>
+  public bool? password_reset_url_expired { get; set; } = null;
+  /// <summary>Is account_setup_url expired or not present? (read-only)</summary>
+  public bool? account_setup_url_expired { get; set; } = null;
   /// <summary>Short name for the type of this kind of credential (read-only)</summary>
   public string? type { get; set; } = null;
   /// <summary>Link to get this item (read-only)</summary>
@@ -1153,6 +1293,8 @@ public class Dashboard : SdkModel
   public string? deleter_id { get; set; } = null;
   /// <summary>Relative path of URI of LookML file to edit the dashboard (LookML dashboard only). (read-only)</summary>
   public string? edit_uri { get; set; } = null;
+  /// <summary>Allow visualizations to be viewed in full screen mode</summary>
+  public bool? enable_viz_full_screen { get; set; } = null;
   /// <summary>Number of times favorited (read-only)</summary>
   public long? favorite_count { get; set; } = null;
   /// <summary>Sets the default state of the filters bar to collapsed or open</summary>
@@ -1175,7 +1317,7 @@ public class Dashboard : SdkModel
   public string? load_configuration { get; set; } = null;
   /// <summary>Links this dashboard to a particular LookML dashboard such that calling a **sync** operation on that LookML dashboard will update this dashboard to match.</summary>
   public string? lookml_link_id { get; set; } = null;
-  /// <summary>Show filters bar.  **Security Note:** This property only affects the *cosmetic* appearance of the dashboard, not a user's ability to access data. Hiding the filters bar does **NOT** prevent users from changing filters by other means. For information on how to set up secure data access control policies, see [Control User Access to Data](https://docs.looker.com/r/api/control-access)</summary>
+  /// <summary>Show filters bar.  **Security Note:** This property only affects the *cosmetic* appearance of the dashboard, not a user's ability to access data. Hiding the filters bar does **NOT** prevent users from changing filters by other means. For information on how to set up secure data access control policies, see [Control User Access to Data](https://cloud.google.com/looker/docs/r/api/control-access)</summary>
   public bool? show_filters_bar { get; set; } = null;
   /// <summary>Show title</summary>
   public bool? show_title { get; set; } = null;
@@ -1313,7 +1455,7 @@ public class DashboardElement : SdkModel
   public string? title_text_as_html { get; set; } = null;
   /// <summary>Text tile subtitle text as Html (read-only)</summary>
   public string? subtitle_text_as_html { get; set; } = null;
-  /// <summary>Extension ID (read-only)</summary>
+  /// <summary>Extension ID</summary>
   public string? extension_id { get; set; } = null;
 }
 
@@ -1516,9 +1658,9 @@ public class DBConnection : SdkModel
   public Snippet[]? snippets { get; set; } = null;
   /// <summary>True if PDTs are enabled on this connection (read-only)</summary>
   public bool? pdts_enabled { get; set; } = null;
-  /// <summary>Host name/address of server</summary>
+  /// <summary>Host name/address of server; or the string 'localhost' in case of a connection over an SSH tunnel.</summary>
   public string? host { get; set; } = null;
-  /// <summary>Port number on server</summary>
+  /// <summary>Port number on server. If the connection is over an SSH tunnel, then the local port associated with the SSH tunnel.</summary>
   public string? port { get; set; } = null;
   /// <summary>Username for server authentication</summary>
   public string? username { get; set; } = null;
@@ -1526,6 +1668,8 @@ public class DBConnection : SdkModel
   public string? password { get; set; } = null;
   /// <summary>Whether the connection uses OAuth for authentication. (read-only)</summary>
   public bool? uses_oauth { get; set; } = null;
+  /// <summary>Whether the integration uses the oauth instance account. (read-only)</summary>
+  public bool? uses_instance_oauth { get; set; } = null;
   /// <summary>(Write-Only) Base64 encoded Certificate body for server authentication (when appropriate for dialect).</summary>
   public string? certificate { get; set; } = null;
   /// <summary>(Write-Only) Certificate keyfile type - .json or .p12</summary>
@@ -1536,10 +1680,14 @@ public class DBConnection : SdkModel
   public string? db_timezone { get; set; } = null;
   /// <summary>Timezone to use in queries</summary>
   public string? query_timezone { get; set; } = null;
-  /// <summary>Scheme name</summary>
+  /// <summary>Schema name</summary>
   public string? schema { get; set; } = null;
   /// <summary>Maximum number of concurrent connection to use</summary>
   public long? max_connections { get; set; } = null;
+  /// <summary>Maximum number of concurrent queries to begin on this connection</summary>
+  public long? max_queries { get; set; } = null;
+  /// <summary>Maximum number of concurrent queries per user to begin on this connection</summary>
+  public long? max_queries_per_user { get; set; } = null;
   /// <summary>Maximum size of query in GBs (BigQuery only, can be a user_attribute name)</summary>
   public string? max_billing_gigabytes { get; set; } = null;
   /// <summary>Use SSL/TLS when connecting to server</summary>
@@ -1554,6 +1702,8 @@ public class DBConnection : SdkModel
   public long? pool_timeout { get; set; } = null;
   /// <summary>(Read/Write) SQL Dialect name</summary>
   public string? dialect_name { get; set; } = null;
+  /// <summary>Database connection has the ability to support open data studio from explore (read-only)</summary>
+  public bool? supports_data_studio_link { get; set; } = null;
   /// <summary>Creation date for this connection (read-only)</summary>
   public string? created_at { get; set; } = null;
   /// <summary>Id of user who last modified this connection configuration (read-only)</summary>
@@ -1579,8 +1729,12 @@ public class DBConnection : SdkModel
   public DBConnectionOverride? pdt_context_override { get; set; }
   /// <summary>Is this connection created and managed by Looker (read-only)</summary>
   public bool? managed { get; set; } = null;
+  /// <summary>This field is only applicable to connections over an SSH Tunnel. The value of this field would be the local port associated with the SSH tunnel if configured manually. Otherwise either enter NULL or exclude this field.</summary>
+  public long? custom_local_port { get; set; } = null;
   /// <summary>The Id of the ssh tunnel this connection uses</summary>
   public string? tunnel_id { get; set; } = null;
+  /// <summary>Enable Transparent Network Substrate (TNS) connections</summary>
+  public bool? uses_tns { get; set; } = null;
   /// <summary>Maximum number of threads to use to build PDTs in parallel</summary>
   public long? pdt_concurrency { get; set; } = null;
   /// <summary>When disable_context_comment is true comment will not be added to SQL</summary>
@@ -1589,10 +1743,24 @@ public class DBConnection : SdkModel
   public string? oauth_application_id { get; set; } = null;
   /// <summary>When true, error PDTs will be retried every regenerator cycle</summary>
   public bool? always_retry_failed_builds { get; set; } = null;
+  /// <summary>Whether the connection should authenticate with the Application Default Credentials of the host environment (limited to GCP and certain dialects).</summary>
+  public bool? uses_application_default_credentials { get; set; } = null;
+  /// <summary>An alternative Service Account to use for querying datasets (used primarily with `uses_application_default_credentials`) (limited to GCP and certain dialects).</summary>
+  public string? impersonated_service_account { get; set; } = null;
   /// <summary>When true, query cost estimate will be displayed in explore.</summary>
   public bool? cost_estimate_enabled { get; set; } = null;
   /// <summary>PDT builds on this connection can be kicked off and cancelled via API.</summary>
   public bool? pdt_api_control_enabled { get; set; } = null;
+  /// <summary>Enable database connection pooling.</summary>
+  public bool? connection_pooling { get; set; } = null;
+  /// <summary>When true, represents that this connection is the default BQ connection. (read-only)</summary>
+  public bool? default_bq_connection { get; set; } = null;
+  /// <summary>The project id of the default BigQuery storage project.</summary>
+  public string? bq_storage_project_id { get; set; } = null;
+  /// <summary>When true, represents that all project roles have been verified.</summary>
+  public bool? bq_roles_verified { get; set; } = null;
+  /// <summary>The name of P4SA service account that is associated with the Looker instance (read-only)</summary>
+  public string? p4sa_name { get; set; } = null;
 }
 
 public class DBConnectionBase : SdkModel
@@ -1628,7 +1796,7 @@ public class DBConnectionOverride : SdkModel
   public string? file_type { get; set; } = null;
   /// <summary>Database name</summary>
   public string? database { get; set; } = null;
-  /// <summary>Scheme name</summary>
+  /// <summary>Schema name</summary>
   public string? schema { get; set; } = null;
   /// <summary>Additional params to add to JDBC connection string</summary>
   public string? jdbc_additional_params { get; set; } = null;
@@ -1715,7 +1883,7 @@ public class Dialect : SdkModel
   public string? persistent_table_sortkeys { get; set; } = null;
   /// <summary>PDT distkey column (read-only)</summary>
   public string? persistent_table_distkey { get; set; } = null;
-  /// <summary>Suports streaming results (read-only)</summary>
+  /// <summary>Supports streaming results (read-only)</summary>
   public bool? supports_streaming { get; set; } = null;
   /// <summary>Should SQL Runner snippets automatically be run (read-only)</summary>
   public bool? automatically_run_sql_runner_snippets { get; set; } = null;
@@ -1745,6 +1913,8 @@ public class DialectInfo : SdkModel
   public string? label { get; set; } = null;
   /// <summary>What the dialect calls the equivalent of a normal SQL table (read-only)</summary>
   public string? label_for_database_equivalent { get; set; } = null;
+  /// <summary>What the dialect calls the equivalent of a schema-level namespace (read-only)</summary>
+  public string? label_for_schema_equivalent { get; set; } = null;
   /// <summary>The name of the dialect (read-only)</summary>
   public string? name { get; set; } = null;
   public DialectInfoOptions? supported_options { get; set; }
@@ -1754,24 +1924,48 @@ public class DialectInfoOptions : SdkModel
 {
   /// <summary>Has additional params support (read-only)</summary>
   public bool? additional_params { get; set; } = null;
+  /// <summary>Has support for issuing statements after connecting to the database (read-only)</summary>
+  public bool? after_connect_statements { get; set; } = null;
+  /// <summary>Has analytical view support (read-only)</summary>
+  public bool? analytical_view_dataset { get; set; } = null;
   /// <summary>Has auth support (read-only)</summary>
   public bool? auth { get; set; } = null;
-  /// <summary>Has host support (read-only)</summary>
+  /// <summary>Has configurable cost estimation (read-only)</summary>
+  public bool? cost_estimate { get; set; } = null;
+  /// <summary>Can disable query context comments (read-only)</summary>
+  public bool? disable_context_comment { get; set; } = null;
+  /// <summary>Host is required (read-only)</summary>
   public bool? host { get; set; } = null;
+  /// <summary>Instance name is required (read-only)</summary>
+  public bool? instance_name { get; set; } = null;
+  /// <summary>Has max billing gigabytes support (read-only)</summary>
+  public bool? max_billing_gigabytes { get; set; } = null;
   /// <summary>Has support for a service account (read-only)</summary>
   public bool? oauth_credentials { get; set; } = null;
+  /// <summary>Has OAuth for PDT support (read-only)</summary>
+  public bool? pdts_for_oauth { get; set; } = null;
+  /// <summary>Port can be specified (read-only)</summary>
+  public bool? port { get; set; } = null;
   /// <summary>Has project name support (read-only)</summary>
   public bool? project_name { get; set; } = null;
-  /// <summary>Has schema support (read-only)</summary>
+  /// <summary>Schema can be specified (read-only)</summary>
   public bool? schema { get; set; } = null;
-  /// <summary>Has SSL support (read-only)</summary>
+  /// <summary>Has support for a service account (read-only)</summary>
+  public bool? service_account_credentials { get; set; } = null;
+  /// <summary>Has TLS/SSL support (read-only)</summary>
   public bool? ssl { get; set; } = null;
   /// <summary>Has timezone support (read-only)</summary>
   public bool? timezone { get; set; } = null;
   /// <summary>Has tmp table support (read-only)</summary>
   public bool? tmp_table { get; set; } = null;
+  /// <summary>Has Oracle TNS support (read-only)</summary>
+  public bool? tns { get; set; } = null;
+  /// <summary>Username can be specified (read-only)</summary>
+  public bool? username { get; set; } = null;
   /// <summary>Username is required (read-only)</summary>
   public bool? username_required { get; set; } = null;
+  /// <summary>Has support for connection pooling (read-only)</summary>
+  public bool? supports_connection_pooling { get; set; } = null;
 }
 
 public class DigestEmails : SdkModel
@@ -1804,11 +1998,113 @@ public class EgressIpAddresses : SdkModel
   public string[]? egress_ip_addresses { get; set; } = null;
 }
 
+public class EmbedConfig : SdkModel
+{
+  /// <summary>List of domains to allow for embedding</summary>
+  public string[]? domain_allowlist { get; set; } = null;
+  /// <summary>List of base urls to allow for alert/schedule</summary>
+  public string[]? alert_url_allowlist { get; set; } = null;
+  /// <summary>Owner of who defines the alert/schedule params on the base url</summary>
+  public string? alert_url_param_owner { get; set; } = null;
+  /// <summary>Label for the alert/schedule url</summary>
+  public string? alert_url_label { get; set; } = null;
+  /// <summary>Is SSO embedding enabled for this Looker</summary>
+  public bool? sso_auth_enabled { get; set; } = null;
+  /// <summary>Is Cookieless embedding enabled for this Looker</summary>
+  public bool? embed_cookieless_v2 { get; set; } = null;
+  /// <summary>Is embed content navigation enabled for this looker</summary>
+  public bool? embed_content_navigation { get; set; } = null;
+  /// <summary>Is embed content management enabled for this Looker</summary>
+  public bool? embed_content_management { get; set; } = null;
+  /// <summary>When true, prohibits the use of Looker login pages in non-Looker iframes. When false, Looker login pages may be used in non-Looker hosted iframes.</summary>
+  public bool? strict_sameorigin_for_login { get; set; } = null;
+  /// <summary>When true, filters are enabled on embedded Looks</summary>
+  public bool? look_filters { get; set; } = null;
+  /// <summary>When true, removes navigation to Looks from embedded dashboards and explores.</summary>
+  public bool? hide_look_navigation { get; set; } = null;
+}
+
+public class EmbedCookielessSessionAcquire : SdkModel
+{
+  /// <summary>Number of seconds the signed embed session will be valid after the embed session is started. Defaults to 300 seconds. Maximum session length accepted is 2592000 seconds (30 days).</summary>
+  public long? session_length { get; set; } = null;
+  /// <summary>When true, the embed session will purge any residual Looker login state (such as in browser cookies) before creating a new login state with the given embed user info. Defaults to true.</summary>
+  public bool? force_logout_login { get; set; } = null;
+  /// <summary>A value from an external system that uniquely identifies the embed user. Since the user_ids of Looker embed users may change with every embed session, external_user_id provides a way to assign a known, stable user identifier across multiple embed sessions. When the same external user id value is used for a new embed session, any existing session is terminated and existing access grants are replaced with the access grants associated with the new embed session.</summary>
+  public string? external_user_id { get; set; } = null;
+  /// <summary>First name of the embed user. Defaults to 'Embed' if not specified</summary>
+  public string? first_name { get; set; } = null;
+  /// <summary>Last name of the embed user. Defaults to 'User' if not specified</summary>
+  public string? last_name { get; set; } = null;
+  /// <summary>Sets the user timezone for the embed user session, if the User Specific Timezones setting is enabled in the Looker admin settings. A value of `null` forces the embed user to use the Looker Application Default Timezone. You MUST omit this property from the request if the User Specific Timezones setting is disabled. Timezone values are validated against the IANA Timezone standard and can be seen in the Application Time Zone dropdown list on the Looker General Settings admin page.</summary>
+  public string? user_timezone { get; set; } = null;
+  /// <summary>List of Looker permission names to grant to the embed user. Requested permissions will be filtered to permissions allowed for embed sessions.</summary>
+  public string[]? permissions { get; set; } = null;
+  /// <summary>List of model names that the embed user may access</summary>
+  public string[]? models { get; set; } = null;
+  /// <summary>List of Looker group ids in which to enroll the embed user</summary>
+  public string[]? group_ids { get; set; } = null;
+  /// <summary>A unique value identifying an embed-exclusive group. Multiple embed users using the same `external_group_id` value will be able to share Looker content with each other. Content and embed users associated with the `external_group_id` will not be accessible to normal Looker users or embed users not associated with this `external_group_id`.</summary>
+  public string? external_group_id { get; set; } = null;
+  /// <summary>A dictionary of name-value pairs associating a Looker user attribute name with a value.</summary>
+  public StringDictionary<object>? user_attributes { get; set; } = null;
+  /// <summary>The domain of the server embedding the Looker IFRAME. This is an alternative to specifying the domain in the embedded domain allow list in the Looker embed admin page.</summary>
+  public string? embed_domain { get; set; } = null;
+  /// <summary>Token referencing the embed session and is used to generate new authentication, navigation and api tokens.</summary>
+  public string? session_reference_token { get; set; } = null;
+}
+
+public class EmbedCookielessSessionAcquireResponse : SdkModel
+{
+  /// <summary>One time token used to create or to attach to an embedded session in the Looker application server.</summary>
+  public string? authentication_token { get; set; } = null;
+  /// <summary>Authentication token time to live in seconds.</summary>
+  public long? authentication_token_ttl { get; set; } = null;
+  /// <summary>Token used to load and navigate between Looker pages.</summary>
+  public string? navigation_token { get; set; } = null;
+  /// <summary>Navigation token time to live in seconds.</summary>
+  public long? navigation_token_ttl { get; set; } = null;
+  /// <summary>Token to used to call Looker APIs. </summary>
+  public string? api_token { get; set; } = null;
+  /// <summary>Api token time to live in seconds.</summary>
+  public long? api_token_ttl { get; set; } = null;
+  /// <summary>Token referencing the actual embed session. It is used to generate new api, navigation and authentication tokens. api and navigation tokens are short lived and must be refreshed regularly. A new authentication token must be acquired for each IFRAME that is created. The session_reference_token should be kept secure, ideally in the embed hosts application server. </summary>
+  public string? session_reference_token { get; set; } = null;
+  /// <summary>Session reference token time to live in seconds. Note that this is the same as actual embed session. The session is expired when the value is set to zero. It is important to note that the generate token endpoint does NOT return an error when the embed session has expired. If an embedding application needs to monitor expiration of embed sessions, check this property for a value of zero.</summary>
+  public long? session_reference_token_ttl { get; set; } = null;
+}
+
+public class EmbedCookielessSessionGenerateTokens : SdkModel
+{
+  /// <summary>Token referencing the embed session and is used to generate new authentication, navigation and api tokens.</summary>
+  public string session_reference_token { get; set; } = "";
+  /// <summary>Token used to load and navigate between Looker pages.</summary>
+  public string? navigation_token { get; set; } = null;
+  /// <summary>Token to used to call Looker APIs. </summary>
+  public string? api_token { get; set; } = null;
+}
+
+public class EmbedCookielessSessionGenerateTokensResponse : SdkModel
+{
+  /// <summary>Token used to load and navigate between Looker pages.</summary>
+  public string? navigation_token { get; set; } = null;
+  /// <summary>Navigation token time to live in seconds.</summary>
+  public long? navigation_token_ttl { get; set; } = null;
+  /// <summary>Token to used to call Looker APIs. </summary>
+  public string? api_token { get; set; } = null;
+  /// <summary>Api token time to live in seconds.</summary>
+  public long? api_token_ttl { get; set; } = null;
+  /// <summary>Token referencing the embed session and is used to generate new authentication, navigation and api tokens.</summary>
+  public string session_reference_token { get; set; } = "";
+  /// <summary>Session reference token time to live in seconds. Note that this is the same as actual session.</summary>
+  public long? session_reference_token_ttl { get; set; } = null;
+}
+
 public class EmbedParams : SdkModel
 {
   /// <summary>The complete URL of the Looker UI page to display in the embed context. For example, to display the dashboard with id 34, `target_url` would look like: `https://mycompany.looker.com:9999/dashboards/34`. `target_uri` MUST contain a scheme (HTTPS), domain name, and URL path. Port must be included if it is required to reach the Looker server from browser clients. If the Looker instance is behind a load balancer or other proxy, `target_uri` must be the public-facing domain name and port required to reach the Looker instance, not the actual internal network machine name of the Looker instance.</summary>
   public string target_url { get; set; } = "";
-  /// <summary>Number of seconds the SSO embed session will be valid after the embed session is started. Defaults to 300 seconds. Maximum session length accepted is 2592000 seconds (30 days).</summary>
+  /// <summary>Number of seconds the signed embed session will be valid after the embed session is started. Defaults to 300 seconds. Maximum session length accepted is 2592000 seconds (30 days).</summary>
   public long? session_length { get; set; } = null;
   /// <summary>When true, the embed session will purge any residual Looker login state (such as in browser cookies) before creating a new login state with the given embed user info. Defaults to true.</summary>
   public bool? force_logout_login { get; set; } = null;
@@ -1828,17 +2124,20 @@ public class EmbedSecret : SdkModel
   public string? secret { get; set; } = null;
   /// <summary>Id of user who created this secret (read-only)</summary>
   public string? user_id { get; set; } = null;
+  /// <summary>Field to distinguish between SSO secrets and JWT secrets Valid values are: "SSO", "JWT".</summary>
+  [JsonConverter(typeof(StringEnumConverter))]
+  public SecretType? secret_type { get; set; }
 }
 
 public class EmbedSsoParams : SdkModel
 {
   /// <summary>The complete URL of the Looker UI page to display in the embed context. For example, to display the dashboard with id 34, `target_url` would look like: `https://mycompany.looker.com:9999/dashboards/34`. `target_uri` MUST contain a scheme (HTTPS), domain name, and URL path. Port must be included if it is required to reach the Looker server from browser clients. If the Looker instance is behind a load balancer or other proxy, `target_uri` must be the public-facing domain name and port required to reach the Looker instance, not the actual internal network machine name of the Looker instance.</summary>
   public string target_url { get; set; } = "";
-  /// <summary>Number of seconds the SSO embed session will be valid after the embed session is started. Defaults to 300 seconds. Maximum session length accepted is 2592000 seconds (30 days).</summary>
+  /// <summary>Number of seconds the signed embed session will be valid after the embed session is started. Defaults to 300 seconds. Maximum session length accepted is 2592000 seconds (30 days).</summary>
   public long? session_length { get; set; } = null;
   /// <summary>When true, the embed session will purge any residual Looker login state (such as in browser cookies) before creating a new login state with the given embed user info. Defaults to true.</summary>
   public bool? force_logout_login { get; set; } = null;
-  /// <summary>A value from an external system that uniquely identifies the embed user. Since the user_ids of Looker embed users may change with every embed session, external_user_id provides a way to assign a known, stable user identifier across multiple embed sessions.</summary>
+  /// <summary>A value from an external system that uniquely identifies the embed user. Since the user_ids of Looker embed users may change with every embed session, external_user_id provides a way to assign a known, stable user identifier across multiple embed sessions. When the same external user id value is used for a new embed session, any existing session is terminated and existing access grants are replaced with the access grants associated with the new embed session.</summary>
   public string? external_user_id { get; set; } = null;
   /// <summary>First name of the embed user. Defaults to 'Embed' if not specified</summary>
   public string? first_name { get; set; } = null;
@@ -1858,6 +2157,8 @@ public class EmbedSsoParams : SdkModel
   public StringDictionary<object>? user_attributes { get; set; } = null;
   /// <summary>Id of the embed secret to use to sign this SSO url. If specified, the value must be an id of a valid (active) secret defined in the Looker instance. If not specified, the URL will be signed with the newest active embed secret defined in the Looker instance.</summary>
   public string? secret_id { get; set; } = null;
+  /// <summary>Optional. URL of the domain hosting the signed embed URL. If provided and valid, the embed_domain will be added to the embed domain allowlist if it is not currently in the list</summary>
+  public string? embed_domain { get; set; } = null;
 }
 
 public class EmbedUrlResponse : SdkModel
@@ -1886,6 +2187,8 @@ public class ExternalOauthApplication : SdkModel
   public string? client_id { get; set; } = null;
   /// <summary>(Write-Only) The OAuth Client Secret for this application</summary>
   public string? client_secret { get; set; } = null;
+  /// <summary>The OAuth Tenant ID for this application</summary>
+  public string? tenant_id { get; set; } = null;
   /// <summary>The database dialect for this application.</summary>
   public string? dialect_name { get; set; } = null;
   /// <summary>Creation time for this application (read-only)</summary>
@@ -2246,6 +2549,14 @@ public class ImportedProject : SdkModel
   public bool? is_remote { get; set; } = null;
 }
 
+public class InstanceConfig : SdkModel
+{
+  /// <summary>Feature flags enabled on the instance (read-only)</summary>
+  public StringDictionary<bool>? feature_flags { get; set; } = null;
+  /// <summary>License features enabled on the instance (read-only)</summary>
+  public StringDictionary<bool>? license_features { get; set; } = null;
+}
+
 public class Integration : SdkModel
 {
   /// <summary>Operations the current user is able to perform on this object (read-only)</summary>
@@ -2262,7 +2573,7 @@ public class Integration : SdkModel
   public bool? enabled { get; set; } = null;
   /// <summary>Array of params for the integration.</summary>
   public IntegrationParam[]? @params { get; set; } = null;
-  /// <summary>A list of data formats the integration supports. If unspecified, the default is all data formats. Valid values are: "txt", "csv", "inline_json", "json", "json_label", "json_detail", "json_detail_lite_stream", "xlsx", "html", "wysiwyg_pdf", "assembled_pdf", "wysiwyg_png", "csv_zip". (read-only)</summary>
+  /// <summary>A list of data formats the integration supports. If unspecified, the default is all data formats. Valid values are: "txt", "csv", "inline_json", "json", "json_label", "json_detail", "json_detail_lite_stream", "json_bi", "xlsx", "html", "wysiwyg_pdf", "assembled_pdf", "wysiwyg_png", "csv_zip". (read-only)</summary>
   public SupportedFormats[]? supported_formats { get; set; } = null;
   /// <summary>A list of action types the integration supports. Valid values are: "cell", "query", "dashboard", "none". (read-only)</summary>
   public SupportedActionTypes[]? supported_action_types { get; set; } = null;
@@ -2278,6 +2589,8 @@ public class Integration : SdkModel
   public bool? uses_oauth { get; set; } = null;
   /// <summary>A list of descriptions of required fields that this integration is compatible with. If there are multiple entries in this list, the integration requires more than one field. If unspecified, no fields will be required. (read-only)</summary>
   public IntegrationRequiredField[]? required_fields { get; set; } = null;
+  /// <summary>Link to privacy policy for destination (read-only)</summary>
+  public string? privacy_link { get; set; } = null;
   /// <summary>Whether the integration uses delegate oauth, which allows federation between an integration installation scope specific entity (like org, group, and team, etc.) and Looker. (read-only)</summary>
   public bool? delegate_oauth { get; set; } = null;
   /// <summary>Whether the integration is available to users.</summary>
@@ -2338,9 +2651,9 @@ public class IntegrationRequiredField : SdkModel
 {
   /// <summary>Matches a field that has this tag. (read-only)</summary>
   public string? tag { get; set; } = null;
-  /// <summary>If present, supercedes 'tag' and matches a field that has any of the provided tags. (read-only)</summary>
+  /// <summary>If present, supersedes 'tag' and matches a field that has any of the provided tags. (read-only)</summary>
   public string[]? any_tag { get; set; } = null;
-  /// <summary>If present, supercedes 'tag' and matches a field that has all of the provided tags. (read-only)</summary>
+  /// <summary>If present, supersedes 'tag' and matches a field that has all of the provided tags. (read-only)</summary>
   public string[]? all_tags { get; set; } = null;
 }
 
@@ -2377,6 +2690,109 @@ public enum InvestigativeContentType
 {
   [EnumMember(Value = "dashboard")]
   dashboard
+}
+
+public class JsonBi : SdkModel
+{
+  public JsonBiMetadata metadata { get; set; } = null;
+  /// <summary>Json query results (read-only)</summary>
+  public string[] rows { get; set; } = null;
+}
+
+public class JsonBiBigQueryMetadata : SdkModel
+{
+  /// <summary>Total bytes processed by the BigQuery job (read-only)</summary>
+  public long total_bytes_processed { get; set; }
+  /// <summary>Return whether or not query results were served from the BigQuery cache. (read-only)</summary>
+  public bool backend_cache_hit { get; set; }
+}
+
+public class JsonBiField : SdkModel
+{
+  /// <summary>SQL expressions for the field (read-only)</summary>
+  public string sql { get; set; } = "";
+  /// <summary>Explore name (read-only)</summary>
+  public string view { get; set; } = "";
+  /// <summary>Which dimension group created this dimension (read-only)</summary>
+  public string dimension_group { get; set; } = "";
+  /// <summary>Dimension, Measure, etc. (read-only)</summary>
+  public string category { get; set; } = "";
+  /// <summary>Field Group Label (read-only)</summary>
+  public string field_group_label { get; set; } = "";
+  /// <summary>Field Name (read-only)</summary>
+  public string name { get; set; } = "";
+  /// <summary>Field Type (read-only)</summary>
+  public string type { get; set; } = "";
+  /// <summary>View Label (read-only)</summary>
+  public string view_label { get; set; } = "";
+  /// <summary>Field Label (read-only)</summary>
+  public string label { get; set; } = "";
+  /// <summary>Field Group Variant (read-only)</summary>
+  public string field_group_variant { get; set; } = "";
+  /// <summary>If the field is marked as hidden in the Lookml (read-only)</summary>
+  public bool hidden { get; set; }
+  /// <summary>Field Description (read-only)</summary>
+  public string description { get; set; } = "";
+}
+
+public class JsonBiFields : SdkModel
+{
+  /// <summary>Dimensions represent a column in a table, or a computed value based on some sort of column manipulation or combination (read-only)</summary>
+  public JsonBiField[] dimensions { get; set; } = null;
+  /// <summary>Measures are similar to aggregate functions in SQL (for example, COUNT, SUM, AVG) and represent information about multiple rows (read-only)</summary>
+  public JsonBiField[] measures { get; set; } = null;
+  /// <summary>Pivots (read-only)</summary>
+  public JsonBiField[] pivots { get; set; } = null;
+  /// <summary>Table Calculations (read-only)</summary>
+  public JsonBiTableCalc[] table_calculations { get; set; } = null;
+}
+
+public class JsonBiMetadata : SdkModel
+{
+  public JsonBiBigQueryMetadata big_query_metadata { get; set; } = null;
+  public JsonBiFields fields { get; set; } = null;
+  /// <summary>Pivots (read-only)</summary>
+  public JsonBiPivots[] pivots { get; set; } = null;
+  /// <summary>If the query has subtotals (read-only)</summary>
+  public bool has_subtotals { get; set; }
+  /// <summary>If the query has totals (read-only)</summary>
+  public bool has_totals { get; set; }
+  /// <summary>If the query results hit the maximum column limit and additional columns were truncated (read-only)</summary>
+  public string columns_truncated { get; set; } = "";
+  /// <summary>Filter expression applied to the query results (read-only)</summary>
+  public string filter_expression { get; set; } = "";
+  /// <summary>Filters applied to the query results (read-only)</summary>
+  public StringDictionary<string> filters { get; set; } = null;
+  /// <summary>Raw sql query. Null if user does not have permission to view sql (read-only)</summary>
+  public string sql { get; set; } = "";
+}
+
+public class JsonBiPivots : SdkModel
+{
+  /// <summary>Pivot Column Value (read-only)</summary>
+  public string key { get; set; } = "";
+  /// <summary>Pivot Data (read-only)</summary>
+  public StringDictionary<string> data { get; set; } = null;
+  /// <summary>Pivot Sort Values (read-only)</summary>
+  public StringDictionary<string> sort_values { get; set; } = null;
+  /// <summary>If the value is a total (read-only)</summary>
+  public bool is_total { get; set; }
+}
+
+public class JsonBiTableCalc : SdkModel
+{
+  /// <summary>Table Calc Name (read-only)</summary>
+  public string name { get; set; } = "";
+  /// <summary>Table Calc Label (read-only)</summary>
+  public string label { get; set; } = "";
+  /// <summary>Alignment (read-only)</summary>
+  public string align { get; set; } = "";
+  /// <summary>Evaluated table calculation expression (read-only)</summary>
+  public string expression { get; set; } = "";
+  /// <summary>Value format (read-only)</summary>
+  public string value_format { get; set; } = "";
+  /// <summary>If table calculation is a measure (read-only)</summary>
+  public bool measure { get; set; }
 }
 
 public class LDAPConfig : SdkModel
@@ -2680,6 +3096,8 @@ public class Look : SdkModel
   public string? folder_id { get; set; } = null;
   /// <summary>Time that the Look was updated. (read-only)</summary>
   public DateTime? updated_at { get; set; } = null;
+  /// <summary>Name of User that created the look. (read-only)</summary>
+  public string? user_name { get; set; } = null;
   /// <summary>Number of times viewed in the Looker web UI (read-only)</summary>
   public long? view_count { get; set; } = null;
 }
@@ -2696,6 +3114,16 @@ public class LookBasic : SdkModel
   public string? title { get; set; } = null;
   /// <summary>User Id</summary>
   public string? user_id { get; set; } = null;
+}
+
+public class LookmlFieldLink : SdkModel
+{
+  /// <summary>The name of the link as it would appear to users. (read-only)</summary>
+  public string? label { get; set; } = null;
+  /// <summary>URL the link will go to. (read-only)</summary>
+  public string? url { get; set; } = null;
+  /// <summary>A URL containing an image file to display with a link. (read-only)</summary>
+  public string? icon_url { get; set; } = null;
 }
 
 public class LookmlModel : SdkModel
@@ -2859,6 +3287,8 @@ public class LookmlModelExploreField : SdkModel
   public string? description { get; set; } = null;
   /// <summary>Dimension group if this field is part of a dimension group. If not, this will be null. (read-only)</summary>
   public string? dimension_group { get; set; } = null;
+  /// <summary>Drill fields declared for this field in LookML or default drills for certain types. (read-only)</summary>
+  public string[]? drill_fields { get; set; } = null;
   /// <summary>An array enumerating all the possible values that this field can contain. When null, there is no limit to the set of possible values this field can contain. (read-only)</summary>
   public LookmlModelExploreFieldEnumeration[]? enumerations { get; set; } = null;
   /// <summary>An error message indicating a problem with the definition of this field. If there are no errors, this will be null. (read-only)</summary>
@@ -2874,6 +3304,8 @@ public class LookmlModelExploreField : SdkModel
   public long? fiscal_month_offset { get; set; } = null;
   /// <summary>Whether this field has a set of allowed_values specified in LookML. (read-only)</summary>
   public bool? has_allowed_values { get; set; } = null;
+  /// <summary>Whether this field has links or drill fields defined. (read-only)</summary>
+  public bool? has_drills_metadata { get; set; } = null;
   /// <summary>Whether this field should be hidden from the user interface. (read-only)</summary>
   public bool? hidden { get; set; } = null;
   /// <summary>Whether this field is a filter. (read-only)</summary>
@@ -2895,6 +3327,8 @@ public class LookmlModelExploreField : SdkModel
   public string? label_short { get; set; } = null;
   /// <summary>A URL linking to the definition of this field in the LookML IDE. (read-only)</summary>
   public string? lookml_link { get; set; } = null;
+  /// <summary>Links associated with this field. (read-only)</summary>
+  public LookmlFieldLink[]? links { get; set; } = null;
   public LookmlModelExploreFieldMapLayer? map_layer { get; set; }
   /// <summary>Whether this field is a measure. (read-only)</summary>
   public bool? measure { get; set; } = null;
@@ -3191,6 +3625,8 @@ public class LookWithDashboards : SdkModel
   public string? folder_id { get; set; } = null;
   /// <summary>Time that the Look was updated. (read-only)</summary>
   public DateTime? updated_at { get; set; } = null;
+  /// <summary>Name of User that created the look. (read-only)</summary>
+  public string? user_name { get; set; } = null;
   /// <summary>Number of times viewed in the Looker web UI (read-only)</summary>
   public long? view_count { get; set; } = null;
   /// <summary>Dashboards (read-only)</summary>
@@ -3255,6 +3691,8 @@ public class LookWithQuery : SdkModel
   public string? folder_id { get; set; } = null;
   /// <summary>Time that the Look was updated. (read-only)</summary>
   public DateTime? updated_at { get; set; } = null;
+  /// <summary>Name of User that created the look. (read-only)</summary>
+  public string? user_name { get; set; } = null;
   /// <summary>Number of times viewed in the Looker web UI (read-only)</summary>
   public long? view_count { get; set; } = null;
   public Query? query { get; set; }
@@ -3271,6 +3709,16 @@ public class Manifest : SdkModel
   /// <summary>Imports for a project (read-only)</summary>
   public ImportedProject[]? imports { get; set; } = null;
   public LocalizationSettings? localization_settings { get; set; }
+}
+
+public class MarketplaceAutomation : SdkModel
+{
+  /// <summary>Whether marketplace auto installation is enabled</summary>
+  public bool? install_enabled { get; set; } = null;
+  /// <summary>Whether marketplace auto update is enabled for looker extensions</summary>
+  public bool? update_looker_enabled { get; set; } = null;
+  /// <summary>Whether marketplace auto update is enabled for third party extensions</summary>
+  public bool? update_third_party_enabled { get; set; } = null;
 }
 
 public class MaterializePDT : SdkModel
@@ -3321,6 +3769,8 @@ public class MergeQuerySourceQuery : SdkModel
   public string? name { get; set; } = null;
   /// <summary>Id of the query to merge</summary>
   public string? query_id { get; set; } = null;
+  /// <summary>Slug of the query to merge</summary>
+  public string? query_slug { get; set; } = null;
 }
 
 public class MobileFeatureFlags : SdkModel
@@ -3853,13 +4303,13 @@ public class Query : SdkModel
   public string[]? pivots { get; set; } = null;
   /// <summary>Fill Fields</summary>
   public string[]? fill_fields { get; set; } = null;
-  /// <summary>Filters</summary>
+  /// <summary>Filters will contain data pertaining to complex filters that do not contain "or" conditions. When "or" conditions are present, filter data will be found on the `filter_expression` property.</summary>
   public StringDictionary<string>? filters { get; set; } = null;
   /// <summary>Filter Expression</summary>
   public string? filter_expression { get; set; } = null;
   /// <summary>Sorting for the query results. Use the format `["view.field", ...]` to sort on fields in ascending order. Use the format `["view.field desc", ...]` to sort on fields in descending order. Use `["__UNSORTED__"]` (2 underscores before and after) to disable sorting entirely. Empty sorts `[]` will trigger a default sort.</summary>
   public string[]? sorts { get; set; } = null;
-  /// <summary>Limit</summary>
+  /// <summary>Row limit. To download unlimited results, set the limit to -1 (negative one).</summary>
   public string? limit { get; set; } = null;
   /// <summary>Column Limit</summary>
   public string? column_limit { get; set; } = null;
@@ -3998,7 +4448,7 @@ public class RepositoryCredential : SdkModel
   public bool? is_configured { get; set; } = null;
 }
 
-/// Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "csv", "html", "md", "txt", "xlsx", "gsxml". (Enum defined in CreateQueryTask)
+/// Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "json_bi", "csv", "html", "md", "txt", "xlsx", "gsxml", "sql". (Enum defined in CreateQueryTask)
 public enum ResultFormat
 {
   [EnumMember(Value = "inline_json")]
@@ -4009,6 +4459,8 @@ public enum ResultFormat
   json_detail,
   [EnumMember(Value = "json_fe")]
   json_fe,
+  [EnumMember(Value = "json_bi")]
+  json_bi,
   [EnumMember(Value = "csv")]
   csv,
   [EnumMember(Value = "html")]
@@ -4020,7 +4472,9 @@ public enum ResultFormat
   [EnumMember(Value = "xlsx")]
   xlsx,
   [EnumMember(Value = "gsxml")]
-  gsxml
+  gsxml,
+  [EnumMember(Value = "sql")]
+  sql
 }
 
 public class ResultMakerFilterables : SdkModel
@@ -4148,6 +4602,8 @@ public class RunningQueries : SdkModel
   public double? runtime { get; set; } = null;
   /// <summary>SQL text of the query as run (read-only)</summary>
   public string? sql { get; set; } = null;
+  /// <summary>SQL text of the SQL Interface query as run (read-only)</summary>
+  public string? sql_interface_sql { get; set; } = null;
 }
 
 public class SamlConfig : SdkModel
@@ -4322,14 +4778,20 @@ public class ScheduledPlan : SdkModel
   public string? datagroup { get; set; } = null;
   /// <summary>Timezone for interpreting the specified crontab (default is Looker instance timezone)</summary>
   public string? timezone { get; set; } = null;
-  /// <summary>Query id</summary>
-  public string? query_id { get; set; } = null;
   /// <summary>Scheduled plan destinations</summary>
   public ScheduledPlanDestination[]? scheduled_plan_destination { get; set; } = null;
   /// <summary>Whether the plan in question should only be run once (usually for testing)</summary>
   public bool? run_once { get; set; } = null;
   /// <summary>Whether links back to Looker should be included in this ScheduledPlan</summary>
   public bool? include_links { get; set; } = null;
+  /// <summary>Custom url domain for the scheduled entity</summary>
+  public string? custom_url_base { get; set; } = null;
+  /// <summary>Custom url path and parameters for the scheduled entity</summary>
+  public string? custom_url_params { get; set; } = null;
+  /// <summary>Custom url label for the scheduled entity</summary>
+  public string? custom_url_label { get; set; } = null;
+  /// <summary>Whether to show custom link back instead of standard looker link</summary>
+  public bool? show_custom_url { get; set; } = null;
   /// <summary>The size of paper the PDF should be formatted to fit. Valid values are: "letter", "legal", "tabloid", "a0", "a1", "a2", "a3", "a4", "a5".</summary>
   public string? pdf_paper_size { get; set; } = null;
   /// <summary>Whether the PDF should be formatted for landscape orientation</summary>
@@ -4342,6 +4804,8 @@ public class ScheduledPlan : SdkModel
   public bool? long_tables { get; set; } = null;
   /// <summary>The pixel width at which we render the inline table visualizations</summary>
   public long? inline_table_width { get; set; } = null;
+  /// <summary>Query id</summary>
+  public string? query_id { get; set; } = null;
   /// <summary>Unique Id (read-only)</summary>
   public string? id { get; set; } = null;
   /// <summary>Date and time when ScheduledPlan was created (read-only)</summary>
@@ -4455,6 +4919,15 @@ public class SchemaTables : SdkModel
   public bool? table_limit_hit { get; set; } = null;
 }
 
+/// Field to distinguish between SSO secrets and JWT secrets Valid values are: "SSO", "JWT". (Enum defined in EmbedSecret)
+public enum SecretType
+{
+  [EnumMember(Value = "SSO")]
+  SSO,
+  [EnumMember(Value = "JWT")]
+  JWT
+}
+
 public class Session : SdkModel
 {
   /// <summary>Operations the current user is able to perform on this object (read-only)</summary>
@@ -4507,18 +4980,49 @@ public class SessionConfig : SdkModel
 
 public class Setting : SdkModel
 {
+  public InstanceConfig? instance_config { get; set; }
   /// <summary>Toggle extension framework on or off</summary>
   public bool? extension_framework_enabled { get; set; } = null;
-  /// <summary>(DEPRECATED) Toggle extension extension load url on or off. Do not use. This is temporary setting that will eventually become a noop and subsequently deleted.</summary>
+  /// <summary>(DEPRECATED) Toggle extension load url on or off. Do not use. This is temporary setting that will eventually become a noop and subsequently deleted.</summary>
   public bool? extension_load_url_enabled { get; set; } = null;
-  /// <summary>Toggle marketplace auto install on or off. Note that auto install only runs if marketplace is enabled.</summary>
+  /// <summary>(DEPRECATED) Toggle marketplace auto install on or off. Deprecated - do not use. Auto install can now be enabled via marketplace automation settings</summary>
   public bool? marketplace_auto_install_enabled { get; set; } = null;
+  public MarketplaceAutomation? marketplace_automation { get; set; }
   /// <summary>Toggle marketplace on or off</summary>
   public bool? marketplace_enabled { get; set; } = null;
+  /// <summary>Location of Looker marketplace CDN (read-only)</summary>
+  public string? marketplace_site { get; set; } = null;
+  /// <summary>Accept marketplace terms by setting this value to true, or get the current status. Marketplace terms CANNOT be declined once accepted. Accepting marketplace terms automatically enables the marketplace. The marketplace can still be disabled after it has been enabled.</summary>
+  public bool? marketplace_terms_accepted { get; set; } = null;
   public PrivatelabelConfiguration? privatelabel_configuration { get; set; }
   public CustomWelcomeEmail? custom_welcome_email { get; set; }
   /// <summary>Toggle onboarding on or off</summary>
   public bool? onboarding_enabled { get; set; } = null;
+  /// <summary>Change instance-wide default timezone</summary>
+  public string? timezone { get; set; } = null;
+  /// <summary>Toggle user-specific timezones on or off</summary>
+  public bool? allow_user_timezones { get; set; } = null;
+  /// <summary>Toggle default future connectors on or off</summary>
+  public bool? data_connector_default_enabled { get; set; } = null;
+  /// <summary>Change the base portion of your Looker instance URL setting</summary>
+  public string? host_url { get; set; } = null;
+  /// <summary>(Write-Only) If warnings are preventing a host URL change, this parameter allows for overriding warnings to force update the setting. Does not directly change any Looker settings.</summary>
+  public bool? override_warnings { get; set; } = null;
+  /// <summary>An array of Email Domain Allowlist of type string for Scheduled Content</summary>
+  public string[]? email_domain_allowlist { get; set; } = null;
+  /// <summary>(DEPRECATED) Use embed_config.embed_cookieless_v2 instead. If embed_config.embed_cookieless_v2 is specified, it overrides this value.</summary>
+  public bool? embed_cookieless_v2 { get; set; } = null;
+  /// <summary>True if embedding is enabled https://cloud.google.com/looker/docs/r/looker-core-feature-embed, false otherwise (read-only)</summary>
+  public bool? embed_enabled { get; set; } = null;
+  public EmbedConfig? embed_config { get; set; }
+  /// <summary>Login notification enabled (read-only)</summary>
+  public bool? login_notification_enabled { get; set; } = null;
+  /// <summary>Login notification text (read-only)</summary>
+  public string? login_notification_text { get; set; } = null;
+  /// <summary>Toggle Dashboard Auto Refresh restriction</summary>
+  public bool? dashboard_auto_refresh_restriction { get; set; } = null;
+  /// <summary>Minimum time interval for dashboard element automatic refresh. Examples: (30 seconds, 1 minute)</summary>
+  public string? dashboard_auto_refresh_minimum_interval { get; set; } = null;
 }
 
 public class SmtpNodeStatus : SdkModel
@@ -4548,6 +5052,8 @@ public class SmtpSettings : SdkModel
   /// <summary>TLS version selected Valid values are: "TLSv1_1", "SSLv23", "TLSv1_2".</summary>
   [JsonConverter(typeof(StringEnumConverter))]
   public SslVersion? ssl_version { get; set; }
+  /// <summary>Whether to enable built-in Looker SMTP</summary>
+  public bool? default_smtp { get; set; } = null;
 }
 
 public class SmtpStatus : SdkModel
@@ -4568,6 +5074,32 @@ public class Snippet : SdkModel
   public string? label { get; set; } = null;
   /// <summary>SQL text of the snippet (read-only)</summary>
   public string? sql { get; set; } = null;
+}
+
+public class SqlInterfaceQuery : SdkModel
+{
+  /// <summary>Operations the current user is able to perform on this object (read-only)</summary>
+  public StringDictionary<bool>? can { get; set; } = null;
+  /// <summary>Unique Id (read-only)</summary>
+  public long? id { get; set; } = null;
+  /// <summary>Calcite signature (read-only)</summary>
+  public string signature { get; set; } = "";
+}
+
+public class SqlInterfaceQueryCreate : SdkModel
+{
+  /// <summary>Operations the current user is able to perform on this object (read-only)</summary>
+  public StringDictionary<bool>? can { get; set; } = null;
+  /// <summary>Original SQL request</summary>
+  public string sql { get; set; } = "";
+  /// <summary>Whether the query should be run for use in a JDBC Client. This changes the formatting of some datetime based values.</summary>
+  public bool? jdbc_client { get; set; } = null;
+}
+
+public class SqlInterfaceQueryMetadata : SdkModel
+{
+  /// <summary>JDBC Metadata to inflate Avatica response classes. (read-only)</summary>
+  public string? results { get; set; } = null;
 }
 
 public class SqlQuery : SdkModel
@@ -4658,7 +5190,7 @@ public class SshTunnel : SdkModel
   public string? ssh_server_user { get; set; } = null;
   /// <summary>Time of last connect attempt (read-only)</summary>
   public string? last_attempt { get; set; } = null;
-  /// <summary>Localhost Port used by the Looker instance to connect to the remote DB (read-only)</summary>
+  /// <summary>Localhost Port used by the Looker instance to connect to the remote DB</summary>
   public long? local_host_port { get; set; } = null;
   /// <summary>Hostname or IP Address of the Database Server</summary>
   public string? database_host { get; set; } = null;
@@ -4737,7 +5269,7 @@ public enum SupportedDownloadSettings
   url
 }
 
-/// A list of data formats the integration supports. If unspecified, the default is all data formats. Valid values are: "txt", "csv", "inline_json", "json", "json_label", "json_detail", "json_detail_lite_stream", "xlsx", "html", "wysiwyg_pdf", "assembled_pdf", "wysiwyg_png", "csv_zip". (Enum defined in Integration)
+/// A list of data formats the integration supports. If unspecified, the default is all data formats. Valid values are: "txt", "csv", "inline_json", "json", "json_label", "json_detail", "json_detail_lite_stream", "json_bi", "xlsx", "html", "wysiwyg_pdf", "assembled_pdf", "wysiwyg_png", "csv_zip". (Enum defined in Integration)
 public enum SupportedFormats
 {
   [EnumMember(Value = "txt")]
@@ -4754,6 +5286,8 @@ public enum SupportedFormats
   json_detail,
   [EnumMember(Value = "json_detail_lite_stream")]
   json_detail_lite_stream,
+  [EnumMember(Value = "json_bi")]
+  json_bi,
   [EnumMember(Value = "xlsx")]
   xlsx,
   [EnumMember(Value = "html")]
@@ -4815,7 +5349,7 @@ public class ThemeSettings : SdkModel
   public string? font_family { get; set; } = null;
   /// <summary>Source specification for font</summary>
   public string? font_source { get; set; } = null;
-  /// <summary>Info button color</summary>
+  /// <summary>(DEPRECATED) Info button color</summary>
   public string? info_button_color { get; set; } = null;
   /// <summary>Primary button color</summary>
   public string? primary_button_color { get; set; } = null;
@@ -4827,16 +5361,72 @@ public class ThemeSettings : SdkModel
   public string? text_tile_text_color { get; set; } = null;
   /// <summary>Background color for tiles</summary>
   public string? tile_background_color { get; set; } = null;
+  /// <summary>Background color for text tiles</summary>
+  public string? text_tile_background_color { get; set; } = null;
   /// <summary>Text color for tiles</summary>
   public string? tile_text_color { get; set; } = null;
   /// <summary>Color for titles</summary>
   public string? title_color { get; set; } = null;
-  /// <summary>Warning button color</summary>
+  /// <summary>(DEPRECATED) Warning button color</summary>
   public string? warn_button_color { get; set; } = null;
   /// <summary>The text alignment of tile titles (New Dashboards)</summary>
   public string? tile_title_alignment { get; set; } = null;
   /// <summary>Toggles the tile shadow (not supported)</summary>
   public bool? tile_shadow { get; set; } = null;
+  /// <summary>Toggle to show the dashboard last updated indicator. Defaults to true.</summary>
+  public bool? show_last_updated_indicator { get; set; } = null;
+  /// <summary>Toggle to show reload data icon/button. Defaults to true.</summary>
+  public bool? show_reload_data_icon { get; set; } = null;
+  /// <summary>Toggle to show the dashboard actions menu. Defaults to true.</summary>
+  public bool? show_dashboard_menu { get; set; } = null;
+  /// <summary>Toggle to show the filters icon/toggle. Defaults to true.</summary>
+  public bool? show_filters_toggle { get; set; } = null;
+  /// <summary>Toggle to show the dashboard header. Defaults to true.</summary>
+  public bool? show_dashboard_header { get; set; } = null;
+  /// <summary>Toggle to center the dashboard title. Defaults to false.</summary>
+  public bool? center_dashboard_title { get; set; } = null;
+  /// <summary>Dashboard title font size.</summary>
+  public string? dashboard_title_font_size { get; set; } = null;
+  /// <summary>Default box shadow.</summary>
+  public string? box_shadow { get; set; } = null;
+  /// <summary>Dashboard page margin top.</summary>
+  public string? page_margin_top { get; set; } = null;
+  /// <summary>Dashboard page margin bottom.</summary>
+  public string? page_margin_bottom { get; set; } = null;
+  /// <summary>Dashboard page margin left and right.</summary>
+  public string? page_margin_sides { get; set; } = null;
+  /// <summary>Toggle to show the explore page header. Defaults to true.</summary>
+  public bool? show_explore_header { get; set; } = null;
+  /// <summary>Toggle to show the explore page title. Defaults to true.</summary>
+  public bool? show_explore_title { get; set; } = null;
+  /// <summary>Toggle to show the explore page last run. Defaults to true.</summary>
+  public bool? show_explore_last_run { get; set; } = null;
+  /// <summary>Toggle to show the explore page timezone. Defaults to true.</summary>
+  public bool? show_explore_timezone { get; set; } = null;
+  /// <summary>Toggle to show the explore page run button. Defaults to true.</summary>
+  public bool? show_explore_run_stop_button { get; set; } = null;
+  /// <summary>Toggle to show the explore page actions button. Defaults to true.</summary>
+  public bool? show_explore_actions_button { get; set; } = null;
+  /// <summary>Toggle to show the look page header. Defaults to true.</summary>
+  public bool? show_look_header { get; set; } = null;
+  /// <summary>Toggle to show the look page title. Defaults to true.</summary>
+  public bool? show_look_title { get; set; } = null;
+  /// <summary>Toggle to show the look page last run. Defaults to true.</summary>
+  public bool? show_look_last_run { get; set; } = null;
+  /// <summary>Toggle to show the look page timezone Defaults to true.</summary>
+  public bool? show_look_timezone { get; set; } = null;
+  /// <summary>Toggle to show the look page run button. Defaults to true.</summary>
+  public bool? show_look_run_stop_button { get; set; } = null;
+  /// <summary>Toggle to show the look page actions button. Defaults to true.</summary>
+  public bool? show_look_actions_button { get; set; } = null;
+  /// <summary>Font size for tiles.</summary>
+  public string? tile_title_font_size { get; set; } = null;
+  /// <summary>The vertical gap/gutter size between tiles.</summary>
+  public string? column_gap_size { get; set; } = null;
+  /// <summary>The horizontal gap/gutter size between tiles.</summary>
+  public string? row_gap_size { get; set; } = null;
+  /// <summary>The border radius for tiles.</summary>
+  public string? border_radius { get; set; } = null;
 }
 
 public class Timezone : SdkModel
@@ -4847,6 +5437,18 @@ public class Timezone : SdkModel
   public string? label { get; set; } = null;
   /// <summary>Timezone group (e.g Common, Other, etc.) (read-only)</summary>
   public string? group { get; set; } = null;
+}
+
+public class UpdateArtifact : SdkModel
+{
+  /// <summary>Key of value to store. Namespace + Key must be unique.</summary>
+  public string key { get; set; } = "";
+  /// <summary>Value to store.</summary>
+  public string value { get; set; } = "";
+  /// <summary>MIME type of content. This can only be used to override content that is detected as text/plain. Needed to set application/json content types, which are analyzed as plain text.</summary>
+  public string? content_type { get; set; } = null;
+  /// <summary>Version number of the stored value. The version must be provided for any updates to an existing artifact. (read-only)</summary>
+  public long? version { get; set; } = null;
 }
 
 public class UpdateFolder : SdkModel
@@ -4865,7 +5467,7 @@ public class User : SdkModel
   public string? avatar_url { get; set; } = null;
   /// <summary>URL for the avatar image (may be generic), does not specify size (read-only)</summary>
   public string? avatar_url_without_sizing { get; set; } = null;
-  /// <summary>API 3 credentials (read-only)</summary>
+  /// <summary>API credentials (read-only)</summary>
   public CredentialsApi3[]? credentials_api3 { get; set; } = null;
   public CredentialsEmail? credentials_email { get; set; }
   /// <summary>Embed credentials (read-only)</summary>
@@ -4902,7 +5504,7 @@ public class User : SdkModel
   public bool? models_dir_validated { get; set; } = null;
   /// <summary>ID of user's personal folder (read-only)</summary>
   public string? personal_folder_id { get; set; } = null;
-  /// <summary>User is identified as an employee of Looker (read-only)</summary>
+  /// <summary>(DEPRECATED) User is identified as an employee of Looker (read-only)</summary>
   public bool? presumed_looker_employee { get; set; } = null;
   /// <summary>Array of ids of the roles for this user (read-only)</summary>
   public string[]? role_ids { get; set; } = null;
@@ -4936,7 +5538,7 @@ public class UserAttribute : SdkModel
   public string name { get; set; } = "";
   /// <summary>Human-friendly label for user attribute</summary>
   public string label { get; set; } = "";
-  /// <summary>Type of user attribute ("string", "number", "datetime", "yesno", "zipcode")</summary>
+  /// <summary>Type of user attribute ("string", "number", "datetime", "yesno", "zipcode", "advanced_filter_string", "advanced_filter_number")</summary>
   public string type { get; set; } = "";
   /// <summary>Default value for when no value is set on the user</summary>
   public string? default_value { get; set; } = null;
@@ -5018,7 +5620,7 @@ public class UserAttributeWithValue : SdkModel
   public string? user_attribute_id { get; set; } = null;
   /// <summary>How user got this value for this attribute (read-only)</summary>
   public string? source { get; set; } = null;
-  /// <summary>If this user attribute is hidden, whitelist of destinations to which it may be sent. (read-only)</summary>
+  /// <summary>If this user attribute is hidden, allowed list of destinations to which it may be sent. (read-only)</summary>
   public string? hidden_value_domain_whitelist { get; set; } = null;
 }
 
@@ -5173,11 +5775,19 @@ public class WriteAlert : SdkModel
 {
   /// <summary>Filters coming from the dashboard that are applied. Example `[{ "filter_title": "Name", "field_name": "distribution_centers.name", "filter_value": "Los Angeles CA" }]`</summary>
   public AlertAppliedDashboardFilter[]? applied_dashboard_filters { get; set; } = null;
-  /// <summary>This property informs the check what kind of comparison we are performing. Only certain condition types are valid for time series alerts. For details, refer to [Setting Alert Conditions](https://docs.looker.com/sharing-and-publishing/creating-alerts#setting_alert_conditions) Valid values are: "EQUAL_TO", "GREATER_THAN", "GREATER_THAN_OR_EQUAL_TO", "LESS_THAN", "LESS_THAN_OR_EQUAL_TO", "INCREASES_BY", "DECREASES_BY", "CHANGES_BY".</summary>
+  /// <summary>This property informs the check what kind of comparison we are performing. Only certain condition types are valid for time series alerts. For details, refer to [Setting Alert Conditions](https://cloud.google.com/looker/docs/sharing-and-publishing/creating-alerts#setting_alert_conditions) Valid values are: "EQUAL_TO", "GREATER_THAN", "GREATER_THAN_OR_EQUAL_TO", "LESS_THAN", "LESS_THAN_OR_EQUAL_TO", "INCREASES_BY", "DECREASES_BY", "CHANGES_BY".</summary>
   [JsonConverter(typeof(StringEnumConverter))]
   public ComparisonType comparison_type { get; set; }
-  /// <summary>Vixie-Style crontab specification when to run. At minumum, it has to be longer than 15 minute intervals</summary>
+  /// <summary>Vixie-Style crontab specification when to run. At minimum, it has to be longer than 15 minute intervals</summary>
   public string cron { get; set; } = "";
+  /// <summary>Domain for the custom url selected by the alert creator from the admin defined domain allowlist</summary>
+  public string? custom_url_base { get; set; } = null;
+  /// <summary>Parameters and path for the custom url defined by the alert creator</summary>
+  public string? custom_url_params { get; set; } = null;
+  /// <summary>Label for the custom url defined by the alert creator</summary>
+  public string? custom_url_label { get; set; } = null;
+  /// <summary>Boolean to determine if the custom url should be used</summary>
+  public bool? show_custom_url { get; set; } = null;
   /// <summary>An optional, user-defined title for the alert</summary>
   public string? custom_title { get; set; } = null;
   /// <summary>ID of the dashboard element associated with the alert. Refer to [dashboard_element()](#!/Dashboard/DashboardElement)</summary>
@@ -5375,7 +5985,7 @@ public class WriteCreateQueryTask : SdkModel
 {
   /// <summary>Id of query to run</summary>
   public string query_id { get; set; } = "";
-  /// <summary>Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "csv", "html", "md", "txt", "xlsx", "gsxml".</summary>
+  /// <summary>Desired async query result format. Valid values are: "inline_json", "json", "json_detail", "json_fe", "json_bi", "csv", "html", "md", "txt", "xlsx", "gsxml", "sql".</summary>
   [JsonConverter(typeof(StringEnumConverter))]
   public ResultFormat result_format { get; set; }
   /// <summary>Source of query task</summary>
@@ -5389,7 +5999,7 @@ public class WriteCreateQueryTask : SdkModel
 }
 
 /// Dynamic writeable type for CredentialsEmail removes:
-/// can, created_at, is_disabled, logged_in_at, password_reset_url, type, url, user_url
+/// can, created_at, user_id, is_disabled, logged_in_at, password_reset_url, account_setup_url, password_reset_url_expired, account_setup_url_expired, type, url, user_url
 public class WriteCredentialsEmail : SdkModel
 {
   /// <summary>EMail address used for user login</summary>
@@ -5429,6 +6039,8 @@ public class WriteDashboard : SdkModel
   public bool? crossfilter_enabled { get; set; } = null;
   /// <summary>Whether or not a dashboard is 'soft' deleted.</summary>
   public bool? deleted { get; set; } = null;
+  /// <summary>Allow visualizations to be viewed in full screen mode</summary>
+  public bool? enable_viz_full_screen { get; set; } = null;
   /// <summary>Sets the default state of the filters bar to collapsed or open</summary>
   public bool? filters_bar_collapsed { get; set; } = null;
   /// <summary>Sets the default state of the filters location to top(true) or right(false)</summary>
@@ -5437,7 +6049,7 @@ public class WriteDashboard : SdkModel
   public string? load_configuration { get; set; } = null;
   /// <summary>Links this dashboard to a particular LookML dashboard such that calling a **sync** operation on that LookML dashboard will update this dashboard to match.</summary>
   public string? lookml_link_id { get; set; } = null;
-  /// <summary>Show filters bar.  **Security Note:** This property only affects the *cosmetic* appearance of the dashboard, not a user's ability to access data. Hiding the filters bar does **NOT** prevent users from changing filters by other means. For information on how to set up secure data access control policies, see [Control User Access to Data](https://docs.looker.com/r/api/control-access)</summary>
+  /// <summary>Show filters bar.  **Security Note:** This property only affects the *cosmetic* appearance of the dashboard, not a user's ability to access data. Hiding the filters bar does **NOT** prevent users from changing filters by other means. For information on how to set up secure data access control policies, see [Control User Access to Data](https://cloud.google.com/looker/docs/r/api/control-access)</summary>
   public bool? show_filters_bar { get; set; } = null;
   /// <summary>Show title</summary>
   public bool? show_title { get; set; } = null;
@@ -5466,7 +6078,7 @@ public class WriteDashboardBase : SdkModel
 }
 
 /// Dynamic writeable type for DashboardElement removes:
-/// can, body_text_as_html, edit_uri, id, lookml_link_id, note_text_as_html, refresh_interval_to_i, alert_count, title_text_as_html, subtitle_text_as_html, extension_id
+/// can, body_text_as_html, edit_uri, id, lookml_link_id, note_text_as_html, refresh_interval_to_i, alert_count, title_text_as_html, subtitle_text_as_html
 public class WriteDashboardElement : SdkModel
 {
   /// <summary>Text tile body text</summary>
@@ -5475,7 +6087,7 @@ public class WriteDashboardElement : SdkModel
   public string? dashboard_id { get; set; } = null;
   /// <summary>
   /// Dynamic writeable type for LookWithQuery removes:
-  /// can, content_metadata_id, id, content_favorite_id, created_at, deleted_at, deleter_id, embed_url, excel_file_url, favorite_count, google_spreadsheet_formula, image_embed_url, last_accessed_at, last_updater_id, last_viewed_at, model, public_slug, public_url, short_url, updated_at, view_count, url
+  /// can, content_metadata_id, id, content_favorite_id, created_at, deleted_at, deleter_id, embed_url, excel_file_url, favorite_count, google_spreadsheet_formula, image_embed_url, last_accessed_at, last_updater_id, last_viewed_at, model, public_slug, public_url, short_url, updated_at, user_name, view_count, url
   /// </summary>
   public WriteLookWithQuery? look { get; set; }
   /// <summary>Id Of Look</summary>
@@ -5516,6 +6128,8 @@ public class WriteDashboardElement : SdkModel
   public string? type { get; set; } = null;
   /// <summary>JSON with all the properties required for rich editor and buttons elements</summary>
   public string? rich_content_json { get; set; } = null;
+  /// <summary>Extension ID</summary>
+  public string? extension_id { get; set; } = null;
 }
 
 /// Dynamic writeable type for DashboardFilter removes:
@@ -5603,14 +6217,14 @@ public class WriteDatagroup : SdkModel
 }
 
 /// Dynamic writeable type for DBConnection removes:
-/// can, dialect, snippets, pdts_enabled, uses_oauth, created_at, user_id, example, last_regen_at, last_reap_at, managed
+/// can, dialect, snippets, pdts_enabled, uses_oauth, uses_instance_oauth, supports_data_studio_link, created_at, user_id, example, last_regen_at, last_reap_at, managed, default_bq_connection, p4sa_name
 public class WriteDBConnection : SdkModel
 {
   /// <summary>Name of the connection. Also used as the unique identifier</summary>
   public string? name { get; set; } = null;
-  /// <summary>Host name/address of server</summary>
+  /// <summary>Host name/address of server; or the string 'localhost' in case of a connection over an SSH tunnel.</summary>
   public string? host { get; set; } = null;
-  /// <summary>Port number on server</summary>
+  /// <summary>Port number on server. If the connection is over an SSH tunnel, then the local port associated with the SSH tunnel.</summary>
   public string? port { get; set; } = null;
   /// <summary>Username for server authentication</summary>
   public string? username { get; set; } = null;
@@ -5626,10 +6240,14 @@ public class WriteDBConnection : SdkModel
   public string? db_timezone { get; set; } = null;
   /// <summary>Timezone to use in queries</summary>
   public string? query_timezone { get; set; } = null;
-  /// <summary>Scheme name</summary>
+  /// <summary>Schema name</summary>
   public string? schema { get; set; } = null;
   /// <summary>Maximum number of concurrent connection to use</summary>
   public long? max_connections { get; set; } = null;
+  /// <summary>Maximum number of concurrent queries to begin on this connection</summary>
+  public long? max_queries { get; set; } = null;
+  /// <summary>Maximum number of concurrent queries per user to begin on this connection</summary>
+  public long? max_queries_per_user { get; set; } = null;
   /// <summary>Maximum size of query in GBs (BigQuery only, can be a user_attribute name)</summary>
   public string? max_billing_gigabytes { get; set; } = null;
   /// <summary>Use SSL/TLS when connecting to server</summary>
@@ -5661,8 +6279,12 @@ public class WriteDBConnection : SdkModel
   /// has_password
   /// </summary>
   public WriteDBConnectionOverride? pdt_context_override { get; set; }
+  /// <summary>This field is only applicable to connections over an SSH Tunnel. The value of this field would be the local port associated with the SSH tunnel if configured manually. Otherwise either enter NULL or exclude this field.</summary>
+  public long? custom_local_port { get; set; } = null;
   /// <summary>The Id of the ssh tunnel this connection uses</summary>
   public string? tunnel_id { get; set; } = null;
+  /// <summary>Enable Transparent Network Substrate (TNS) connections</summary>
+  public bool? uses_tns { get; set; } = null;
   /// <summary>Maximum number of threads to use to build PDTs in parallel</summary>
   public long? pdt_concurrency { get; set; } = null;
   /// <summary>When disable_context_comment is true comment will not be added to SQL</summary>
@@ -5671,10 +6293,20 @@ public class WriteDBConnection : SdkModel
   public string? oauth_application_id { get; set; } = null;
   /// <summary>When true, error PDTs will be retried every regenerator cycle</summary>
   public bool? always_retry_failed_builds { get; set; } = null;
+  /// <summary>Whether the connection should authenticate with the Application Default Credentials of the host environment (limited to GCP and certain dialects).</summary>
+  public bool? uses_application_default_credentials { get; set; } = null;
+  /// <summary>An alternative Service Account to use for querying datasets (used primarily with `uses_application_default_credentials`) (limited to GCP and certain dialects).</summary>
+  public string? impersonated_service_account { get; set; } = null;
   /// <summary>When true, query cost estimate will be displayed in explore.</summary>
   public bool? cost_estimate_enabled { get; set; } = null;
   /// <summary>PDT builds on this connection can be kicked off and cancelled via API.</summary>
   public bool? pdt_api_control_enabled { get; set; } = null;
+  /// <summary>Enable database connection pooling.</summary>
+  public bool? connection_pooling { get; set; } = null;
+  /// <summary>The project id of the default BigQuery storage project.</summary>
+  public string? bq_storage_project_id { get; set; } = null;
+  /// <summary>When true, represents that all project roles have been verified.</summary>
+  public bool? bq_roles_verified { get; set; } = null;
 }
 
 /// Dynamic writeable type for DBConnectionOverride removes:
@@ -5697,7 +6329,7 @@ public class WriteDBConnectionOverride : SdkModel
   public string? file_type { get; set; } = null;
   /// <summary>Database name</summary>
   public string? database { get; set; } = null;
-  /// <summary>Scheme name</summary>
+  /// <summary>Schema name</summary>
   public string? schema { get; set; } = null;
   /// <summary>Additional params to add to JDBC connection string</summary>
   public string? jdbc_additional_params { get; set; } = null;
@@ -5713,6 +6345,9 @@ public class WriteEmbedSecret : SdkModel
   public string? algorithm { get; set; } = null;
   /// <summary>Is this secret currently enabled</summary>
   public bool? enabled { get; set; } = null;
+  /// <summary>Field to distinguish between SSO secrets and JWT secrets Valid values are: "SSO", "JWT".</summary>
+  [JsonConverter(typeof(StringEnumConverter))]
+  public SecretType? secret_type { get; set; }
 }
 
 /// Dynamic writeable type for ExternalOauthApplication removes:
@@ -5725,6 +6360,8 @@ public class WriteExternalOauthApplication : SdkModel
   public string? client_id { get; set; } = null;
   /// <summary>(Write-Only) The OAuth Client Secret for this application</summary>
   public string? client_secret { get; set; } = null;
+  /// <summary>The OAuth Tenant ID for this application</summary>
+  public string? tenant_id { get; set; } = null;
   /// <summary>The database dialect for this application.</summary>
   public string? dialect_name { get; set; } = null;
 }
@@ -5760,7 +6397,7 @@ public class WriteGroup : SdkModel
 }
 
 /// Dynamic writeable type for Integration removes:
-/// can, id, integration_hub_id, label, description, supported_formats, supported_action_types, supported_formattings, supported_visualization_formattings, supported_download_settings, icon_url, uses_oauth, required_fields, delegate_oauth
+/// can, id, integration_hub_id, label, description, supported_formats, supported_action_types, supported_formattings, supported_visualization_formattings, supported_download_settings, icon_url, uses_oauth, required_fields, privacy_link, delegate_oauth
 public class WriteIntegration : SdkModel
 {
   /// <summary>Whether the integration is available to users.</summary>
@@ -5904,7 +6541,7 @@ public class WriteLookmlModel : SdkModel
 }
 
 /// Dynamic writeable type for LookWithQuery removes:
-/// can, content_metadata_id, id, content_favorite_id, created_at, deleted_at, deleter_id, embed_url, excel_file_url, favorite_count, google_spreadsheet_formula, image_embed_url, last_accessed_at, last_updater_id, last_viewed_at, model, public_slug, public_url, short_url, updated_at, view_count, url
+/// can, content_metadata_id, id, content_favorite_id, created_at, deleted_at, deleter_id, embed_url, excel_file_url, favorite_count, google_spreadsheet_formula, image_embed_url, last_accessed_at, last_updater_id, last_viewed_at, model, public_slug, public_url, short_url, updated_at, user_name, view_count, url
 public class WriteLookWithQuery : SdkModel
 {
   /// <summary>Look Title</summary>
@@ -6157,13 +6794,13 @@ public class WriteQuery : SdkModel
   public string[]? pivots { get; set; } = null;
   /// <summary>Fill Fields</summary>
   public string[]? fill_fields { get; set; } = null;
-  /// <summary>Filters</summary>
+  /// <summary>Filters will contain data pertaining to complex filters that do not contain "or" conditions. When "or" conditions are present, filter data will be found on the `filter_expression` property.</summary>
   public StringDictionary<string>? filters { get; set; } = null;
   /// <summary>Filter Expression</summary>
   public string? filter_expression { get; set; } = null;
   /// <summary>Sorting for the query results. Use the format `["view.field", ...]` to sort on fields in ascending order. Use the format `["view.field desc", ...]` to sort on fields in descending order. Use `["__UNSORTED__"]` (2 underscores before and after) to disable sorting entirely. Empty sorts `[]` will trigger a default sort.</summary>
   public string[]? sorts { get; set; } = null;
-  /// <summary>Limit</summary>
+  /// <summary>Row limit. To download unlimited results, set the limit to -1 (negative one).</summary>
   public string? limit { get; set; } = null;
   /// <summary>Column Limit</summary>
   public string? column_limit { get; set; } = null;
@@ -6322,14 +6959,20 @@ public class WriteScheduledPlan : SdkModel
   public string? datagroup { get; set; } = null;
   /// <summary>Timezone for interpreting the specified crontab (default is Looker instance timezone)</summary>
   public string? timezone { get; set; } = null;
-  /// <summary>Query id</summary>
-  public string? query_id { get; set; } = null;
   /// <summary>Scheduled plan destinations</summary>
   public ScheduledPlanDestination[]? scheduled_plan_destination { get; set; } = null;
   /// <summary>Whether the plan in question should only be run once (usually for testing)</summary>
   public bool? run_once { get; set; } = null;
   /// <summary>Whether links back to Looker should be included in this ScheduledPlan</summary>
   public bool? include_links { get; set; } = null;
+  /// <summary>Custom url domain for the scheduled entity</summary>
+  public string? custom_url_base { get; set; } = null;
+  /// <summary>Custom url path and parameters for the scheduled entity</summary>
+  public string? custom_url_params { get; set; } = null;
+  /// <summary>Custom url label for the scheduled entity</summary>
+  public string? custom_url_label { get; set; } = null;
+  /// <summary>Whether to show custom link back instead of standard looker link</summary>
+  public bool? show_custom_url { get; set; } = null;
   /// <summary>The size of paper the PDF should be formatted to fit. Valid values are: "letter", "legal", "tabloid", "a0", "a1", "a2", "a3", "a4", "a5".</summary>
   public string? pdf_paper_size { get; set; } = null;
   /// <summary>Whether the PDF should be formatted for landscape orientation</summary>
@@ -6342,6 +6985,8 @@ public class WriteScheduledPlan : SdkModel
   public bool? long_tables { get; set; } = null;
   /// <summary>The pixel width at which we render the inline table visualizations</summary>
   public long? inline_table_width { get; set; } = null;
+  /// <summary>Query id</summary>
+  public string? query_id { get; set; } = null;
 }
 
 /// Dynamic writeable type for SessionConfig removes:
@@ -6360,17 +7005,21 @@ public class WriteSessionConfig : SdkModel
   public bool? track_session_location { get; set; } = null;
 }
 
-/// Dynamic writeable type for Setting
+/// Dynamic writeable type for Setting removes:
+/// instance_config, marketplace_site, embed_enabled, login_notification_enabled, login_notification_text
 public class WriteSetting : SdkModel
 {
   /// <summary>Toggle extension framework on or off</summary>
   public bool? extension_framework_enabled { get; set; } = null;
-  /// <summary>(DEPRECATED) Toggle extension extension load url on or off. Do not use. This is temporary setting that will eventually become a noop and subsequently deleted.</summary>
+  /// <summary>(DEPRECATED) Toggle extension load url on or off. Do not use. This is temporary setting that will eventually become a noop and subsequently deleted.</summary>
   public bool? extension_load_url_enabled { get; set; } = null;
-  /// <summary>Toggle marketplace auto install on or off. Note that auto install only runs if marketplace is enabled.</summary>
+  /// <summary>(DEPRECATED) Toggle marketplace auto install on or off. Deprecated - do not use. Auto install can now be enabled via marketplace automation settings</summary>
   public bool? marketplace_auto_install_enabled { get; set; } = null;
+  public MarketplaceAutomation? marketplace_automation { get; set; }
   /// <summary>Toggle marketplace on or off</summary>
   public bool? marketplace_enabled { get; set; } = null;
+  /// <summary>Accept marketplace terms by setting this value to true, or get the current status. Marketplace terms CANNOT be declined once accepted. Accepting marketplace terms automatically enables the marketplace. The marketplace can still be disabled after it has been enabled.</summary>
+  public bool? marketplace_terms_accepted { get; set; } = null;
   /// <summary>
   /// Dynamic writeable type for PrivatelabelConfiguration removes:
   /// logo_url, favicon_url
@@ -6379,6 +7028,35 @@ public class WriteSetting : SdkModel
   public CustomWelcomeEmail? custom_welcome_email { get; set; }
   /// <summary>Toggle onboarding on or off</summary>
   public bool? onboarding_enabled { get; set; } = null;
+  /// <summary>Change instance-wide default timezone</summary>
+  public string? timezone { get; set; } = null;
+  /// <summary>Toggle user-specific timezones on or off</summary>
+  public bool? allow_user_timezones { get; set; } = null;
+  /// <summary>Toggle default future connectors on or off</summary>
+  public bool? data_connector_default_enabled { get; set; } = null;
+  /// <summary>Change the base portion of your Looker instance URL setting</summary>
+  public string? host_url { get; set; } = null;
+  /// <summary>(Write-Only) If warnings are preventing a host URL change, this parameter allows for overriding warnings to force update the setting. Does not directly change any Looker settings.</summary>
+  public bool? override_warnings { get; set; } = null;
+  /// <summary>An array of Email Domain Allowlist of type string for Scheduled Content</summary>
+  public string[]? email_domain_allowlist { get; set; } = null;
+  /// <summary>(DEPRECATED) Use embed_config.embed_cookieless_v2 instead. If embed_config.embed_cookieless_v2 is specified, it overrides this value.</summary>
+  public bool? embed_cookieless_v2 { get; set; } = null;
+  public EmbedConfig? embed_config { get; set; }
+  /// <summary>Toggle Dashboard Auto Refresh restriction</summary>
+  public bool? dashboard_auto_refresh_restriction { get; set; } = null;
+  /// <summary>Minimum time interval for dashboard element automatic refresh. Examples: (30 seconds, 1 minute)</summary>
+  public string? dashboard_auto_refresh_minimum_interval { get; set; } = null;
+}
+
+/// Dynamic writeable type for SqlInterfaceQueryCreate removes:
+/// can
+public class WriteSqlInterfaceQueryCreate : SdkModel
+{
+  /// <summary>Original SQL request</summary>
+  public string sql { get; set; } = "";
+  /// <summary>Whether the query should be run for use in a JDBC Client. This changes the formatting of some datetime based values.</summary>
+  public bool? jdbc_client { get; set; } = null;
 }
 
 /// Dynamic writeable type for SshServer removes:
@@ -6396,11 +7074,13 @@ public class WriteSshServer : SdkModel
 }
 
 /// Dynamic writeable type for SshTunnel removes:
-/// tunnel_id, ssh_server_name, ssh_server_host, ssh_server_port, ssh_server_user, last_attempt, local_host_port, status
+/// tunnel_id, ssh_server_name, ssh_server_host, ssh_server_port, ssh_server_user, last_attempt, status
 public class WriteSshTunnel : SdkModel
 {
   /// <summary>SSH Server ID</summary>
   public string? ssh_server_id { get; set; } = null;
+  /// <summary>Localhost Port used by the Looker instance to connect to the remote DB</summary>
+  public long? local_host_port { get; set; } = null;
   /// <summary>Hostname or IP Address of the Database Server</summary>
   public string? database_host { get; set; } = null;
   /// <summary>Port that the Database Server is listening on</summary>
@@ -6426,7 +7106,7 @@ public class WriteUser : SdkModel
 {
   /// <summary>
   /// Dynamic writeable type for CredentialsEmail removes:
-  /// can, created_at, is_disabled, logged_in_at, password_reset_url, type, url, user_url
+  /// can, created_at, user_id, is_disabled, logged_in_at, password_reset_url, account_setup_url, password_reset_url_expired, account_setup_url_expired, type, url, user_url
   /// </summary>
   public WriteCredentialsEmail? credentials_email { get; set; }
   /// <summary>First name</summary>
@@ -6453,7 +7133,7 @@ public class WriteUserAttribute : SdkModel
   public string name { get; set; } = "";
   /// <summary>Human-friendly label for user attribute</summary>
   public string label { get; set; } = "";
-  /// <summary>Type of user attribute ("string", "number", "datetime", "yesno", "zipcode")</summary>
+  /// <summary>Type of user attribute ("string", "number", "datetime", "yesno", "zipcode", "advanced_filter_string", "advanced_filter_number")</summary>
   public string type { get; set; } = "";
   /// <summary>Default value for when no value is set on the user</summary>
   public string? default_value { get; set; } = null;

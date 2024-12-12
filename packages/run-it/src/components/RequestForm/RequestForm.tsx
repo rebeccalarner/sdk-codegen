@@ -24,52 +24,60 @@
 
  */
 
-import type { BaseSyntheticEvent, FC, Dispatch } from 'react'
-import React from 'react'
+import type { BaseSyntheticEvent, Dispatch, FC, FormEventHandler } from 'react';
+import React from 'react';
 import {
   Button,
-  Form,
   ButtonTransparent,
-  Tooltip,
   Fieldset,
+  Form,
+  Label,
   MessageBar,
-} from '@looker/components'
-import type { RunItHttpMethod, RunItInput, RunItValues } from '../../RunIt'
-import { LoginForm } from '../LoginForm'
+  ToggleSwitch,
+  Tooltip,
+} from '@looker/components';
+import type { RunItHttpMethod, RunItInput, RunItValues } from '../../RunIt';
+import { LoginForm } from '../LoginForm';
 import {
-  createSimpleItem,
+  BODY_HINT,
   createComplexItem,
+  createSimpleItem,
   showDataChangeWarning,
   updateNullableProp,
-} from './formUtils'
-import { FormItem } from './FormItem'
+} from './formUtils';
+import { FormItem } from './FormItem';
+import { DarkSpan } from './../common';
 
 /** Properties required by RequestForm */
 interface RequestFormProps {
   /** Request inputs to the endpoint */
-  inputs: RunItInput[]
+  inputs: RunItInput[];
   /** A callback for submitting the form */
-  handleSubmit: (e: BaseSyntheticEvent) => void
+  handleSubmit: (e: BaseSyntheticEvent) => void;
   /** HTTP method used for this REST request */
-  httpMethod: RunItHttpMethod
+  httpMethod: RunItHttpMethod;
   /** A collection type react state to store path, query and body parameters as entered by the user  */
-  requestContent: RunItValues
+  requestContent: RunItValues;
   /** A set state callback fn for populating requestContent on interaction with the request form */
-  setRequestContent: Dispatch<RunItValues>
+  setRequestContent: Dispatch<RunItValues>;
   /** Is authentication required? */
-  needsAuth: boolean
+  needsAuth: boolean;
   /** Does RunIt have the configuration values it needs? */
-  hasConfig: boolean
+  hasConfig: boolean;
   /** Handle config button click */
-  handleConfig: (e: BaseSyntheticEvent) => void
-  /** A set state callback which if present allows for editing, setting or clearing OAuth configuration parameters */
-  setHasConfig?: Dispatch<boolean>
+  handleConfig: (e: BaseSyntheticEvent) => void;
+  /** A set state callback which, if present, allows for editing, setting or clearing OAuth configuration parameters */
+  setHasConfig?: Dispatch<boolean>;
   /** Validation message to display */
-  validationMessage?: string
+  validationMessage?: string;
   /** Validation message setter */
-  setValidationMessage?: Dispatch<string>
+  setValidationMessage?: Dispatch<string>;
+  /** Toggle for processing body inputs */
+  keepBody?: boolean;
+  /** Toggle to keep all body inputs */
+  toggleKeepBody?: (_event: FormEventHandler<HTMLInputElement>) => void;
   /** Is RunIt being used in a Looker extension? */
-  isExtension?: boolean
+  isExtension?: boolean;
 }
 
 /**
@@ -88,44 +96,48 @@ export const RequestForm: FC<RequestFormProps> = ({
   setHasConfig,
   validationMessage,
   setValidationMessage,
+  keepBody,
+  toggleKeepBody,
   isExtension = false,
 }) => {
+  const hasBody = inputs.some(i => i.location === 'body');
+
   const handleBoolChange = (e: BaseSyntheticEvent) => {
-    setRequestContent({ ...requestContent, [e.target.name]: e.target.checked })
-  }
+    setRequestContent({ ...requestContent, [e.target.name]: e.target.checked });
+  };
 
   const handleNumberChange = (e: BaseSyntheticEvent) => {
-    const value = e.target.value ? parseFloat(e.target.value) : undefined
-    const newState = updateNullableProp(requestContent, e.target.name, value)
-    setRequestContent(newState)
-  }
+    const value = e.target.value ? parseFloat(e.target.value) : undefined;
+    const newState = updateNullableProp(requestContent, e.target.name, value);
+    setRequestContent(newState);
+  };
 
   const handleDateChange = (name: string, date?: Date) => {
-    const newState = updateNullableProp(requestContent, name, date)
-    setRequestContent(newState)
-  }
+    const newState = updateNullableProp(requestContent, name, date);
+    setRequestContent(newState);
+  };
 
   const handleChange = (e: BaseSyntheticEvent) => {
     const newState = updateNullableProp(
       requestContent,
       e.target.name,
       e.target.value
-    )
-    setRequestContent(newState)
-  }
+    );
+    setRequestContent(newState);
+  };
 
   const handleComplexChange = (name: string, value: string) => {
-    setRequestContent({ ...requestContent, [name]: value })
-  }
+    setRequestContent({ ...requestContent, [name]: value });
+  };
 
   const safeSetMessage = (value: string) =>
-    setValidationMessage && setValidationMessage(value)
+    setValidationMessage && setValidationMessage(value);
 
   const handleClear = (e: BaseSyntheticEvent) => {
-    e.preventDefault()
-    setRequestContent({})
-    safeSetMessage('')
-  }
+    e.preventDefault();
+    setRequestContent({});
+    safeSetMessage('');
+  };
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -139,7 +151,7 @@ export const RequestForm: FC<RequestFormProps> = ({
         </MessageBar>
       )}
       <Fieldset>
-        {inputs.map((input) =>
+        {inputs.map(input =>
           typeof input.type === 'string'
             ? createSimpleItem(
                 input,
@@ -152,6 +164,25 @@ export const RequestForm: FC<RequestFormProps> = ({
             : createComplexItem(input, handleComplexChange, requestContent)
         )}
         {httpMethod !== 'GET' && showDataChangeWarning()}
+        {hasBody && !!toggleKeepBody && (
+          <>
+            <FormItem key="keepbody_fib" id="keepBody" label="Send body as-is">
+              <>
+                <ToggleSwitch
+                  key="keepBody"
+                  id="keepBody"
+                  name="keepBody"
+                  onChange={toggleKeepBody as unknown as FormEventHandler}
+                  on={keepBody}
+                />
+                <Label>Send the body parameter as entered</Label>
+              </>
+            </FormItem>
+            <FormItem key="body_hint" id="bodyHint">
+              <DarkSpan fontSize="small">{BODY_HINT}</DarkSpan>
+            </FormItem>
+          </>
+        )}
         <FormItem id="buttonbar">
           <>
             {hasConfig ? (
@@ -179,5 +210,5 @@ export const RequestForm: FC<RequestFormProps> = ({
         </FormItem>
       </Fieldset>
     </Form>
-  )
-}
+  );
+};

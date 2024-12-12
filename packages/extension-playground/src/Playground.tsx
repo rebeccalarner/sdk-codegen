@@ -23,31 +23,31 @@
  SOFTWARE.
 
  */
-import React, { useContext, useEffect, useState } from 'react'
-import { ComponentsProvider, SpaceVertical, Text } from '@looker/components'
-import { ExtensionContext40 } from '@looker/extension-sdk-react'
+import React, { useContext, useEffect, useState } from 'react';
+import { ComponentsProvider, SpaceVertical, Span } from '@looker/components';
+import { ExtensionContext40 } from '@looker/extension-sdk-react';
 
 /**
  * Playground for testing extension SDK functionality.
  * Changes are not expected to be kept and may be thrown
  * away at anytime. Keep this simple.
  */
-export const Playground: React.FC = () => {
-  const { coreSDK } = useContext(ExtensionContext40)
-  const [message, setMessage] = useState('')
+export const Playground = () => {
+  const { coreSDK } = useContext(ExtensionContext40);
+  const [message, setMessage] = useState('');
 
   useEffect(() => {
     const getMe = async () => {
       try {
-        const me = await coreSDK.ok(coreSDK.me())
-        setMessage(`Hello, ${me.display_name}`)
+        const me = await coreSDK.ok(coreSDK.me());
+        setMessage(`Hello, ${me.display_name}`);
       } catch (error) {
-        console.error(error)
-        setMessage('An error occurred while getting information about me!')
+        console.error(error);
+        setMessage('An error occurred while getting information about me!');
       }
-    }
-    getMe()
-  }, [coreSDK])
+    };
+    getMe();
+  }, [coreSDK]);
 
   return (
     <ComponentsProvider>
@@ -55,16 +55,16 @@ export const Playground: React.FC = () => {
         p="xxxxxlarge"
         width="100%"
         height="90vh"
-        justifyContent="center"
+        justifyItems="center"
         align="center"
       >
-        <Text p="xxxxxlarge" fontSize="xxxxxlarge">
+        <Span p="xxxxxlarge" fontSize="xxxxxlarge">
           Welcome to the Playground
-        </Text>
-        <Text p="xxxxxlarge" fontSize="xxxxxlarge">
-          <Text fontSize="xxxxxlarge">{message}</Text>
-        </Text>
+        </Span>
+        <Span p="xxxxxlarge" fontSize="xxxxxlarge">
+          <Span fontSize="xxxxxlarge">{message}</Span>
+        </Span>
       </SpaceVertical>
     </ComponentsProvider>
-  )
-}
+  );
+};

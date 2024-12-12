@@ -24,9 +24,9 @@
 
  */
 
-const { merge } = require('webpack-merge')
-const base = require('../../webpack.base.config')(__dirname)
-const browser = require('../../webpack.browser.config')()
+const { merge } = require('webpack-merge');
+const base = require('../../webpack.base.config')(__dirname);
+const browser = require('../../webpack.browser.config')();
 
 module.exports = merge(base, browser, {
   mode: 'development',
@@ -34,7 +34,9 @@ module.exports = merge(base, browser, {
     historyApiFallback: {
       disableDotRule: true,
     },
-    publicPath: '/dist/',
+    devMiddleware: {
+      publicPath: '/dist/',
+    },
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
@@ -42,4 +44,4 @@ module.exports = merge(base, browser, {
         'X-Requested-With, content-type, Authorization',
     },
   },
-})
+});

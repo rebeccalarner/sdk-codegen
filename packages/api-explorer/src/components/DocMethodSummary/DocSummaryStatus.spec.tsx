@@ -23,28 +23,28 @@
  SOFTWARE.
 
  */
-import React from 'react'
-import { renderWithTheme } from '@looker/components-test-utils'
-import { screen, waitFor, fireEvent } from '@testing-library/react'
+import React from 'react';
+import { renderWithTheme } from '@looker/components-test-utils';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
 
-import { api, api40 } from '../../test-data'
-import { DocSummaryStatus } from './DocSummaryStatus'
+import { api, api40 } from '../../test-data';
+import { DocSummaryStatus } from './DocSummaryStatus';
 
 describe('DocMethodSummaryStatus', () => {
   test.each`
     status          | method                              | expectedLabel        | expectedContent
-    ${'beta'}       | ${api40.methods.workspace}          | ${'beta item'}       | ${'This beta item is under development and subject to change.'}
+    ${'beta'}       | ${api40.methods.invalidate_tokens}  | ${'beta item'}       | ${'This beta item is under development and subject to change.'}
     ${'stable'}     | ${api.methods.login}                | ${'stable item'}     | ${'This item is considered stable for this API version.'}
     ${'deprecated'} | ${api.methods.backup_configuration} | ${'deprecated item'} | ${'This item has been deprecated and will be removed in the future.'}
   `(
     'it renders an icon with a tooltip containing the right content for $status endpoints',
     async ({ method, expectedLabel, expectedContent }) => {
-      renderWithTheme(<DocSummaryStatus status={method.status} />)
-      const icon = screen.getByLabelText(expectedLabel)
-      fireEvent.mouseOver(icon)
+      renderWithTheme(<DocSummaryStatus status={method.status} />);
+      const icon = screen.getByLabelText(expectedLabel);
+      fireEvent.mouseOver(icon);
       await waitFor(() => {
-        expect(screen.getByRole('tooltip')).toHaveTextContent(expectedContent)
-      })
+        expect(screen.getByRole('tooltip')).toHaveTextContent(expectedContent);
+      });
     }
-  )
-})
+  );
+});

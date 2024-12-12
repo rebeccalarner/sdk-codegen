@@ -24,17 +24,17 @@
 
  */
 
-import type { FC } from 'react'
-import React from 'react'
-import { Dialog, DialogHeader, DialogContent } from '@looker/components'
-import type { IProjectProps } from '../../models'
-import { ProjectView } from '../../scenes'
+import type { FC } from 'react';
+import React from 'react';
+import { Dialog, DialogContent, DialogHeader } from '@looker/components';
+import type { IProjectProps } from '../../models';
+import { ProjectView } from '../../scenes';
 
 interface ProjectViewDialogProps {
   /** if assigned, dialog appears. If undefined, dialog is hidden */
-  project?: IProjectProps
+  project?: IProjectProps;
   /** Dialog closing event handler */
-  onClose: () => void
+  onClose: () => void;
 }
 
 export const ProjectViewDialog: FC<ProjectViewDialogProps> = ({
@@ -42,15 +42,24 @@ export const ProjectViewDialog: FC<ProjectViewDialogProps> = ({
   onClose,
 }) => {
   const closeDialog = () => {
-    onClose()
-  }
+    onClose();
+  };
 
   return (
     <Dialog isOpen={!!project} onClose={closeDialog}>
       <DialogHeader>{project?.title}</DialogHeader>
       <DialogContent>
-        {!!project && <ProjectView project={project} />}
+        {!!project && (
+          <ProjectView
+            title={project.title}
+            description={project.description}
+            technologies={project.technologies}
+            members={project.$members}
+            project_type={project.project_type}
+            contestant={project.contestant}
+          />
+        )}
       </DialogContent>
     </Dialog>
-  )
-}
+  );
+};

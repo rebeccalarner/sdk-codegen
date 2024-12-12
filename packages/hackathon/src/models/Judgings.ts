@@ -24,151 +24,158 @@
 
  */
 
-import type { IRowModelProps, ITabTable, SheetSDK } from '@looker/wholly-sheet'
-import { WhollySheet } from '@looker/wholly-sheet'
-import type { ISheetRow } from './SheetRow'
-import { SheetRow } from './SheetRow'
-import type { Project } from './Projects'
-import type { User } from './Users'
-import type { SheetData } from './SheetData'
-import { getActiveSheet } from './SheetData'
-import type { Hacker, IHacker } from './Hacker'
-import type { Hackathon } from './Hackathons'
+import type { IRowModelProps, ITabTable } from '@looker/wholly-artifact';
+import { WhollyArtifact } from '@looker/wholly-artifact';
+import { getCore40SDK } from '@looker/extension-sdk-react';
+
+import type { ISheetRow } from './SheetRow';
+import { SheetRow } from './SheetRow';
+import type { Project } from './Projects';
+import type { User } from './Users';
+import type { SheetData } from './SheetData';
+import { getActiveSheet } from './SheetData';
+import type { Hacker, IHacker } from './Hacker';
+import type { Hackathon } from './Hackathons';
 
 /** IMPORTANT: properties must be declared in the tab sheet's columnar order, not sorted order */
 export interface IJudgingProps extends IRowModelProps {
-  user_id: string
-  project_id: string
-  execution: number
-  ambition: number
-  coolness: number
-  impact: number
-  score: number
-  notes: string
-  $title: string
-  $description: string
-  $project_type: string
-  $contestant: boolean
-  $technologies: string[]
-  $judge_name: string
-  $members: string[]
+  user_id: string;
+  project_id: string;
+  execution: number;
+  scope: number;
+  novelty: number;
+  impact: number;
+  score: number;
+  notes: string;
+  // TODO: These fields are meant to display associated project/user info
+  // Should be removed and update react/redux to provide user/project for UI.
+  $title: string;
+  $description: string;
+  $project_type: string;
+  $contestant: boolean;
+  $technologies: string[];
+  $judge_name: string;
+  $members: string[];
 }
 export interface IJudging extends IJudgingProps, ISheetRow {
   calculateScore(
     execution: number,
-    ambition: number,
-    coolness: number,
+    scope: number,
+    novelty: number,
     impact: number
-  ): number
+  ): number;
 }
 
 /** IMPORTANT: properties must be declared in the tab sheet's columnar order, not sorted order */
 export class Judging extends SheetRow<IJudging> {
-  user_id = ''
-  project_id = ''
-  execution = 0
-  ambition = 0
-  coolness = 0
-  impact = 0
-  score = 0
-  notes = ''
-  $title = ''
-  $description = ''
-  $judge_name = ''
-  $project_type = ''
-  $contestant = false
-  $technologies: string[] = []
-  $members: string[] = []
+  user_id = '';
+  project_id = '';
+  execution = 0;
+  scope = 0;
+  novelty = 0;
+  impact = 0;
+  score = 0;
+  notes = '';
+  $title = '';
+  $description = '';
+  $judge_name = '';
+  $project_type = '';
+  $contestant = false;
+  $technologies: string[] = [];
+  $members: string[] = [];
 
   constructor(values?: any) {
-    super()
+    super();
     // IMPORTANT: assign must be called AFTER super() constructor is called so keys are established
     // there may be a way to overload the constructor so this isn't necessary but pattern hasn't been found
-    this.assign(values)
+    this.assign(values);
+  }
+
+  tableName() {
+    return 'Judging';
   }
 
   private data() {
-    return getActiveSheet()
+    return getActiveSheet();
   }
 
   load(data?: SheetData) {
-    if (!data) data = this.data()
-    const u = data.users?.find(this.user_id) as User
+    if (!data) data = this.data();
+    const u = data.users?.find(this.user_id) as User;
     if (u) {
-      this.$judge_name = u.$name
+      this.$judge_name = u.$name;
     }
-    const p = data.projects?.find(this.project_id) as Project
+    const p = data.projects?.find(this.project_id) as Project;
     if (p) {
-      this.$project_type = p.project_type
-      this.$contestant = p.contestant
-      this.$technologies = p.technologies
-      this.$title = p.title
-      this.$description = p.description
-      this.$members = p.$members
+      this.$project_type = p.project_type;
+      this.$contestant = p.contestant;
+      this.$technologies = p.technologies;
+      this.$title = p.title;
+      this.$description = p.description;
+      this.$members = p.$members;
     }
   }
 
   calculateScore(
     execution: number,
-    ambition: number,
-    coolness: number,
+    scope: number,
+    novelty: number,
     impact: number
   ) {
-    return 2 * execution + ambition + coolness + impact
+    return 2 * execution + scope + novelty + impact;
   }
 
   canDelete(user: IHacker): boolean {
-    return user.canAdmin || (user.canJudge && this.user_id === user.id)
+    return user.canAdmin || (user.canJudge && this.user_id === user.id);
   }
 
   canUpdate(user: IHacker): boolean {
-    return user.canAdmin || (user.canJudge && this.user_id === user.id)
+    return user.canAdmin || (user.canJudge && this.user_id === user.id);
   }
 
   canCreate(user: IHacker): boolean {
-    return user.canAdmin || (user.canJudge && this.user_id === user.id)
+    return user.canAdmin || (user.canJudge && this.user_id === user.id);
   }
 
   prepare(): IJudging {
-    super.prepare()
+    super.prepare();
     this.score = this.calculateScore(
       this.execution,
-      this.ambition,
-      this.coolness,
+      this.scope,
+      this.novelty,
       this.impact
-    )
-    return this as unknown as IJudging
+    );
+    return this as unknown as IJudging;
   }
 
   toObject(): IJudgingProps {
-    this.load()
-    return super.toObject() as IJudgingProps
+    this.load();
+    return super.toObject() as IJudgingProps;
   }
 }
 
-export class Judgings extends WhollySheet<Judging, IJudgingProps> {
+export class Judgings extends WhollyArtifact<Judging, IJudgingProps> {
   constructor(
     public readonly data: SheetData,
     public readonly table: ITabTable
   ) {
-    super(data.sheetSDK ? data.sheetSDK : ({} as SheetSDK), 'judgings', table)
+    super(getCore40SDK(), table);
   }
 
   typeRow<Judging>(values?: any) {
-    const j = new Judging(values)
-    j.load(this.data)
-    return j as unknown as Judging
+    const j = new Judging(values);
+    j.load(this.data);
+    return j as unknown as Judging;
   }
 
   filterBy(hackathon: Hackathon, hacker?: Hacker): Judging[] {
-    const projects = this.data.projects.filterBy(hackathon)
+    const projects = this.data.projects.filterBy(hackathon);
     if (hacker) {
       return this.rows.filter(
-        (j) =>
-          j.user_id === hacker.id &&
-          projects.find((p) => p._id === j.project_id)
-      )
+        j =>
+          j.user_id === hacker.id && projects.find(p => p._id === j.project_id)
+      );
     }
-    return this.rows.filter((j) => projects.find((p) => p._id === j.project_id))
+    return this.rows.filter(j => projects.find(p => p._id === j.project_id));
   }
 }
